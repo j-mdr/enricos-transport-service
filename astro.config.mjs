@@ -7,7 +7,6 @@ import compress from "@playform/compress";
 import AutoImport from "astro-auto-import";
 import react from "@astrojs/react";
 import keystatic from "@keystatic/astro";
-import netlify from "@astrojs/netlify";
 import icon from "astro-icon";
 
 import cloudflare from "@astrojs/cloudflare";

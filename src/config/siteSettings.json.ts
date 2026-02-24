@@ -10,7 +10,7 @@ export const defaultLocale = "nl" as const;
 
 // localeMap is used to map languages to their respective locales - used for formatDate function
 export const localeMap = {
-  nl: "nl",
+  nl: "nl-NL",
   en: "en-US",
   
 } as const;

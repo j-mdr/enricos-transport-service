@@ -84,9 +84,9 @@ export const textTranslations = {
  */
 export const routeTranslations = {
   nl: {
-    aboutKey: "about",
-    categoryKey: "categories",
-    categoryKey2: "categories/*",
+    aboutKey: "over-mij",
+    categoryKey: "categorien",
+    categoryKey2: "categorien/*",
     categoryKey3: "categories",
   },
   en: {
@@ -115,7 +115,7 @@ export const localizedCollections = {
 	},
   services: {
 		en: "services",
-		nl: "services"
+		nl: "diensten"
 	},
   // Add more collections/locales as needed
 } as const;
