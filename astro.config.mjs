@@ -10,12 +10,12 @@ import keystatic from "@keystatic/astro";
 import netlify from "@astrojs/netlify";
 import icon from "astro-icon";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://stellar.cosmicthemes.com",
-  adapter: netlify({
-    imageCDN: false,
-  }),
+  adapter: cloudflare(),
   redirects: {
     "/admin": "/keystatic",
   },
@@ -46,14 +46,14 @@ export default defineConfig({
     react(),
     icon(),
     keystatic(),
-    sitemap(}),
+    sitemap(),
     compress({
       HTML: true,
       JavaScript: true,
       CSS: false, // enabling this can cause issues
       Image: false, // astro:assets handles this. Enabling this can dramatically increase build times
       SVG: false, // astro-icon handles this
-    }),zb
+    })
   ],
 
   vite: {
