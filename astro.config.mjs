@@ -21,8 +21,8 @@ export default defineConfig({
   },
   // i18n configuration must match src/config/translations.json.ts
   i18n: {
-    defaultLocale: "en",
-    locales: ["en", "fr"],
+    defaultLocale: "nl",
+    locales: ["en", "nl"],
     routing: {
       prefixDefaultLocale: false,
     },
@@ -46,14 +46,14 @@ export default defineConfig({
     react(),
     icon(),
     keystatic(),
-    sitemap(),
+    sitemap(}),
     compress({
       HTML: true,
       JavaScript: true,
       CSS: false, // enabling this can cause issues
       Image: false, // astro:assets handles this. Enabling this can dramatically increase build times
       SVG: false, // astro-icon handles this
-    }),
+    }),zb
   ],
 
   vite: {
