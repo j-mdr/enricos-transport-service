@@ -17,6 +17,8 @@ import navDataEn from "./en/navData.json";
 import faqDataEn from "./en/faqData.json";
 import teamDataEn from "./en/teamData.json";
 import testimonialDataEn from "./en/testimonialData.json";
+import heroHomePageDataNl from "./nl/heroHomePageData.json";
+import heroHomePageDataEn from "./en/heroHomePageData.json";
 
 export const dataTranslations = {
   nl: {
@@ -25,6 +27,7 @@ export const dataTranslations = {
     faqData: faqDataNl,
     teamData: teamDataNl,
     testimonialData: testimonialDataNl,
+    heroHomePageData: heroHomePageDataNl,
   },
   en: {
     siteData: siteDataEn,
@@ -32,8 +35,9 @@ export const dataTranslations = {
     faqData: faqDataEn,
     teamData: teamDataEn,
     testimonialData: testimonialDataEn,
+    heroHomePageData: heroHomePageDataEn,
   },
-  
+
 } as const;
 
 /**
@@ -57,14 +61,20 @@ export const dataTranslations = {
  */
 export const textTranslations = {
   nl: {
+    hero_title: "Quality work you deserve from the people you trust.",
     hero_description:
       "A template for small business needs. Multiple pages and sections, blog, i18n, animations, CMS - all ready to go.",
+    hero_button_text: "Get a FREE quote",
+    hero_image_alt: "small business owner",
     back_to_all_posts: "Back to all posts",
     updated: "Updated",
   },
   en: {
+    hero_title: "Quality work you deserve from the people you trust.",
     hero_description:
       "A template for small business needs. Multiple pages and sections, blog, i18n, animations, CMS - all ready to go.",
+    hero_button_text: "Get a FREE quote",
+    hero_image_alt: "small business owner",
     back_to_all_posts: "Back to all posts",
     updated: "Updated",
   },

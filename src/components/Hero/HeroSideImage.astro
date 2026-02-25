@@ -21,8 +21,29 @@ import award1 from "@images/awards/award-yelp.png";
 import award2 from "@images/awards/award-homeadvisor.png";
 import award3 from "@images/awards/award-angieslist.png";
 
+interface Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  imageAlt?: string;
+}
+
 const currLocale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(currLocale);
+
+const {
+  title = t("hero_title"),
+  description = t("hero_description"),
+  buttonText = t("hero_button_text"),
+  buttonLink = getLocalizedRoute(currLocale, "/contact"),
+  imageAlt = t("hero_image_alt"),
+} = Astro.props;
+
+// Split title so the last word gets the decorative underline
+const titleWords = title.trim().split(/\s+/);
+const lastWord = titleWords.pop() || "";
+const leadingText = titleWords.join(" ");
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-[60svh] w-full overflow-clip pb-10">
@@ -64,9 +85,9 @@ const t = useTranslations(currLocale);
         class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight"
         data-mos="fade-up"
       >
-        Quality work you deserve from the people you
+        {leadingText}
         <span class="relative whitespace-nowrap">
-          trust.
+          {lastWord}
           <span>
             <Icon
               name="stellar/freehand-zig-underline"
@@ -77,16 +98,16 @@ const t = useTranslations(currLocale);
         </span>
       </h1>
       <p class="description mt-6" data-mos="fade-up">
-        {t("hero_description")}
+        {description}
       </p>
       <div class="mt-6 flex gap-4">
         <Button
           variant="primary"
-          href={getLocalizedRoute(currLocale, "/contact")}
+          href={buttonLink}
           data-mos="fade-up"
           data-mos-delay=".9"
         >
-          Get a FREE quote
+          {buttonText}
         </Button>
       </div>
 
@@ -120,7 +141,7 @@ const t = useTranslations(currLocale);
       <Image
         src={heroImage}
         class="rounded-xl"
-        alt="small business owner"
+        alt={imageAlt}
         loading="eager"
         width={600}
         densities={[1.5, 2]}

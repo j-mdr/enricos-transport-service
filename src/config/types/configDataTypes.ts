@@ -74,6 +74,16 @@ export interface teamMember {
 }
 
 // --------------------------------------------------------
+// hero homepage data types
+export interface HeroHomePageDataProps {
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  imageAlt: string;
+}
+
+// --------------------------------------------------------
 // site settings types
 export interface SiteSettingsProps {
   useViewTransitions?: boolean;
