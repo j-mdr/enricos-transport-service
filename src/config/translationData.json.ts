@@ -17,8 +17,6 @@ import navDataEn from "./en/navData.json";
 import faqDataEn from "./en/faqData.json";
 import teamDataEn from "./en/teamData.json";
 import testimonialDataEn from "./en/testimonialData.json";
-import heroHomePageDataNl from "./nl/heroHomePageData.json";
-import heroHomePageDataEn from "./en/heroHomePageData.json";
 
 export const dataTranslations = {
   nl: {
@@ -27,7 +25,6 @@ export const dataTranslations = {
     faqData: faqDataNl,
     teamData: teamDataNl,
     testimonialData: testimonialDataNl,
-    heroHomePageData: heroHomePageDataNl,
   },
   en: {
     siteData: siteDataEn,
@@ -35,7 +32,6 @@ export const dataTranslations = {
     faqData: faqDataEn,
     teamData: teamDataEn,
     testimonialData: testimonialDataEn,
-    heroHomePageData: heroHomePageDataEn,
   },
 
 } as const;

@@ -57,11 +57,14 @@ export interface FaqItem {
 
 // --------------------------------------------------------
 // testimonial data types
-export interface TestimonialItem {
-  avatar: ImageMetadata; // an imported image
-  name: string;
+export interface TestimonialData {
   title: string;
-  testimonial: string;
+  testimonials: {
+    avatar: ImageMetadata; // an imported image
+    name: string;
+    title: string;
+    testimonial: string;
+  }[];
 }
 
 // --------------------------------------------------------
@@ -71,16 +74,6 @@ export interface teamMember {
   name: string;
   title: string;
   bio: string;
-}
-
-// --------------------------------------------------------
-// hero homepage data types
-export interface HeroHomePageDataProps {
-  title: string;
-  description: string;
-  buttonText: string;
-  buttonLink: string;
-  imageAlt: string;
 }
 
 // --------------------------------------------------------

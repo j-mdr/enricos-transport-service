@@ -13,13 +13,13 @@ import { type navItem } from "../types/configDataTypes";
 // note: 1 level of dropdown is supported
 const navConfig: navItem[] = [
   {
-    text: "Overview",
-    link: "/overview",
+    text: "Over ons",
+    link: "/over-ons",
   },
 
   // mega menu
   {
-    text: "Pages",
+    text: "Diensten",
     megaMenuColumns: [
       {
         title: "Landing Pages",

@@ -2,9 +2,7 @@
 /**
  * * Hero with background blobs and side image
  *
- * There is a commented out "awards" section below in case you want that
  */
-import { getLocalizedRoute } from "@/js/translationUtils";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 
@@ -12,38 +10,20 @@ import { Image } from "astro:assets";
 import Button from "@components/Button/Button.astro";
 
 // utils
-import { getLocaleFromUrl } from "@js/localeUtils";
-import { useTranslations } from "@js/translationUtils";
-
-// images
-import heroImage from "@assets/images/business-owner-min.png";
-import award1 from "@images/awards/award-yelp.png";
-import award2 from "@images/awards/award-homeadvisor.png";
-import award3 from "@images/awards/award-angieslist.png";
+import { splitTitleWithIcon } from "@/js/textIcon.ts";
 
 interface Props {
-  title?: string;
-  description?: string;
-  buttonText?: string;
-  buttonLink?: string;
-  imageAlt?: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  image: ImageMetadata;
+  imageAlt: string;
 }
 
-const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTranslations(currLocale);
+const { title, description, buttonText, buttonLink, image, imageAlt } = Astro.props;
 
-const {
-  title = t("hero_title"),
-  description = t("hero_description"),
-  buttonText = t("hero_button_text"),
-  buttonLink = getLocalizedRoute(currLocale, "/contact"),
-  imageAlt = t("hero_image_alt"),
-} = Astro.props;
-
-// Split title so the last word gets the decorative underline
-const titleWords = title.trim().split(/\s+/);
-const lastWord = titleWords.pop() || "";
-const leadingText = titleWords.join(" ");
+const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(title);
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-[60svh] w-full overflow-clip pb-10">
@@ -86,27 +66,25 @@ const leadingText = titleWords.join(" ");
         data-mos="fade-up"
       >
         {leadingText}
-        <span class="relative whitespace-nowrap">
-          {lastWord}
-          <span>
-            <Icon
-              name="stellar/freehand-zig-underline"
-              class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-              aria-hidden="true"
-            />
-          </span>
-        </span>
+        {
+          hasIcon ? (
+            <span class="relative whitespace-nowrap">
+              {highlightedWord}
+                <Icon
+                  name="stellar/freehand-zig-underline"
+                  class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                  aria-hidden="true"
+                />
+            </span>
+          ) : null
+        }
+        {trailingText ?? null}
       </h1>
       <p class="description mt-6" data-mos="fade-up">
         {description}
       </p>
       <div class="mt-6 flex gap-4">
-        <Button
-          variant="primary"
-          href={buttonLink}
-          data-mos="fade-up"
-          data-mos-delay=".9"
-        >
+        <Button variant="primary" href={buttonLink} data-mos="fade-up" data-mos-delay=".9">
           {buttonText}
         </Button>
       </div>
@@ -139,7 +117,7 @@ const leadingText = titleWords.join(" ");
     <!-- hero image -->
     <div class="mx-auto max-w-lg md:max-w-full">
       <Image
-        src={heroImage}
+        src={image}
         class="rounded-xl"
         alt={imageAlt}
         loading="eager"

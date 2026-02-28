@@ -1,4 +1,4 @@
-import { type TestimonialItem } from "../types/configDataTypes";
+import { type TestimonialData } from "../types/configDataTypes";
 
 import BowTiedFocus from "@images/BowTiedFocus.jpg";
 import TravisB from "@images/travis-b.png";
@@ -7,30 +7,26 @@ import Aniket from "@images/aniket_p.jpg";
 import David from "@images/david-g-davedev.png";
 import Damiano from "@images/damiano.jpg";
 
-export const testimonialData: TestimonialItem[] = [
+export const testimonials = [
   {
     avatar: Aniket,
-    name: "Aniket P",
+    name: "Aad",
     title: "Data Scientist",
-    testimonial: `I'm not a front-end dev, but I wanted to rebuild my personal site with Astro. If you're in the same shoes,
-      I can't recommend enough Cosmic Themes.
+    testimonial: `Heeft me een paar keer goed geholpen. Betrouwbaar en gewoon een goeie vent die je graag naar een klant stuurt. Altijd prima verzorgt..
       `,
   },
   {
     avatar: BowTiedFocus,
-    name: "BowTiedFocus",
+    name: "Cyrus mohammadi",
     title: "Frontend Engineer",
-    testimonial: `The Blogsmith Pro theme is ridiculously well put together and documented.
-      I learned a ton about Astro engineering by studying it, and I've already used some of the components
-      for my web design clients. 
+    testimonial: `Ik ben ontzettend tevreden over de service van Enrico's transportservice! Ik had dringend een pakket nodig dat op tijd moest aankomen, en ik was echt onder de indruk van hoe snel en professioneel ze het hebben afgehandeld. De bestelling werd op de afgesproken tijd opgehaald en binnen de afgesproken termijn bezorgd, zonder enige vertraging...
       `,
   },
   {
     avatar: Damiano,
-    name: "Damiano L",
+    name: "Jorn Middelkamp",
     title: "C++ Developer",
-    testimonial: `Cosmic Themes provides some of the best Astro themes out there. They are well designed, easy to customize and, 
-      most importantly, the team is very responsive concerning support and feature requests.
+    testimonial: `Uitermate tevreden over hun service! Binnen een paar minuten reactie op mijn bericht en kon direct een afspraak maken voor onze verhuizing twee weken geleden. De heren werken vlot,secuur en bovenal vriendelijk!
       `,
   },
   {
@@ -58,5 +54,10 @@ export const testimonialData: TestimonialItem[] = [
       `,
   },
 ];
+
+const testimonialData: TestimonialData = {
+  title: "Reviews van onze klanten{icon}",
+  testimonials: testimonials,
+};
 
 export default testimonialData;

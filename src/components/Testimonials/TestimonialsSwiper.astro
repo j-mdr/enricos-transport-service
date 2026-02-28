@@ -16,25 +16,32 @@ import TestimonialCard from "./TestimonialCard.astro";
 // utils
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { getTranslatedData } from "@js/translationUtils";
+import { splitTitleWithIcon } from "@js/textIcon.ts";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const testimonialData = getTranslatedData("testimonialData", currLocale);
+
+const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(testimonialData.title);
 ---
 
 <section id="faq2" class="bg-base-200/50 py-20 md:my-16">
   <div class="site-container">
     <div class="flex justify-center">
-      <h2 class="h2 flex gap-1 text-center">
-        <span>Our customers love</span>
-        <span>
-          <Icon
-            name="stellar/freehand-heart"
-            class="text-primary-500 h-8 w-auto"
-            aria-hidden="true"
-          />
-        </span>
-        <span>us</span>
+      <h2 class="h2 text-center">
+        {leadingText}
+        {hasIcon ? (
+            <span>
+              {highlightedWord}
+                <Icon
+                  name="stellar/freehand-heart"
+                  class="text-primary-500 h-8 inline-block"
+                  aria-hidden="true"
+                />
+            </span>
+          ) : null
+        }
+        {trailingText ?? null}
       </h2>
     </div>
 
@@ -45,7 +52,7 @@ const testimonialData = getTranslatedData("testimonialData", currLocale);
         <div class="swiper-wrapper">
           <!-- Slides -->
           {
-            testimonialData.map((testimonial, idx) => (
+            testimonialData.testimonials.map((testimonial, idx) => (
               <div class="swiper-slide">
                 <TestimonialCard {...testimonial} />
               </div>
