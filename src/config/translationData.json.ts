@@ -7,16 +7,16 @@
  * * Data file configuration for the i18n system
  * Every {Data} key must exist in the below object
  */
-import testimonialDataNl from "./nl/testimonialData.json";
+import testimonialDataNl from "./nl/Components/Testimonials/testimonialData.json.ts";
 import teamDataNl from "./nl/teamData.json";
-import faqDataNl from "./nl/faqData.json";
-import navDataNl from "./nl/navData.json";
+import faqDataNl from "./nl/Components/Faq/faqData.json.ts";
+import navDataNl from "./nl/Components/Nav/navData.json.ts";
 import siteDataNl from "./nl/siteData.json";
 import siteDataEn from "./en/siteData.json";
-import navDataEn from "./en/navData.json";
-import faqDataEn from "./en/faqData.json";
+import navDataEn from "./en/Components/Nav/navData.json.ts";
+import faqDataEn from "./en/Components/Faq/faqData.json.ts";
 import teamDataEn from "./en/teamData.json";
-import testimonialDataEn from "./en/testimonialData.json";
+import testimonialDataEn from "./en/Components/Testimonials/testimonialData.json.ts";
 
 export const dataTranslations = {
   nl: {
@@ -33,7 +33,6 @@ export const dataTranslations = {
     teamData: teamDataEn,
     testimonialData: testimonialDataEn,
   },
-
 } as const;
 
 /**
@@ -57,24 +56,19 @@ export const dataTranslations = {
  */
 export const textTranslations = {
   nl: {
-    hero_title: "Quality work you deserve from the people you trust.",
-    hero_description:
-      "A template for small business needs. Multiple pages and sections, blog, i18n, animations, CMS - all ready to go.",
-    hero_button_text: "Get a FREE quote",
-    hero_image_alt: "small business owner",
+    contact_button_text: "Contacteer ons",
+    contact_button_text_short: "Contact",
+    quote_button_text: "Vrijblijvende offerte aanvragen",
     back_to_all_posts: "Back to all posts",
     updated: "Updated",
   },
   en: {
-    hero_title: "Quality work you deserve from the people you trust.",
-    hero_description:
-      "A template for small business needs. Multiple pages and sections, blog, i18n, animations, CMS - all ready to go.",
-    hero_button_text: "Get a FREE quote",
-    hero_image_alt: "small business owner",
+    contact_button: "Contact us",
+    contact_button_text_short: "Contact",
+    quote_button_text: "Get free quote",
     back_to_all_posts: "Back to all posts",
     updated: "Updated",
   },
-  
 } as const;
 
 /**
@@ -90,18 +84,24 @@ export const textTranslations = {
  */
 export const routeTranslations = {
   nl: {
-    aboutKey: "over-mij",
-    categoryKey: "categorien",
-    categoryKey2: "categorien/*",
-    categoryKey3: "categories",
+    about: "over-ons",
+    contact: "contact",
+    quote: "offerte",
+    team: "team",
+    partnership: "partner-worden",
+    services: "diensten/*",
+    categories: "categorieen/*",
+    blog: "blog/*",
   },
   en: {
-    aboutKey: "about",
-    categoryKey: "categories",
-    categoryKey2: "categories/*",
-    categoryKey3: "categories",
+    about: "about",
+    contact: "contact",
+    team: "team",
+    partnership: "bevome-partner",
+    quote: "quote",
+    categories: "categories/*",
+    blog: "blog/*",
   },
-  
 } as const;
 
 /**
@@ -116,12 +116,12 @@ export const routeTranslations = {
  */
 export const localizedCollections = {
   blog: {
-		en: "blog",
-		nl: "blog"
-	},
+    en: "blog",
+    nl: "blog",
+  },
   services: {
-		en: "services",
-		nl: "diensten"
-	},
+    en: "services",
+    nl: "diensten",
+  },
   // Add more collections/locales as needed
 } as const;

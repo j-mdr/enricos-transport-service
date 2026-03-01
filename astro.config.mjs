@@ -52,7 +52,7 @@ export default defineConfig({
       CSS: false, // enabling this can cause issues
       Image: false, // astro:assets handles this. Enabling this can dramatically increase build times
       SVG: false, // astro-icon handles this
-    })
+    }),
   ],
 
   vite: {

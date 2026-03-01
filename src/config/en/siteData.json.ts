@@ -1,19 +1,19 @@
 import { type SiteDataProps } from "../types/configDataTypes";
+import { COMPANY_EMAIL, COMPANY_NAME, COMPANY_PHONE } from "@config/constants.ts";
 
 // Update this file with your site specific information
 const siteData: SiteDataProps = {
-  name: "Stellar",
+  name: COMPANY_NAME,
   // Your website's title and description (meta fields)
-  title: "Stellar - a small business theme and landing page crafted with Astro and Tailwind CSS",
-  description:
-    "Create an amazing website for your small business clients with our beautiful website theme designed using Astro and Tailwind CSS. Perfect for freelancers, developers, startups, and personal use.",
+  title: "Enrico's Transportservice - Veilig, vlot en vertrouwd",
+  description: `SPOED BESCHIKBAAR - Binnen 60 tot 120 minuten op locatie aanwezig Koerier Zwolle. Direct inzicht in kosten – helder, snel en zonder verrassingen. Persoonlijk & direct contact Flexibel maatwerktransport. 24`,
 
   // used on contact page and footer
   contact: {
-    address1: "1234 Main Street",
-    address2: "New York, NY 10001",
-    phone: "(123) 456-7890",
-    email: "creator@cosmicthemes.com",
+    address1: "Netherlands",
+    address2: "",
+    phone: COMPANY_PHONE,
+    email: COMPANY_EMAIL,
   },
 
   // Your information for blog post purposes

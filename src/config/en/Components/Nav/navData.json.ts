@@ -1,0 +1,60 @@
+/**
+ * * This file is used to define the navigation links for the site.
+ * Notes:
+ * 1 level of dropdown is supported
+ * Mega menus look best with 3-5 columns, but supports anything > 2 columns
+ * If using icons, the icon should be saved in the src/icons folder. If filename is "tabler/icon.svg" then input "tabler/icon"
+ * Recommend getting icons from https://tabler.io/icons
+ */
+
+// types
+import { type navItem } from "../../../types/configDataTypes.ts";
+
+// note: 1 level of dropdown is supported
+const navConfig: navItem[] = [
+  {
+    text: "Over ons",
+    link: "/over-ons",
+  },
+
+  // regular dropdown
+  {
+    text: "Services",
+    dropdown: [
+      {
+        text: "Regular transport",
+        link: "/diensten/regulier-transport",
+      },
+      {
+        text: "Occasional transport",
+        link: "/diensten/incidenteel-transport",
+      },
+      {
+        text: "Large transport",
+        link: "/diensten/groot-transport",
+      },
+      {
+        text: "Emergency transport",
+        link: "/diensten/spoedtransport",
+      },
+      {
+        text: "Documentation transport",
+        link: "/diensten/documenten-transport",
+      },
+      {
+        text: "Furniture transport",
+        link: "/diensten/meubeltransport",
+      },
+    ],
+  },
+  {
+    text: "Become partner",
+    link: "/partner-worden",
+  },
+  {
+    text: "Blog",
+    link: "/blog",
+  },
+];
+
+export default navConfig;

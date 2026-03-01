@@ -21,14 +21,11 @@ interface FeatureData {
 }
 
 interface Props {
-  title: string,
-  featureDataList: FeatureData[]
+  title: string;
+  featureDataList: FeatureData[];
 }
 
-const {
-  title,
-  featureDataList
-} = Astro.props
+const { title, featureDataList } = Astro.props;
 
 const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(title);
 ---
@@ -38,14 +35,18 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
     <div class="mx-auto mb-10 flex max-w-lg justify-center">
       <h2 class="h2 text-center">
         {leadingText}
-        {hasIcon ? (<span class="relative whitespace-nowrap">
-          {highlightedWord}
-          <Icon
-            name="stellar/freehand-circle-multi-loop"
-            class="text-primary-200 absolute inset-0 -z-10 w-full translate-y-1 scale-x-350 scale-y-150"
-            aria-hidden="true"
-          />
-        </span>) : null}
+        {
+          hasIcon ? (
+            <span class="relative whitespace-nowrap">
+              {highlightedWord}
+              <Icon
+                name="stellar/freehand-circle-multi-loop"
+                class="text-primary-200 absolute inset-0 -z-10 w-full translate-y-1 scale-x-350 scale-y-150"
+                aria-hidden="true"
+              />
+            </span>
+          ) : null
+        }
 
         {trailingText ?? null}
       </h2>

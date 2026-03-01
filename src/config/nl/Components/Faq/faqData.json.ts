@@ -1,4 +1,4 @@
-import { type FaqItem } from "../types/configDataTypes";
+import { type FaqItem } from "../../../types/configDataTypes.ts";
 
 // replace this data with whatever you want in your FAQ section
 export const faqData: FaqItem[] = [

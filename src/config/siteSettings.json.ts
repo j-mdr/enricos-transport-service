@@ -12,16 +12,15 @@ export const defaultLocale = "nl" as const;
 export const localeMap = {
   nl: "nl-NL",
   en: "en-US",
-  
 } as const;
 
 // text to show in the language switcher for each locale
 export const languageSwitcherMap = {
   nl: "NL",
   en: "EN",
-  
+
   // en: "English",
-  // 
+  //
 } as const;
 
 // site settings that don't change between languages

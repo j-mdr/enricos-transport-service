@@ -1,4 +1,4 @@
-import { type TestimonialData } from "../types/configDataTypes";
+import { type TestimonialData } from "../../../types/configDataTypes.ts";
 
 import BowTiedFocus from "@images/BowTiedFocus.jpg";
 import TravisB from "@images/travis-b.png";

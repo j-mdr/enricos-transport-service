@@ -22,7 +22,9 @@ import { splitTitleWithIcon } from "@js/textIcon.ts";
 const currLocale = getLocaleFromUrl(Astro.url);
 const testimonialData = getTranslatedData("testimonialData", currLocale);
 
-const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(testimonialData.title);
+const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(
+  testimonialData.title,
+);
 ---
 
 <section id="faq2" class="bg-base-200/50 py-20 md:my-16">
@@ -30,14 +32,15 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
     <div class="flex justify-center">
       <h2 class="h2 text-center">
         {leadingText}
-        {hasIcon ? (
+        {
+          hasIcon ? (
             <span>
               {highlightedWord}
-                <Icon
-                  name="stellar/freehand-heart"
-                  class="text-primary-500 h-8 inline-block"
-                  aria-hidden="true"
-                />
+              <Icon
+                name="stellar/freehand-heart"
+                class="text-primary-500 inline-block h-8"
+                aria-hidden="true"
+              />
             </span>
           ) : null
         }
