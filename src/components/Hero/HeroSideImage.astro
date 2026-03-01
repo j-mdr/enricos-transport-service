@@ -10,20 +10,19 @@ import { Image } from "astro:assets";
 import Button from "@components/Button/Button.astro";
 
 // utils
-import { splitTitleWithIcon } from "@/js/textIcon.ts";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { getLocalizedRoute, getTranslatedData } from "@js/translationUtils.ts";
+import { splitTitleWithIcon } from "@js/textWithHighlight.ts";
+import { useTranslations } from "@js/translationUtils";
 
-interface Props {
-  title: string;
-  description: string;
-  buttonText: string;
-  buttonLink: string;
-  image: ImageMetadata;
-  imageAlt: string;
-}
+const currLocale = getLocaleFromUrl(Astro.url);
+const buttonLink = getLocalizedRoute(currLocale, "/partner-worden");
+const buttonText = useTranslations(currLocale)("quote_button_text");
+const heroSideImageData = getTranslatedData("heroSideImageData", currLocale);
 
-const { title, description, buttonText, buttonLink, image, imageAlt } = Astro.props;
-
-const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(title);
+const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(
+  heroSideImageData.title,
+);
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-[60svh] w-full overflow-clip pb-10">
@@ -81,7 +80,7 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
         {trailingText ?? null}
       </h1>
       <p class="description mt-6" data-mos="fade-up">
-        {description}
+        {heroSideImageData.description}
       </p>
       <div class="mt-6 flex gap-4">
         <Button variant="primary" href={buttonLink} data-mos="fade-up" data-mos-delay=".9">
@@ -117,9 +116,9 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
     <!-- hero image -->
     <div class="mx-auto max-w-lg md:max-w-full">
       <Image
-        src={image}
+        src={heroSideImageData.image}
         class="rounded-xl"
-        alt={imageAlt}
+        alt={heroSideImageData.imageAlt}
         loading="eager"
         width={600}
         densities={[1.5, 2]}

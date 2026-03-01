@@ -8,7 +8,7 @@
  */
 
 // types
-import { type navItem } from "../../../types/configDataTypes.ts";
+import { type navItem } from "../types/configDataTypes.ts";
 
 // note: 1 level of dropdown is supported
 const navConfig: navItem[] = [

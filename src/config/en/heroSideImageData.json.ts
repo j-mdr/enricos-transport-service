@@ -1,0 +1,24 @@
+/**
+ * * This file is used to define the navigation links for the site.
+ * Notes:
+ * 1 level of dropdown is supported
+ * Mega menus look best with 3-5 columns, but supports anything > 2 columns
+ * If using icons, the icon should be saved in the src/icons folder. If filename is "tabler/icon.svg" then input "tabler/icon"
+ * Recommend getting icons from https://tabler.io/icons
+ */
+
+// types
+import { type heroSideImage } from "../types/configDataTypes.ts";
+
+//image
+import heroImage from "@assets/images/enrico-in-bestelbus.tiff";
+
+// note: 1 level of dropdown is supported
+const heroSideImageData: heroSideImage = {
+  image: heroImage,
+  title: "Carrier in the Netherlands, Zwolle – Fast, secure and flexibel{highlight}",
+  description: "Description text...",
+  imageAlt: "Enrico Janssen",
+};
+
+export default heroSideImageData;

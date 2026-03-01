@@ -77,6 +77,28 @@ export interface teamMember {
 }
 
 // --------------------------------------------------------
+// heroSideImage data types
+export interface heroSideImage {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+// --------------------------------------------------------
+// servicesSideImage data types
+export interface ServicesSideImage {
+  title: string;
+  items: {
+    image: ImageMetadata;
+    imageAlt: string;
+    title: string;
+    details: string;
+    href: string;
+  }[];
+}
+
+// --------------------------------------------------------
 // site settings types
 export interface SiteSettingsProps {
   useViewTransitions?: boolean;

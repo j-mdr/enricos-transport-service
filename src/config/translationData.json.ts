@@ -7,16 +7,21 @@
  * * Data file configuration for the i18n system
  * Every {Data} key must exist in the below object
  */
-import testimonialDataNl from "./nl/Components/Testimonials/testimonialData.json.ts";
+import testimonialDataNl from "./nl/testimonialData.json.ts";
+import heroSideImageDataNl from "./nl/heroSideImageData.json.ts";
 import teamDataNl from "./nl/teamData.json";
-import faqDataNl from "./nl/Components/Faq/faqData.json.ts";
-import navDataNl from "./nl/Components/Nav/navData.json.ts";
+import faqDataNl from "./nl/faqData.json.ts";
+import navDataNl from "./nl/navData.json.ts";
 import siteDataNl from "./nl/siteData.json";
+import servicesSideImageDataNl from "./nl/servicesSideImageData.json.ts";
+
 import siteDataEn from "./en/siteData.json";
-import navDataEn from "./en/Components/Nav/navData.json.ts";
-import faqDataEn from "./en/Components/Faq/faqData.json.ts";
+import navDataEn from "./en/navData.json.ts";
+import faqDataEn from "./en/faqData.json.ts";
 import teamDataEn from "./en/teamData.json";
-import testimonialDataEn from "./en/Components/Testimonials/testimonialData.json.ts";
+import testimonialDataEn from "./en/testimonialData.json.ts";
+import heroSideImageDataEn from "./en/heroSideImageData.json.ts";
+import servicesSideImageDataEn from "./en/servicesSideImageData.json.ts";
 
 export const dataTranslations = {
   nl: {
@@ -25,6 +30,8 @@ export const dataTranslations = {
     faqData: faqDataNl,
     teamData: teamDataNl,
     testimonialData: testimonialDataNl,
+    heroSideImageData: heroSideImageDataNl,
+    servicesSideImageData: servicesSideImageDataNl,
   },
   en: {
     siteData: siteDataEn,
@@ -32,6 +39,8 @@ export const dataTranslations = {
     faqData: faqDataEn,
     teamData: teamDataEn,
     testimonialData: testimonialDataEn,
+    heroSideImageData: heroSideImageDataEn,
+    servicesSideImageData: servicesSideImageDataEn,
   },
 } as const;
 
@@ -58,9 +67,11 @@ export const textTranslations = {
   nl: {
     contact_button_text: "Contacteer ons",
     contact_button_text_short: "Contact",
-    quote_button_text: "Vrijblijvende offerte aanvragen",
+    quote_button_text: "Offerte opvragen",
     back_to_all_posts: "Back to all posts",
-    updated: "Updated",
+    updated: "Geupdatet",
+    about: "Over",
+    read_more: "Lees meer",
   },
   en: {
     contact_button: "Contact us",
@@ -68,6 +79,8 @@ export const textTranslations = {
     quote_button_text: "Get free quote",
     back_to_all_posts: "Back to all posts",
     updated: "Updated",
+    about: "About",
+    read_more: "Read more",
   },
 } as const;
 
@@ -88,19 +101,21 @@ export const routeTranslations = {
     contact: "contact",
     quote: "offerte",
     team: "team",
-    partnership: "partner-worden",
+    becomePartner: "partner-worden",
     services: "diensten/*",
     categories: "categorieen/*",
     blog: "blog/*",
+    regularTransport: "regulier-transport",
   },
   en: {
     about: "about",
     contact: "contact",
     team: "team",
-    partnership: "bevome-partner",
+    becomePartner: "become-partner",
     quote: "quote",
     categories: "categories/*",
     blog: "blog/*",
+    regularTransport: "regular-transport",
   },
 } as const;
 

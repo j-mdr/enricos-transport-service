@@ -14,8 +14,9 @@ export function splitTitleWithIcon(title: string): TitleSplit {
       hasIcon: false,
     };
   }
+  const highlightMarker = "{highlight}";
 
-  const [beforeIcon = "", afterIcon = ""] = title.trim().split("{icon}");
+  const [beforeIcon = "", afterIcon = ""] = title.trim().split(highlightMarker);
 
   const words = beforeIcon.trim().split(/\s+/).filter(Boolean);
 
@@ -26,6 +27,6 @@ export function splitTitleWithIcon(title: string): TitleSplit {
     leadingText,
     highlightedWord,
     trailingText: afterIcon.trim(),
-    hasIcon: title.includes("{icon}"),
+    hasIcon: title.includes(highlightMarker),
   };
 }

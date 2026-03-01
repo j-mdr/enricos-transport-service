@@ -3,7 +3,7 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 // components
-import Hero from "@components/Hero/HeroSideImage.astro";
+import HeroSideImage from "@components/Hero/HeroSideImage.astro";
 import FeatureCardsSmall from "@components/Feature/FeatureCardsSmall.astro";
 import ServicesSideImage from "@components/Services/ServicesSideImage.astro";
 import TestimonialsSwiper from "@components/Testimonials/TestimonialsSwiper.astro";
@@ -22,7 +22,6 @@ const siteData = getTranslatedData("siteData", currLocale);
 const heroHomePageData = getTranslatedData("heroHomePageData", currLocale);
 
 // images
-import heroImage from "@assets/images/enrico-in-bestelbus.tiff";
 
 // data
 // data
@@ -67,18 +66,11 @@ const featureDataList = [
 ---
 
 <BaseLayout title={siteData.title} description={siteData.description}>
-  <Hero
-    title={"Koerier in Zwolle – Snel, veilig en flexibel{icon}"}
-    description={"Direct inzicht in kosten – helder, snel en zonder verrassingen."}
-    buttonText={"Neem contact op"}
-    buttonLink={getLocalizedRoute(currLocale, "/contact")}
-    image={heroImage}
-    imageAlt="Enrico Janssen in bestelbus"
-  />
-  <!--<ServicesSideImage />-->
-  <FeatureCardsSmall title="Onze kernwaarden{icon}" featureDataList={featureDataList} />
-  <TestimonialsSwiper />
-  <FeatureLightboxMarquee />
-  <CtaCardCenter />
+  <HeroSideImage />
+  <ServicesSideImage />
+  <!--<FeatureCardsSmall title="Onze kernwaarden{icon}" featureDataList={featureDataList} />-->
+  <!--<TestimonialsSwiper />-->
+  <!--<FeatureLightboxMarquee />-->
+  <!--<CtaCardCenter />-->
   <FaqAccordions />
 </BaseLayout>

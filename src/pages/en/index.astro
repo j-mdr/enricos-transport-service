@@ -3,7 +3,7 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 // components
-import Hero from "@components/Hero/HeroSideImage.astro";
+import HeroSideImage from "@components/Hero/HeroSideImage.astro";
 import FeatureCardsSmall from "@components/Feature/FeatureCardsSmall.astro";
 import ServicesSideImage from "@components/Services/ServicesSideImage.astro";
 import TestimonialsSwiper from "@components/Testimonials/TestimonialsSwiper.astro";
@@ -19,21 +19,15 @@ import { getTranslatedData, getLocalizedRoute } from "@js/translationUtils";
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
-const heroHomePageData = getTranslatedData("heroHomePageData", currLocale);
+// const heroHomePageData = getTranslatedData("heroHomePageData", currLocale);
 ---
 
 <BaseLayout title={siteData.title} description={siteData.description}>
-  <Hero
-    title={heroHomePageData.title}
-    description={heroHomePageData.description}
-    buttonText={heroHomePageData.buttonText}
-    buttonLink={getLocalizedRoute(currLocale, heroHomePageData.buttonLink)}
-    imageAlt={heroHomePageData.imageAlt}
-  />
+  <HeroSideImage />
   <ServicesSideImage />
-  <FeatureCardsSmall />
-  <TestimonialsSwiper />
-  <FeatureLightboxMarquee />
+  <!--<FeatureCardsSmall />-->
+  <!--<TestimonialsSwiper />-->
+  <!--<FeatureLightboxMarquee />-->
   <CtaCardCenter />
-  <FaqAccordions />
+  <!--<FaqAccordions />-->
 </BaseLayout>
