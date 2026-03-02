@@ -5,4 +5,10 @@
   "assets": {
     "directory": "./dist",
   },
+  "routes": [
+    {
+      "pattern": "ets.j-mdr.com",
+      "custom_domain": true,
+    },
+  ],
 }
