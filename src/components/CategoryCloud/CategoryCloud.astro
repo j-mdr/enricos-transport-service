@@ -1,10 +1,10 @@
 ---
-import { getLocalizedRoute } from "@/js/translationUtils";
+import { getLocalizedRoute } from "@/utils/translationUtils";
 
 // utils
-import { getAllPosts, countItems, sortByValue } from "@js/blogUtils";
-import { humanize } from "@js/textUtils";
-import { getLocaleFromUrl } from "@js/localeUtils";
+import { getAllPosts, countItems, sortByValue } from "@/utils/blogUtils";
+import { humanize } from "@/utils/textUtils";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const posts = await getAllPosts(currLocale);

@@ -18,7 +18,7 @@ import {
  * ## Example
  *
  * ```ts
- * import { useTranslations, getLocaleFromUrl } from "@/js/i18nUtils";
+ * import { useTranslations, getLocaleFromUrl } from "@/utils/i18nUtils";
  * const currLocale = getLocaleFromUrl(Astro.url);
  * const t = useTranslations(currLocale);
  * t("blog.time"); // translated string for key "blog.time" in the current locale
@@ -41,8 +41,8 @@ type DataKey<T extends Locale> = keyof (typeof dataTranslations)[T];
  * ## Example
  *
  * ```ts
- * import { getLocaleFromUrl } from "@/js/i18nUtils";
- * import { getTranslatedData } from "@/js/translations";
+ * import { getLocaleFromUrl } from "@/utils/i18nUtils";
+ * import { getTranslatedData } from "@/utils/translations";
  * const currLocale = getLocaleFromUrl(Astro.url);
  * const siteData = getTranslatedData("siteData", currLocale);
  * ```

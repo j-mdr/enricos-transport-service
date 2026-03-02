@@ -8,8 +8,8 @@ import PostCardLarge from "@components/PostCard/PostCardLarge.astro";
 import CategoryCloud from "@components/CategoryCloud/CategoryCloud.astro";
 
 // utils
-import { getAllPosts } from "@js/blogUtils";
-import { getLocaleFromUrl } from "@js/localeUtils";
+import { getAllPosts } from "@/utils/blogUtils";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const posts = await getAllPosts(currLocale);

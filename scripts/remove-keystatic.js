@@ -151,4 +151,4 @@ async function removeKeystatic() {
     }
 }
 removeKeystatic();
-//# sourceMappingURL=remove-keystatic.js.map
+//# sourceMappingURL=remove-keystatic.utils.map

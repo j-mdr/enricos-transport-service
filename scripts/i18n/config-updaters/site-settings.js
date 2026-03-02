@@ -29,4 +29,4 @@ export async function updateSiteSettings(localeConfig, logOptions) {
     // Write the updated site settings
     await writeFile(ACTIVE_PATHS.siteSettingsPath, siteSettings, logOptions);
 }
-//# sourceMappingURL=site-settings.js.map
+//# sourceMappingURL=site-settings.utils.map

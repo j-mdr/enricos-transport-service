@@ -1,7 +1,7 @@
 import { type CollectionEntry } from "astro:content";
 
 // utils
-import { getTranslatedData } from "@/js/translationUtils";
+import { getTranslatedData } from "@/utils/translationUtils";
 import { defaultLocale } from "@/config/siteSettings.json";
 
 // data - siteData.title should not change based on locale so this should be fine

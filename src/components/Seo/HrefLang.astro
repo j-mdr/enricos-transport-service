@@ -1,7 +1,7 @@
 ---
 import { locales } from "@/config/siteSettings.json";
 import { defaultLocale } from "@/config/siteSettings.json";
-import { getLocalizedPathname } from "@/js/translationUtils";
+import { getLocalizedPathname } from "@/utils/translationUtils";
 
 // Precompute the localized paths for each locale (since getLocalizedPathname is async)
 const localizedPaths = Object.fromEntries(

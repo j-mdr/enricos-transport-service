@@ -43,4 +43,4 @@ export async function updateKeystaticConfig(localeConfig, logOptions) {
         log(`Failed to update keystatic config: ${errorMessage}`, logOptions);
     }
 }
-//# sourceMappingURL=keystatic-config.js.map
+//# sourceMappingURL=keystatic-config.utils.map

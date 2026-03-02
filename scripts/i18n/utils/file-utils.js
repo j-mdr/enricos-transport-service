@@ -48,4 +48,4 @@ export function deleteDirectoryIfExists(dirPath, logOptions) {
         console.error(`Error deleting directory ${dirPath}: ${error.message}`);
     }
 }
-//# sourceMappingURL=file-utils.js.map
+//# sourceMappingURL=file-utils.utils.map

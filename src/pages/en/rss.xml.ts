@@ -1,11 +1,11 @@
 import rss from "@astrojs/rss";
-import { getLocalizedRoute } from "@/js/translationUtils";
+import { getLocalizedRoute } from "@/utils/translationUtils";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 // utils
-import { getAllPosts } from "@js/blogUtils";
+import { getAllPosts } from "@/utils/blogUtils";
 import { defaultLocale } from "@config/siteSettings.json";
-import { getTranslatedData } from "@js/translationUtils";
+import { getTranslatedData } from "@/utils/translationUtils";
 
 // data
 const siteData = getTranslatedData("siteData", defaultLocale);

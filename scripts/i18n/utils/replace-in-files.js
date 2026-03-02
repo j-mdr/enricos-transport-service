@@ -38,4 +38,4 @@ export function replaceInFiles(path, regex, replacement, logging = false) {
         }
     }
 }
-//# sourceMappingURL=replace-in-files.js.map
+//# sourceMappingURL=replace-in-files.utils.map

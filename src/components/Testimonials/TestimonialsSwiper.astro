@@ -14,9 +14,9 @@ import "./testimonialSwiper.css"; // have to define custom styles like this
 import TestimonialCard from "./TestimonialCard.astro";
 
 // utils
-import { getLocaleFromUrl } from "@js/localeUtils";
-import { getTranslatedData } from "@js/translationUtils";
-import { splitTitleWithIcon } from "@js/textWithHighlight.ts";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { getTranslatedData } from "@/utils/translationUtils";
+import { splitTitleWithIcon } from "@/utils/textWithHighlight.ts";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);

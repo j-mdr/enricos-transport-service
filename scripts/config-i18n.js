@@ -55,4 +55,4 @@ function displayCompletionMessage(multipleLanguages) {
 }
 // Run the configuration process
 configI18n();
-//# sourceMappingURL=config-i18n.js.map
+//# sourceMappingURL=config-i18n.utils.map

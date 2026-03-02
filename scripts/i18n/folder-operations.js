@@ -238,4 +238,4 @@ async function handlePagesDirectory(localeConfig, currentLocales, localesToAdd, 
     }
     console.log("Updated the src/pages/[locale] folders");
 }
-//# sourceMappingURL=folder-operations.js.map
+//# sourceMappingURL=folder-operations.utils.map

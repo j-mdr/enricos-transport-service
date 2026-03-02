@@ -1,5 +1,5 @@
 ---
-import { getLocalizedRoute } from "@/js/translationUtils";
+import { getLocalizedRoute } from "@/utils/translationUtils";
 
 // main layout
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -8,7 +8,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Button from "@components/Button/Button.astro";
 
 // utils
-import { getLocaleFromUrl } from "@js/localeUtils";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 

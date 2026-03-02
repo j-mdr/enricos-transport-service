@@ -87,4 +87,4 @@ export async function promptForLocales(logOptions) {
         editOldDefaultToNewDefault: false, // Will be determined in astro-config.ts
     };
 }
-//# sourceMappingURL=prompts.js.map
+//# sourceMappingURL=prompts.utils.map

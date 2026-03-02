@@ -16,4 +16,4 @@ export function copyFolderSync(from, to) {
         }
     });
 }
-//# sourceMappingURL=copy-folder.js.map
+//# sourceMappingURL=copy-folder.utils.map

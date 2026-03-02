@@ -22,4 +22,4 @@ function detectPackageManager() {
     }
 }
 export { detectPackageManager };
-//# sourceMappingURL=detect-package-manager.js.map
+//# sourceMappingURL=detect-package-manager.utils.map

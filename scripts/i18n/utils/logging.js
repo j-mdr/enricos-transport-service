@@ -14,4 +14,4 @@ export function log(message, logOptions) {
         console.log(message);
     }
 }
-//# sourceMappingURL=logging.js.map
+//# sourceMappingURL=logging.utils.map

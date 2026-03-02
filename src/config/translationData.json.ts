@@ -8,7 +8,6 @@
  * Every {Data} key must exist in the below object
  */
 import testimonialDataNl from "./nl/testimonialData.json.ts";
-import heroSideImageDataNl from "./nl/heroSideImageData.json.ts";
 import teamDataNl from "./nl/teamData.json";
 import faqDataNl from "./nl/faqData.json.ts";
 import navDataNl from "./nl/navData.json.ts";
@@ -20,7 +19,7 @@ import navDataEn from "./en/navData.json.ts";
 import faqDataEn from "./en/faqData.json.ts";
 import teamDataEn from "./en/teamData.json";
 import testimonialDataEn from "./en/testimonialData.json.ts";
-import heroSideImageDataEn from "./en/heroSideImageData.json.ts";
+import { HeroSideImageSectionData } from "./data/heroSideImageSectionData.json.ts";
 import servicesSideImageDataEn from "./en/servicesSideImageData.json.ts";
 
 export const dataTranslations = {
@@ -30,7 +29,7 @@ export const dataTranslations = {
     faqData: faqDataNl,
     teamData: teamDataNl,
     testimonialData: testimonialDataNl,
-    heroSideImageData: heroSideImageDataNl,
+    heroSideImageData: HeroSideImageSectionData.nl,
     servicesSideImageData: servicesSideImageDataNl,
   },
   en: {
@@ -39,26 +38,26 @@ export const dataTranslations = {
     faqData: faqDataEn,
     teamData: teamDataEn,
     testimonialData: testimonialDataEn,
-    heroSideImageData: heroSideImageDataEn,
+    heroSideImageData: HeroSideImageSectionData.en,
     servicesSideImageData: servicesSideImageDataEn,
   },
 } as const;
 
 /**
- * * Text translations are used with the `useTranslation` function from src/js/i18nUtils.ts to translate various strings on your site.
+ * * Text translations are used with the `useTranslation` function from src/utils/i18nUtils.ts to translate various strings on your site.
  *
  * ## Example
  *
  * ```ts
- * import { getLocaleFromUrl } from "@js/localeUtils";
- * import { useTranslations } from "@js/translationUtils";
+ * import { getLocaleFromUrl } from "@utils/localeUtils";
+ * import { useTranslations } from "@utils/translationUtils";
  * const currLocale = getLocaleFromUrl(Astro.url);
  * const t = useTranslations(currLocale);
  * t("back_to_all_posts"); // this would be "Retour à tous les articles" if the current locale is "fr"
  * ```
  * or
  * ```ts
- * import { useTranslations } from "@js/translationUtils";
+ * import { useTranslations } from "@utils/translationUtils";
  * const t = useTranslations("fr");
  * t("back_to_all_posts"); // this would be "Retour à tous les articles"
  * ```

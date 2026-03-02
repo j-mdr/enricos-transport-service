@@ -28,8 +28,8 @@ export function getLocaleFromUrl(url: URL): (typeof locales)[number] {
  * @returns any[] filtered collection
  *
  * ```ts
- *  import { getAllPosts } from "@/js/blogUtils";
- *  import { filterCollectionByLanguage } from "@/js/i18nUtils";
+ *  import { getAllPosts } from "@/utils/blogUtils";
+ *  import { filterCollectionByLanguage } from "@/utils/i18nUtils";
  *  const posts = await getAllPosts();
  *  const filteredPosts = filterCollectionByLanguage(posts, "de");
  * ```

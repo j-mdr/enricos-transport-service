@@ -182,4 +182,4 @@ ${newEntries.join(",\n")}
     // Write the updated translation data
     await writeFile(ACTIVE_PATHS.translationDataPath, translationData, logOptions);
 }
-//# sourceMappingURL=translation-data.js.map
+//# sourceMappingURL=translation-data.utils.map

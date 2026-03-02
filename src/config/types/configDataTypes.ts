@@ -1,3 +1,8 @@
+export type DataTranslationType<T> = {
+  en: T;
+  nl: T
+}
+
 // site data types
 export interface SiteDataProps {
   name: string;
@@ -78,7 +83,7 @@ export interface teamMember {
 
 // --------------------------------------------------------
 // heroSideImage data types
-export interface heroSideImage {
+export interface heroSideImageSectionData {
   title: string;
   description: string;
   image: ImageMetadata;
