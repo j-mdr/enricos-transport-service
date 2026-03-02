@@ -4,7 +4,7 @@
 export const DEFAULT_PATHS = {
     astroConfigPath: "astro.config.mjs",
     siteSettingsPath: "src/config/siteSettings.json.ts",
-    translationDataPath: "src/config/translationData.json.ts",
+    translationDataPath: "src/config/translations.ts",
     keystaticConfigPath: "keystatic.config.tsx",
     srcConfigFolder: "src/config",
     srcContentFolder: "src/data",
@@ -16,7 +16,7 @@ export const DEFAULT_PATHS = {
 export const DOCS_PATHS = {
     astroConfigPath: "astro.config.mjs",
     siteSettingsPath: "src/docs/config/siteSettings.json.ts",
-    translationDataPath: "src/docs/config/translationData.json.ts",
+    translationDataPath: "src/docs/config/translations.ts",
     keystaticConfigPath: "keystatic.config.ts", // May not be used in docs
     srcConfigFolder: "src/docs/config",
     srcContentFolder: "src/docs/data",

@@ -23,7 +23,7 @@ export async function updateTranslationData(localeConfig, logOptions) {
     const textTranslationsRegex = /export const textTranslations = ({(?:{[^{}]*}|[^{}])*})/;
     const textTranslationsMatch = translationData.match(textTranslationsRegex);
     if (!textTranslationsMatch) {
-        throw new Error("Could not find textTranslations object in translationData.json.ts");
+        throw new Error("Could not find textTranslations object in translations.ts");
     }
     const textTranslationsObjectValue = textTranslationsMatch[1];
     const defaultTextTranslationRegex = new RegExp(`${defaultLocale}: {[^}]*}`, "g");
@@ -36,7 +36,7 @@ export async function updateTranslationData(localeConfig, logOptions) {
     const routeTranslationsRegex = /export const routeTranslations = ({(?:{[^{}]*}|[^{}])*})/;
     const routeTranslationsMatch = translationData.match(routeTranslationsRegex);
     if (!routeTranslationsMatch) {
-        throw new Error("Could not find routeTranslations object in translationData.json.ts");
+        throw new Error("Could not find routeTranslations object in translations.ts");
     }
     const routeTranslationsObjectValue = routeTranslationsMatch[1];
     const defaultRouteTranslationRegex = new RegExp(`${defaultLocale}: {[^}]*}`, "g");

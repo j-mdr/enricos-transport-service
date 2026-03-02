@@ -10,22 +10,26 @@ import Button from "@components/Button/Button.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { getTranslatedData } from "@/utils/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
+const data = getTranslatedData("ctaCardCenterSectionData", currLocale);
 
 interface Props {
-  title: string;
-  description: string;
-  ctaText: string;
-  ctaLink: string;
+  title?: string;
+  description?: string;
+  ctaButtonText?: string;
+  ctaButtonHref?: string;
 }
 
 const {
-  title = "Vraag vrijblijvend een offerte op",
-  description = "We doen ons best om z.s.m. een reactie te geven.",
-  ctaText = "Vraag offerte aan",
-  ctaLink = getLocalizedRoute(currLocale, "/partner-worden"),
+  title = data.title,
+  description = data.description,
+  ctaButtonText = data.ctaButtonText,
+  ctaButtonHref = data.ctaButtonHref,
 } = Astro.props;
+
+const localizedButtonHref = getLocalizedRoute(currLocale, ctaButtonHref);
 ---
 
 <section id="cta" class="my-24 py-8 md:my-36">
@@ -63,8 +67,8 @@ const {
               {description}
             </p>
             <div class="mt-10 flex justify-center">
-              <Button variant="primary" href={ctaLink} arrow="right">
-                {ctaText}
+              <Button variant="primary" href={localizedButtonHref} arrow="right">
+                {ctaButtonText}
               </Button>
             </div>
           </div>

@@ -1,7 +1,6 @@
 // types
 import { type DataTranslationType, type NavItem } from "../configDataTypes.ts";
 
-
 export const navData: DataTranslationType<NavItem[]> = {
   nl: [
     {

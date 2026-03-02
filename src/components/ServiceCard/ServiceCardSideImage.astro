@@ -14,7 +14,7 @@ import { useTranslations } from "@/utils/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const aboutText = useTranslations(currLocale)("about").toLowerCase();
-const readMoreText = useTranslations(currLocale)("read_more")
+const readMoreText = useTranslations(currLocale)("read_more");
 
 // components
 import Button from "@components/Button/Button.astro";
@@ -33,7 +33,6 @@ interface Props {
 }
 
 const { image, imageAlt, title, href, idx, details, imageSide } = Astro.props as Props;
-
 ---
 
 <div class="mx-auto grid gap-8 rounded-xl md:grid-cols-2 md:gap-12 lg:gap-20">
@@ -43,7 +42,8 @@ const { image, imageAlt, title, href, idx, details, imageSide } = Astro.props as
     <p class="mt-4 opacity-80">{details}</p>
     <div class="z-20 mt-4 flex">
       <Button variant="ghost" href={getLocalizedRoute(currLocale, href)} arrow="right">
-        {readMoreText} <span class="sr-only">{aboutText} {title}</span>
+        {readMoreText}
+        <span class="sr-only">{aboutText} {title}</span>
       </Button>
     </div>
   </div>

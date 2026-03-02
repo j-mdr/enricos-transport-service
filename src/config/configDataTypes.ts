@@ -70,7 +70,7 @@ type Testimonial = {
   name: string;
   title: string;
   testimonial: string;
-}
+};
 
 export type TestimonialSwiperSectionData = {
   title: string;
@@ -111,6 +111,15 @@ export type ServicesSideImageSectionData = {
     details: string;
     href: string;
   }[];
+};
+
+// --------------------------------------------------------
+// cta
+export type CtaCardCenterSectionData = {
+  title: string;
+  description: string;
+  ctaButtonText: string;
+  ctaButtonHref: string;
 };
 
 // --------------------------------------------------------

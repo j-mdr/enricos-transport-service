@@ -1,8 +1,5 @@
 // types
-import {
-  type DataTranslationType,
-  type heroSideImageSectionData,
-} from "../configDataTypes.ts";
+import { type DataTranslationType, type heroSideImageSectionData } from "../configDataTypes.ts";
 
 //image
 import heroImage from "@images/enrico-in-bestelbus.tiff";

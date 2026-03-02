@@ -1,7 +1,4 @@
-import {
-  type DataTranslationType,
-  type TestimonialSwiperSectionData,
-} from "../configDataTypes.ts";
+import { type DataTranslationType, type TestimonialSwiperSectionData } from "../configDataTypes.ts";
 
 import BowTiedFocus from "@images/BowTiedFocus.jpg";
 import Aniket from "@images/aniket_p.jpg";
@@ -78,4 +75,3 @@ export const testimonialSwiperSectionData: DataTranslationType<TestimonialSwiper
     ],
   },
 };
-

@@ -22,11 +22,12 @@ interface FeatureData {
 type Props = {
   title: string;
   featureDataList: FeatureData[];
-}
+};
 
 const { title, featureDataList } = Astro.props;
 
-const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(title);
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="feature-cards-small" class="py-12 md:my-12">
@@ -35,7 +36,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
       <h2 class="h2 text-center">
         {leadingText}
         {
-          hasHighlightedWord ? (
+          hasHighlightedWord && (
             <span class="relative whitespace-nowrap">
               {highlightedWord}
               <Icon
@@ -44,7 +45,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
                 aria-hidden="true"
               />
             </span>
-          ) : null
+          )
         }
 
         {trailingText ?? null}

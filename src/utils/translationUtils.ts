@@ -3,17 +3,15 @@ import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 import { defaultLocale, locales } from "@/config/siteSettings.json";
-import {
-  dataTranslations,
-  localizedCollections,
-  routeTranslations,
-  textTranslations,
-} from "@/config/translationData.json";
+import { dataTranslations } from "@config/data/dataTranslations.ts";
+import { textTranslations } from "@config/text/textTranslations.ts";
+import { routeTranslations } from "@config/route/routeTranslations.ts";
+import { collectionTranslations } from "@config/collection/collectionTranslations.ts";
 
 /**
  * * text translation helper function
  * @param locale: Language to use for translation, one of the locales
- * @returns function you can use to translate strings according to the src/config/translationData.json.ts file
+ * @returns function you can use to translate strings according to the src/config/translations.ts file
  *
  * ## Example
  *
@@ -36,7 +34,7 @@ type DataKey<T extends Locale> = keyof (typeof dataTranslations)[T];
  * * data file translation helper function
  * @param data: key in the data file to translate, like "siteData" or "navData"
  * @param locale: Language to use for translation, one of the locales
- * @returns appropriate data file as specified in src/config/translationData.json.ts
+ * @returns appropriate data file as specified in src/config/translations.ts
  *
  * ## Example
  *
@@ -242,7 +240,7 @@ export async function getLocalizedPathname(
  */
 export async function generateRouteTranslations() {
   // List of content collections to include
-  const collections = Object.keys(localizedCollections) as Array<keyof DataEntryMap>;
+  const collections = Object.keys(collectionTranslations) as Array<keyof DataEntryMap>;
 
   // Initialize base translations with existing static translations
   const dynamicRouteTranslations: Record<string, Record<string, string>> = Object.fromEntries(
@@ -269,7 +267,7 @@ export async function generateRouteTranslations() {
     // Retrieve mappingKey from entry metadata, if available
     const mappingKey = "mappingKey" in entry.data ? entry.data.mappingKey : undefined;
 
-    const base = localizedCollections[entry.collection]?.[locale] ?? entry.collection;
+    const base = collectionTranslations[entry.collection]?.[locale] ?? entry.collection;
 
     if (mappingKey) {
       if (!entriesByMapping[mappingKey]) {
@@ -288,7 +286,8 @@ export async function generateRouteTranslations() {
       const otherLocales = locales.filter((l: string) => l !== locale);
       // For each other locale, map to the appropriate base with the same entry slug
       otherLocales.forEach((otherLocale: string) => {
-        const otherBase = localizedCollections[entry.collection]?.[otherLocale] ?? entry.collection;
+        const otherBase =
+          collectionTranslations[entry.collection]?.[otherLocale] ?? entry.collection;
         entriesByMapping[generatedKey][otherLocale] = `${otherBase}/${slug}`;
       });
     }
