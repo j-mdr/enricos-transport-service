@@ -38,7 +38,7 @@ The source files have the following setup. Note that not all files are included 
 │   │   └── Footer/
 │   │       └── Footer.astro
 │   ├── config/
-│   │   ├── faqAccordionSectionData.json.ts
+│   │   ├── faqSectionData.json.ts
 │   │   └── navData.json.ts
 │   ├── data/
 │   │   ├── authors/

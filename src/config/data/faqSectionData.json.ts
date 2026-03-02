@@ -1,6 +1,6 @@
-import { type DataTranslationType, type FaqAccordionSectionData } from "../configDataTypes.ts";
+import { type DataTranslationType, type FaqSectionData } from "../configDataTypes.ts";
 
-export const faqAccordionSectionData: DataTranslationType<FaqAccordionSectionData> = {
+export const faqSectionData: DataTranslationType<FaqSectionData> = {
   nl: {
     title: "Veel gestelde vragen{highlight}",
     faqs: [

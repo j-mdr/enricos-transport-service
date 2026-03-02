@@ -55,13 +55,16 @@ export type NavItem = navLinkItem | navDropdownItem | navMegaDropdownItem;
 
 // --------------------------------------------------------
 // faq data types
-export interface FaqAccordionSectionData {
-  title: string;
+export interface FaqAccordionSectionData extends Pick<Section, "title"> {
   faqs: Array<{
     question: string;
     answer: string;
   }>;
 }
+
+export type FaqCartSectionData = FaqAccordionSectionData;
+
+export type FaqSectionData = FaqAccordionSectionData | FaqCartSectionData;
 
 // --------------------------------------------------------
 // testimonial data types
@@ -108,12 +111,23 @@ export interface Image {
 }
 
 // --------------------------------------------------------
-// heroSideImage data interfaces
+// Hero data interfaces
 export interface HeroSideImageSectionData extends Section, CtaButton, Image {}
 
 // --------------------------------------------------------
-// servicesSideImage data types
+// Feature data types
+export interface FeatureCard {
+  icon: string;
+  title: string;
+  text: string;
+}
 
+export interface FeatureCardSmallSectionData extends Pick<Section, "title"> {
+  features: FeatureCard[];
+}
+
+// --------------------------------------------------------
+// Services data types
 export interface ServiceCard extends CtaButton, Section, Image {}
 
 export interface ServicesSideImageSectionData extends Pick<Section, "title"> {

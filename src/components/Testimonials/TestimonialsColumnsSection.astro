@@ -14,7 +14,7 @@ import { getTranslatedData } from "@/utils/translationUtils";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const testimonialData = getTranslatedData("testimonialData", currLocale);
+const testimonialData = getTranslatedData("testimonialSwiperSectionData", currLocale);
 ---
 
 <section id="faq2" class="bg-base-200/50 py-20 md:my-16">
@@ -33,7 +33,7 @@ const testimonialData = getTranslatedData("testimonialData", currLocale);
       </h2>
     </div>
     <div class="mx-auto mt-20 grid gap-6 gap-y-20 sm:grid-cols-2 md:grid-cols-3">
-      {testimonialData.map((testimonial) => <TestimonialCard {...testimonial} />)}
+      {testimonialData.testimonials.map((testimonial) => <TestimonialCard {...testimonial} />)}
     </div>
   </div>
 </section>

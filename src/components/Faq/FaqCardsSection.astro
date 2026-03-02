@@ -6,32 +6,33 @@ import { Icon } from "astro-icon/components";
 
 // components
 import FaqCard from "./FaqCard.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils";
+import { type FaqCartSectionData } from "@config/configDataTypes.ts";
 
-// data
-import { type FaqItem } from "@config/configDataTypes.ts";
 const currLocale = getLocaleFromUrl(Astro.url);
-const faqData = getTranslatedData("faqData", currLocale);
+const data = getTranslatedData("faqSectionData", currLocale);
 
-type FaqCols = FaqItem[];
+type Props = Partial<FaqCartSectionData>;
+
+const { title = data.title, faqs = data.faqs } = Astro.props;
+
+type FaqCols = FaqCartSectionData["faqs"];
 
 // array of columns for faq data
 const faqCols: FaqCols[] = [];
-let faqsPerCol = Math.floor(faqData.length / 2);
-let remainder = faqData.length % 2;
+let faqsPerCol = Math.floor(faqs.length / 2);
+let remainder = faqs.length % 2;
 
 // this assumes more than 2 items for FAQ...
 if (remainder === 0) {
   // even split
-  faqCols[0] = faqData.slice(0, faqsPerCol);
-  faqCols[1] = faqData.slice(faqsPerCol, 2 * faqsPerCol);
+  faqCols[0] = faqs.slice(0, faqsPerCol);
+  faqCols[1] = faqs.slice(faqsPerCol, 2 * faqsPerCol);
 } else if (remainder === 1) {
   // extra goes to first column
-  faqCols[0] = faqData.slice(0, faqsPerCol + 1);
-  faqCols[1] = faqData.slice(faqsPerCol + 1, 2 * faqsPerCol + 1);
+  faqCols[0] = faqs.slice(0, faqsPerCol + 1);
+  faqCols[1] = faqs.slice(faqsPerCol + 1, 2 * faqsPerCol + 1);
 } else {
   console.error("Something went wrong with the FAQ data in Faq2.astro");
 }
@@ -55,7 +56,7 @@ if (remainder === 0) {
       faqCols.map((faqCol) => (
         <div class="flex w-full flex-col gap-10">
           {faqCol.map(({ question, answer }, idx) => (
-            <FaqCard {question} {answer} />
+            <FaqCard question={question} answer={answer} />
           ))}
         </div>
       ))

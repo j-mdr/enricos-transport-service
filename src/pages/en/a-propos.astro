@@ -19,7 +19,7 @@ import { getTranslatedData } from "@/utils/translationUtils";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const teamData = getTranslatedData("teamData", currLocale);
+const data = getTranslatedData("teamMemberCardsSectionData", currLocale);
 ---
 
 <BaseLayout title="Contact Me" description="Get in touch! Contact information for Blogsmith.">
@@ -53,7 +53,7 @@ const teamData = getTranslatedData("teamData", currLocale);
     </h2>
     <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {
-        teamData.map((member) => (
+        data.teamMembers.map((member) => (
           <Profile name={member.name} title={member.title} image={member.image} bio={member.bio} />
         ))
       }

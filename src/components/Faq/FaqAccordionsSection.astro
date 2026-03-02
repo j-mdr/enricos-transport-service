@@ -15,7 +15,7 @@ import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const { title, faqs } = getTranslatedData("faqAccordionSectionData", currLocale);
+const { title, faqs } = getTranslatedData("faqSectionData", currLocale);
 
 const mid = Math.ceil(faqs.length / 2);
 

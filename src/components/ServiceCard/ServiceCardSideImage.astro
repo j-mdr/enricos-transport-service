@@ -14,10 +14,10 @@ const aboutText = useTranslations(currLocale)("about").toLowerCase();
 import Button from "@components/Button/Button.astro";
 import type { ServiceCard } from "@config/configDataTypes.ts";
 
-type Props = ServiceCard & {
+interface Props extends ServiceCard {
   imageSide: "left" | "right";
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
-};
+}
 
 const { image, ctaButton, description, title, idx, imageSide } = Astro.props as Props;
 ---

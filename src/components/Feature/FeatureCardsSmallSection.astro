@@ -12,19 +12,16 @@ import { Icon } from "astro-icon/components";
 import FeatureCard from "@components/FeatureCard/FeatureCardSmall.astro";
 
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { FeatureCardSmallSectionData } from "@config/configDataTypes.ts";
+import { getLocaleFromUrl } from "@utils/localeUtils.ts";
+import { getTranslatedData } from "@utils/translationUtils.ts";
 
-interface FeatureData {
-  icon: string;
-  title: string;
-  text: string;
-}
+const currLocale = getLocaleFromUrl(Astro.url);
+const data = getTranslatedData("featureCardSmallSectionJson", currLocale);
 
-type Props = {
-  title: string;
-  featureDataList: FeatureData[];
-};
+type Props = Partial<FeatureCardSmallSectionData>;
 
-const { title, featureDataList } = Astro.props;
+const { title = data.title, features = data.features } = Astro.props;
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -53,7 +50,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     </div>
     <div id="trigger-small-cards" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {
-        featureDataList.map((feature, idx) => (
+        features.map((feature, idx) => (
           <FeatureCard
             title={feature.title}
             text={feature.text}
