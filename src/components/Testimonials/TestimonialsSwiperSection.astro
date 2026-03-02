@@ -1,30 +1,18 @@
 ---
-/**
- * * Testimonials section swiper
- */
-
 import { Icon } from "astro-icon/components";
-
-// swiper style imports
 import "swiper/css";
 import "swiper/css/pagination";
 import "./testimonialSwiper.css"; // have to define custom styles like this
-
-// components
 import TestimonialCard from "./TestimonialCard.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils";
-
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
-// data
 const currLocale = getLocaleFromUrl(Astro.url);
-const testimonialData = getTranslatedData("testimonialData", currLocale);
+const data = getTranslatedData("testimonialSwiperSectionData", currLocale);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
-  testimonialData.title,
+  data.title,
 );
 ---
 
@@ -34,7 +22,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
       <h2 class="h2 text-center">
         {leadingText}
         {
-          hasHighlightedWord ? (
+          hasHighlightedWord && (
             <span>
               {highlightedWord}
               <Icon
@@ -43,9 +31,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
                 aria-hidden="true"
               />
             </span>
-          ) : null
+          )
         }
-        {trailingText ?? null}
+        {trailingText}
       </h2>
     </div>
 
@@ -56,7 +44,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
         <div class="swiper-wrapper">
           <!-- Slides -->
           {
-            testimonialData.testimonials.map((testimonial, idx) => (
+            data.testimonials.map((testimonial, idx) => (
               <div class="swiper-slide">
                 <TestimonialCard {...testimonial} />
               </div>

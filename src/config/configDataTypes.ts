@@ -4,7 +4,7 @@ export type DataTranslationType<T> = {
 };
 
 // site data types
-export type SiteDataProps = {
+export type SiteData = {
   name: string;
   title: string;
   description: string;
@@ -65,14 +65,16 @@ export type FaqAccordionSectionData = {
 
 // --------------------------------------------------------
 // testimonial data types
-export type TestimonialData = {
+type Testimonial = {
+  avatar: ImageMetadata; // an imported image
+  name: string;
   title: string;
-  testimonials: {
-    avatar: ImageMetadata; // an imported image
-    name: string;
-    title: string;
-    testimonial: string;
-  }[];
+  testimonial: string;
+}
+
+export type TestimonialSwiperSectionData = {
+  title: string;
+  testimonials: Array<Testimonial>;
 };
 
 // --------------------------------------------------------

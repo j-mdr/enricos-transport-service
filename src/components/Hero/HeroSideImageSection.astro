@@ -17,7 +17,7 @@ import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const buttonLink = getLocalizedRoute(currLocale, "/partner-worden");
-const buttonText = useTranslations(currLocale)("quote_button_text");
+const buttonText = useTranslations(currLocale)("get_quote_button_text");
 const data = getTranslatedData("heroSideImageSectionData", currLocale);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(

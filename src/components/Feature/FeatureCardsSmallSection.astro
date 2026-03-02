@@ -9,8 +9,6 @@
  */
 
 import { Icon } from "astro-icon/components";
-
-// components
 import FeatureCard from "@components/FeatureCard/FeatureCardSmall.astro";
 
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
@@ -21,7 +19,7 @@ interface FeatureData {
   text: string;
 }
 
-interface Props {
+type Props = {
   title: string;
   featureDataList: FeatureData[];
 }

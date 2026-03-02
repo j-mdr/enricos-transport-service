@@ -1,8 +1,5 @@
 ---
-// layout
 import BaseLayout from "@layouts/BaseLayout.astro";
-
-// components
 import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
 import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
 import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
@@ -11,20 +8,13 @@ import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarq
 import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMarqueeSection.astro";
 import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData, getLocalizedRoute } from "@/utils/translationUtils";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
-const heroHomePageData = getTranslatedData("heroHomePageData", currLocale);
 
-// images
-
-// data
-// data
 const featureDataList = [
   {
     icon: "tabler/paint",
@@ -68,7 +58,7 @@ const featureDataList = [
 <BaseLayout title={siteData.title} description={siteData.description}>
   <HeroSideImageSection />
   <ServicesSideImageSection />
-  <!--<FeatureCardsSmallSection title="Onze kernwaarden{icon}" featureDataList={featureDataList} />-->
+  <FeatureCardsSmallSection title="Onze kernwaarden{icon}" featureDataList={featureDataList} />
   <!--<TestimonialsSwiperSection />-->
   <!--<FeatureLightboxMarqueeSection />-->
   <!--<CtaCardCenterSection />-->

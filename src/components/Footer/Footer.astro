@@ -9,11 +9,12 @@ import SocialIcon from "@components/SocialIcon/SocialIcon.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getTranslatedData, useTranslations } from "@/utils/translationUtils";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
+const t = useTranslations(currLocale);
 
 const today = new Date();
 ---
@@ -24,7 +25,7 @@ const today = new Date();
       <div class="mt-6 flex flex-col items-start gap-4">
         <SiteLogo />
         <div class="">
-          <Button variant="primary" href="/contact/">Get a FREE quote</Button>
+          <Button variant="primary" href="/contact/">{t("get_quote_button_text_short")}</Button>
         </div>
         <div class="hidden text-sm opacity-80 md:block">
           &copy; {today.getFullYear()}

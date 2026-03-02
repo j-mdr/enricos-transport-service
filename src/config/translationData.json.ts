@@ -7,33 +7,31 @@
  * * Data file configuration for the i18n system
  * Every {Data} key must exist in the below object
  */
-import testimonialDataNl from "./nl/testimonialData.json.ts";
-import siteDataNl from "./nl/siteData.json";
 
-import siteDataEn from "./en/siteData.json";
+import { siteData } from "./data/siteData.json.ts";
 import { navData } from "./data/navData.json.ts";
 import { faqAccordionSectionData } from "./data/faqAccordionSectionData.json.ts";
 import { teamMemberCardsSectionData } from "./data/teamMemberCardsSectionData.ts";
-import testimonialDataEn from "./en/testimonialData.json.ts";
+import { testimonialSwiperSectionData } from "./data/testimonialSwiperSectionData.json.ts";
 import { HeroSideImageSectionData } from "./data/heroSideImageSectionData.json.ts";
 import { servicesSideImageSectionData } from "./data/servicesSideImageSectionData.json.ts";
 
 export const dataTranslations = {
   nl: {
-    siteData: siteDataNl,
+    siteData: siteData.nl,
     navData: navData.nl,
     faqAccordionSectionData: faqAccordionSectionData.nl,
     teamMemberCardsSectionData: teamMemberCardsSectionData.nl,
-    testimonialData: testimonialDataNl,
+    testimonialSwiperSectionData: testimonialSwiperSectionData.nl,
     heroSideImageSectionData: HeroSideImageSectionData.nl,
     servicesSideImageSectionData: servicesSideImageSectionData.nl,
   },
   en: {
-    siteData: siteDataEn,
+    siteData: siteData.en,
     navData: navData.en,
     faqAccordionSectionData: faqAccordionSectionData.en,
     teamMemberCardsSectionData: teamMemberCardsSectionData.en,
-    testimonialData: testimonialDataEn,
+    testimonialSwiperSectionData: testimonialSwiperSectionData.en,
     heroSideImageSectionData: HeroSideImageSectionData.en,
     servicesSideImageSectionData: servicesSideImageSectionData.en,
   },
@@ -60,18 +58,20 @@ export const dataTranslations = {
  */
 export const textTranslations = {
   nl: {
-    contact_button_text: "Neem contact",
+    contact_button_text: "Neem contact op",
     contact_button_text_short: "Contact",
-    quote_button_text: "Offerte opvragen",
-    back_to_all_posts: "Back to all posts",
-    updated: "Geupdatet",
+    get_quote_button_text: "Vraag een gratis offerte aan",
+    get_quote_button_text_short: "Vraag offerte aan",
+    back_to_all_posts: "Terug naar alle posts",
+    updated: "Geüpdatet",
     about: "Over",
     read_more: "Lees meer",
   },
   en: {
     contact_button: "Contact us",
     contact_button_text_short: "Contact us",
-    quote_button_text: "Get free quote",
+    get_quote_button_text: "Get free quote",
+    get_quote_button_text_short: "Get quote",
     back_to_all_posts: "Back to all posts",
     updated: "Updated",
     about: "About",
