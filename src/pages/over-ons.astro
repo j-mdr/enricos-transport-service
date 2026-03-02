@@ -4,32 +4,14 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astro";
+import Intro from "@components/Content/Intro.astro";
 ---
 
 <BaseLayout title="Contact Me" description="Get in touch! Contact information for Blogsmith.">
-  <!-- text section -->
-  <section class="site-container mx-auto pt-36 md:pt-44">
-    <h1 class="h1 text-center">
-      We have
-      <span class="relative whitespace-nowrap">
-        one goal
-        <span>
-          <Icon
-            name="stellar/freehand-zig-underline"
-            class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-[60%] scale-y-75"
-            aria-hidden="true"
-          />
-        </span>
-      </span>
-    </h1>
-    <p class="description mx-auto mt-10 max-w-2xl text-center md:mt-20">
-      Since 1990 we have been providing the best painting services in the area. We are a family
-      owned and operated business that takes pride in our work and our community. We are fully
-      licensed and insured and have a long list of references available upon request. We look
-      forward to working with you!
-    </p>
-  </section>
-
+  <Intro
+    title="Het begin{highlight} van ons verhaal"
+    introText="Ontdek de gepassioneerde individuen die onze content creëren, ons platform ontwerpen en onze missie drijven om bloggers wereldwijd te empoweren."
+  />
   <TeamMemberCardsSection />
   <CtaCardCenterSection />
 </BaseLayout>
