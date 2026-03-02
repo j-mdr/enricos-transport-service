@@ -4,7 +4,7 @@ export type DataTranslationType<T> = {
 };
 
 // site data types
-export type SiteData = {
+export interface SiteData {
   name: string;
   title: string;
   description: string;
@@ -25,7 +25,7 @@ export type SiteData = {
     src: string;
     alt: string;
   };
-};
+}
 
 // --------------------------------------------------------
 // nav data types
@@ -55,76 +55,85 @@ export type NavItem = navLinkItem | navDropdownItem | navMegaDropdownItem;
 
 // --------------------------------------------------------
 // faq data types
-export type FaqAccordionSectionData = {
+export interface FaqAccordionSectionData {
   title: string;
   faqs: Array<{
     question: string;
     answer: string;
   }>;
-};
+}
 
 // --------------------------------------------------------
 // testimonial data types
-type Testimonial = {
+interface Testimonial {
   avatar: ImageMetadata; // an imported image
   name: string;
   title: string;
   testimonial: string;
-};
+}
 
-export type TestimonialSwiperSectionData = {
+export interface TestimonialSwiperSectionData {
   title: string;
   testimonials: Array<Testimonial>;
-};
+}
 
 // --------------------------------------------------------
 // team data types
-type TeamMeber = {
+interface TeamMember {
   image: ImageMetadata; // an imported image
   name: string;
   title: string;
   bio: string;
-};
+}
 
-export type TeamMemberCardsSectionData = {
+export interface TeamMemberCardsSectionData {
   title: string;
-  teamMembers: TeamMeber[];
-};
-
-// --------------------------------------------------------
-// heroSideImage data types
-export interface heroSideImageSectionData {
-  title: string;
-  description: string;
-  image: ImageMetadata;
-  imageAlt: string;
+  teamMembers: TeamMember[];
 }
 
 // --------------------------------------------------------
-// servicesSideImage data types
-export type ServicesSideImageSectionData = {
+// Content
+interface Section {
   title: string;
-  items: {
-    image: ImageMetadata;
-    imageAlt: string;
-    title: string;
-    details: string;
-    href: string;
-  }[];
-};
+  description: string;
+}
+
+// --------------------------------------------------------
+// image
+export interface Image {
+  image: {
+    src: ImageMetadata;
+    alt: string;
+  };
+}
+
+// --------------------------------------------------------
+// heroSideImage data interfaces
+export interface HeroSideImageSectionData extends Section, CtaButton, Image {}
+
+// --------------------------------------------------------
+// servicesSideImage data types
+
+export interface ServiceCard extends CtaButton, Section, Image {}
+
+export interface ServicesSideImageSectionData extends Pick<Section, "title"> {
+  services: ServiceCard[];
+}
 
 // --------------------------------------------------------
 // cta
-export type CtaCardCenterSectionData = {
-  title: string;
-  description: string;
-  ctaButtonText: string;
-  ctaButtonHref: string;
-};
+export interface CtaButton {
+  ctaButton: {
+    text: string;
+    href: string;
+  };
+}
+
+export interface CtaCardCenterSectionData extends Section, CtaButton {}
 
 // --------------------------------------------------------
 // site settings types
-export type SiteSettingsProps = {
+export interface SiteSettingsProps {
   useViewTransitions?: boolean;
   useAnimations?: boolean;
-};
+}

@@ -7,7 +7,7 @@ import { navData } from "@config/data/navData.json.ts";
 import { faqAccordionSectionData } from "@config/data/faqAccordionSectionData.json.ts";
 import { teamMemberCardsSectionData } from "@config/data/teamMemberCardsSectionData.ts";
 import { testimonialSwiperSectionData } from "@config/data/testimonialSwiperSectionData.json.ts";
-import { HeroSideImageSectionData } from "@config/data/heroSideImageSectionData.json.ts";
+import { heroSideImageSectionData } from "@config/data/heroSideImageSectionData.json.ts";
 import { servicesSideImageSectionData } from "@config/data/servicesSideImageSectionData.json.ts";
 import { ctaCardCenterSectionData } from "@config/data/ctaCardCenterSectionData.json.ts";
 
@@ -18,7 +18,7 @@ export const dataTranslations = {
     faqAccordionSectionData: faqAccordionSectionData.nl,
     teamMemberCardsSectionData: teamMemberCardsSectionData.nl,
     testimonialSwiperSectionData: testimonialSwiperSectionData.nl,
-    heroSideImageSectionData: HeroSideImageSectionData.nl,
+    heroSideImageSectionData: heroSideImageSectionData.nl,
     servicesSideImageSectionData: servicesSideImageSectionData.nl,
     ctaCardCenterSectionData: ctaCardCenterSectionData.nl,
   },
@@ -28,7 +28,7 @@ export const dataTranslations = {
     faqAccordionSectionData: faqAccordionSectionData.en,
     teamMemberCardsSectionData: teamMemberCardsSectionData.en,
     testimonialSwiperSectionData: testimonialSwiperSectionData.en,
-    heroSideImageSectionData: HeroSideImageSectionData.en,
+    heroSideImageSectionData: heroSideImageSectionData.en,
     servicesSideImageSectionData: servicesSideImageSectionData.en,
     ctaCardCenterSectionData: ctaCardCenterSectionData.en,
   },

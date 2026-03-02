@@ -11,7 +11,7 @@
 import { Icon } from "astro-icon/components";
 
 // components
-import ServiceCard from "@components/ServiceCard/ServiceCardIcon.astro";
+import ServiceCardIcon from "@components/ServiceCard/ServiceCardIcon.astro";
 // import FeatureCard from "@components/FeatureCard/FeatureCardTest.astro";
 
 interface FeatureData {
@@ -54,7 +54,7 @@ const featureData: FeatureData[] = [
     <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3" id="services-icon-cards">
       {
         featureData.map((feature, idx) => (
-          <ServiceCard
+          <ServiceCardIcon
             title={feature.title}
             text={feature.text}
             icon={feature.icon}

@@ -4,32 +4,23 @@
  */
 import { getLocalizedRoute } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
-
-// components
 import Button from "@components/Button/Button.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils";
+import type { CtaCardCenterSectionData } from "@config/configDataTypes.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = getTranslatedData("ctaCardCenterSectionData", currLocale);
 
-interface Props {
-  title?: string;
-  description?: string;
-  ctaButtonText?: string;
-  ctaButtonHref?: string;
-}
+type Props = Partial<CtaCardCenterSectionData>;
 
 const {
   title = data.title,
   description = data.description,
-  ctaButtonText = data.ctaButtonText,
-  ctaButtonHref = data.ctaButtonHref,
+  ctaButton = data.ctaButton,
 } = Astro.props;
 
-const localizedButtonHref = getLocalizedRoute(currLocale, ctaButtonHref);
+const localizedCtaButtonHref = getLocalizedRoute(currLocale, ctaButton.href);
 ---
 
 <section id="cta" class="my-24 py-8 md:my-36">
@@ -67,8 +58,8 @@ const localizedButtonHref = getLocalizedRoute(currLocale, ctaButtonHref);
               {description}
             </p>
             <div class="mt-10 flex justify-center">
-              <Button variant="primary" href={localizedButtonHref} arrow="right">
-                {ctaButtonText}
+              <Button variant="primary" href={localizedCtaButtonHref} arrow="right">
+                {ctaButton.text}
               </Button>
             </div>
           </div>

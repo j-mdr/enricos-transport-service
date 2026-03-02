@@ -6,43 +6,30 @@
 
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getLocalizedRoute, getTranslatedData } from "@/utils/translationUtils.ts";
 import { useTranslations } from "@/utils/translationUtils";
-
 const currLocale = getLocaleFromUrl(Astro.url);
 const aboutText = useTranslations(currLocale)("about").toLowerCase();
-const readMoreText = useTranslations(currLocale)("read_more");
-
-// components
 import Button from "@components/Button/Button.astro";
-import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { ServiceCard } from "@config/configDataTypes.ts";
 
-// utils
-
-interface Props {
-  title: string; // larger title
-  details: string; // text details
-  href: string; // link to learn more
-  image: ImageMetadata; // an imported image
-  imageAlt: string; // an imported image
+type Props = ServiceCard & {
   imageSide: "left" | "right";
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
-}
+};
 
-const { image, imageAlt, title, href, idx, details, imageSide } = Astro.props as Props;
+const { image, ctaButton, description, title, idx, imageSide } = Astro.props as Props;
 ---
 
 <div class="mx-auto grid gap-8 rounded-xl md:grid-cols-2 md:gap-12 lg:gap-20">
   <!-- text -->
   <div class=`${imageSide === "left" ? "md:order-last": ""} col-span-1`>
     <h2 class="h2 mt-6">{title}</h2>
-    <p class="mt-4 opacity-80">{details}</p>
+    <p class="mt-4 opacity-80">{description}</p>
     <div class="z-20 mt-4 flex">
-      <Button variant="ghost" href={getLocalizedRoute(currLocale, href)} arrow="right">
-        {readMoreText}
+      <Button variant="ghost" href={getLocalizedRoute(currLocale, ctaButton.href)} arrow="right">
+        {ctaButton.text}
         <span class="sr-only">{aboutText} {title}</span>
       </Button>
     </div>
@@ -60,8 +47,8 @@ const { image, imageAlt, title, href, idx, details, imageSide } = Astro.props as
     </div>
     <Image
       class="relative rounded-xl border border-transparent object-cover"
-      src={image}
-      alt={title}
+      src={image.src}
+      alt={image.alt}
       height={700}
     />
   </div>

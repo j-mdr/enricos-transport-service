@@ -7,14 +7,18 @@ export const ctaCardCenterSectionData: DataTranslationType<CtaCardCenterSectionD
     title: "Wat wij voor u kunnen betekenen",
     description:
       "Enrico’s Transportservice biedt betrouwbaar regulier en incidenteel transport, waaronder groot-, spoed- en documententransport, met een persoonlijke aanpak die zorgt voor veilige en tijdige levering.",
-    ctaButtonHref: MAIN_ROUTES.offerteAanvragen,
-    ctaButtonText: textTranslations.nl.get_quote_button_text,
+    ctaButton: {
+      href: MAIN_ROUTES.offerteAanvragen,
+      text: textTranslations.nl.get_quote_button_text,
+    },
   },
   en: {
     title: "What we can do for you",
     description:
       "Enrico’s Transportservice provides reliable regular and occasional transport services, including large-scale, express, and document transport, with a personal approach that ensures safe and timely delivery.",
-    ctaButtonHref: MAIN_ROUTES.offerteAanvragen,
-    ctaButtonText: textTranslations.en.get_quote_button_text,
+    ctaButton: {
+      href: MAIN_ROUTES.offerteAanvragen,
+      text: textTranslations.en.get_quote_button_text,
+    },
   },
 };

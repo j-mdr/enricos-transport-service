@@ -12,13 +12,17 @@ import ServiceCard from "@components/ServiceCard/ServiceCardSideImage.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils.ts";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { ServicesSideImageSectionData } from "@config/configDataTypes.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = getTranslatedData("servicesSideImageSectionData", currLocale);
 
-const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
-  data.title,
-);
+type Props = Partial<ServicesSideImageSectionData>;
+
+const { title = data.title, services = data.services } = Astro.props;
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="services-side-image" class="overflow-hidden py-12">
@@ -39,14 +43,13 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
     </div>
     <div class="mt-10 flex flex-col gap-16 md:mt-16 md:gap-24">
       {
-        data.items.map((feature, idx) => (
+        services.map((service, idx) => (
           <ServiceCard
-            title={feature.title}
-            details={feature.details}
-            image={feature.image}
-            imageAlt={feature.imageAlt}
+            title={service.title}
+            description={service.description}
+            image={service.image}
+            ctaButton={service.ctaButton}
             imageSide={idx % 2 === 0 ? "right" : "left"}
-            href={feature.href}
             idx={idx}
           />
         ))
