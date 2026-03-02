@@ -1,6 +1,6 @@
 /**
  * * Configuration of the i18n system data files and text translations
- * Example translations below are for English and French, with textTranslations used in src/layouts/BlogLayoutCenter.astro and src/components/Hero/[hero].astro
+ * Example translations below are for English and French, with textTranslations used in src/layouts/BlogLayoutCenter.astro and src/components/HeroCenteredSection/[hero].astro
  */
 
 /**
@@ -9,14 +9,13 @@
  */
 import testimonialDataNl from "./nl/testimonialData.json.ts";
 import teamDataNl from "./nl/teamData.json";
-import faqDataNl from "./nl/faqData.json.ts";
 import navDataNl from "./nl/navData.json.ts";
 import siteDataNl from "./nl/siteData.json";
 import servicesSideImageDataNl from "./nl/servicesSideImageData.json.ts";
 
 import siteDataEn from "./en/siteData.json";
 import navDataEn from "./en/navData.json.ts";
-import faqDataEn from "./en/faqData.json.ts";
+import { faqAccordionSectionData } from "./data/faqAccordionSectionData.json.ts";
 import teamDataEn from "./en/teamData.json";
 import testimonialDataEn from "./en/testimonialData.json.ts";
 import { HeroSideImageSectionData } from "./data/heroSideImageSectionData.json.ts";
@@ -26,7 +25,7 @@ export const dataTranslations = {
   nl: {
     siteData: siteDataNl,
     navData: navDataNl,
-    faqData: faqDataNl,
+    faqAccordionSectionData: faqAccordionSectionData.nl,
     teamData: teamDataNl,
     testimonialData: testimonialDataNl,
     heroSideImageData: HeroSideImageSectionData.nl,
@@ -35,7 +34,7 @@ export const dataTranslations = {
   en: {
     siteData: siteDataEn,
     navData: navDataEn,
-    faqData: faqDataEn,
+    faqAccordionSectionData: faqAccordionSectionData.en,
     teamData: teamDataEn,
     testimonialData: testimonialDataEn,
     heroSideImageData: HeroSideImageSectionData.en,
@@ -64,7 +63,7 @@ export const dataTranslations = {
  */
 export const textTranslations = {
   nl: {
-    contact_button_text: "Contacteer ons",
+    contact_button_text: "Neem contact",
     contact_button_text_short: "Contact",
     quote_button_text: "Offerte opvragen",
     back_to_all_posts: "Back to all posts",
@@ -74,7 +73,7 @@ export const textTranslations = {
   },
   en: {
     contact_button: "Contact us",
-    contact_button_text_short: "Contact",
+    contact_button_text_short: "Contact us",
     quote_button_text: "Get free quote",
     back_to_all_posts: "Back to all posts",
     updated: "Updated",

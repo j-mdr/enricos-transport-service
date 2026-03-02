@@ -1,7 +1,7 @@
 export type DataTranslationType<T> = {
   en: T;
-  nl: T
-}
+  nl: T;
+};
 
 // site data types
 export interface SiteDataProps {
@@ -55,10 +55,13 @@ export type navItem = navLinkItem | navDropdownItem | navMegaDropdownItem;
 
 // --------------------------------------------------------
 // faq data types
-export interface FaqItem {
-  question: string; // this is the question of the accordion
-  answer: string; // these are the details seen after expanding the accordion
-}
+export type FaqAccordionSectionData = {
+  title: string;
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+};
 
 // --------------------------------------------------------
 // testimonial data types

@@ -59,11 +59,11 @@ Now in all of your source files, you can import components like this:
 
 ```ts
 // Without path aliases
-import Hero from "../../../components/Hero";
+import Hero from "../../../components/HeroCenteredSection";
 import Footer from "../../../components/Footer";
 
 // With path aliases
-import Hero from "@components/Hero";
+import Hero from "@components/HeroCenteredSection";
 import Footer from "@components/Footer";
 ```
 
@@ -93,7 +93,7 @@ Let's say we have the following file structure:
 If we want to import `Hero.tsx` and `Footer.tsx` into `index.tsx` and `solutions.tsx`, we would need the following import statements:
 
 ```ts
-import Hero from "../components/Hero";
+import Hero from "../components/HeroCenteredSection";
 import Footer from "../components/Footer";
 ```
 
@@ -117,7 +117,7 @@ Now lets say we want to refactor. We now have multiple "solutions" and want to h
 Now we have to update the import paths of `solution.tsx`:
 
 ```ts
-import Hero from "../../components/Hero";
+import Hero from "../../components/HeroCenteredSection";
 import Footer from "../../components/Footer";
 ```
 
@@ -128,7 +128,7 @@ You can see how this makes refactoring more of a chore. We have to update the im
 Alternatively, if from the start we were using aliases, we would not have to update any files using the components. This is far better for maintainability:
 
 ```ts
-import Hero from "@components/Hero";
+import Hero from "@components/HeroCenteredSection";
 import Footer from "@components/Footer";
 ```
 

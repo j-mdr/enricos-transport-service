@@ -1,0 +1,60 @@
+---
+/**
+ * * FAQ section in accordions
+ */
+import { Icon } from "astro-icon/components";
+
+// components
+import Accordion from "@components/Accordion/Accordion.astro";
+
+// utils
+import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { getTranslatedData } from "@/utils/translationUtils";
+import { splitTitleWithIcon } from "@utils/textWithHighlight.ts";
+
+// data
+const currLocale = getLocaleFromUrl(Astro.url);
+const { title, faqs } = getTranslatedData("faqAccordionSectionData", currLocale);
+
+const mid = Math.ceil(faqs.length / 2);
+
+// array of columns for faq data
+const faqCols = [faqs.slice(0, mid), faqs.slice(mid)];
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
+---
+
+<section id="faq1" class="site-container my-24 md:my-36">
+  <h2 class="h2 mt-8 text-center">
+
+      {leadingText}
+      {
+        hasHighlightedWord && (
+          <span class="relative whitespace-nowrap">
+        {highlightedWord}
+          <span>
+            <Icon
+              name="stellar/freehand-zig-underline"
+              class="text-primary-500 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+              aria-hidden="true"
+            />
+          </span>
+    </span>
+
+        )
+      }
+      {trailingText ?? null}
+  </h2>
+  <div class="mx-auto mt-16 grid gap-x-10 gap-y-3 lg:grid-cols-2">
+    {
+      faqCols.map((faqCol) => (
+        <div class="flex w-full flex-col gap-3">
+          {faqCol.map(({ question, answer }, idx) => (
+            <Accordion title={question} details={answer} />
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</section>

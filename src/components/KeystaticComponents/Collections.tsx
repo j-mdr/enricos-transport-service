@@ -65,7 +65,7 @@ const Blog = (locale: (typeof locales)[number]) =>
         description: "This is used to map entries between languages.",
       }),
       heroImage: fields.image({
-        label: "Hero Image",
+        label: "HeroCenteredSection Image",
         publicPath: "../",
         validation: { isRequired: true },
       }),

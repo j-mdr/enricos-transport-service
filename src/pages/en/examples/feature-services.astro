@@ -3,13 +3,13 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 // components
-import FeatureCardsSmall from "@components/Feature/FeatureCardsSmall.astro";
-import FeatureGalleryMarquee from "@components/Feature/FeatureGalleryMarquee.astro";
-import FeatureVideo from "@components/Feature/FeatureVideo.astro";
-import FeatureSideImage from "@components/Feature/FeatureSideImage.astro";
-import FeatureToggleImage from "@components/Feature/FeatureToggleImage.astro";
-import ServicesIcon from "@components/Services/ServicesIcon.astro";
-import ServicesSideImage from "@components/Services/ServicesSideImage.astro";
+import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
+import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
+import FeatureVideoSeciton from "@components/Feature/FeatureVideoSeciton.astro";
+import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
+import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
+import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
+import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
 ---
 
 <BaseLayout
@@ -17,11 +17,11 @@ import ServicesSideImage from "@components/Services/ServicesSideImage.astro";
   description="All of the feature sections included with the Stellar theme"
 >
   <hr class="pt-20 md:pt-36" />
-  <FeatureVideo />
-  <FeatureCardsSmall />
-  <ServicesIcon />
-  <FeatureSideImage />
-  <FeatureGalleryMarquee />
-  <ServicesSideImage />
-  <FeatureToggleImage />
+  <FeatureVideoSeciton />
+  <FeatureCardsSmallSection />
+  <ServicesIconSection />
+  <FeatureSideImageSection />
+  <FeatureGalleryMarqueeSection />
+  <ServicesSideImageSection />
+  <FeatureToggleImageSection />
 </BaseLayout>

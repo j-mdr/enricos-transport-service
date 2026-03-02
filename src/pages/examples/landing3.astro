@@ -3,13 +3,13 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 // components
-import Hero from "@components/Hero/HeroCentered.astro";
-import FeatureCardsSmall from "@components/Feature/FeatureCardsSmall.astro";
-import ServicesSideImage from "@components/Services/ServicesSideImage.astro";
-import TestimonialsSwiper from "@components/Testimonials/TestimonialsSwiper.astro";
-import FeatureGalleryMarquee from "@components/Feature/FeatureGalleryMarquee.astro";
-import CtaBgImage from "@components/Cta/CtaBgImage.astro";
-import FaqAccordions from "@components/Faq/FaqAccordions.astro";
+import HeroCenteredSection from "@components/Hero/HeroCenteredSection.astro";
+import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
+import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
+import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
+import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
+import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
@@ -21,11 +21,11 @@ const siteData = getTranslatedData("siteData", currLocale);
 ---
 
 <BaseLayout title={siteData.title} description={siteData.description}>
-  <Hero />
-  <ServicesSideImage />
-  <FeatureCardsSmall />
-  <TestimonialsSwiper />
-  <FeatureGalleryMarquee />
-  <CtaBgImage />
-  <FaqAccordions />
+  <HeroCenteredSection />
+  <ServicesSideImageSection />
+  <FeatureCardsSmallSection />
+  <TestimonialsSwiperSection />
+  <FeatureGalleryMarqueeSection />
+  <CtaBgImageSection />
+  <FaqAccordionsSection />
 </BaseLayout>

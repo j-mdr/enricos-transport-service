@@ -17,10 +17,9 @@ import { useTranslations } from "@/utils/translationUtils";
 const currLocale = getLocaleFromUrl(Astro.url);
 const servicesSideImageData = getTranslatedData("servicesSideImageData", currLocale);
 
-const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
   servicesSideImageData.title,
 );
-
 ---
 
 <section id="services-side-image" class="overflow-hidden py-12">
@@ -34,7 +33,9 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
             aria-hidden="true"
           />
         </div>
-        {leadingText} <span class="text-primary-600">{highlightedWord}</span> {trailingText}
+        {leadingText}
+        {hasHighlightedWord && <span class="text-primary-600">{highlightedWord}</span>}
+        {trailingText}
       </h2>
     </div>
     <div class="mt-10 flex flex-col gap-16 md:mt-16 md:gap-24">

@@ -1,11 +1,11 @@
 ---
 // layout
-import FaqAccordions from "@components/Faq/FaqAccordions.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // components
-import FaqCards from "@components/Faq/FaqCards.astro";
-import TestimonialsColumns from "@components/Testimonials/TestimonialsColumns.astro";
-import TestimonialsSwiper from "@components/Testimonials/TestimonialsSwiper.astro";
+import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
+import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsColumnsSection.astro";
+import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 ---
 
@@ -14,8 +14,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
   description="All of the feature sections included with the Stellar theme"
 >
   <hr class="pt-20 md:pt-36" />
-  <TestimonialsSwiper />
-  <FaqAccordions />
-  <TestimonialsColumns />
-  <FaqCards />
+  <TestimonialsSwiperSection />
+  <FaqAccordionsSection />
+  <TestimonialsColumnsSection />
+  <FaqCardsSection />
 </BaseLayout>

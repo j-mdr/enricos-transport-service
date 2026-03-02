@@ -22,7 +22,7 @@ import { splitTitleWithIcon } from "@/utils/textWithHighlight.ts";
 const currLocale = getLocaleFromUrl(Astro.url);
 const testimonialData = getTranslatedData("testimonialData", currLocale);
 
-const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
   testimonialData.title,
 );
 ---
@@ -33,7 +33,7 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
       <h2 class="h2 text-center">
         {leadingText}
         {
-          hasIcon ? (
+          hasHighlightedWord ? (
             <span>
               {highlightedWord}
               <Icon

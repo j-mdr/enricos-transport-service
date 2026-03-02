@@ -1,6 +1,6 @@
 ---
 /**
- * * Hero with background blobs and side image
+ * * HeroCenteredSection with background blobs and side image
  *
  */
 import { Icon } from "astro-icon/components";
@@ -20,7 +20,7 @@ const buttonLink = getLocalizedRoute(currLocale, "/partner-worden");
 const buttonText = useTranslations(currLocale)("quote_button_text");
 const heroSideImageData = getTranslatedData("heroSideImageData", currLocale);
 
-const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIcon(
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
   heroSideImageData.title,
 );
 ---
@@ -59,7 +59,7 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
   <div
     class="site-container mr-auto grid items-start gap-8 pt-36 pb-6 md:grid-cols-2 md:pt-44 md:pb-20"
   >
-    <!-- Hero text -->
+    <!-- HeroCenteredSection text -->
     <div class="mx-auto max-w-[450px] md:ml-0">
       <h1
         class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight"
@@ -67,7 +67,7 @@ const { leadingText, highlightedWord, trailingText, hasIcon } = splitTitleWithIc
       >
         {leadingText}
         {
-          hasIcon ? (
+          hasHighlightedWord ? (
             <span class="relative whitespace-nowrap">
               {highlightedWord}
               <Icon

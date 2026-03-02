@@ -2,7 +2,7 @@ type TitleSplit = {
   leadingText: string;
   highlightedWord: string;
   trailingText: string;
-  hasIcon: boolean;
+  hasHighlightedWord: boolean;
 };
 
 export function splitTitleWithIcon(title: string): TitleSplit {
@@ -11,22 +11,42 @@ export function splitTitleWithIcon(title: string): TitleSplit {
       leadingText: "",
       highlightedWord: "",
       trailingText: "",
-      hasIcon: false,
+      hasHighlightedWord: false,
     };
   }
+
   const highlightMarker = "{highlight}";
 
-  const [beforeIcon = "", afterIcon = ""] = title.trim().split(highlightMarker);
+  // 🚨 Als marker niet bestaat → gewoon alles als normale titel
+  if (!title.includes(highlightMarker)) {
+    return {
+      leadingText: title.trim(),
+      highlightedWord: "",
+      trailingText: "",
+      hasHighlightedWord: false,
+    };
+  }
 
-  const words = beforeIcon.trim().split(/\s+/).filter(Boolean);
+  const [beforeMarker, afterMarker] = title.split(highlightMarker);
 
-  const highlightedWord = words.pop() ?? "";
-  const leadingText = words.join(" ");
+  const words = beforeMarker.trim().split(/\s+/);
+
+  // Als er geen woord vóór marker staat
+  if (words.length === 0) {
+    return {
+      leadingText: "",
+      highlightedWord: "",
+      trailingText: afterMarker?.trim() ?? "",
+      hasHighlightedWord: false,
+    };
+  }
+
+  const highlightedWord = words.pop() as string;
 
   return {
-    leadingText,
+    leadingText: words.join(" "),
     highlightedWord,
-    trailingText: afterIcon.trim(),
-    hasIcon: title.includes(highlightMarker),
+    trailingText: afterMarker?.trim() ?? "",
+    hasHighlightedWord: true,
   };
 }

@@ -9,7 +9,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "./BaseLayout.astro";
 
 // components
-import CtaCardCenter from "@components/Cta/CtaCardCenter.astro";
+import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 
 interface Props {
   title: string;
@@ -51,5 +51,5 @@ const { title, description, image = undefined } = Astro.props as Props;
     </div>
   </section>
 
-  <CtaCardCenter />
+  <CtaCardCenterSection />
 </BaseLayout>

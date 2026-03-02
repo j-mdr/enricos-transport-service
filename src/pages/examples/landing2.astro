@@ -3,15 +3,15 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 // components
-import Hero from "@components/Hero/HeroBgImage.astro";
-import Awards from "@components/Awards/Awards.astro";
-import FeatureSideImage from "@components/Feature/FeatureSideImage.astro";
-import ServicesIcon from "@components/Services/ServicesIcon.astro";
-import FeatureVideo from "@components/Feature/FeatureVideo.astro";
-import TestimonialsColumns from "@components/Testimonials/TestimonialsColumns.astro";
-import FeatureToggleImage from "@components/Feature/FeatureToggleImage.astro";
-import CtaCards from "@components/Cta/CtaCards.astro";
-import FaqCards from "@components/Faq/FaqCards.astro";
+import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
+import AwardsSection from "@components/Awards/AwardsSection.astro";
+import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
+import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
+import FeatureVideoSeciton from "@components/Feature/FeatureVideoSeciton.astro";
+import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsColumnsSection.astro";
+import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
+import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
+import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
@@ -23,13 +23,13 @@ const siteData = getTranslatedData("siteData", currLocale);
 ---
 
 <BaseLayout title={siteData.title} description={siteData.description}>
-  <Hero />
-  <Awards />
-  <FeatureVideo />
-  <ServicesIcon />
-  <FeatureSideImage />
-  <TestimonialsColumns />
-  <FeatureToggleImage />
-  <CtaCards />
-  <FaqCards />
+  <HeroBgImageSection />
+  <AwardsSection />
+  <FeatureVideoSeciton />
+  <ServicesIconSection />
+  <FeatureSideImageSection />
+  <TestimonialsColumnsSection />
+  <FeatureToggleImageSection />
+  <CtaCardsSection />
+  <FaqCardsSection />
 </BaseLayout>
