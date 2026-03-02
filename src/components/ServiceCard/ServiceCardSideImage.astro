@@ -10,7 +10,6 @@ import { Icon } from "astro-icon/components";
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getLocalizedRoute, getTranslatedData } from "@/utils/translationUtils.ts";
-import { splitTitleWithIcon } from "@/utils/textWithHighlight.ts";
 import { useTranslations } from "@/utils/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
@@ -19,6 +18,7 @@ const readMoreText = useTranslations(currLocale)("read_more")
 
 // components
 import Button from "@components/Button/Button.astro";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 // utils
 

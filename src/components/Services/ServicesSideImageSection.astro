@@ -10,15 +10,14 @@ import ServiceCard from "@components/ServiceCard/ServiceCardSideImage.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute, getTranslatedData } from "@/utils/translationUtils.ts";
-import { splitTitleWithIcon } from "@/utils/textWithHighlight.ts";
-import { useTranslations } from "@/utils/translationUtils";
+import { getTranslatedData } from "@/utils/translationUtils.ts";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const servicesSideImageData = getTranslatedData("servicesSideImageData", currLocale);
+const data = getTranslatedData("servicesSideImageSectionData", currLocale);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
-  servicesSideImageData.title,
+  data.title,
 );
 ---
 
@@ -40,7 +39,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
     </div>
     <div class="mt-10 flex flex-col gap-16 md:mt-16 md:gap-24">
       {
-        servicesSideImageData.items.map((feature, idx) => (
+        data.items.map((feature, idx) => (
           <ServiceCard
             title={feature.title}
             details={feature.details}

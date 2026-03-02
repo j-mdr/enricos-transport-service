@@ -1,4 +1,4 @@
-import { type SiteDataProps } from "../types/configDataTypes";
+import { type SiteDataProps } from "../configDataTypes.ts";
 import { COMPANY_EMAIL, COMPANY_NAME, COMPANY_PHONE } from "@config/constants.ts";
 
 // Update this file with your site specific information

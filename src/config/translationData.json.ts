@@ -8,37 +8,34 @@
  * Every {Data} key must exist in the below object
  */
 import testimonialDataNl from "./nl/testimonialData.json.ts";
-import teamDataNl from "./nl/teamData.json";
-import navDataNl from "./nl/navData.json.ts";
 import siteDataNl from "./nl/siteData.json";
-import servicesSideImageDataNl from "./nl/servicesSideImageData.json.ts";
 
 import siteDataEn from "./en/siteData.json";
-import navDataEn from "./en/navData.json.ts";
+import { navData } from "./data/navData.json.ts";
 import { faqAccordionSectionData } from "./data/faqAccordionSectionData.json.ts";
-import teamDataEn from "./en/teamData.json";
+import { teamMemberCardsSectionData } from "./data/teamMemberCardsSectionData.ts";
 import testimonialDataEn from "./en/testimonialData.json.ts";
 import { HeroSideImageSectionData } from "./data/heroSideImageSectionData.json.ts";
-import servicesSideImageDataEn from "./en/servicesSideImageData.json.ts";
+import { servicesSideImageSectionData } from "./data/servicesSideImageSectionData.json.ts";
 
 export const dataTranslations = {
   nl: {
     siteData: siteDataNl,
-    navData: navDataNl,
+    navData: navData.nl,
     faqAccordionSectionData: faqAccordionSectionData.nl,
-    teamData: teamDataNl,
+    teamMemberCardsSectionData: teamMemberCardsSectionData.nl,
     testimonialData: testimonialDataNl,
-    heroSideImageData: HeroSideImageSectionData.nl,
-    servicesSideImageData: servicesSideImageDataNl,
+    heroSideImageSectionData: HeroSideImageSectionData.nl,
+    servicesSideImageSectionData: servicesSideImageSectionData.nl,
   },
   en: {
     siteData: siteDataEn,
-    navData: navDataEn,
+    navData: navData.en,
     faqAccordionSectionData: faqAccordionSectionData.en,
-    teamData: teamDataEn,
+    teamMemberCardsSectionData: teamMemberCardsSectionData.en,
     testimonialData: testimonialDataEn,
-    heroSideImageData: HeroSideImageSectionData.en,
-    servicesSideImageData: servicesSideImageDataEn,
+    heroSideImageSectionData: HeroSideImageSectionData.en,
+    servicesSideImageSectionData: servicesSideImageSectionData.en,
   },
 } as const;
 

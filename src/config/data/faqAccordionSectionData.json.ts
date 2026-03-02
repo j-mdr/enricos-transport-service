@@ -1,7 +1,7 @@
 import {
   type DataTranslationType,
   type FaqAccordionSectionData,
-} from "../types/configDataTypes.ts";
+} from "../configDataTypes.ts";
 
 export const faqAccordionSectionData: DataTranslationType<FaqAccordionSectionData> = {
   nl: {

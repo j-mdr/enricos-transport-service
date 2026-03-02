@@ -1,0 +1,38 @@
+---
+/**
+ * * About page with various sections including some text, team profiles, and CTA
+ * Edit the team member information inside src/config/teamMemberCardsSectionData.ts
+ */
+
+// components
+import Profile from "@components/Profile/Profile.astro";
+import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
+
+// utils
+import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { getTranslatedData } from "@/utils/translationUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
+
+// data
+const currLocale = getLocaleFromUrl(Astro.url);
+const data = getTranslatedData("teamMemberCardsSectionData", currLocale);
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
+  data.title,
+);
+---
+
+<section class="site-container mt-24 md:mt-36">
+  <h2 class="h2 text-center">
+    {leadingText}
+    {hasHighlightedWord && <span class="text-primary-600">{highlightedWord}</span>}
+    {trailingText}
+  </h2>
+  <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      data.teamMembers.map((member) => (
+        <Profile name={member.name} title={member.title} image={member.image} bio={member.bio} />
+      ))
+    }
+  </div>
+</section>

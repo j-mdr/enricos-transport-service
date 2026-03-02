@@ -16,7 +16,8 @@ import TestimonialCard from "./TestimonialCard.astro";
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils";
-import { splitTitleWithIcon } from "@/utils/textWithHighlight.ts";
+
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);

@@ -4,7 +4,7 @@ export type DataTranslationType<T> = {
 };
 
 // site data types
-export interface SiteDataProps {
+export type SiteDataProps = {
   name: string;
   title: string;
   description: string;
@@ -25,33 +25,33 @@ export interface SiteDataProps {
     src: string;
     alt: string;
   };
-}
+};
 
 // --------------------------------------------------------
 // nav data types
-export interface navLinkItem {
+export type navLinkItem = {
   text: string;
   link: string;
   newTab?: boolean; // adds target="_blank" rel="noopener noreferrer" to link
   icon?: string; // adds an icon to the left of the text
-}
+};
 
-export interface navDropdownItem {
+export type navDropdownItem = {
   text: string;
   dropdown: navLinkItem[];
-}
+};
 
-export interface navMegaDropdownColumn {
+export type navMegaDropdownColumn = {
   title: string;
   items: navLinkItem[];
-}
+};
 
-export interface navMegaDropdownItem {
+export type navMegaDropdownItem = {
   text: string;
   megaMenuColumns: navMegaDropdownColumn[];
-}
+};
 
-export type navItem = navLinkItem | navDropdownItem | navMegaDropdownItem;
+export type NavItem = navLinkItem | navDropdownItem | navMegaDropdownItem;
 
 // --------------------------------------------------------
 // faq data types
@@ -65,7 +65,7 @@ export type FaqAccordionSectionData = {
 
 // --------------------------------------------------------
 // testimonial data types
-export interface TestimonialData {
+export type TestimonialData = {
   title: string;
   testimonials: {
     avatar: ImageMetadata; // an imported image
@@ -73,16 +73,21 @@ export interface TestimonialData {
     title: string;
     testimonial: string;
   }[];
-}
+};
 
 // --------------------------------------------------------
 // team data types
-export interface teamMember {
+type TeamMeber = {
   image: ImageMetadata; // an imported image
   name: string;
   title: string;
   bio: string;
-}
+};
+
+export type TeamMemberCardsSectionData = {
+  title: string;
+  teamMembers: TeamMeber[];
+};
 
 // --------------------------------------------------------
 // heroSideImage data types
@@ -95,7 +100,7 @@ export interface heroSideImageSectionData {
 
 // --------------------------------------------------------
 // servicesSideImage data types
-export interface ServicesSideImage {
+export type ServicesSideImageSectionData = {
   title: string;
   items: {
     image: ImageMetadata;
@@ -104,11 +109,11 @@ export interface ServicesSideImage {
     details: string;
     href: string;
   }[];
-}
+};
 
 // --------------------------------------------------------
 // site settings types
-export interface SiteSettingsProps {
+export type SiteSettingsProps = {
   useViewTransitions?: boolean;
   useAnimations?: boolean;
-}
+};

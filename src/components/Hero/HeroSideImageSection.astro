@@ -12,16 +12,16 @@ import Button from "@components/Button/Button.astro";
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getLocalizedRoute, getTranslatedData } from "@/utils/translationUtils.ts";
-import { splitTitleWithIcon } from "@/utils/textWithHighlight.ts";
 import { useTranslations } from "@/utils/translationUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const buttonLink = getLocalizedRoute(currLocale, "/partner-worden");
 const buttonText = useTranslations(currLocale)("quote_button_text");
-const heroSideImageData = getTranslatedData("heroSideImageData", currLocale);
+const data = getTranslatedData("heroSideImageSectionData", currLocale);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
-  heroSideImageData.title,
+  data.title,
 );
 ---
 
@@ -37,7 +37,6 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       version="1.1"
-
       style="stroke:currentColor;fill:currentColor;"
     >
       <g transform="translate(1800, 1000)">
@@ -70,18 +69,20 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
           hasHighlightedWord ? (
             <span class="relative whitespace-nowrap">
               {highlightedWord}
-              <Icon
-                name="stellar/freehand-zig-underline"
-                class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-                aria-hidden="true"
-              />
+              <span>
+                <Icon
+                  name="stellar/freehand-zig-underline"
+                  class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                  aria-hidden="true"
+                />
+              </span>
             </span>
           ) : null
         }
         {trailingText ?? null}
       </h1>
       <p class="description mt-6" data-mos="fade-up">
-        {heroSideImageData.description}
+        {data.description}
       </p>
       <div class="mt-6 flex gap-4">
         <Button variant="primary" href={buttonLink} data-mos="fade-up" data-mos-delay=".9">
@@ -117,9 +118,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
     <!-- hero image -->
     <div class="mx-auto max-w-lg md:max-w-full">
       <Image
-        src={heroSideImageData.image}
+        src={data.image}
         class="rounded-xl"
-        alt={heroSideImageData.imageAlt}
+        alt={data.imageAlt}
         loading="eager"
         width={600}
         densities={[1.5, 2]}

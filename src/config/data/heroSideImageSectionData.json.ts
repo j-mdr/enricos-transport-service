@@ -2,7 +2,7 @@
 import {
   type DataTranslationType,
   type heroSideImageSectionData,
-} from "../types/configDataTypes.ts";
+} from "../configDataTypes.ts";
 
 //image
 import heroImage from "@images/enrico-in-bestelbus.tiff";

@@ -12,7 +12,7 @@ import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils";
 
 // data
-import { type FaqItem } from "@config/types/configDataTypes";
+import { type FaqItem } from "@config/configDataTypes.ts";
 const currLocale = getLocaleFromUrl(Astro.url);
 const faqData = getTranslatedData("faqData", currLocale);
 

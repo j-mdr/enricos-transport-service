@@ -1,25 +1,9 @@
 ---
-/**
- * * About page with various sections including some text, team profiles, and CTA
- * Edit the team member information inside src/config/teamData.json.ts
- */
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
-
-// main layout
 import BaseLayout from "@layouts/BaseLayout.astro";
-
-// components
-import Profile from "@components/Profile/Profile.astro";
 import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
-
-// data
-const currLocale = getLocaleFromUrl(Astro.url);
-const teamData = getTranslatedData("teamData", currLocale);
+import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astro";
 ---
 
 <BaseLayout title="Contact Me" description="Get in touch! Contact information for Blogsmith.">
@@ -46,18 +30,6 @@ const teamData = getTranslatedData("teamData", currLocale);
     </p>
   </section>
 
-  <!-- meet the team -->
-  <section class="site-container mt-24 md:mt-36">
-    <h2 class="h2 text-center">
-      Meet the <span class="text-primary-600">team</span>
-    </h2>
-    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        teamData.map((member) => (
-          <Profile name={member.name} title={member.title} image={member.image} bio={member.bio} />
-        ))
-      }
-    </div>
-  </section>
+  <TeamMemberCardsSection />
   <CtaCardCenterSection />
 </BaseLayout>

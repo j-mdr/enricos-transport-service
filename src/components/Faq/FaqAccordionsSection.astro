@@ -10,7 +10,8 @@ import Accordion from "@components/Accordion/Accordion.astro";
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils";
-import { splitTitleWithIcon } from "@utils/textWithHighlight.ts";
+
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
@@ -27,12 +28,11 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
 
 <section id="faq1" class="site-container my-24 md:my-36">
   <h2 class="h2 mt-8 text-center">
-
-      {leadingText}
-      {
-        hasHighlightedWord && (
-          <span class="relative whitespace-nowrap">
-        {highlightedWord}
+    {leadingText}
+    {
+      hasHighlightedWord && (
+        <span class="relative whitespace-nowrap">
+          {highlightedWord}
           <span>
             <Icon
               name="stellar/freehand-zig-underline"
@@ -40,11 +40,10 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
               aria-hidden="true"
             />
           </span>
-    </span>
-
-        )
-      }
-      {trailingText ?? null}
+        </span>
+      )
+    }
+    {trailingText ?? null}
   </h2>
   <div class="mx-auto mt-16 grid gap-x-10 gap-y-3 lg:grid-cols-2">
     {

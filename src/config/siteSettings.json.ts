@@ -2,7 +2,7 @@
  * Global site settings
  */
 
-import { type SiteSettingsProps } from "./types/configDataTypes";
+import { type SiteSettingsProps } from "./configDataTypes.ts";
 
 // The below locales need to match what you've put in your `astro.config.mjs` file
 export const locales = ["en", "nl"] as const;
