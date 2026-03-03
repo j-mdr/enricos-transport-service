@@ -30,21 +30,20 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
 <section id="feature-cards-small" class="py-12 md:my-12">
   <div class="site-container relative">
     <div class="mx-auto mb-10 flex max-w-lg justify-center">
-      <h2 class="h2 text-center">
+      <h2 class="h2 text-center overflow-hidden">
         {leadingText}
         {
           hasHighlightedWord && (
-            <span class="relative whitespace-nowrap">
+            <span class="relative whitespace-nowrap ">
               {highlightedWord}
               <Icon
                 name="stellar/freehand-circle-multi-loop"
-                class="text-primary-200 absolute inset-0 -z-10 w-full translate-y-1 scale-x-350 scale-y-150"
+                class="text-primary-200 absolute inset-0 -z-1 w-full translate-y-1 scale-x-340 scale-y-150"
                 aria-hidden="true"
               />
             </span>
           )
         }
-
         {trailingText ?? null}
       </h2>
     </div>
