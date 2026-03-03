@@ -1,4 +1,17 @@
-export const COMPANY_INFO = {
+import type { LocalizedData } from "@config/configDataTypes.ts";
+
+type CompanyInfo = {
+  name: string;
+  address: string;
+  city: string;
+  zipCode: string;
+  province: string;
+  phone: string;
+  email: string;
+  websiteUrl: string;
+};
+
+export const COMPANY_INFO: CompanyInfo = {
   name: "Enrico's Transportservice",
   address: "",
   city: "",
@@ -10,7 +23,18 @@ export const COMPANY_INFO = {
 } as const;
 
 // Social media links
-export const SOCIAL_LINKS = {
+type SocialLink = {
+  url: string; // full URL to the social media profile
+  id: string; // the username or page name on the social media platform, used for display purposes
+};
+
+type SocialLinks = {
+  facebook: SocialLink;
+  instagram: SocialLink;
+  linkedin: SocialLink;
+};
+
+export const SOCIAL_LINKS: SocialLinks = {
   facebook: {
     url: "https://www.facebook.com/people/Enricos-Transportservice/100090222390945/",
     id: "Enricos-Transportservice",
@@ -25,22 +49,59 @@ export const SOCIAL_LINKS = {
   },
 } as const;
 
-// Main page routes
-// for defaut locale (NL). Make sure to update these routes if you change the default locale or add new pages.
-// These routes are used for the main navigation and in the hero section CTA button, so they should always be up to date.
-export const MAIN_ROUTES = {
-  home: "/",
-  overOns: "/over-ons",
-  diensten: "/diensten",
-  contact: "/contact",
-  offerteAanvragen: "/offerte-aanvragen",
-  partnerWorden: "/partner-worden",
-  blog: "/blog",
-  categorieen: "/categorieen",
-  regulierTransport: "/regulier-transport",
-  incidenteelTransport: "/incidenteel-transport",
-  grootTransport: "/regulier-transport",
-  spoedTransport: "/spoed-transport",
-  documentenTransport: "/documenten-transport",
-  meubelTransport: "/meubel-transport",
-} as const;
+// Single source of truth for all routes in the application.
+// Make sure to update the files in /pages to match these routes
+
+export type Routes = {
+  home: string;
+  overOns: string;
+  diensten: string;
+  contact: string;
+  offerteAanvragen: string;
+  partnerWorden: string;
+  blog: string;
+  categorieen: string;
+  regulierTransport: string;
+  incidenteelTransport: string;
+  grootTransport: string;
+  spoedTransport: string;
+  documentenTransport: string;
+  meubelTransport: string;
+};
+
+export type LocalizedRoutes = LocalizedData<Routes>;
+
+export const ROUTES: LocalizedRoutes = {
+  nl: {
+    home: "/",
+    overOns: "/over-ons",
+    diensten: "/diensten",
+    contact: "/contact",
+    offerteAanvragen: "/offerte-aanvragen",
+    partnerWorden: "/partner-worden",
+    blog: "/blog",
+    categorieen: "/categorieen",
+    regulierTransport: "/regulier-transport",
+    incidenteelTransport: "/incidenteel-transport",
+    grootTransport: "/regulier-transport",
+    spoedTransport: "/spoed-transport",
+    documentenTransport: "/documenten-transport",
+    meubelTransport: "/meubel-transport",
+  },
+  en: {
+    home: "/",
+    overOns: "/about-us",
+    diensten: "/services",
+    contact: "/contact",
+    offerteAanvragen: "/request-quote",
+    partnerWorden: "/become-a-partner",
+    blog: "/blog",
+    categorieen: "/categories",
+    regulierTransport: "/regular-transport",
+    incidenteelTransport: "/occasional-transport",
+    grootTransport: "/regular-transport",
+    spoedTransport: "/urgent-transport",
+    documentenTransport: "/document-transport",
+    meubelTransport: "/furniture-transport",
+  },
+};

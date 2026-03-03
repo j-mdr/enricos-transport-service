@@ -1,11 +1,11 @@
-import { type DataTranslationType, type TestimonialSwiperSectionData } from "../configDataTypes.ts";
+import { type LocalizedData, type TestimonialSwiperSectionData } from "../configDataTypes.ts";
 
 import BowTiedFocus from "@images/BowTiedFocus.jpg";
 import Aniket from "@images/aniket_p.jpg";
 import David from "@images/david-g-davedev.png";
 import Damiano from "@images/damiano.jpg";
 
-export const testimonialSwiperSectionData: DataTranslationType<TestimonialSwiperSectionData> = {
+export const testimonialSwiperSectionData: LocalizedData<TestimonialSwiperSectionData> = {
   nl: {
     title: "Reviews van onze klanten{highlight}",
     testimonials: [

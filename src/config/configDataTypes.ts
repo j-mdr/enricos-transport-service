@@ -1,4 +1,4 @@
-export type DataTranslationType<T> = {
+export type LocalizedData<T> = {
   en: T;
   nl: T;
 };

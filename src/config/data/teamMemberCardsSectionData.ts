@@ -1,5 +1,5 @@
 import {
-  type DataTranslationType,
+  type LocalizedData,
   type TeamMemberCardsSectionData,
 } from "@config/configDataTypes.ts";
 
@@ -7,7 +7,7 @@ import Virginia from "@images/ashton_blackwell.jpg";
 import Victra from "@images/nicola_harris.jpg";
 import Darrow from "@images/nic_fassbender.jpg";
 
-export const teamMemberCardsSectionData: DataTranslationType<TeamMemberCardsSectionData> = {
+export const teamMemberCardsSectionData: LocalizedData<TeamMemberCardsSectionData> = {
   nl: {
     title: "Maak kennis met ons team{highlight}",
     teamMembers: [

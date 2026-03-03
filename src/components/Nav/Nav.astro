@@ -17,7 +17,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
 const navData = getTranslatedData("navData", currLocale);
 const t = useTranslations(currLocale);
 import { locales } from "@config/siteSettings.json";
-import { MAIN_ROUTES } from "@config/constants.ts";
+import { ROUTES } from "@config/constants.ts";
 ---
 
 <div
@@ -62,7 +62,7 @@ import { MAIN_ROUTES } from "@config/constants.ts";
           <Button
             variant="primary"
             class="my-auto hidden h-10 items-center justify-center md:flex"
-            href={getLocalizedRoute(currLocale, MAIN_ROUTES.contact)}
+            href={getLocalizedRoute(currLocale, ROUTES.nl.contact)}
           >
             {t("contact_button_text_short")}
           </Button>

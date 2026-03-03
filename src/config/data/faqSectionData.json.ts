@@ -1,7 +1,7 @@
-import { type DataTranslationType, type FaqSectionData } from "../configDataTypes.ts";
+import { type LocalizedData, type FaqSectionData } from "../configDataTypes.ts";
 import { COMPANY_INFO } from "@config/constants.ts";
 
-export const faqSectionData: DataTranslationType<FaqSectionData> = {
+export const faqSectionData: LocalizedData<FaqSectionData> = {
   nl: {
     title: "Veel gestelde vragen{highlight}",
     faqs: [
@@ -20,40 +20,52 @@ export const faqSectionData: DataTranslationType<FaqSectionData> = {
       {
         question: "Hoe kan ik transport aanvragen?",
         answer: `Gebruik het contact formulier via het menu. Liever persoonlijk contact? Bel ons via <a href="tel:${COMPANY_INFO.phone}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.phone}
-        </a> of mail naar <a href="mailto:${COMPANY_INFO.mail}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.email}
+        </a> of mail naar <a href="mailto:${COMPANY_INFO.email}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.email}
         </a>. We staan voor je klaar.`,
       },
       {
         question: "Hoe zit het met de veiligheid van mijn goederen tijdens het transport?",
-        answer: `Bij Enrico’s Transportservice staat de veiligheid van uw lading altijd op de eerste plaats. Wij begrijpen dat uw goederen waardevol zijn en met zorg behandeld moeten worden. Daarom nemen wij uitgebreide maatregelen om risico’s te minimaliseren:
-
-
-Goede verzekering: Wij hanteren de officiële AVC- en CMR-voorwaarden, zodat uw zending altijd goed verzekerd is – zowel nationaal als internationaal.
-
-Bescherming tegen schade en diefstal: Uw lading is standaard verzekerd tegen schade en diefstal.
-
-Zorgvuldige verpakking: We gebruiken de juiste verpakkingsmethoden om te voorkomen dat goederen beschadigd raken tijdens het transport.
-
-Ervaren chauffeurs: Onze chauffeurs zijn professioneel opgeleid en beschikken over jarenlange ervaring. Ze behandelen uw goederen alsof het hun eigen spullen zijn.
-
-Betrouwbare voertuigen: Onze moderne en goed onderhouden wagenpark verkleint de kans op vertragingen of incidenten onderweg.
-
-Zo kunt u erop vertrouwen dat uw zending veilig, onbeschadigd en op tijd op de plaats van bestemming aankomt.`,
+        answer: `Bij Enrico’s Transportservice staat de veiligheid van uw lading altijd op de eerste plaats. 
+                 Wij begrijpen dat uw goederen waardevol zijn en met zorg behandeld moeten worden. 
+                 Daarom nemen wij uitgebreide maatregelen om risico’s te minimaliseren:
+                <br/>
+                <ol>
+                  <li>            
+                    - Goede verzekering: Wij hanteren de officiële AVC- en CMR-voorwaarden, zodat uw zending altijd goed verzekerd is – zowel nationaal als internationaal.
+                  </li> 
+                  <li>
+                    - Bescherming tegen schade en diefstal: Uw lading is standaard verzekerd tegen schade en diefstal.
+                  </li>
+                  <li>
+                    - Zorgvuldige verpakking: We gebruiken de juiste verpakkingsmethoden om te voorkomen dat goederen beschadigd raken tijdens het transport.
+                  </li>
+                  <li>
+                    - Ervaren chauffeurs: Onze chauffeurs zijn professioneel opgeleid en beschikken over jarenlange ervaring. Ze behandelen uw goederen alsof het hun eigen spullen zijn.
+                  </li>
+                  <li>
+                    - Betrouwbare voertuigen: Onze moderne en goed onderhouden wagenpark verkleint de kans op vertragingen of incidenten onderweg.
+                  </li>
+                </ol>
+                <br/>
+                Zo kunt u erop vertrouwen dat uw zending veilig, onbeschadigd en op tijd op de plaats van bestemming aankomt.`,
       },
       {
         question: "Bieden jullie ook Onboard Koerier (OBC)-diensten aan?",
-        answer: `<span>Ja, bij Enrico’s Transportservice kunt u gebruikmaken van een Onboard Koerier (OBC). Hierbij reist een koerier persoonlijk met uw zending mee – of dat nu per vliegtuig, trein of over de weg is – en begeleidt deze van deur tot deur. Zo bent u verzekerd van maximale aandacht, snelheid en veiligheid.</span> <br/>
-<span>Deze service wordt vaak ingezet voor:</span> <br/>
-<ol>
-<li>- Belangrijke documenten of contracten</li>
-<li>- Medische monsters en farmaceutische zendingen</li>
-<li>- Cruciale IT- of machineonderdelen</li>
-<li>- Reserveonderdelen voor industrie en luchtvaart</li>
-<li>- Andere waardevolle of urgente goederen</li>
-</ol>
-<br/>
-<span>Met onze OBC-dienst krijgt uw zending persoonlijke begeleiding van start tot eind, zonder tussenstops of overslag. Perfect voor goederen die absoluut veilig en op tijd moeten aankomen.</span>
-`,
+        answer: `<span>Ja, bij Enrico’s Transportservice kunt u gebruikmaken van een Onboard Koerier (OBC). 
+                 Hierbij reist een koerier persoonlijk met uw zending mee – of dat nu per vliegtuig, trein of over de weg is – en begeleidt deze van deur tot deur. 
+                 Zo bent u verzekerd van maximale aandacht, snelheid en veiligheid.</span> 
+                 <br/>
+                  <span>Deze service wordt vaak ingezet voor:</span> <br/>
+                  <ol>
+                    <li>- Belangrijke documenten of contracten</li>
+                    <li>- Medische monsters en farmaceutische zendingen</li>
+                    <li>- Cruciale IT- of machineonderdelen</li>
+                    <li>- Reserveonderdelen voor industrie en luchtvaart</li>
+                    <li>- Andere waardevolle of urgente goederen</li>
+                  </ol>
+                  <br/>
+                  <span>Met onze OBC-dienst krijgt uw zending persoonlijke begeleiding van start tot eind, zonder tussenstops of overslag. Perfect voor goederen die absoluut veilig en op tijd moeten aankomen.</span>
+                    `,
       },
     ],
   },
@@ -61,46 +73,64 @@ Zo kunt u erop vertrouwen dat uw zending veilig, onbeschadigd en op tijd op de p
     title: "FAQ{highlight}",
     faqs: [
       {
-        question: "Who are the themes for?",
-        answer: `These themes are for developers who want to have pre-created templates to use in their projects,
-    and have the hard stuff taken care of. Whether that is personal projects, a new SaaS business, a website for a client, etc.
-    They offer speed, customizability with swappable 
-    components, built-in SEO, and image optimization. Instead of spending hours figuring out 
-    how to do this yourself, you can leverage the themes to save weeks of time and effort. You can easily 
-    mix and match sections, update the copy, and change the color theme with just one line of code.`,
+        question: "What is the range of your transport services?",
+        answer: `Enrico's Transportservice serves customers throughout the Netherlands and also offers transport options in Europe.`,
       },
       {
-        question: "What all components are included?",
-        answer: `60+ components. Including 6 feature sections, 3 hero sections, 2 services sections, 2 testimonial sections, 
-    2 faq sections, 404, contact, legal, 2 blog indexes, blog post layout, and a cookie banner.`,
+        question: "Do you handle urgent transports?",
+        answer: `Yes, we offer urgent transport services for time-sensitive deliveries. Please contact us for more information about our urgent options.`,
       },
       {
-        question: 'What do you mean by "free updates"?',
-        answer: `When you purchase any of our themes, you get lifetime updates for free. 
-      We regularly update our themes to ensure compatibility with the latest version of Astro, 
-      and to add new features or bug fixes.`,
+        question: "What are your rates and pricing structure?",
+        answer: `Our rates vary depending on the service, distance, and other factors. You can calculate your rate with just a few clicks at this link.`,
       },
       {
-        question: "Why Astro?",
-        answer: `Astro is an excellent framework for content-focused websites, with a great developer
-      experience. It also allows you to use any UI framework you want within it, such as React, Vue,
-      and Svelte. This means you can use any of your existing components, or any of the thousands of 
-      components available online. `,
+        question: "How can I request transport?",
+        answer: `Use the contact form via the menu. Prefer personal contact? Call us at <a href="tel:${COMPANY_INFO.phone}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.phone}
+        </a> or email us at <a href="mailto:${COMPANY_INFO.email}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.email}
+        </a>. We are here to assist you.`,
       },
       {
-        question: "Can I use a theme for multiple projects?",
-        answer: `Yes, you can use any of our themes for as many projects as you like.
-      You can even sell websites you create with them to your clients. As long as you
-      don't resell the theme itself, you're likely to go! See our
-      <a href="https://cosmicthemes.com/license/" target="_blank" rel="noopener noreferrer">License</a> 
-      page for more details.`,
+        question: "What about the safety of my goods during transport?",
+        answer: `At Enrico's Transportservice, the safety of your cargo is always our top priority. We understand that your goods are valuable and need to be handled with care. Therefore, we take extensive measures to minimize risks:
+                <br/>
+                <ol>
+                  <li>            
+                    - Proper insurance: We adhere to the official AVC and CMR conditions, ensuring that your shipment is always well insured – both nationally and internationally.
+                  </li> 
+                  <li>
+                    - Protection against damage and theft: Your cargo is standard insured against damage and theft.
+                  </li>
+                  <li>
+                    - Careful packaging: We use the appropriate packaging methods to prevent goods from being damaged during transport.
+                  </li>
+                  <li>
+                    - Experienced drivers: Our drivers are professionally trained and have years of experience. They treat your goods as if they were their own.
+                  </li> 
+                  <li>
+                    - Reliable vehicles: Our modern and well-maintained fleet reduces the chances of delays or incidents on the road.
+                  </li>
+                </ol>
+                <br/>
+                This way, you can trust that your shipment will arrive safely, undamaged, and on time at its destination.`,
       },
       {
-        question: "How do I download new versions of the themes?",
-        answer: `You can download any new versions of the themes by accessing
-      your lemonsqueezy library. When you first purchase the theme, I recommend 
-      creating a lemonsqueezy account at app.lemonsqueezy.com. Then you will have
-      access to any theme updates from that page.`,
+        question: "Do you also offer Onboard Courier (OBC) services?",
+        answer: `<span>Yes, at Enrico's Transportservice you can take advantage of an Onboard Courier (OBC). 
+                 With this service, a courier personally accompanies your shipment – whether by plane, train, or road – and guides it from door to door. 
+                 This ensures maximum attention, speed, and safety.</span> 
+                 <br/>
+                  <span>This service is often used for:</span> <br/>
+                  <ol>
+                    <li>- Important documents or contracts</li>
+                    <li>- Medical samples and pharmaceutical shipments</li>
+                    <li>- Crucial IT or machine parts</li>
+                    <li>- Spare parts for industry and aviation</li>
+                    <li>- Other valuable or urgent goods</li>
+                  </ol>
+                  <br/>
+                  <span>With our OBC service, your shipment receives personal guidance from start to finish, without any stops or transshipment. Perfect for goods that absolutely must arrive safely and on time.</span>
+                    `,
       },
     ],
   },

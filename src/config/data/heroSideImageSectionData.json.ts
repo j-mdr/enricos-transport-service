@@ -1,9 +1,9 @@
-import { type DataTranslationType, type HeroSideImageSectionData } from "../configDataTypes.ts";
+import { type LocalizedData, type HeroSideImageSectionData } from "../configDataTypes.ts";
 import heroImage from "@images/enrico-in-bestelbus.tiff";
 import { textTranslations } from "@config/text/textTranslations.ts";
-import { MAIN_ROUTES } from "@config/constants.ts";
+import { ROUTES } from "@config/constants.ts";
 
-export const heroSideImageSectionData: DataTranslationType<HeroSideImageSectionData> = {
+export const heroSideImageSectionData: LocalizedData<HeroSideImageSectionData> = {
   nl: {
     image: {
       src: heroImage,
@@ -12,7 +12,7 @@ export const heroSideImageSectionData: DataTranslationType<HeroSideImageSectionD
     title: "Koerier in Zwolle – Snel, veilig en flexibel{highlight}",
     description: "Uw betrouwbare koerier in Zwolle en omgeving",
     ctaButton: {
-      href: MAIN_ROUTES.offerteAanvragen,
+      href: ROUTES.nl.offerteAanvragen,
       text: textTranslations.nl.get_quote_button_text_short,
     },
   },
@@ -24,7 +24,7 @@ export const heroSideImageSectionData: DataTranslationType<HeroSideImageSectionD
     title: "Courier in Zwolle – Fast, safe and flexible{highlight}",
     description: "Reliable carrier in Zwolle and surrounding areas",
     ctaButton: {
-      href: MAIN_ROUTES.offerteAanvragen,
+      href: ROUTES.nl.offerteAanvragen,
       text: textTranslations.en.get_quote_button_text_short,
     },
   },

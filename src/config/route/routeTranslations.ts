@@ -1,5 +1,5 @@
-import { MAIN_ROUTES } from "@config/constants.ts";
-import type { DataTranslationType } from "@config/configDataTypes.ts";
+import { type Routes, ROUTES } from "@config/constants.ts";
+import type { LocalizedData } from "@config/configDataTypes.ts";
 
 /**
  * * Route translations are used to translate route names for the language switcher component
@@ -14,38 +14,36 @@ import type { DataTranslationType } from "@config/configDataTypes.ts";
  */
 
 const removePreSlash = (route: string) => route.replace(/^\//, "");
-// Use
-export const routeTranslations: DataTranslationType<
-  Record<keyof Omit<typeof MAIN_ROUTES, "home">, string>
-> = {
+
+export const routeTranslations: LocalizedData<Omit<Routes, 'home'>> = {
   nl: {
-    overOns: removePreSlash(MAIN_ROUTES.overOns),
-    contact: removePreSlash(MAIN_ROUTES.contact),
-    offerteAanvragen: removePreSlash(MAIN_ROUTES.offerteAanvragen),
-    partnerWorden: removePreSlash(MAIN_ROUTES.partnerWorden),
-    diensten: removePreSlash(MAIN_ROUTES.diensten) + "/*",
-    blog: removePreSlash(MAIN_ROUTES.blog) + "/*",
-    categorieen: removePreSlash(MAIN_ROUTES.categorieen) + "/*",
-    regulierTransport: removePreSlash(MAIN_ROUTES.regulierTransport),
-    incidenteelTransport: removePreSlash(MAIN_ROUTES.incidenteelTransport),
-    grootTransport: removePreSlash(MAIN_ROUTES.grootTransport),
-    spoedTransport: removePreSlash(MAIN_ROUTES.spoedTransport),
-    documentenTransport: removePreSlash(MAIN_ROUTES.documentenTransport),
-    meubelTransport: removePreSlash(MAIN_ROUTES.meubelTransport),
+    overOns: removePreSlash(ROUTES.nl.overOns),
+    contact: removePreSlash(ROUTES.nl.contact),
+    offerteAanvragen: removePreSlash(ROUTES.nl.offerteAanvragen),
+    partnerWorden: removePreSlash(ROUTES.nl.partnerWorden),
+    diensten: `${removePreSlash(ROUTES.nl.diensten)}/*`,
+    blog: `${removePreSlash(ROUTES.nl.blog)}/*`,
+    categorieen: `${removePreSlash(ROUTES.nl.categorieen)}/*`,
+    regulierTransport: removePreSlash(ROUTES.nl.regulierTransport),
+    incidenteelTransport: removePreSlash(ROUTES.nl.incidenteelTransport),
+    grootTransport: removePreSlash(ROUTES.nl.grootTransport),
+    spoedTransport: removePreSlash(ROUTES.nl.spoedTransport),
+    documentenTransport: removePreSlash(ROUTES.nl.documentenTransport),
+    meubelTransport: removePreSlash(ROUTES.nl.meubelTransport),
   },
   en: {
-    overOns: "about-us",
-    contact: "contact",
-    offerteAanvragen: "request-quote",
-    partnerWorden: "become-a-partner",
-    diensten: "services/*",
-    blog: "blog/*",
-    categorieen: "categories/*",
-    regulierTransport: "regular-transport",
-    incidenteelTransport: "occasional-transport",
-    grootTransport: "large-transport",
-    spoedTransport: "express-transport",
-    documentenTransport: "document-transport",
-    meubelTransport: "furniture-transport",
+    overOns: removePreSlash(ROUTES.en.overOns),
+    contact: removePreSlash(ROUTES.en.contact),
+    offerteAanvragen: removePreSlash(ROUTES.en.offerteAanvragen),
+    partnerWorden: removePreSlash(ROUTES.en.partnerWorden),
+    diensten: `${removePreSlash(ROUTES.en.diensten)}/*`,
+    blog: `${removePreSlash(ROUTES.en.blog)}/*`,
+    categorieen: `${removePreSlash(ROUTES.en.categorieen)}/*`,
+    regulierTransport: removePreSlash(ROUTES.en.regulierTransport),
+    incidenteelTransport: removePreSlash(ROUTES.en.incidenteelTransport),
+    grootTransport: removePreSlash(ROUTES.en.grootTransport),
+    spoedTransport: removePreSlash(ROUTES.en.spoedTransport),
+    documentenTransport: removePreSlash(ROUTES.en.documentenTransport),
+    meubelTransport: removePreSlash(ROUTES.en.meubelTransport),
   },
 } as const;

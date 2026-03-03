@@ -1,15 +1,15 @@
-import { type DataTranslationType, type ServicesSideImageSectionData } from "../configDataTypes.ts";
+import { type LocalizedData, type ServicesSideImageSectionData } from "../configDataTypes.ts";
 import image1 from "@images/house.jpg";
 import image2 from "@images/living-room.jpg";
 import image3 from "@images/paint-swatches.jpg";
-import { MAIN_ROUTES } from "@config/constants.ts";
+import { ROUTES } from "@config/constants.ts";
 
 const READ_MORE_TEXT = {
   nl: "Lees meer",
   en: "Read more",
 };
 
-export const servicesSideImageSectionData: DataTranslationType<ServicesSideImageSectionData> = {
+export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectionData> = {
   nl: {
     title: "Wat wij voor u{highlight} kunnen betekenen",
     services: [
@@ -19,7 +19,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.regulierTransport,
+          href: ROUTES.nl.regulierTransport,
           text: "Lees meer",
         },
         title: "Reguliere transport",
@@ -31,7 +31,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.incidenteelTransport,
+          href: ROUTES.nl.incidenteelTransport,
 
           text: READ_MORE_TEXT.nl,
         },
@@ -44,7 +44,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.grootTransport,
+          href: ROUTES.nl.grootTransport,
           text: READ_MORE_TEXT.nl,
         },
         title: "Groot transport",
@@ -56,7 +56,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.spoedTransport,
+          href: ROUTES.nl.spoedTransport,
           text: READ_MORE_TEXT.nl,
         },
         title: "Spoedtransport",
@@ -68,7 +68,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.documentenTransport,
+          href: ROUTES.nl.documentenTransport,
           text: READ_MORE_TEXT.nl,
         },
         title: "Documententransport",
@@ -80,7 +80,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.meubelTransport,
+          href: ROUTES.nl.meubelTransport,
 
           text: READ_MORE_TEXT.nl,
         },
@@ -98,7 +98,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.regulierTransport,
+          href: ROUTES.nl.regulierTransport,
           text: READ_MORE_TEXT.en,
         },
         title: "Regular transport",
@@ -110,7 +110,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.incidenteelTransport,
+          href: ROUTES.nl.incidenteelTransport,
           text: READ_MORE_TEXT.en,
         },
         title: "Occasional transport",
@@ -122,7 +122,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.grootTransport,
+          href: ROUTES.nl.grootTransport,
           text: READ_MORE_TEXT.en,
         },
         title: "Large transport",
@@ -134,7 +134,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.spoedTransport,
+          href: ROUTES.nl.spoedTransport,
           text: READ_MORE_TEXT.en,
         },
         title: "Urgent transport",
@@ -146,7 +146,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.documentenTransport,
+          href: ROUTES.nl.documentenTransport,
           text: READ_MORE_TEXT.en,
         },
         title: "Document transport",
@@ -158,7 +158,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
           alt: "een afbeelding",
         },
         ctaButton: {
-          href: MAIN_ROUTES.meubelTransport,
+          href: ROUTES.nl.meubelTransport,
           text: READ_MORE_TEXT.en,
         },
         title: "Furniture transport",

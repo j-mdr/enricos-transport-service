@@ -1,9 +1,9 @@
-import { type DataTranslationType, type SiteData } from "../configDataTypes.ts";
+import { type LocalizedData, type SiteData } from "../configDataTypes.ts";
 import { COMPANY_INFO } from "@config/constants.ts";
 
 // Update this file with your site specific information
 
-export const siteData: DataTranslationType<SiteData> = {
+export const siteData: LocalizedData<SiteData> = {
   nl: {
     name: COMPANY_INFO.name,
     // Your website's title and description (meta fields)

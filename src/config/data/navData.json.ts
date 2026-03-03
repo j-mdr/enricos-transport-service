@@ -1,7 +1,7 @@
 // types
-import { type DataTranslationType, type NavItem } from "../configDataTypes.ts";
+import { type LocalizedData, type NavItem } from "../configDataTypes.ts";
 
-export const navData: DataTranslationType<NavItem[]> = {
+export const navData: LocalizedData<NavItem[]> = {
   nl: [
     {
       text: "Over ons",
