@@ -24,7 +24,7 @@ export const heroSideImageSectionData: LocalizedData<HeroSideImageSectionData> =
     title: "Courier in Zwolle – Fast, safe and flexible{highlight}",
     description: "Reliable carrier in Zwolle and surrounding areas",
     ctaButton: {
-      href: ROUTES.nl.offerteAanvragen,
+      href: ROUTES.en.offerteAanvragen,
       text: textTranslations.en.get_quote_button_text_short,
     },
   },

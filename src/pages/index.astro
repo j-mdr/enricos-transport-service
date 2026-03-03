@@ -9,6 +9,7 @@ import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData, getLocalizedRoute } from "@/utils/translationUtils";
+import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
@@ -16,10 +17,11 @@ const siteData = getTranslatedData("siteData", currLocale);
 
 <BaseLayout title={siteData.title} description={siteData.description}>
   <HeroSideImageSection />
-  <ServicesSideImageSection />
   <FeatureCardsSmallSection />
-  <TestimonialsSwiperSection />
+  <ServicesIconSection />
   <FeatureLightboxMarqueeSection />
   <CtaCardCenterSection />
+  <TestimonialsSwiperSection />
+
   <FaqAccordionsSection />
 </BaseLayout>

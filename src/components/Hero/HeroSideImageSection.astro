@@ -7,8 +7,7 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import Button from "@components/Button/Button.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute, getTranslatedData } from "@/utils/translationUtils.ts";
-import { useTranslations } from "@/utils/translationUtils";
+import { getTranslatedData } from "@/utils/translationUtils.ts";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { HeroSideImageSectionData } from "@config/configDataTypes.ts";
 
@@ -23,8 +22,6 @@ const {
   title = data.title,
   description = data.description,
 } = Astro.props;
-
-const localizedCtaButtonHref = getLocalizedRoute(currLocale, ctaButton.href);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -90,12 +87,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         {description}
       </p>
       <div class="mt-6 flex gap-4">
-        <Button
-          variant="primary"
-          href={localizedCtaButtonHref}
-          data-mos="fade-up"
-          data-mos-delay=".9"
-        >
+        <Button variant="primary" href={ctaButton.href} data-mos="fade-up" data-mos-delay=".9">
           {ctaButton.text}
         </Button>
       </div>

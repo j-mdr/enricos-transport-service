@@ -110,6 +110,10 @@ export interface Image {
   };
 }
 
+export interface Icon {
+  icon: string; // icon string for astro-icon
+}
+
 // --------------------------------------------------------
 // Hero data interfaces
 export interface HeroSideImageSectionData extends Section, CtaButton, Image {}
@@ -130,9 +134,14 @@ export interface FeatureCardSmallSectionData extends Pick<Section, "title"> {
 // Services data types
 export interface ServiceCard extends CtaButton, Section, Image {}
 
-export interface ServicesSideImageSectionData extends Pick<Section, "title"> {
-  services: ServiceCard[];
-}
+export interface ServiceIconCard extends CtaButton, Section, Icon {}
+
+type ServicesSectionData<T> = Pick<Section, "title"> & {
+  services: T[];
+};
+
+export type ServicesSideImageSectionData = ServicesSectionData<ServiceCard>;
+export type ServicesIconSectionData = ServicesSectionData<ServiceIconCard>;
 
 // --------------------------------------------------------
 // cta

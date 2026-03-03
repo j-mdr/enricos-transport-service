@@ -1,7 +1,4 @@
-import {
-  type LocalizedData,
-  type TeamMemberCardsSectionData,
-} from "@config/configDataTypes.ts";
+import { type LocalizedData, type TeamMemberCardsSectionData } from "@config/configDataTypes.ts";
 
 import Virginia from "@images/ashton_blackwell.jpg";
 import Victra from "@images/nicola_harris.jpg";

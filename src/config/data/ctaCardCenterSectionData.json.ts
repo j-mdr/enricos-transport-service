@@ -4,16 +4,15 @@ import { textTranslations } from "@config/text/textTranslations.ts";
 
 export const ctaCardCenterSectionData: LocalizedData<CtaCardCenterSectionData> = {
   nl: {
-    title: "Wat wij voor u kunnen betekenen",
-    description:
-      "Enrico’s Transportservice biedt betrouwbaar regulier en incidenteel transport, waaronder groot-, spoed- en documententransport, met een persoonlijke aanpak die zorgt voor veilige en tijdige levering.",
+    title: "Een rit boeken?",
+    description: "U onvangt binnen een paar uur een reactie van ons.",
     ctaButton: {
       href: ROUTES.nl.offerteAanvragen,
       text: textTranslations.nl.get_quote_button_text,
     },
   },
   en: {
-    title: "What we can do for you",
+    title: "Book a ride?",
     description:
       "Enrico’s Transportservice provides reliable regular and occasional transport services, including large-scale, express, and document transport, with a personal approach that ensures safe and timely delivery.",
     ctaButton: {

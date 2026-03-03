@@ -15,7 +15,7 @@ import type { LocalizedData } from "@config/configDataTypes.ts";
 
 const removePreSlash = (route: string) => route.replace(/^\//, "");
 
-export const routeTranslations: LocalizedData<Omit<Routes, 'home'>> = {
+export const routeTranslations: LocalizedData<Omit<Routes, "home">> = {
   nl: {
     overOns: removePreSlash(ROUTES.nl.overOns),
     contact: removePreSlash(ROUTES.nl.contact),

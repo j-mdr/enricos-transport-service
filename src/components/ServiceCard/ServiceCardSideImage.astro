@@ -7,17 +7,16 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute, getTranslatedData } from "@/utils/translationUtils.ts";
 import { useTranslations } from "@/utils/translationUtils";
 const currLocale = getLocaleFromUrl(Astro.url);
 const aboutText = useTranslations(currLocale)("about").toLowerCase();
 import Button from "@components/Button/Button.astro";
 import type { ServiceCard } from "@config/configDataTypes.ts";
 
-interface Props extends ServiceCard {
+type Props = ServiceCard & {
   imageSide: "left" | "right";
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
-}
+};
 
 const { image, ctaButton, description, title, idx, imageSide } = Astro.props as Props;
 ---
@@ -28,7 +27,7 @@ const { image, ctaButton, description, title, idx, imageSide } = Astro.props as 
     <h2 class="h2 mt-6">{title}</h2>
     <p class="mt-4 opacity-80">{description}</p>
     <div class="z-20 mt-4 flex">
-      <Button variant="ghost" href={getLocalizedRoute(currLocale, ctaButton.href)} arrow="right">
+      <Button variant="ghost" href={ctaButton.href} arrow="right">
         {ctaButton.text}
         <span class="sr-only">{aboutText} {title}</span>
       </Button>

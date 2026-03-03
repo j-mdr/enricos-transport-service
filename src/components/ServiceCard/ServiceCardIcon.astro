@@ -8,32 +8,25 @@
  * ! You can copy to actual SVG into src/icons and name it however and use similar to below
  */
 
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
-
-// components
 import Button from "@components/Button/Button.astro";
+import type { ServiceIconCard } from "@config/configDataTypes.ts";
+import { useTranslations } from "@utils/translationUtils.ts";
+import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 
-// utils
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-
-interface Props {
-  icon: string; // icon string for astro-icon
-  title: string;
-  text: string;
-  href: string;
+type Props = ServiceIconCard & {
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
-  rest?: any; // catch-all for any additional parameters, such as "aria-label"
-}
-
-const { icon, title, text, href, idx, ...rest } = Astro.props as Props;
+};
 
 const currLocale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(currLocale);
+
+const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 ---
 
 <div {...rest} class="h-full">
   <a
-    href={getLocalizedRoute(currLocale, href)}
+    href={ctaButton.href}
     class="group bg-base-50 flex h-full flex-col justify-between overflow-hidden rounded-xl px-4 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
   >
     <div>
@@ -51,11 +44,12 @@ const currLocale = getLocaleFromUrl(Astro.url);
       </div>
 
       <h3 class="h3 mt-6">{title}</h3>
-      <p class="mt-2 opacity-80">{text}</p>
+      <p class="mt-2 opacity-80">{description}</p>
     </div>
     <div class="mt-4 flex justify-center">
       <Button variant="outline" arrow="right">
-        Learn more <span class="sr-only">about {title}</span>
+        {ctaButton.text}
+        <span class="sr-only">{t("about")} {title}</span>
       </Button>
     </div>
   </a>
