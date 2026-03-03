@@ -1,5 +1,5 @@
 import { type LocalizedData, type HeroSideImageSectionData } from "../configDataTypes.ts";
-import heroImage from "@images/enrico-in-bestelbus.tiff";
+import heroImage from "@images/enricos_transport_service-bus-zonsopgang_4x3.jpg";
 import { textTranslations } from "@config/text/textTranslations.ts";
 import { ROUTES } from "@config/constants.ts";
 

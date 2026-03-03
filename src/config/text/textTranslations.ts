@@ -21,8 +21,8 @@ export const textTranslations = {
   nl: {
     contact_button_text: "Neem contact op",
     contact_button_text_short: "Contact",
-    get_quote_button_text: "Vraag een gratis offerte aan",
-    get_quote_button_text_short: "Vraag offerte aan",
+    get_quote_button_text: "Vraag een offerte aan",
+    get_quote_button_text_short: "Offerte aanvragen",
     back_to_all_posts: "Terug naar alle posts",
     updated: "geüpdatet",
     about: "over",

@@ -1,33 +1,25 @@
 ---
-// layout
 import BaseLayout from "@layouts/BaseLayout.astro";
-
-// components
 import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
 import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
-import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
 import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
 import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMarqueeSection.astro";
-import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
 import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData, getLocalizedRoute } from "@/utils/translationUtils";
+import { getTranslatedData } from "@/utils/translationUtils";
+import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
 
-// data
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
-// const heroHomePageData = getTranslatedData("heroHomePageData", currLocale);
 ---
 
 <BaseLayout title={siteData.title} description={siteData.description}>
   <HeroSideImageSection />
-  <ServicesSideImageSection />
-  <!--<FeatureCardsSmallSection />-->
-  <!--<TestimonialsSwiperSection />-->
-  <!--<FeatureLightboxMarqueeSection />-->
+  <FeatureCardsSmallSection />
+  <ServicesIconSection />
+  <FeatureLightboxMarqueeSection />
   <CtaCardCenterSection />
-  <!--<FaqAccordionsSection />-->
+  <TestimonialsSwiperSection />
+  <FaqAccordionsSection />
 </BaseLayout>

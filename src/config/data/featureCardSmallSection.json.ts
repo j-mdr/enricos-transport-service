@@ -38,7 +38,7 @@ export const featureCardSmallSectionJson: LocalizedData<FeatureCardSmallSectionD
     ],
   },
   en: {
-    title: "What we can do for you",
+    title: "What we can do for you{highlight}",
     features: [
       {
         icon: "tabler/heart-handshake",

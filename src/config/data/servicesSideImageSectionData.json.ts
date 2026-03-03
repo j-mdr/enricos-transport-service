@@ -48,7 +48,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
           text: READ_MORE_TEXT.nl,
         },
         title: "Groot transport",
-        description: `Het vervoeren van grote, zware of volumineuze ladingen vraagt om vakmanschap, planning en materieel waarop u kunt vertrouwen. Enrico’s Transportservice is gespecialiseerd in groot transport voor bedrijven die geen risico willen nemen met hun goederen.`,
+        description: `Het vervoeren van grote, zware of volumineuze ladingen vraagt om een goede planning vooraf`,
       },
       {
         image: {
