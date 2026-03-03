@@ -10,13 +10,14 @@ import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getTranslatedData, useTranslations, getLocalizedRoute } from "@/utils/translationUtils";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const navData = getTranslatedData("navData", currLocale);
+const t = useTranslations(currLocale);
 import { locales } from "@config/siteSettings.json";
-// console.log(JSON.stringify(navData, null, 2));
+import { MAIN_ROUTES } from "@config/constants.ts";
 ---
 
 <div
@@ -61,9 +62,9 @@ import { locales } from "@config/siteSettings.json";
           <Button
             variant="primary"
             class="my-auto hidden h-10 items-center justify-center md:flex"
-            href="https://cosmicthemes.com/themes/stellar/"
+            href={getLocalizedRoute(currLocale, MAIN_ROUTES.contact)}
           >
-            Contact
+            {t("contact_button_text_short")}
           </Button>
 
           {locales.length > 1 && <LanguageSelect class="ml-2 hidden md:flex" />}

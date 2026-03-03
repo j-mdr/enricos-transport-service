@@ -27,6 +27,7 @@ export const textTranslations = {
     updated: "Geüpdatet",
     about: "Over",
     read_more: "Lees meer",
+    contact_information: "Contactgegevens",
   },
   en: {
     contact_button: "Contact us",
@@ -37,5 +38,6 @@ export const textTranslations = {
     updated: "Updated",
     about: "About",
     read_more: "Read more",
+    contact_information: "Location & Contact",
   },
 } as const;

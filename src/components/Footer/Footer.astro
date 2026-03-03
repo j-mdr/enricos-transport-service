@@ -1,17 +1,13 @@
 ---
-import { getLocalizedRoute } from "@/utils/translationUtils";
-
-// components
 import FooterLink from "@components/Footer/FooterLink.astro";
 import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
 import Button from "@components/Button/Button.astro";
-import SocialIcon from "@components/SocialIcon/SocialIcon.astro";
-
-// utils
+import SocialIcon from "@components/Social/SocialIcon.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData, useTranslations } from "@/utils/translationUtils";
+import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
+import { SOCIAL_LINKS } from "@config/constants.ts";
 
-// data
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
 const t = useTranslations(currLocale);
@@ -35,41 +31,16 @@ const today = new Date();
 
       <!-- Contact info -->
       <div class="flex flex-col">
-        <h3 class="mt-6 mb-2 text-lg font-medium">Location & Contact</h3>
-        <p>{siteData.contact.address1}</p>
-        <p>{siteData.contact.address2}</p>
-        <p>
-          Ph: <a
-            href={`tel:${siteData.contact.phone}`}
-            class="hover:text-primary-500 transition hover:underline">{siteData.contact.phone}</a
-          >
-        </p>
-        <a href="mailto:example@email.com" class="hover:text-primary-500 transition hover:underline"
-          >{siteData.contact.email}</a
-        >
+        <ContactInformationBlock />
       </div>
     </div>
 
     <div class="flex items-center md:justify-end">
       <!-- Socials -->
-      <div class="flex flex-col">
-        <div class="flex gap-2">
-          <SocialIcon
-            href="https://twitter.com/BowTiedWebReapr"
-            icon="tabler/brand-x"
-            social="twitter (x)"
-          />
-          <SocialIcon
-            href="https://twitter.com/BowTiedWebReapr"
-            icon="tabler/brand-facebook"
-            social="facebook"
-          />
-          <SocialIcon
-            href="https://twitter.com/BowTiedWebReapr"
-            icon="tabler/brand-google-filled"
-            social="google"
-          />
-        </div>
+      <div class="flex gap-2">
+        <SocialIcon href={SOCIAL_LINKS.facebook.url} icon="tabler/facebook" social="Facebook" />
+        <SocialIcon href={SOCIAL_LINKS.instagram.url} icon="tabler/instagram" social="Instagram" />
+        <SocialIcon href={SOCIAL_LINKS.linkedin.url} icon="tabler/linkedin" social="LinkedIn" />
       </div>
     </div>
   </div>

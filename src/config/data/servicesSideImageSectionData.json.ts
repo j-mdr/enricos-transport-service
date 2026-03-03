@@ -4,6 +4,11 @@ import image2 from "@images/living-room.jpg";
 import image3 from "@images/paint-swatches.jpg";
 import { MAIN_ROUTES } from "@config/constants.ts";
 
+const READ_MORE_TEXT = {
+  nl: "Lees meer",
+  en: "Read more",
+};
+
 export const servicesSideImageSectionData: DataTranslationType<ServicesSideImageSectionData> = {
   nl: {
     title: "Wat wij voor u{highlight} kunnen betekenen",
@@ -15,7 +20,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.regulierTransport,
-          text: "Lees meer over regulier transport",
+          text: "Lees meer",
         },
         title: "Reguliere transport",
         description: `Een betrouwbare levering staat of valt met timing en zorgvuldigheid. Bij Enrico’s Transportservice zorgen wij ervoor dat uw goederen exact op het afgesproken moment en in uitstekende staat worden afgeleverd. Dankzij onze doordachte planning en persoonlijke werkwijze weet u altijd waar u aan toe bent.`,
@@ -28,7 +33,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         ctaButton: {
           href: MAIN_ROUTES.incidenteelTransport,
 
-          text: "Lees meer over incidenteel transport",
+          text: READ_MORE_TEXT.nl,
         },
         title: "Incidenteel transport",
         description: `Niet elke transportbehoefte past binnen een vaste planning. Soms is er juist behoefte aan een eenmalige levering, een spoedtransport of het snel vervoeren van een pallet of essentiële materialen. In zulke situaties biedt Enrico’s Transportservice een snelle en betrouwbare oplossing voor incidenteel transport.`,
@@ -40,7 +45,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.grootTransport,
-          text: "Lees meer over groot transport",
+          text: READ_MORE_TEXT.nl,
         },
         title: "Groot transport",
         description: `Het vervoeren van grote, zware of volumineuze ladingen vraagt om vakmanschap, planning en materieel waarop u kunt vertrouwen. Enrico’s Transportservice is gespecialiseerd in groot transport voor bedrijven die geen risico willen nemen met hun goederen.`,
@@ -52,7 +57,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.spoedTransport,
-          text: "Lees meer over spoed transport",
+          text: READ_MORE_TEXT.nl,
         },
         title: "Spoedtransport",
         description: `Wanneer tijd cruciaal is, biedt Enrico’s Transportservice de oplossing met professioneel spoedtransport. Of het nu gaat om een vergeten levering, een dringende order of een zending die dezelfde dag nog moet worden afgeleverd, wij zorgen dat uw goederen direct en veilig op de juiste plek terechtkomen.`,
@@ -64,7 +69,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.documentenTransport,
-          text: "Lees meer over documenten transport",
+          text: READ_MORE_TEXT.nl,
         },
         title: "Documententransport",
         description: `Bij Enrico’s Transportservice staat de veiligheid en vertrouwelijkheid van uw documenten voorop. Of het nu gaat om juridische dossiers, contracten of andere gevoelige informatie, wij zorgen dat uw documenten snel, veilig en zonder tussenstops bij de juiste ontvanger aankomen.`,
@@ -77,7 +82,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         ctaButton: {
           href: MAIN_ROUTES.meubelTransport,
 
-          text: "Lees meer over meubel transport",
+          text: READ_MORE_TEXT.nl,
         },
         title: "Meubeltransport",
         description: `Meubels vervoeren vraagt om aandacht, zorg en een nauwkeurige aanpak. Enrico’s Transportservice is gespecialiseerd in meubelbezorging waarbij kwaliteit en betrouwbaarheid centraal staan. Wij zorgen ervoor dat elk meubelstuk veilig, netjes en volgens afspraak wordt afgeleverd.`,
@@ -94,7 +99,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.regulierTransport,
-          text: "Read more about regular transport",
+          text: READ_MORE_TEXT.en,
         },
         title: "Regular transport",
         description: `A reliable delivery is all about timing and care. At Enrico’s Transportservice, we ensure that your goods are delivered at the agreed time and in excellent condition. Thanks to our thoughtful planning and personal approach, you always know what to expect.`,
@@ -106,7 +111,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.incidenteelTransport,
-          text: "Read more about occasional transport",
+          text: READ_MORE_TEXT.en,
         },
         title: "Occasional transport",
         description: `Not every transport need fits within a fixed schedule. Sometimes there is a need for a one-time delivery, an urgent transport, or the quick transportation of a pallet or essential materials. In such situations, Enrico’s Transportservice offers a fast and reliable solution for occasional transport.`,
@@ -118,7 +123,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.grootTransport,
-          text: "Read more about large transport",
+          text: READ_MORE_TEXT.en,
         },
         title: "Large transport",
         description: `Transporting large, heavy, or bulky loads requires craftsmanship, planning, and equipment you can rely on. Enrico’s Transportservice specializes in large transport for companies that do not want to take risks with their goods.`,
@@ -130,7 +135,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.spoedTransport,
-          text: "Read more about urgent transport",
+          text: READ_MORE_TEXT.en,
         },
         title: "Urgent transport",
         description: `When time is crucial, Enrico’s Transportservice offers the solution with professional urgent transport. Whether it’s a forgotten delivery, an urgent order, or a shipment that needs to be delivered the same day, we ensure that your goods reach the right place immediately and safely.`,
@@ -142,7 +147,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.documentenTransport,
-          text: "Read more about document transport",
+          text: READ_MORE_TEXT.en,
         },
         title: "Document transport",
         description: `At Enrico’s Transportservice, the safety and confidentiality of your documents are paramount. Whether it’s legal files, contracts, or other sensitive information, we ensure that your documents arrive quickly, safely, and without stops at the right recipient.`,
@@ -154,7 +159,7 @@ export const servicesSideImageSectionData: DataTranslationType<ServicesSideImage
         },
         ctaButton: {
           href: MAIN_ROUTES.meubelTransport,
-          text: "Read more about furniture transport",
+          text: READ_MORE_TEXT.en,
         },
         title: "Furniture transport",
         description: `Transporting furniture requires attention, care, and a precise approach. Enrico’s Transportservice specializes in furniture delivery where quality and reliability are central. We ensure that every piece of furniture is delivered safely, neatly, and according to agreement.`,

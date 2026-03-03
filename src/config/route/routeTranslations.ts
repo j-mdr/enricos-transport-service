@@ -1,3 +1,6 @@
+import { MAIN_ROUTES } from "@config/constants.ts";
+import type { DataTranslationType } from "@config/configDataTypes.ts";
+
 /**
  * * Route translations are used to translate route names for the language switcher component
  * This can be useful for SEO reasons. The key does not matter, it just needs to match between languages
@@ -7,28 +10,42 @@
  *
  * This also supports wildcards. For example, "categories/*" would match "categories/1" or "categories/2" etc for that language.
  *
- * Note: This works in conjunction with the localizedCollections object below
+ * Note: This works in conjunction with the collectionTranslations.ts
  */
-export const routeTranslations = {
+
+const removePreSlash = (route: string) => route.replace(/^\//, "");
+// Use
+export const routeTranslations: DataTranslationType<
+  Record<keyof Omit<typeof MAIN_ROUTES, "home">, string>
+> = {
   nl: {
-    about: "over-ons",
-    contact: "contact",
-    quote: "offerte",
-    team: "team",
-    becomePartner: "partner-worden",
-    services: "diensten/*",
-    categories: "categorieen/*",
-    blog: "blog/*",
-    regularTransport: "regulier-transport",
+    overOns: removePreSlash(MAIN_ROUTES.overOns),
+    contact: removePreSlash(MAIN_ROUTES.contact),
+    offerteAanvragen: removePreSlash(MAIN_ROUTES.offerteAanvragen),
+    partnerWorden: removePreSlash(MAIN_ROUTES.partnerWorden),
+    diensten: removePreSlash(MAIN_ROUTES.diensten) + "/*",
+    blog: removePreSlash(MAIN_ROUTES.blog) + "/*",
+    categorieen: removePreSlash(MAIN_ROUTES.categorieen) + "/*",
+    regulierTransport: removePreSlash(MAIN_ROUTES.regulierTransport),
+    incidenteelTransport: removePreSlash(MAIN_ROUTES.incidenteelTransport),
+    grootTransport: removePreSlash(MAIN_ROUTES.grootTransport),
+    spoedTransport: removePreSlash(MAIN_ROUTES.spoedTransport),
+    documentenTransport: removePreSlash(MAIN_ROUTES.documentenTransport),
+    meubelTransport: removePreSlash(MAIN_ROUTES.meubelTransport),
   },
   en: {
-    about: "about",
+    overOns: "about-us",
     contact: "contact",
-    team: "team",
-    becomePartner: "become-partner",
-    quote: "quote",
-    categories: "categories/*",
+    offerteAanvragen: "request-quote",
+    partnerWorden: "become-a-partner",
+    diensten: "services/*",
     blog: "blog/*",
-    regularTransport: "regular-transport",
+    categorieen: "categories/*",
+    regulierTransport: "regular-transport",
+    incidenteelTransport: "occasional-transport",
+    grootTransport: "large-transport",
+    spoedTransport: "express-transport",
+    documentenTransport: "document-transport",
+    meubelTransport: "furniture-transport",
   },
 } as const;
