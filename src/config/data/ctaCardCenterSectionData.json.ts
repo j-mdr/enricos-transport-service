@@ -1,6 +1,6 @@
 import { type CtaCardCenterSectionData, type LocalizedData } from "../configDataTypes.ts";
 import { ROUTES } from "@config/constants.ts";
-import { textTranslations } from "@config/text/textTranslations.ts";
+import { textTranslations } from "@config/textTranslations.ts";
 
 export const ctaCardCenterSectionData: LocalizedData<CtaCardCenterSectionData> = {
   nl: {

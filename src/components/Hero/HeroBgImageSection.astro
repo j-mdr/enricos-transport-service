@@ -12,14 +12,14 @@ import Button from "@components/Button/Button.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTranslations } from "@/utils/translationUtils";
+import { useTextTranslation } from "@/utils/translationUtils";
 
 // images
 import heroImage from "@assets/images/happy-family-crop2.png";
 import heroImageMobile from "@assets/images/happy-family-crop-mobile2.png";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTranslations(currLocale);
+const t = useTextTranslation(currLocale);
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-[60svh] w-full md:pb-22">

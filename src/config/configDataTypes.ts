@@ -53,6 +53,10 @@ export type navMegaDropdownItem = {
 
 export type NavItem = navLinkItem | navDropdownItem | navMegaDropdownItem;
 
+export type NavData = CtaButton & {
+  navItems: NavItem[];
+};
+
 // --------------------------------------------------------
 // faq data types
 export interface FaqAccordionSectionData extends Pick<Section, "title"> {

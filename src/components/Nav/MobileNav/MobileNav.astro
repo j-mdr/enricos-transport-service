@@ -9,12 +9,14 @@ import MobileLanguageSelect from "@components/LanguageSelect/MobileLanguageSelec
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getTranslatedData, getLocalizedRoute, useTextTranslation } from "@/utils/translationUtils";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const navData = getTranslatedData("navData", currLocale);
+const t = useTextTranslation(currLocale);
+const data = getTranslatedData("navData", currLocale);
 import { locales } from "@config/siteSettings.json";
+import { ROUTES } from "@config/constants.ts";
 ---
 
 <div id="mobile-nav__container">
@@ -50,7 +52,7 @@ import { locales } from "@config/siteSettings.json";
         <ul class="mx-1 mt-2 text-xl">
           {
             // if dropdown exists, setup the dropdown, otherwise it is just a link
-            navData.map((navItem) =>
+            data.navItems.map((navItem) =>
               "dropdown" in navItem ? (
                 // mobile dropdown menu
                 <>
@@ -74,8 +76,8 @@ import { locales } from "@config/siteSettings.json";
         </ul>
       </nav>
       <div class="mx-1 mt-2 w-full px-4">
-        <Button variant="primary" class="w-full" href="https://cosmicthemes.com/themes/stellar/">
-          Get Stellar!
+        <Button variant="primary" class="w-full" href={getLocalizedRoute(currLocale, data.ctaButton.href)}>
+          {data.ctaButton.text}
         </Button>
       </div>
 

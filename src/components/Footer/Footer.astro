@@ -4,14 +4,14 @@ import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
 import Button from "@components/Button/Button.astro";
 import SocialIcon from "@components/Social/SocialIcon.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData, useTranslations, getLocalizedRoute } from "@/utils/translationUtils";
+import { getTranslatedData, useTextTranslation, getLocalizedRoute } from "@/utils/translationUtils";
 import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
 import { ROUTES, SOCIAL_LINKS } from "@config/constants.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
 const quotePageHref = getLocalizedRoute(currLocale, ROUTES.nl.offerteAanvragen);
-const t = useTranslations(currLocale);
+const t = useTextTranslation(currLocale);
 
 const today = new Date();
 ---

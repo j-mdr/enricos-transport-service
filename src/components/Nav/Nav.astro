@@ -10,14 +10,15 @@ import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData, useTranslations, getLocalizedRoute } from "@/utils/translationUtils";
+import { getTranslatedData, useTextTranslation, getLocalizedRoute } from "@/utils/translationUtils";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const navData = getTranslatedData("navData", currLocale);
-const t = useTranslations(currLocale);
+const data = getTranslatedData("navData", currLocale);
+const t = useTextTranslation(currLocale);
 import { locales } from "@config/siteSettings.json";
 import { ROUTES } from "@config/constants.ts";
+import { routeTranslations } from "@config/routeTranslations.ts";
 ---
 
 <div
@@ -38,7 +39,7 @@ import { ROUTES } from "@config/constants.ts";
             <ul class="flex h-fit items-center px-4">
               {
                 // if dropdown exists, setup the dropdown, otherwise it is just a link
-                navData.map((navItem) =>
+                data.navItems.map((navItem) =>
                   "dropdown" in navItem ? (
                     // non-mobile dropdown menu
                     <>
@@ -62,9 +63,9 @@ import { ROUTES } from "@config/constants.ts";
           <Button
             variant="primary"
             class="my-auto hidden h-10 items-center justify-center md:flex"
-            href={getLocalizedRoute(currLocale, ROUTES.nl.contact)}
+            href={getLocalizedRoute(currLocale, data.ctaButton.href)}
           >
-            {t("contact_button_text_short")}
+            {data.ctaButton.text}
           </Button>
 
           {locales.length > 1 && <LanguageSelect class="ml-2 hidden md:flex" />}

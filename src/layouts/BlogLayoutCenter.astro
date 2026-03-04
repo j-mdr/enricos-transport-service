@@ -12,7 +12,7 @@ import Button from "@components/Button/Button.astro";
 // utils
 import { formatDate, humanize, slugify } from "@/utils/textUtils";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTranslations } from "@/utils/translationUtils";
+import { useTextTranslation } from "@/utils/translationUtils";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -22,7 +22,7 @@ const { post } = Astro.props as Props;
 const { title, description, authors, categories, pubDate, updatedDate, heroImage } = post.data;
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTranslations(currLocale);
+const t = useTextTranslation(currLocale);
 const authorsData = await getEntries(authors);
 ---
 

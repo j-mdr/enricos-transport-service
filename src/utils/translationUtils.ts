@@ -4,9 +4,9 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 
 import { defaultLocale, locales } from "@/config/siteSettings.json";
 import { dataTranslations } from "@config/data/dataTranslations.ts";
-import { textTranslations } from "@config/text/textTranslations.ts";
-import { routeTranslations } from "@config/route/routeTranslations.ts";
-import { collectionTranslations } from "@config/collection/collectionTranslations.ts";
+import { textTranslations } from "@config/textTranslations.ts";
+import { routeTranslations } from "@config/routeTranslations.ts";
+import { collectionTranslations } from "@config/collectionTranslations.ts";
 
 /**
  * * text translation helper function
@@ -22,7 +22,13 @@ import { collectionTranslations } from "@config/collection/collectionTranslation
  * t("blog.time"); // translated string for key "blog.time" in the current locale
  * ```
  */
-export function useTranslations(locale: keyof typeof textTranslations) {
+export function useTextTranslation(locale: keyof typeof textTranslations) {
+  return function t(key: keyof (typeof textTranslations)[typeof locale]) {
+    return textTranslations[locale][key] || textTranslations[defaultLocale][key];
+  };
+}
+
+export function useRouteTranslation(locale: keyof typeof textTranslations) {
   return function t(key: keyof (typeof textTranslations)[typeof locale]) {
     return textTranslations[locale][key] || textTranslations[defaultLocale][key];
   };

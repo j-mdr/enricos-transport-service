@@ -10,10 +10,10 @@ import VideoButton from "@components/Button/VideoButton.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTranslations } from "@/utils/translationUtils";
+import { useTextTranslation } from "@/utils/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTranslations(currLocale);
+const t = useTextTranslation(currLocale);
 ---
 
 <section id="hero" class="relative mb-14 flex w-full overflow-hidden pb-10">

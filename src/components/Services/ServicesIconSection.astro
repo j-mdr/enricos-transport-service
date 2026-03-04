@@ -9,12 +9,13 @@
  */
 
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils.ts";
+import { getLocalizedRoute, getTranslatedData } from "@/utils/translationUtils.ts";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { ServicesIconSectionData } from "@config/configDataTypes.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = getTranslatedData("servicesIconSectionData", currLocale);
+
 
 type Props = Partial<ServicesIconSectionData>;
 

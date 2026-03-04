@@ -7,9 +7,9 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTranslations } from "@/utils/translationUtils";
+import { useTextTranslation } from "@/utils/translationUtils";
 const currLocale = getLocaleFromUrl(Astro.url);
-const aboutText = useTranslations(currLocale)("about").toLowerCase();
+const aboutText = useTextTranslation(currLocale)("about").toLowerCase();
 import Button from "@components/Button/Button.astro";
 import type { ServiceCard } from "@config/configDataTypes.ts";
 

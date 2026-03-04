@@ -1,11 +1,11 @@
 ---
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData, useTranslations } from "@/utils/translationUtils";
+import { getTranslatedData, useTextTranslation } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
-const t = useTranslations(currLocale);
+const t = useTextTranslation(currLocale);
 ---
 
 <div>
