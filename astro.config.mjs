@@ -16,9 +16,9 @@ export default defineConfig({
   site: "https://stellar.cosmicthemes.com",
   adapter: cloudflare(),
   redirects: {
-    "/admin": "/keystatic",
+    "/admin/": "/keystatic/",
   },
-  trailingSlash: 'always',
+  // trailingSlash: "always",
   // i18n configuration must match src/config/translations.json.ts
   i18n: {
     defaultLocale: "nl",
