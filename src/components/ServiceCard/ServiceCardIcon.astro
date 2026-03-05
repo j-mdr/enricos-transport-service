@@ -11,7 +11,7 @@
 import { Icon } from "astro-icon/components";
 import Button from "@components/Button/Button.astro";
 import type { ServiceIconCard } from "@config/configDataTypes.ts";
-import { useTextTranslation, getLocalizedRoute } from "@utils/translationUtils.ts";
+import { useTextTranslation, getLocalizedRoute, useTranslation } from "@utils/translationUtils.ts";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 
 type Props = ServiceIconCard & {
@@ -19,7 +19,7 @@ type Props = ServiceIconCard & {
 };
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTextTranslation(currLocale);
+const {route, text} = useTranslation(currLocale);
 
 const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 ---
@@ -27,7 +27,7 @@ const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 <div {...rest} class="h-full">
   `
   <a
-    href={getLocalizedRoute(currLocale, ctaButton.href)}
+    href={route(ctaButton.href)}
     class="group bg-base-50 flex h-full flex-col justify-between overflow-hidden rounded-xl px-4 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
   >
     <div>
@@ -50,7 +50,7 @@ const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
     <div class="mt-4 flex justify-center">
       <Button variant="outline" arrow="right">
         {ctaButton.text}
-        <span class="sr-only">{t("about")} {title}</span>
+        <span class="sr-only">{text("about")} {title}</span>
       </Button>
     </div>
   </a>

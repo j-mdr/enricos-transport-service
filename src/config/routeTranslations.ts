@@ -5,8 +5,7 @@
 const _routes = {
   nl: {
     // pages
-    blog: "blog",
-    "blog*": "blog/*",
+    "blog": "blog/*",
     categorieen: "categorieen",
     "categorieen*": "categorieen/*",
     contact: "contact",
@@ -17,7 +16,7 @@ const _routes = {
     // blog
     blog_best_vscode_extensions_front_end_developers:
       "blog/best-vscode-extensions-front-end-developers",
-    blog_example_one: "blog/example-one",
+    // blog_example_one: "blog/example-one",
     blog_example_three: "blog/example-three",
     blog_example_two: "blog/example-two",
     blog_tailwind_gradient_underline: "blog/tailwind-gradient-underline",
@@ -37,8 +36,7 @@ const _routes = {
   },
   en: {
     // pages
-    blog: "blog",
-    "blog*": "blog/*",
+    "blog": "blog/*",
     categorieen: "categories",
     "categorieen*": "categories/*",
     contact: "contact",
@@ -49,7 +47,7 @@ const _routes = {
     // blog
     blog_best_vscode_extensions_front_end_developers:
       "blog/best-vscode-extensions-front-end-developers",
-    blog_example_one: "blog/example-one",
+    // blog_example_one: "blog/example-one",
     blog_example_three: "blog/example-three",
     blog_example_two: "blog/example-two",
     blog_tailwind_gradient_underline: "blog/tailwind-gradient-underline",
@@ -71,4 +69,4 @@ const _routes = {
 
 export type PageRouteKey = keyof typeof _routes.nl;
 export type RouteTranslations = typeof _routes;
-export const routeTranslations: Record<string, Record<string, string>> = _routes;
+export const routeTranslations = _routes;

@@ -8,19 +8,11 @@ import { textTranslations } from "@config/textTranslations.ts";
 import { routeTranslations } from "@config/routeTranslations.ts";
 import { collectionTranslations } from "@config/collectionTranslations.ts";
 
+
 /**
  * * text translation helper function
- * @param locale: Language to use for translation, one of the locales
  * @returns function you can use to translate strings according to the src/config/translations.ts file
  *
- * ## Example
- *
- * ```ts
- * import { useTranslations, getLocaleFromUrl } from "@/utils/i18nUtils";
- * const currLocale = getLocaleFromUrl(Astro.url);
- * const t = useTranslations(currLocale);
- * t("blog.time"); // translated string for key "blog.time" in the current locale
- * ```
  */
 export function useTextTranslation(locale: keyof typeof textTranslations) {
   return function t(key: keyof (typeof textTranslations)[typeof locale]) {
@@ -29,13 +21,13 @@ export function useTextTranslation(locale: keyof typeof textTranslations) {
 }
 
 export function useRouteTranslation(locale: keyof typeof textTranslations) {
-  return function r(key: string): string {
-    return routeTranslations[locale]?.[key] ?? routeTranslations[defaultLocale]?.[key] ?? key;
+  return function r(path: string) {
+    return getLocalizedRoute(locale, path);
   };
 }
 
-export function useDataTranslation(locale: Locale) {
-  return function d<K extends DataKey<Locale>>(key: K) {
+export function useDataTranslation(locale: DataLocale) {
+  return function d<K extends DataKey<DataLocale>>(key: K) {
     return getTranslatedData(key, locale);
   };
 }
@@ -44,12 +36,12 @@ export function useTranslation(locale: keyof typeof textTranslations) {
   return {
     text: useTextTranslation(locale),
     route: useRouteTranslation(locale),
-    data: useDataTranslation(locale as Locale),
+    data: useDataTranslation(locale as DataLocale),
   };
 }
 
-type Locale = keyof typeof dataTranslations;
-type DataKey<T extends Locale> = keyof (typeof dataTranslations)[T];
+type DataLocale = keyof typeof dataTranslations;
+type DataKey<T extends DataLocale> = keyof (typeof dataTranslations)[T];
 /**
  * * data file translation helper function
  * @param data: key in the data file to translate, like "siteData" or "navData"
@@ -65,7 +57,7 @@ type DataKey<T extends Locale> = keyof (typeof dataTranslations)[T];
  * const siteData = getTranslatedData("siteData", currLocale);
  * ```
  */
-export function getTranslatedData<T extends Locale, K extends DataKey<T>>(
+export function getTranslatedData<T extends DataLocale, K extends DataKey<T>>(
   data: K,
   locale: T,
 ): (typeof dataTranslations)[T][K] {
