@@ -1,4 +1,4 @@
-import type { LocalizedData } from "@config/configDataTypes.ts";
+import type { LocalizedData } from "@config/translations/configDataTypes.ts";
 
 type CompanyInfo = {
   name: string;

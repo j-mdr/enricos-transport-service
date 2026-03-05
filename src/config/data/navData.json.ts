@@ -1,6 +1,6 @@
 // types
-import { type LocalizedData, type NavData } from "../configDataTypes.ts";
-import { textTranslations } from "@config/textTranslations.ts";
+import { type LocalizedData, type NavData } from "../translations/configDataTypes.ts";
+import { textTranslations } from "@config/translations/textTranslations.ts";
 import { ROUTES } from "@config/constants.ts";
 
 export const navData: LocalizedData<NavData> = {

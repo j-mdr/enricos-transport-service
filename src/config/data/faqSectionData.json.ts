@@ -1,4 +1,4 @@
-import { type LocalizedData, type FaqSectionData } from "../configDataTypes.ts";
+import { type LocalizedData, type FaqSectionData } from "../translations/configDataTypes.ts";
 import { COMPANY_INFO } from "@config/constants.ts";
 
 export const faqSectionData: LocalizedData<FaqSectionData> = {

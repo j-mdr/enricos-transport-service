@@ -2,46 +2,55 @@ import type { DataEntryMap } from "astro:content";
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
-import { defaultLocale, locales } from "@/config/siteSettings.json";
+import { defaultLocale, type Locale, locales } from "@/config/siteSettings.json";
 import { dataTranslations } from "@config/data/dataTranslations.ts";
-import { textTranslations } from "@config/textTranslations.ts";
-import { routeTranslations } from "@config/routeTranslations.ts";
-import { collectionTranslations } from "@config/collectionTranslations.ts";
-
+import { textTranslations } from "@config/translations/textTranslations.ts";
+import { routeTranslations } from "@config/translations/routeTranslations.ts";
+import { companyInfoTranslations } from "@config/translations/companyInfoTranslations.ts";
+import { collectionTranslations } from "@config/translations/collectionTranslations.ts";
 
 /**
  * * text translation helper function
  * @returns function you can use to translate strings according to the src/config/translations.ts file
  *
  */
-export function useTextTranslation(locale: keyof typeof textTranslations) {
+export function useTextTranslation(locale: Locale) {
   return function t(key: keyof (typeof textTranslations)[typeof locale]) {
     return textTranslations[locale][key] || textTranslations[defaultLocale][key];
   };
 }
 
-export function useRouteTranslation(locale: keyof typeof textTranslations) {
-  return function r(path: string) {
-    return getLocalizedRoute(locale, path);
+export function useRouteTranslation(locale: Locale) {
+  return function r(pathname: keyof (typeof routeTranslations)[typeof locale]) {
+    return getLocalizedRoute(locale, pathname);
   };
 }
 
-export function useDataTranslation(locale: DataLocale) {
-  return function d<K extends DataKey<DataLocale>>(key: K) {
+export function useDataTranslation(locale: Locale) {
+  return function d(key: keyof (typeof dataTranslations)[typeof locale]) {
     return getTranslatedData(key, locale);
   };
 }
 
-export function useTranslation(locale: keyof typeof textTranslations) {
-  return {
-    text: useTextTranslation(locale),
-    route: useRouteTranslation(locale),
-    data: useDataTranslation(locale as DataLocale),
+export function useCompanyInfoTranslation(locale: Locale) {
+  return function t(key: keyof (typeof textTranslations)[typeof locale]) {
+    return companyInfoTranslations[locale][key] || companyInfoTranslations[defaultLocale][key];
   };
 }
 
-type DataLocale = keyof typeof dataTranslations;
-type DataKey<T extends DataLocale> = keyof (typeof dataTranslations)[T];
+
+export function useTranslation(locale: Locale) {
+  return {
+    text: useTextTranslation(locale),
+    route: useRouteTranslation(locale),
+    data: useDataTranslation(locale),
+    companyInfo: useCompanyInfoTranslation(locale),
+  };
+}
+
+
+// type DataLocale = keyof typeof dataTranslations;
+type DataKey<T extends Locale> = keyof (typeof dataTranslations)[T];
 /**
  * * data file translation helper function
  * @param data: key in the data file to translate, like "siteData" or "navData"
@@ -57,7 +66,7 @@ type DataKey<T extends DataLocale> = keyof (typeof dataTranslations)[T];
  * const siteData = getTranslatedData("siteData", currLocale);
  * ```
  */
-export function getTranslatedData<T extends DataLocale, K extends DataKey<T>>(
+export function getTranslatedData<T extends Locale, K extends DataKey<T>>(
   data: K,
   locale: T,
 ): (typeof dataTranslations)[T][K] {

@@ -13,7 +13,7 @@
       "line": 4
     },
     {
-      "file": "src/config/en/siteData.json.ts",
+      "file": "src/config/en/companyInfoTranslations.ts",
       "description": "In the explorer panel, under \"src/config\" you will find data files for site information, the navbar, FAQ data, and testimonials, and more. These are split up by language into subfolders. This file is where you add your website title, description, and base author data.",
       "line": 2
     },

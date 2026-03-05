@@ -1,6 +1,6 @@
-import { type LocalizedData, type HeroSideImageSectionData } from "../configDataTypes.ts";
+import { type LocalizedData, type HeroSideImageSectionData } from "../translations/configDataTypes.ts";
 import heroImage from "@images/enricos_transport_service-bus-zonsopgang_4x3.jpg";
-import { textTranslations } from "@config/textTranslations.ts";
+import { textTranslations } from "@config/translations/textTranslations.ts";
 import { ROUTES } from "@config/constants.ts";
 
 export const heroSideImageSectionData: LocalizedData<HeroSideImageSectionData> = {

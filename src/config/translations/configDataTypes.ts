@@ -8,10 +8,14 @@ export interface SiteData {
   name: string;
   title: string;
   description: string;
+  baseUrl: string;
   contact: {
     // used for contact page and footer
-    address1: string; // contact address (line 1)
-    address2: string; // contact address (line 2)
+    street: string; // contact street address
+    city: string; // contact city
+    zipCode: string; // contact zip code
+    province: string; // contact province/state
+    country: string; // contact country
     phone: string; // contact phone number
     email: string; // contact email address
   };

@@ -11,7 +11,7 @@
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils.ts";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { ServicesIconSectionData } from "@config/configDataTypes.ts";
+import type { ServicesIconSectionData } from "@config/translations/configDataTypes.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = getTranslatedData("servicesIconSectionData", currLocale);

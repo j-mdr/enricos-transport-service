@@ -11,7 +11,7 @@ import { useTextTranslation } from "@/utils/translationUtils";
 const currLocale = getLocaleFromUrl(Astro.url);
 const aboutText = useTextTranslation(currLocale)("about").toLowerCase();
 import Button from "@components/Button/Button.astro";
-import type { ServiceCard } from "@config/configDataTypes.ts";
+import type { ServiceCard } from "@config/translations/configDataTypes.ts";
 
 type Props = ServiceCard & {
   imageSide: "left" | "right";

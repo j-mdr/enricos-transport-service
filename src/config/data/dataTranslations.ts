@@ -2,7 +2,7 @@
  * * Data file configuration for the i18n system
  * Every {Data} key must exist in the below object
  */
-import { siteData } from "@config/data/siteData.json.ts";
+import { companyInfoTranslations } from "@config/translations/companyInfoTranslations.ts";
 import { navData } from "@config/data/navData.json.ts";
 import { faqSectionData } from "@config/data/faqSectionData.json.ts";
 import { teamMemberCardsSectionData } from "@config/data/teamMemberCardsSectionData.ts";
@@ -12,10 +12,13 @@ import { servicesSideImageSectionData } from "@config/data/servicesSideImageSect
 import { ctaCardCenterSectionData } from "@config/data/ctaCardCenterSectionData.json.ts";
 import { featureCardSmallSectionJson } from "@config/data/featureCardSmallSection.json.ts";
 import { servicesIconSectionData } from "@config/data/servicesIconSectionData.json.ts";
+import type { LocalizedData } from "@config/translations/configDataTypes.ts";
+import type { Locale } from "@config/siteSettings.json.ts";
+;
 
 export const dataTranslations = {
   nl: {
-    siteData: siteData.nl,
+    siteData: companyInfoTranslations.nl,
     navData: navData.nl,
     faqSectionData: faqSectionData.nl,
     teamMemberCardsSectionData: teamMemberCardsSectionData.nl,
@@ -27,7 +30,7 @@ export const dataTranslations = {
     featureCardSmallSectionJson: featureCardSmallSectionJson.nl,
   },
   en: {
-    siteData: siteData.en,
+    siteData: companyInfoTranslations.en,
     navData: navData.en,
     faqSectionData: faqSectionData.en,
     teamMemberCardsSectionData: teamMemberCardsSectionData.en,

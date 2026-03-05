@@ -8,7 +8,7 @@ import { Icon } from "astro-icon/components";
 import FaqCard from "./FaqCard.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getTranslatedData } from "@/utils/translationUtils";
-import { type FaqCartSectionData } from "@config/configDataTypes.ts";
+import { type FaqCartSectionData } from "@config/translations/configDataTypes.ts";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = getTranslatedData("faqSectionData", currLocale);
