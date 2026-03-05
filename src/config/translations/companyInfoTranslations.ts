@@ -4,7 +4,7 @@ import { type LocalizedData, type SiteData } from "./configDataTypes.ts";
 const COMPANY_NAME = "Enrico's Transportservice";
 const COMPANY_EMAIL = "info@enricostransportservice.nl";
 const COMPANY_PHONE = "+31 6 5517 4134";
-const COMPANY_ADDRES_STREET = "Nederland";
+const COMPANY_ADDRES_STREET = "";
 const COMPANY_ADDRESS_CITY = "";
 const COMPANY_ADDRES_ZIPCODE = "";
 const COMPANY_ADDRES_PROVINCE = "";
@@ -19,7 +19,7 @@ export const companyInfoTranslations = {
     description: `SPOED BESCHIKBAAR - Binnen 60 tot 120 minuten op locatie aanwezig Koerier Zwolle. Direct inzicht in kosten – helder, snel en zonder verrassingen. Persoonlijk & direct contact Flexibel maatwerktransport. 24/7 spoedservice mogelijk. Betrouwbare levering SPOED BESCHIKBAAR - Binnen 60`,
     baseUrl: BASE_URL,
     // used on contact page and footer
-    street: COMPANY_ADDRES_STREET,
+    street: "Nederland",
     city: COMPANY_ADDRESS_CITY,
     zipCode: COMPANY_ADDRES_ZIPCODE,
     province: COMPANY_ADDRES_PROVINCE,
@@ -63,7 +63,7 @@ export const companyInfoTranslations = {
     baseUrl: BASE_URL,
     // used on contact page and footer
 
-    street: COMPANY_ADDRES_STREET,
+    street: "The Netherlands",
     city: COMPANY_ADDRESS_CITY,
     zipCode: COMPANY_ADDRES_ZIPCODE,
     province: COMPANY_ADDRES_PROVINCE,

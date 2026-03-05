@@ -1,6 +1,5 @@
 import type { LocalizedData } from "@config/translations/configDataTypes.ts";
 
-
 // Single source of truth for all routes in the application.
 // Make sure to update the files in /pages to match these routes
 

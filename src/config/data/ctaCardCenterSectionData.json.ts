@@ -1,4 +1,7 @@
-import { type CtaCardCenterSectionData, type LocalizedData } from "../translations/configDataTypes.ts";
+import {
+  type CtaCardCenterSectionData,
+  type LocalizedData,
+} from "../translations/configDataTypes.ts";
 import { ROUTES } from "@config/constants.ts";
 import { textTranslations } from "@config/translations/textTranslations.ts";
 

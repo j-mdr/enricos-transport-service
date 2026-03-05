@@ -1,4 +1,7 @@
-import { type LocalizedData, type ServicesSideImageSectionData } from "../translations/configDataTypes.ts";
+import {
+  type LocalizedData,
+  type ServicesSideImageSectionData,
+} from "../translations/configDataTypes.ts";
 import image1 from "@images/house.jpg";
 import image2 from "@images/living-room.jpg";
 import image3 from "@images/paint-swatches.jpg";

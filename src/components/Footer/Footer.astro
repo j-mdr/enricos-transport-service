@@ -5,10 +5,10 @@ import { useTranslation } from "@/utils/translationUtils";
 import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
 import SocialIcon from "@components/Social/SocialIcon.astro";
 
-const {route, data, companyInfo} = useTranslation(Astro.url)
-const { companyName, ctaButton} = data('footerData');
+const { route, data, companyInfo } = useTranslation(Astro.url);
+const { companyName, ctaButton } = data("footerData");
 
-const socialLinks = companyInfo('social');
+const socialLinks = companyInfo("social");
 const today = new Date();
 ---
 

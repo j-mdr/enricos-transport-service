@@ -14,10 +14,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
 ---
 
-<a
-  class="primary-focus flex items-center align-middle"
-  href={getLocalizedRoute(currLocale, "/")}
->
+<a class="primary-focus flex items-center align-middle" href={getLocalizedRoute(currLocale, "/")}>
   <p class="sr-only">{siteData.title}</p>
   <Image
     src={logo}

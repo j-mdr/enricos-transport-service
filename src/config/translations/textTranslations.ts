@@ -30,7 +30,7 @@ export const textTranslations = {
     contact_information: "Contactgegevens",
   },
   en: {
-    contact_button: "Contact us",
+    contact_button_text: "Contact us",
     contact_button_text_short: "Contact us",
     get_quote_button_text: "Get free quote",
     get_quote_button_text_short: "Get quote",

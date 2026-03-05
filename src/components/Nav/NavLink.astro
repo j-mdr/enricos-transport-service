@@ -31,9 +31,8 @@ const { text, link, newTab = false, icon } = navItem;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 
-const {route} = useTranslation(Astro.url)
+const { route } = useTranslation(Astro.url);
 const actualLink = route(navItem.link);
-
 
 const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, actualLink);
 ---

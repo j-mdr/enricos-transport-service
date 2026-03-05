@@ -25,13 +25,17 @@ export function useRouteTranslation(locale: Locale) {
 }
 
 export const useDataTranslation = (locale: Locale) => {
-  return <K extends keyof (typeof dataTranslations)[Locale]>(key: K): (typeof dataTranslations)[Locale][K] => {
+  return <K extends keyof (typeof dataTranslations)[Locale]>(
+    key: K,
+  ): (typeof dataTranslations)[Locale][K] => {
     return getTranslatedData(key, locale);
   };
 };
 
 export function useCompanyInfoTranslation(locale: Locale) {
-  return function t<K extends keyof (typeof companyInfoTranslations)[Locale]>(key: K): (typeof companyInfoTranslations)[Locale][K] {
+  return function t<K extends keyof (typeof companyInfoTranslations)[Locale]>(
+    key: K,
+  ): (typeof companyInfoTranslations)[Locale][K] {
     return companyInfoTranslations[locale][key] || companyInfoTranslations[defaultLocale][key];
   };
 }
