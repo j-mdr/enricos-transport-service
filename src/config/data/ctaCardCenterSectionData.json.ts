@@ -5,7 +5,8 @@ import { textTranslations } from "@config/textTranslations.ts";
 export const ctaCardCenterSectionData: LocalizedData<CtaCardCenterSectionData> = {
   nl: {
     title: "Wij regelen het voor u",
-    description: "Vraag geheel vrijblijvend een offerte aan en ervaar onze persoonlijke service en betrouwbare transportoplossingen.",
+    description:
+      "Vraag geheel vrijblijvend een offerte aan en ervaar onze persoonlijke service en betrouwbare transportoplossingen.",
     ctaButton: {
       href: ROUTES.nl.offerteAanvragen,
       text: textTranslations.nl.get_quote_button_text,

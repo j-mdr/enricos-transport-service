@@ -11,7 +11,8 @@
     "config-i18n": "node ./scripts/config-i18n.js",
     "remove-keystatic": "node ./scripts/remove-keystatic.js",
     "format": "prettier -w \"**/*\" --ignore-unknown --cache",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "sync-routes": "tsx scripts/sync-route-translations.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
@@ -51,6 +52,7 @@
     "globals": "^16.0.0",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
+    "tsx": "^4.19.4",
     "typescript-eslint": "^8.31.1"
   },
   "overrides": {

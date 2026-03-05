@@ -16,6 +16,7 @@ astro check       # TypeScript / Astro type checking
 Deployment is to Cloudflare Workers via `wrangler.jsonc`. The custom domain is `ets.j-mdr.com`.
 
 **IMPORTANT: After everychange to ensure code quality and consistency.**
+
 ```bash
 # Format the code using Prettier and then build the production site
 pnpm format
@@ -34,12 +35,14 @@ Two locales: `nl` (Dutch, default — no URL prefix) and `en` (English — `/en/
 **Single source of truth for all routes** is `src/config/constants.ts` → `ROUTES`. The file also holds `COMPANY_INFO` and `SOCIAL_LINKS`.
 
 Translation layers:
+
 - **Route names** (for language switcher / hreflang): `src/config/routeTranslations.json.ts`
 - **UI strings**: `src/config/textTranslationsJson.ts` — accessed via `useTextTranslation(locale)` from `@utils/translationUtils`
 - **Section/page data** (nav, hero, services, FAQs, etc.): `src/config/data/*.ts` — all exported through `src/config/data/dataTranslations.json.ts` and accessed via `getTranslatedData("key", locale)` from `@utils/translationUtils`
 - **Content collection routing**: `src/config/collectionTranslationsJson.ts` — maps collection names to per-locale URL bases (e.g. `services` → `nl: "diensten"`, `en: "services"`)
 
 Key util functions (all in `src/utils/`):
+
 - `getLocaleFromUrl(url)` — extracts locale from `Astro.url`
 - `filterCollectionByLanguage(collection, locale)` — filters content entries by locale prefix
 - `getLocalizedRoute(locale, baseRoute)` — translates a route to a target locale (sync)
@@ -48,6 +51,7 @@ Key util functions (all in `src/utils/`):
 ### Content Collections (`src/content.config.ts`)
 
 Four collections, all stored under `src/data/` with locale subfolders (`nl/`, `en/`):
+
 - `blog` — MDX blog posts (requires `title`, `description`, `authors`, `pubDate`, `heroImage`, `categories`)
 - `authors` — Author profiles
 - `services` — Service pages
@@ -58,6 +62,7 @@ Each collection entry can have an optional `mappingKey` field to link the same c
 ### Path Aliases
 
 Defined in `tsconfig.json`:
+
 - `@config/*` → `src/config/*`
 - `@utils/*` → `src/utils/*`
 - `@layouts/*` → `src/layouts/*`

@@ -16,7 +16,6 @@ import type { ServicesIconSectionData } from "@config/configDataTypes.ts";
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = getTranslatedData("servicesIconSectionData", currLocale);
 
-
 type Props = Partial<ServicesIconSectionData>;
 
 const { title = data.title, services = data.services } = Astro.props;

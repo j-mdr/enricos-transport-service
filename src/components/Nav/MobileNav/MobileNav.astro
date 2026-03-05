@@ -76,7 +76,11 @@ import { ROUTES } from "@config/constants.ts";
         </ul>
       </nav>
       <div class="mx-1 mt-2 w-full px-4">
-        <Button variant="primary" class="w-full" href={getLocalizedRoute(currLocale, data.ctaButton.href)}>
+        <Button
+          variant="primary"
+          class="w-full"
+          href={getLocalizedRoute(currLocale, data.ctaButton.href)}
+        >
           {data.ctaButton.text}
         </Button>
       </div>
