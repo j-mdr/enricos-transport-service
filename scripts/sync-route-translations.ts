@@ -99,11 +99,11 @@ function buildLocaleBlock(
 
   const lines: string[] = [];
 
-  lines.push("    // pages");
+  lines.push("    /**** pages ****/");
   for (const e of resolvedPageEntries) lines.push(line(e));
 
   for (const section of sections) {
-    lines.push(`    // ${section.comment}`);
+    lines.push(`    /**** ${section.comment} ****/`);
     for (const e of section.entries) lines.push(line(e));
   }
 
