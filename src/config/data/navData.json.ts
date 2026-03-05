@@ -2,17 +2,18 @@
 import { type LocalizedData, type NavData } from "../translations/configDataTypes.ts";
 import { textTranslations } from "@config/translations/textTranslations.ts";
 import { ROUTES } from "@config/constants.ts";
+import { routeTranslations } from "@config/translations/routeTranslations.ts";
 
 export const navData: LocalizedData<NavData> = {
   nl: {
     ctaButton: {
       text: textTranslations.nl.contact_button_text_short,
-      href: ROUTES.en.contact,
+      href: routeTranslations.nl.contact,
     },
     navItems: [
       {
         text: "Over ons",
-        link: "/over-ons",
+        link: routeTranslations.nl.over_ons,
       },
       // regular dropdown
       {
@@ -20,27 +21,27 @@ export const navData: LocalizedData<NavData> = {
         dropdown: [
           {
             text: "Regulier transport",
-            link: "/diensten/regulier-transport",
+            link: routeTranslations.nl.diensten_regulier_transport,
           },
           {
             text: "Incidenteel transport",
-            link: "/diensten/incidenteel-transport",
+            link: routeTranslations.nl.diensten_incidenteel_transport,
           },
           {
             text: "Groot transport",
-            link: "/diensten/groot-transport",
+            link: routeTranslations.nl.diensten_groot_transport,
           },
           {
             text: "Spoed transport",
-            link: "/diensten/spoedtransport",
+            link: routeTranslations.nl.diensten_spoed_transport,
           },
           {
             text: "Documententransport",
-            link: "/diensten/documenten-transport",
+            link: routeTranslations.nl.diensten_documenten_transport,
           },
           {
             text: "Meubeltransport",
-            link: "/diensten/meubeltransport",
+            link: routeTranslations.nl.diensten_meubel_transport,
           },
         ],
       },
@@ -61,8 +62,8 @@ export const navData: LocalizedData<NavData> = {
     },
     navItems: [
       {
-        text: "Over ons",
-        link: "/over-ons",
+        text: "About us",
+        link: routeTranslations.en.over_ons,
       },
       // regular dropdown
       {
@@ -70,37 +71,37 @@ export const navData: LocalizedData<NavData> = {
         dropdown: [
           {
             text: "Regular transport",
-            link: "/diensten/regulier-transport",
+            link: routeTranslations.en.diensten_regulier_transport,
           },
           {
             text: "Occasional transport",
-            link: "/diensten/incidenteel-transport",
+            link: routeTranslations.en.diensten_incidenteel_transport,
           },
           {
             text: "Large transport",
-            link: "/diensten/groot-transport",
+            link: routeTranslations.en.diensten_groot_transport,
           },
           {
-            text: "Emergency transport",
-            link: "/diensten/spoedtransport",
+            text: "Urgent transport",
+            link: routeTranslations.en.diensten_spoed_transport,
           },
           {
             text: "Documentation transport",
-            link: "/diensten/documenten-transport",
+            link: routeTranslations.en.diensten_documenten_transport,
           },
           {
             text: "Furniture transport",
-            link: "/diensten/meubeltransport",
+            link: routeTranslations.en.diensten_meubel_transport,
           },
         ],
       },
       {
         text: "Become partner",
-        link: "/partner-worden",
+        link: routeTranslations.en.partner_worden,
       },
       {
         text: "Blog",
-        link: "/blog",
+        link: routeTranslations.en.blog,
       },
     ],
   },

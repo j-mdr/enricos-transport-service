@@ -4,6 +4,7 @@
  */
 import { companyInfoTranslations } from "@config/translations/companyInfoTranslations.ts";
 import { navData } from "@config/data/navData.json.ts";
+import { footerData } from "@config/data/footerData.ts";
 import { faqSectionData } from "@config/data/faqSectionData.json.ts";
 import { teamMemberCardsSectionData } from "@config/data/teamMemberCardsSectionData.ts";
 import { testimonialSwiperSectionData } from "@config/data/testimonialSwiperSectionData.json.ts";
@@ -12,14 +13,12 @@ import { servicesSideImageSectionData } from "@config/data/servicesSideImageSect
 import { ctaCardCenterSectionData } from "@config/data/ctaCardCenterSectionData.json.ts";
 import { featureCardSmallSectionJson } from "@config/data/featureCardSmallSection.json.ts";
 import { servicesIconSectionData } from "@config/data/servicesIconSectionData.json.ts";
-import type { LocalizedData } from "@config/translations/configDataTypes.ts";
-import type { Locale } from "@config/siteSettings.json.ts";
-;
 
 export const dataTranslations = {
   nl: {
     siteData: companyInfoTranslations.nl,
     navData: navData.nl,
+    footerData: footerData.nl,
     faqSectionData: faqSectionData.nl,
     teamMemberCardsSectionData: teamMemberCardsSectionData.nl,
     testimonialSwiperSectionData: testimonialSwiperSectionData.nl,
@@ -32,6 +31,7 @@ export const dataTranslations = {
   en: {
     siteData: companyInfoTranslations.en,
     navData: navData.en,
+    footerData: footerData.en,
     faqSectionData: faqSectionData.en,
     teamMemberCardsSectionData: teamMemberCardsSectionData.en,
     testimonialSwiperSectionData: testimonialSwiperSectionData.en,

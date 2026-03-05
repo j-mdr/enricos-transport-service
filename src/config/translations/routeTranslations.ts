@@ -3,7 +3,7 @@
 // EN paths for content entries with different NL/EN slugs (e.g. service pages)
 // must be set manually after adding new content.
 
-const _routes = {
+export const routeTranslations = {
   nl: {
     /**** pages ****/
     blog: "blog",
@@ -51,7 +51,3 @@ const _routes = {
     privacybeleid: "privacy-policy",
   },
 } as const;
-
-export type PageRouteKey = keyof typeof _routes.nl;
-export type RouteTranslations = typeof _routes;
-export const routeTranslations: Record<string, Record<string, string>> = _routes;

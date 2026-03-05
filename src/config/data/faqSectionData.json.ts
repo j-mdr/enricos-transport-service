@@ -1,5 +1,5 @@
 import { type LocalizedData, type FaqSectionData } from "../translations/configDataTypes.ts";
-import { COMPANY_INFO } from "@config/constants.ts";
+import { companyInfoTranslations } from "@config/translations/companyInfoTranslations.ts";
 
 export const faqSectionData: LocalizedData<FaqSectionData> = {
   nl: {
@@ -19,8 +19,8 @@ export const faqSectionData: LocalizedData<FaqSectionData> = {
       },
       {
         question: "Hoe kan ik transport aanvragen?",
-        answer: `Gebruik het contact formulier via het menu. Liever persoonlijk contact? Bel ons via <a href="tel:${COMPANY_INFO.phone}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.phone}
-        </a> of mail naar <a href="mailto:${COMPANY_INFO.email}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.email}
+        answer: `Gebruik het contact formulier via het menu. Liever persoonlijk contact? Bel ons via <a href="tel:${companyInfoTranslations.nl.phone}" class="hover:text-primary-500 transition hover:underline">${companyInfoTranslations.nl.phone}
+        </a> of mail naar <a href="mailto:${companyInfoTranslations.nl.email}" class="hover:text-primary-500 transition hover:underline">${companyInfoTranslations.nl.email}
         </a>. We staan voor je klaar.`,
       },
       {
@@ -86,8 +86,8 @@ export const faqSectionData: LocalizedData<FaqSectionData> = {
       },
       {
         question: "How can I request transport?",
-        answer: `Use the contact form via the menu. Prefer personal contact? Call us at <a href="tel:${COMPANY_INFO.phone}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.phone}
-        </a> or email us at <a href="mailto:${COMPANY_INFO.email}" class="hover:text-primary-500 transition hover:underline">${COMPANY_INFO.email}
+        answer: `Use the contact form via the menu. Prefer personal contact? Call us at <a href="tel:${companyInfoTranslations.nl.phone}" class="hover:text-primary-500 transition hover:underline">${companyInfoTranslations.nl.phone}
+        </a> or email us at <a href="mailto:${companyInfoTranslations.nl.email}" class="hover:text-primary-500 transition hover:underline">${companyInfoTranslations.nl.email}
         </a>. We are here to assist you.`,
       },
       {

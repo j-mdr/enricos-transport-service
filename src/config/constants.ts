@@ -1,53 +1,5 @@
 import type { LocalizedData } from "@config/translations/configDataTypes.ts";
 
-type CompanyInfo = {
-  name: string;
-  address: string;
-  city: string;
-  zipCode: string;
-  province: string;
-  phone: string;
-  email: string;
-  websiteUrl: string;
-};
-
-export const COMPANY_INFO: CompanyInfo = {
-  name: "Enrico's Transportservice",
-  address: "",
-  city: "",
-  zipCode: "",
-  province: "",
-  phone: "+31 6 55174134",
-  email: "info@enricostransportservice.nl",
-  websiteUrl: "https://enricostransportservice.nl",
-} as const;
-
-// Social media links
-type SocialLink = {
-  url: string; // full URL to the social media profile
-  id: string; // the username or page name on the social media platform, used for display purposes
-};
-
-type SocialLinks = {
-  facebook: SocialLink;
-  instagram: SocialLink;
-  linkedin: SocialLink;
-};
-
-export const SOCIAL_LINKS: SocialLinks = {
-  facebook: {
-    url: "https://www.facebook.com/people/Enricos-Transportservice/100090222390945/",
-    id: "Enricos-Transportservice",
-  },
-  instagram: {
-    url: "https://www.instagram.com/enricostransportservice/",
-    id: "enricostransportservice",
-  },
-  linkedin: {
-    url: "https://nl.linkedin.com/company/enrico-s-transportservice",
-    id: "enrico-s-transportservice",
-  },
-} as const;
 
 // Single source of truth for all routes in the application.
 // Make sure to update the files in /pages to match these routes

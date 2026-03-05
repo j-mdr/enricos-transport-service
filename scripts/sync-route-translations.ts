@@ -280,10 +280,6 @@ ${buildLocaleBlock("nl", resolvedPageEntries, sections)}
 ${buildLocaleBlock("en", resolvedPageEntries, sections)}
   },
 } as const;
-
-export type PageRouteKey = keyof typeof _routes.nl;
-export type RouteTranslations = typeof _routes;
-export const routeTranslations: Record<string, Record<string, string>> = _routes;
 `;
 
   writeFileSync(OUTPUT_FILE, output, "utf-8");

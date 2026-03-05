@@ -1,18 +1,16 @@
 import type { DataEntryMap } from "astro:content";
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
-
 import { defaultLocale, type Locale, locales } from "@/config/siteSettings.json";
-import { dataTranslations } from "@config/data/dataTranslations.ts";
+import { dataTranslations } from "@config/translations/dataTranslations.ts";
 import { textTranslations } from "@config/translations/textTranslations.ts";
 import { routeTranslations } from "@config/translations/routeTranslations.ts";
 import { companyInfoTranslations } from "@config/translations/companyInfoTranslations.ts";
 import { collectionTranslations } from "@config/translations/collectionTranslations.ts";
+import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 
 /**
- * * text translation helper function
- * @returns function you can use to translate strings according to the src/config/translations.ts file
- *
+ * * text translation helper function to use inside of components
  */
 export function useTextTranslation(locale: Locale) {
   return function t(key: keyof (typeof textTranslations)[typeof locale]) {
@@ -21,25 +19,26 @@ export function useTextTranslation(locale: Locale) {
 }
 
 export function useRouteTranslation(locale: Locale) {
-  return function r(pathname: keyof (typeof routeTranslations)[typeof locale]) {
+  return function r(pathname: string) {
     return getLocalizedRoute(locale, pathname);
   };
 }
 
-export function useDataTranslation(locale: Locale) {
-  return function d(key: keyof (typeof dataTranslations)[typeof locale]) {
+export const useDataTranslation = (locale: Locale) => {
+  return <K extends keyof (typeof dataTranslations)[Locale]>(key: K): (typeof dataTranslations)[Locale][K] => {
     return getTranslatedData(key, locale);
   };
-}
+};
 
 export function useCompanyInfoTranslation(locale: Locale) {
-  return function t(key: keyof (typeof textTranslations)[typeof locale]) {
+  return function t<K extends keyof (typeof companyInfoTranslations)[Locale]>(key: K): (typeof companyInfoTranslations)[Locale][K] {
     return companyInfoTranslations[locale][key] || companyInfoTranslations[defaultLocale][key];
   };
 }
 
+export function useTranslation(url: URL) {
+  const locale = getLocaleFromUrl(url);
 
-export function useTranslation(locale: Locale) {
   return {
     text: useTextTranslation(locale),
     route: useRouteTranslation(locale),
@@ -48,8 +47,6 @@ export function useTranslation(locale: Locale) {
   };
 }
 
-
-// type DataLocale = keyof typeof dataTranslations;
 type DataKey<T extends Locale> = keyof (typeof dataTranslations)[T];
 /**
  * * data file translation helper function

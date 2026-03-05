@@ -3,6 +3,11 @@ export type LocalizedData<T> = {
   nl: T;
 };
 
+type SocialLink = {
+  url: string; // full URL to the social media profile
+  id: string; // the username or page name on the social media platform, used for display purposes
+};
+
 // site data types
 export interface SiteData {
   name: string;
@@ -18,6 +23,12 @@ export interface SiteData {
     country: string; // contact country
     phone: string; // contact phone number
     email: string; // contact email address
+  };
+  social: {
+    // used for social media links in the footer and contact page
+    facebook: SocialLink;
+    instagram: SocialLink;
+    linkedin: SocialLink;
   };
   author: {
     // used for blog post purposes
@@ -59,6 +70,12 @@ export type NavItem = navLinkItem | navDropdownItem | navMegaDropdownItem;
 
 export type NavData = CtaButton & {
   navItems: NavItem[];
+};
+
+// --------------------------------------------------------
+// footer data types
+export type FooterData = CtaButton & {
+  companyName: string;
 };
 
 // --------------------------------------------------------

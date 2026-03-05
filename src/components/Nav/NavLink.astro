@@ -1,5 +1,5 @@
 ---
-import { getLocalizedRoute } from "@/utils/translationUtils";
+import { getLocalizedRoute, useTranslation } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
 
 // utils
@@ -31,19 +31,9 @@ const { text, link, newTab = false, icon } = navItem;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 
-const domain = import.meta.env.SITE; // pulls from astro.config.mjs
-let actualLink: string;
-if (!link.includes(domain) && !link.startsWith("/") && !link.startsWith("#")) {
-  // it is an external link
-  actualLink = link;
-} else {
-  // internal link, so we need to add the locale to the link
-  actualLink = getLocalizedRoute(currLocale, link);
-}
-// remove trailing slash so IDs will work
-if (actualLink.endsWith("/") && actualLink !== "/") {
-  actualLink = actualLink.slice(0, -1);
-}
+const {route} = useTranslation(Astro.url)
+const actualLink = route(navItem.link);
+
 
 const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, actualLink);
 ---

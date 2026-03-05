@@ -1,18 +1,14 @@
 ---
-import FooterLink from "@components/Footer/FooterLink.astro";
 import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
 import Button from "@components/Button/Button.astro";
-import SocialIcon from "@components/Social/SocialIcon.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData, useTextTranslation, getLocalizedRoute } from "@/utils/translationUtils";
+import { useTranslation } from "@/utils/translationUtils";
 import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
-import { ROUTES, SOCIAL_LINKS } from "@config/constants.ts";
+import SocialIcon from "@components/Social/SocialIcon.astro";
 
-const currLocale = getLocaleFromUrl(Astro.url);
-const siteData = getTranslatedData("siteData", currLocale);
-const quotePageHref = getLocalizedRoute(currLocale, ROUTES.nl.offerteAanvragen);
-const t = useTextTranslation(currLocale);
+const {route, data, companyInfo} = useTranslation(Astro.url)
+const { companyName, ctaButton} = data('footerData');
 
+const socialLinks = companyInfo('social');
 const today = new Date();
 ---
 
@@ -22,14 +18,13 @@ const today = new Date();
       <div class="mt-6 flex flex-col items-start gap-4">
         <SiteLogo />
         <div class="">
-          <Button variant="primary" href={quotePageHref}>{t("get_quote_button_text_short")}</Button>
+          <Button variant="primary" href={route(ctaButton.href)}>{ctaButton.text}</Button>
         </div>
         <div class="hidden text-sm opacity-80 md:block">
           &copy; {today.getFullYear()}
-          {" "}{siteData.name} ©
+          {" "}{companyName} ©
         </div>
       </div>
-
       <!-- Contact info -->
       <div class="flex flex-col">
         <ContactInformationBlock />
@@ -39,14 +34,14 @@ const today = new Date();
     <div class="flex items-center md:justify-end">
       <!-- Socials -->
       <div class="flex gap-2">
-        <SocialIcon href={SOCIAL_LINKS.facebook.url} icon="tabler/facebook" social="Facebook" />
-        <SocialIcon href={SOCIAL_LINKS.instagram.url} icon="tabler/instagram" social="Instagram" />
-        <SocialIcon href={SOCIAL_LINKS.linkedin.url} icon="tabler/linkedin" social="LinkedIn" />
+        <SocialIcon href={socialLinks.facebook.url} icon="tabler/facebook" social="Facebook" />
+        <SocialIcon href={socialLinks.instagram.url} icon="tabler/instagram" social="Instagram" />
+        <SocialIcon href={socialLinks.linkedin.url} icon="tabler/linkedin" social="LinkedIn" />
       </div>
     </div>
   </div>
   <div class="mt-6 text-sm opacity-80 md:hidden">
     &copy; {today.getFullYear()}
-    {" "}{siteData.name} ©
+    {" "}{companyName} ©
   </div>
 </footer>
