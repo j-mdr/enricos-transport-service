@@ -29,8 +29,22 @@ export function useTextTranslation(locale: keyof typeof textTranslations) {
 }
 
 export function useRouteTranslation(locale: keyof typeof textTranslations) {
-  return function t(key: keyof (typeof textTranslations)[typeof locale]) {
-    return textTranslations[locale][key] || textTranslations[defaultLocale][key];
+  return function r(key: string): string {
+    return routeTranslations[locale]?.[key] ?? routeTranslations[defaultLocale]?.[key] ?? key;
+  };
+}
+
+export function useDataTranslation(locale: Locale) {
+  return function d<K extends DataKey<Locale>>(key: K) {
+    return getTranslatedData(key, locale);
+  };
+}
+
+export function useTranslation(locale: keyof typeof textTranslations) {
+  return {
+    text: useTextTranslation(locale),
+    route: useRouteTranslation(locale),
+    data: useDataTranslation(locale as Locale),
   };
 }
 
