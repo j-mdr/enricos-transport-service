@@ -13,6 +13,7 @@ import { servicesSideImageSectionData } from "@config/data/servicesSideImageSect
 import { ctaCardCenterSectionData } from "@config/data/ctaCardCenterSectionData.json.ts";
 import { featureCardSmallSectionJson } from "@config/data/featureCardSmallSection.json.ts";
 import { servicesIconSectionData } from "@config/data/servicesIconSectionData.json.ts";
+import { featureLightboxMarqueeSectionData } from "@config/data/featureLightboxMarqueeSectionData.ts";
 
 export const dataTranslations = {
   nl: {
@@ -27,6 +28,7 @@ export const dataTranslations = {
     servicesIconSectionData: servicesIconSectionData.nl,
     ctaCardCenterSectionData: ctaCardCenterSectionData.nl,
     featureCardSmallSectionJson: featureCardSmallSectionJson.nl,
+    featureLightboxMarqueeSectionData: featureLightboxMarqueeSectionData.nl,
   },
   en: {
     siteData: companyInfoTranslations.en,
@@ -40,5 +42,6 @@ export const dataTranslations = {
     servicesIconSectionData: servicesIconSectionData.en,
     ctaCardCenterSectionData: ctaCardCenterSectionData.en,
     featureCardSmallSectionJson: featureCardSmallSectionJson.en,
+    featureLightboxMarqueeSectionData: featureLightboxMarqueeSectionData.en,
   },
 } as const;

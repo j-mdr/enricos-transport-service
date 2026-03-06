@@ -3,35 +3,17 @@
  * * Three row image marquee
  * JS allows the animation to pause while you hover over it.
  */
-
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import { useTranslation } from "@utils/translationUtils.ts";
+import { createMarqueeRows } from "@utils/imageUtils.ts";
 
-// images
-import image1 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-import image2 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-import image3 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-import image4 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-import image5 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-import image6 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-import image7 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-
-interface MarqueeImages {
-  images: ImageMetadata[]; // imported images
-}
+const {data} = useTranslation(Astro.url)
+const {title, images} = data('featureLightboxMarqueeSectionData')
 
 // change these images to whatever you want!
-const marqueeTop: MarqueeImages = {
-  images: [image1, image2, image3, image4, image5, image6],
-};
-
-const marqueeMiddle: MarqueeImages = {
-  images: [image1, image6, image4, image2, image7, image3],
-};
-
-const marqueeBottom: MarqueeImages = {
-  images: [image7, image6, image5, image4, image3, image2],
-};
+const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } =
+  createMarqueeRows(images);
 ---
 
 <section id="feature-gallery-marquee" class="mx-auto my-12 py-12">
@@ -55,8 +37,8 @@ const marqueeBottom: MarqueeImages = {
         {
           marqueeTop.images.map((image) => (
             <Image
-              src={image}
-              alt=""
+              src={image.src}
+              alt={image.alt}
               loading="lazy"
               width={600}
               class="aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] rounded-md object-cover shadow-md"
@@ -71,8 +53,8 @@ const marqueeBottom: MarqueeImages = {
         {
           marqueeTop.images.map((image) => (
             <Image
-              src={image}
-              alt=""
+              src={image.src}
+              alt={image.alt}
               loading="lazy"
               width={600}
               class="aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] rounded-md object-cover shadow-md"
@@ -90,8 +72,8 @@ const marqueeBottom: MarqueeImages = {
         {
           marqueeMiddle.images.map((image) => (
             <Image
-              src={image}
-              alt=""
+              src={image.src}
+              alt={image.alt}
               loading="lazy"
               width={600}
               class="aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] rounded-md object-cover shadow-md"
@@ -106,8 +88,8 @@ const marqueeBottom: MarqueeImages = {
         {
           marqueeMiddle.images.map((image) => (
             <Image
-              src={image}
-              alt=""
+              src={image.src}
+              alt={image.alt}
               loading="lazy"
               width={600}
               class="aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] rounded-md object-cover shadow-md"
@@ -125,8 +107,8 @@ const marqueeBottom: MarqueeImages = {
         {
           marqueeBottom.images.map((image) => (
             <Image
-              src={image}
-              alt=""
+              src={image.src}
+              alt={image.alt}
               loading="lazy"
               width={600}
               class="aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] rounded-md object-cover shadow-md"
@@ -141,8 +123,8 @@ const marqueeBottom: MarqueeImages = {
         {
           marqueeBottom.images.map((image) => (
             <Image
-              src={image}
-              alt=""
+              src={image.src}
+              alt={image.alt}
               loading="lazy"
               width={600}
               class="aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] rounded-md object-cover shadow-md"

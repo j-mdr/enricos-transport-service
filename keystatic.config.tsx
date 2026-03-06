@@ -23,7 +23,7 @@ export default config({
   // create a Keystatic Cloud account here: https://keystatic.cloud/
   cloud: { project: "cosmic-themes/stellar" },
   ui: {
-    brand: { name: "Cosmic Themes" },
+    brand: { name: "Enrico's transportservice" },
   },
   collections: {
     blogEN: Collections.Blog("en"),

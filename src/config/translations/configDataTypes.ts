@@ -43,6 +43,15 @@ export interface SiteData {
 }
 
 // --------------------------------------------------------
+// cta
+export interface CtaButton {
+  ctaButton: {
+    text: string;
+    href: string;
+  };
+}
+
+// --------------------------------------------------------
 // nav data types
 export type navLinkItem = {
   text: string;
@@ -144,6 +153,13 @@ export interface Icon {
 export interface HeroSideImageSectionData extends Section, CtaButton, Image {}
 
 // --------------------------------------------------------
+// marque data types
+export type FeatureLightboxMarqueeSectionData = Pick<Section, "title"> & {
+  images: Image["image"][];
+};
+
+
+// --------------------------------------------------------
 // Feature data types
 export interface FeatureCard {
   icon: string;
@@ -168,14 +184,7 @@ type ServicesSectionData<T> = Pick<Section, "title"> & {
 export type ServicesSideImageSectionData = ServicesSectionData<ServiceCard>;
 export type ServicesIconSectionData = ServicesSectionData<ServiceIconCard>;
 
-// --------------------------------------------------------
-// cta
-export interface CtaButton {
-  ctaButton: {
-    text: string;
-    href: string;
-  };
-}
+
 
 export interface CtaCardCenterSectionData extends Section, CtaButton {}
 
@@ -185,3 +194,5 @@ export interface SiteSettingsProps {
   useViewTransitions?: boolean;
   useAnimations?: boolean;
 }
+
+export type ImageType = Image['image']
