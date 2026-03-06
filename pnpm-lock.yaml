@@ -72,8 +72,8 @@ importers:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
       swiper:
-        specifier: 12.0.3
-        version: 12.0.3
+        specifier: 12.1.2
+        version: 12.1.2
       tailwind-merge:
         specifier: 3.4.0
         version: 3.4.0
@@ -114,6 +114,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.7.1
         version: 0.7.1(prettier-plugin-astro@0.14.1)(prettier@3.7.1)
+      sharp:
+        specifier: ^0.34.5
+        version: 0.34.5
       tsx:
         specifier: ^4.19.4
         version: 4.21.0
@@ -5065,8 +5068,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  swiper@12.0.3:
-    resolution: {integrity: sha512-BHd6U1VPEIksrXlyXjMmRWO0onmdNPaTAFduzqR3pgjvi7KfmUCAm/0cj49u2D7B0zNjMw02TSeXfinC1hDCXg==}
+  swiper@12.1.2:
+    resolution: {integrity: sha512-4gILrI3vXZqoZh71I1PALqukCFgk+gpOwe1tOvz5uE9kHtl2gTDzmYflYCwWvR4LOvCrJi6UEEU+gnuW5BtkgQ==}
     engines: {node: '>= 4.7.0'}
 
   synckit@0.11.11:
@@ -6525,8 +6528,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@img/colour@1.0.0':
-    optional: true
+  '@img/colour@1.0.0': {}
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
@@ -11893,7 +11895,6 @@ snapshots:
       '@img/sharp-win32-arm64': 0.34.5
       '@img/sharp-win32-ia32': 0.34.5
       '@img/sharp-win32-x64': 0.34.5
-    optional: true
 
   shebang-command@2.0.0:
     dependencies:
@@ -12110,7 +12111,7 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.4.3
 
-  swiper@12.0.3: {}
+  swiper@12.1.2: {}
 
   synckit@0.11.11:
     dependencies:

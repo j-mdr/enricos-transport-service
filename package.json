@@ -12,7 +12,8 @@
     "remove-keystatic": "node ./scripts/remove-keystatic.js",
     "format": "prettier -w \"**/*\" --ignore-unknown --cache",
     "lint": "eslint .",
-    "sync-routes": "tsx scripts/sync-route-translations.ts"
+    "sync-routes": "tsx scripts/sync-route-translations.ts",
+    "crop": "node scripts/crop-images.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
@@ -36,7 +37,7 @@
     "motion-on-scroll": "^1.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "swiper": "12.0.3",
+    "swiper": "12.1.2",
     "tailwind-merge": "3.4.0",
     "tailwind-variants": "3.2.2",
     "tailwindcss": "4.1.17",
@@ -52,6 +53,7 @@
     "globals": "^16.0.0",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
+    "sharp": "^0.34.5",
     "tsx": "^4.19.4",
     "typescript-eslint": "^8.31.1"
   },
