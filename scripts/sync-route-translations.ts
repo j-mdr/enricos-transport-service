@@ -23,9 +23,9 @@ import { execSync } from "node:child_process";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const PAGES_DIR = join(ROOT, "src", "pages");
-const DATA_DIR = join(ROOT, "src", "data");
-const OUTPUT_FILE = join(ROOT, "src", "config", "routeTranslations.ts");
-const COLLECTION_TRANS_FILE = join(ROOT, "src", "config", "collectionTranslations.ts");
+const DATA_DIR = join(ROOT, "src", "content");
+const OUTPUT_FILE = join(ROOT, "src", "config", "translations", "routeTranslations.ts");
+const COLLECTION_TRANS_FILE = join(ROOT, "src", "config", "translations", "collectionTranslations.ts");
 
 const SKIP_FILES = new Set(["404.astro", "[...page].astro", "rss.xml.ts", "index.astro"]);
 const SKIP_DIRS = new Set(["en", "examples"]);
@@ -272,7 +272,7 @@ async function main() {
 // EN paths for content entries with different NL/EN slugs (e.g. service pages)
 // must be set manually after adding new content.
 
-const _routes = {
+export const routeTranslations = {
   nl: {
 ${buildLocaleBlock("nl", resolvedPageEntries, sections)}
   },

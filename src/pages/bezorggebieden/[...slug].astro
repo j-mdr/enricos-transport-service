@@ -1,0 +1,36 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+
+// layout
+import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
+
+// components
+import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
+
+// utils
+import { filterCollectionByLanguage } from "@/utils/localeUtils";
+import { defaultLocale } from "@config/siteSettings.json";
+
+export async function getStaticPaths() {
+  const gebieden = await getCollection("bezorggebieden", ({ data }) => {
+    // filter out draft entries
+    return data.draft !== true;
+  });
+
+  // get rid of pages from other languages and remove locale from slug
+  const filteredGebieden = filterCollectionByLanguage(gebieden, defaultLocale);
+
+  return filteredGebieden.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+type Props = CollectionEntry<"bezorggebieden">;
+
+const gebied = Astro.props as Props;
+const { Content } = await render(gebied);
+---
+
+<ServiceLayoutCenter {...gebied.data}>
+  <Content components={{ a: ExternalLink }} />
+</ServiceLayoutCenter>

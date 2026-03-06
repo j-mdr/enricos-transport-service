@@ -57,6 +57,21 @@ const servicesCollection = defineCollection({
     }),
 });
 
+// bezorggebieden
+const bezorggebiedenCollection = defineCollection({
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/bezorggebieden" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      image: image(),
+      // mappingKey allows you to match entries across languages for SEO purposes
+      mappingKey: z.string().optional(),
+      // entries will be excluded from build if draft is "true"
+      draft: z.boolean().optional(),
+    }),
+});
+
 // other pages
 const otherPagesCollection = defineCollection({
   loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/otherPages" }),
@@ -74,5 +89,6 @@ export const collections = {
   blog: blogCollection,
   authors: authorsCollection,
   services: servicesCollection,
+  bezorggebieden: bezorggebiedenCollection,
   otherPages: otherPagesCollection,
 };

@@ -7,6 +7,7 @@ export type Routes = {
   home: string;
   overOns: string;
   diensten: string;
+  bezorggebieden: string;
   contact: string;
   offerteAanvragen: string;
   partnerWorden: string;
@@ -27,6 +28,7 @@ export const ROUTES: LocalizedRoutes = {
     home: "/",
     overOns: "/over-ons",
     diensten: "/diensten",
+    bezorggebieden: "/bezorggebieden",
     contact: "/contact",
     offerteAanvragen: "/offerte-aanvragen",
     partnerWorden: "/partner-worden",
@@ -43,6 +45,7 @@ export const ROUTES: LocalizedRoutes = {
     home: "/",
     overOns: "/about-us",
     diensten: "/services",
+    bezorggebieden: "/delivery-areas",
     contact: "/contact",
     offerteAanvragen: "/request-quote",
     partnerWorden: "/become-a-partner",

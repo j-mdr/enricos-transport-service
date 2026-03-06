@@ -17,5 +17,9 @@ export const collectionTranslations = {
     en: "services",
     nl: "diensten",
   },
+  bezorggebieden: {
+    en: "delivery-areas",
+    nl: "bezorggebieden",
+  },
   // Add more collections/locales as needed
 } as const;

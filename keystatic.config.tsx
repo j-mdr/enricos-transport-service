@@ -37,6 +37,9 @@ export default config({
     servicesEN: Collections.Services("en"),
     servicesNL: Collections.Services("nl"),
 
+    bezorggebiedenEN: Collections.Bezorggebieden("en"),
+    bezorggebiedenNL: Collections.Bezorggebieden("nl"),
+
     otherPagesEN: Collections.OtherPages("en"),
     otherPagesNL: Collections.OtherPages("nl"),
   },

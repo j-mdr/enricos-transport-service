@@ -1,10 +1,12 @@
 # Skill: Afbeeldingen hernoemen naar SEO-vriendelijke namen
 
 ## Wanneer gebruiken
+
 - Bronbestanden staan in `src/assets/images/raw/` met generieke namen (bijv. WhatsApp-exports)
 - Doel: kopieën met SEO-namen in `src/assets/images/`
 
 ## Naamformaat
+
 `enricos-transportservice-[seo-beschrijving]-[aspectratio].[extensie]`
 
 Voorbeelden van aspectratio-suffixen: `4x3`, `3x4`, `1x1`, `16x9`
@@ -29,6 +31,7 @@ ls src/assets/images/enricos-transportservice-*.jpeg
 (Pas de extensie aan als het geen `.jpeg` is.)
 
 ## Belangrijk
+
 - Gebruik altijd **dezelfde bestandsextensie** als het origineel. Controleer dit per bestand als er gemengde types (.jpeg, .png, .webp) in de `raw/` map zitten.
 - Gebruik aanhalingstekens om spaties in bestandsnamen te quoten.
 - Originelen in `raw/` worden nooit verwijderd of gewijzigd.
@@ -42,11 +45,11 @@ Wanneer ruwe foto's in meerdere aspect-ratio's nodig zijn, gebruik dan het geaut
 ### Crop-afmetingen
 
 | Ratio | Breedte | Hoogte |
-|---|---|---|
-| 4x3 | 1600px | 1200px |
-| 3x4 | 900px | 1200px |
-| 1x1 | 1200px | 1200px |
-| 16x9 | 1920px | 1080px |
+| ----- | ------- | ------ |
+| 4x3   | 1600px  | 1200px |
+| 3x4   | 900px   | 1200px |
+| 1x1   | 1200px  | 1200px |
+| 16x9  | 1920px  | 1080px |
 
 ### Hoe het werkt
 

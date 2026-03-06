@@ -8,12 +8,11 @@ import { Icon } from "astro-icon/components";
 import { useTranslation } from "@utils/translationUtils.ts";
 import { createMarqueeRows } from "@utils/imageUtils.ts";
 
-const {data} = useTranslation(Astro.url)
-const {title, images} = data('featureLightboxMarqueeSectionData')
+const { data } = useTranslation(Astro.url);
+const { title, images } = data("featureLightboxMarqueeSectionData");
 
 // change these images to whatever you want!
-const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } =
-  createMarqueeRows(images);
+const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = createMarqueeRows(images);
 ---
 
 <section id="feature-gallery-marquee" class="mx-auto my-12 py-12">

@@ -158,7 +158,6 @@ export type FeatureLightboxMarqueeSectionData = Pick<Section, "title"> & {
   images: Image["image"][];
 };
 
-
 // --------------------------------------------------------
 // Feature data types
 export interface FeatureCard {
@@ -184,8 +183,6 @@ type ServicesSectionData<T> = Pick<Section, "title"> & {
 export type ServicesSideImageSectionData = ServicesSectionData<ServiceCard>;
 export type ServicesIconSectionData = ServicesSectionData<ServiceIconCard>;
 
-
-
 export interface CtaCardCenterSectionData extends Section, CtaButton {}
 
 // --------------------------------------------------------
@@ -195,4 +192,4 @@ export interface SiteSettingsProps {
   useAnimations?: boolean;
 }
 
-export type ImageType = Image['image']
+export type ImageType = Image["image"];

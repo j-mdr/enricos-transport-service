@@ -243,6 +243,67 @@ const Services = (locale: (typeof locales)[number]) =>
   });
 
 /**
+ * * Bezorggebieden collection
+ * This gets used by Astro Content Collections, so if you update this, you'll need to update the Astro Content Collections schema
+ */
+const Bezorggebieden = (locale: (typeof locales)[number]) =>
+  collection({
+    label: `Bezorggebieden (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/bezorggebieden/${locale}/*/`,
+    columns: ["title"],
+    entryLayout: "content",
+    format: { contentField: "content" },
+    schema: {
+      title: fields.slug({
+        name: { label: "Title" },
+        slug: {
+          label: "SEO-friendly slug",
+          description: "Never change the slug once a file is published!",
+        },
+      }),
+      description: fields.text({
+        label: "Description",
+        validation: { isRequired: true, length: { min: 1, max: 160 } },
+      }),
+      image: fields.image({
+        label: "Main Image",
+        publicPath: "../",
+        validation: { isRequired: true },
+      }),
+      mappingKey: fields.text({
+        label: "Mapping Key",
+        description: "This is used to map entries between languages.",
+      }),
+      draft: fields.checkbox({
+        label: "Draft",
+        description: "Set this page as draft to prevent it from being published.",
+      }),
+      content: fields.mdx({
+        label: "Page Contents",
+        options: {
+          bold: true,
+          italic: true,
+          strikethrough: true,
+          code: false,
+          heading: [2, 3, 4],
+          blockquote: true,
+          orderedList: true,
+          unorderedList: true,
+          table: true,
+          link: true,
+          image: {
+            directory: `src/content/bezorggebieden/${locale}/`,
+            publicPath: "../",
+          },
+          divider: true,
+          codeBlock: false,
+        },
+      }),
+    },
+  });
+
+/**
  * * Other Pages collection
  * For items like legal pages, about pages, etc.
  * This gets used by Astro Content Collections, so if you update this, you'll need to update the Astro Content Collections schema
@@ -306,5 +367,6 @@ export default {
   Blog,
   Authors,
   Services,
+  Bezorggebieden,
   OtherPages,
 };
