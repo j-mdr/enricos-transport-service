@@ -13,7 +13,7 @@ export const collectionTranslations = {
     en: "blog",
     nl: "blog",
   },
-  services: {
+  diensten: {
     en: "services",
     nl: "diensten",
   },

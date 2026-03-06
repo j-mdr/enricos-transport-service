@@ -186,7 +186,7 @@ const Services = (locale: (typeof locales)[number]) =>
   collection({
     label: `Services (${locale.toUpperCase()})`,
     slugField: "title",
-    path: `src/content/services/${locale}/*/`,
+    path: `src/content/diensten/${locale}/*/`,
     columns: ["title"],
     entryLayout: "content",
     format: { contentField: "content" },
@@ -229,7 +229,7 @@ const Services = (locale: (typeof locales)[number]) =>
           table: true,
           link: true,
           image: {
-            directory: `src/content/services/${locale}/`,
+            directory: `src/content/diensten/${locale}/`,
             publicPath: "../",
           },
           divider: true,

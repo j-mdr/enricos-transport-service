@@ -17,7 +17,7 @@ export const routeTranslations = {
     partner_worden: "partner-worden",
     /**** blog ****/
     blog_voorbeeld_een: "blog/voorbeeld-een",
-    /**** services ****/
+    /**** diensten ****/
     diensten_documenten_transport: "diensten/documenten-transport",
     diensten_groot_transport: "diensten/groot-transport",
     diensten_incidenteel_transport: "diensten/incidenteel-transport",
@@ -45,7 +45,7 @@ export const routeTranslations = {
     partner_worden: "become-a-partner",
     /**** blog ****/
     blog_voorbeeld_een: "blog/example-one",
-    /**** services ****/
+    /**** diensten ****/
     diensten_documenten_transport: "services/document-transport",
     diensten_groot_transport: "services/large-transport",
     diensten_incidenteel_transport: "services/occasional-transport",

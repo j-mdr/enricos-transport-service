@@ -42,9 +42,9 @@ const authorsCollection = defineCollection({
     }),
 });
 
-// services
-const servicesCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/services" }),
+// diensten
+const dienstenCollection = defineCollection({
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/diensten" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -88,7 +88,7 @@ const otherPagesCollection = defineCollection({
 export const collections = {
   blog: blogCollection,
   authors: authorsCollection,
-  services: servicesCollection,
+  diensten: dienstenCollection,
   bezorggebieden: bezorggebiedenCollection,
   otherPages: otherPagesCollection,
 };

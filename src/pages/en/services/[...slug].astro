@@ -13,7 +13,7 @@ import { filterCollectionByLanguage } from "@/utils/localeUtils";
 import { defaultLocale } from "@config/siteSettings.json";
 
 export async function getStaticPaths() {
-  const services = await getCollection("services", ({ data }) => {
+  const services = await getCollection("diensten", ({ data }) => {
     // filter out draft services
     return data.draft !== true;
   });
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
     props: post,
   }));
 }
-type Props = CollectionEntry<"services">;
+type Props = CollectionEntry<"diensten">;
 
 const service = Astro.props as Props;
 const { Content } = await render(service);
