@@ -36,7 +36,7 @@ export function getLocaleFromUrl(url: URL): (typeof locales)[number] {
  *
  * ## How to setup content collection
  *
- * Your content collections should be paths like `src/data/blog/de/my-post.md` and `src/data/blog/en/my-post.md`
+ * Your content collections should be paths like `src/content/blog/de/my-post.md` and `src/content/blog/en/my-post.md`
  */
 export function filterCollectionByLanguage<T extends keyof DataEntryMap>(
   collection: CollectionEntry<T>[],

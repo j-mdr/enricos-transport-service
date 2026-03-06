@@ -23,7 +23,7 @@ const Blog = (locale: (typeof locales)[number]) =>
   collection({
     label: `Blog (${locale.toUpperCase()})`,
     slugField: "title",
-    path: `src/data/blog/${locale}/*/`,
+    path: `src/content/blog/${locale}/*/`,
     columns: ["title", "pubDate"],
     entryLayout: "content",
     format: { contentField: "content" },
@@ -89,7 +89,7 @@ const Blog = (locale: (typeof locales)[number]) =>
           table: true,
           link: true,
           image: {
-            directory: `src/data/blog/${locale}/`,
+            directory: `src/content/blog/${locale}/`,
             publicPath: "../",
             // schema: {
             //   title: fields.text({
@@ -117,7 +117,7 @@ const Authors = (locale: (typeof locales)[number] | "") =>
   collection({
     label: `Authors ${locale === "" ? "" : `(${locale.toUpperCase()})`} `,
     slugField: "name",
-    path: `src/data/authors/${locale}/*/`,
+    path: `src/content/authors/${locale}/*/`,
     columns: ["name"],
     entryLayout: "content",
     format: { contentField: "bio" },
@@ -168,7 +168,7 @@ const Authors = (locale: (typeof locales)[number] | "") =>
           table: false,
           link: true,
           image: {
-            directory: "src/data/authors/",
+            directory: "src/content/authors/",
             publicPath: "../",
           },
           divider: true,
@@ -186,7 +186,7 @@ const Services = (locale: (typeof locales)[number]) =>
   collection({
     label: `Services (${locale.toUpperCase()})`,
     slugField: "title",
-    path: `src/data/services/${locale}/*/`,
+    path: `src/content/services/${locale}/*/`,
     columns: ["title"],
     entryLayout: "content",
     format: { contentField: "content" },
@@ -229,7 +229,7 @@ const Services = (locale: (typeof locales)[number]) =>
           table: true,
           link: true,
           image: {
-            directory: `src/data/services/${locale}/`,
+            directory: `src/content/services/${locale}/`,
             publicPath: "../",
           },
           divider: true,
@@ -251,7 +251,7 @@ const OtherPages = (locale: (typeof locales)[number]) =>
   collection({
     label: `Other Pages (${locale.toUpperCase()})`,
     slugField: "title",
-    path: `src/data/otherPages/${locale}/*/`,
+    path: `src/content/otherPages/${locale}/*/`,
     columns: ["title"],
     entryLayout: "content",
     format: { contentField: "content" },
@@ -289,7 +289,7 @@ const OtherPages = (locale: (typeof locales)[number]) =>
           table: true,
           link: true,
           image: {
-            directory: `src/data/otherPages/${locale}/`,
+            directory: `src/content/otherPages/${locale}/`,
             publicPath: "../",
           },
           divider: true,

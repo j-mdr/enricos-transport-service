@@ -50,7 +50,7 @@ Key util functions (all in `src/utils/`):
 
 ### Content Collections (`src/content.config.ts`)
 
-Four collections, all stored under `src/data/` with locale subfolders (`nl/`, `en/`):
+Four collections, all stored under `src/content/` with locale subfolders (`nl/`, `en/`):
 
 - `blog` — MDX blog posts (requires `title`, `description`, `authors`, `pubDate`, `heroImage`, `categories`)
 - `authors` — Author profiles

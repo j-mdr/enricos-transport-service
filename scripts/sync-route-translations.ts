@@ -1,7 +1,7 @@
 // scripts/sync-route-translations.ts
 // Usage: pnpm sync-routes
 //
-// Scans src/pages/ (NL only) + src/data/ content entries and regenerates
+// Scans src/pages/ (NL only) + src/content/ content entries and regenerates
 // src/config/routeTranslations.ts, then formats it with Prettier.
 //
 // Key convention:

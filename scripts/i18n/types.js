@@ -7,7 +7,7 @@ export const DEFAULT_PATHS = {
     translationDataPath: "src/config/translations.ts",
     keystaticConfigPath: "keystatic.config.tsx",
     srcConfigFolder: "src/config",
-    srcContentFolder: "src/data",
+    srcContentFolder: "src/content",
     srcPagesFolder: "src/pages",
 };
 /**

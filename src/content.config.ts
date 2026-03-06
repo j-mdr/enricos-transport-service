@@ -3,7 +3,7 @@ import { glob } from "astro/loaders";
 
 // Type-check frontmatter using a schema
 const blogCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/data/blog" }),
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/blog" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -31,7 +31,7 @@ const blogCollection = defineCollection({
 
 // authors
 const authorsCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/data/authors" }),
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/authors" }),
   schema: ({ image }) =>
     z.object({
       name: z.string(),
@@ -44,7 +44,7 @@ const authorsCollection = defineCollection({
 
 // services
 const servicesCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/data/services" }),
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/services" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -59,7 +59,7 @@ const servicesCollection = defineCollection({
 
 // other pages
 const otherPagesCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/data/otherPages" }),
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/otherPages" }),
   schema: () =>
     z.object({
       title: z.string(),
