@@ -2,7 +2,6 @@ import {
   type LocalizedData,
   type ServicesIconSectionData,
 } from "../translations/configDataTypes.ts";
-import image3 from "@images/paint-swatches.jpg";
 import { ROUTES } from "@config/constants.ts";
 
 const READ_MORE_TEXT = {

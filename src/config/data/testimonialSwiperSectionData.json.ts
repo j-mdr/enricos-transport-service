@@ -3,10 +3,10 @@ import {
   type TestimonialSwiperSectionData,
 } from "../translations/configDataTypes.ts";
 
-import BowTiedFocus from "@images/BowTiedFocus.jpg";
-import Aniket from "@images/aniket_p.jpg";
-import David from "@images/david-g-davedev.png";
-import Damiano from "@images/damiano.jpg";
+import BowTiedFocus from "@images/nic_fassbender.jpg";
+import Aniket from "@images/nic_fassbender.jpg";
+import David from "@images/nic_fassbender.jpg";
+import Damiano from "@images/nic_fassbender.jpg";
 
 export const testimonialSwiperSectionData: LocalizedData<TestimonialSwiperSectionData> = {
   nl: {

@@ -3,8 +3,8 @@ import {
   type TeamMemberCardsSectionData,
 } from "@config/translations/configDataTypes.ts";
 
-import Virginia from "@images/ashton_blackwell.jpg";
-import Victra from "@images/nicola_harris.jpg";
+import Virginia from "@images/nic_fassbender.jpg";
+import Victra from "@images/nic_fassbender.jpg";
 import Darrow from "@images/nic_fassbender.jpg";
 
 export const teamMemberCardsSectionData: LocalizedData<TeamMemberCardsSectionData> = {

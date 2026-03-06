@@ -2,7 +2,7 @@ import {
   type LocalizedData,
   type HeroSideImageSectionData,
 } from "../translations/configDataTypes.ts";
-import heroImage from "@images/enricos-transport-service-bus-zonsopgang-4x3.jpg";
+import heroImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
 import { textTranslations } from "@config/translations/textTranslations.ts";
 import { ROUTES } from "@config/constants.ts";
 

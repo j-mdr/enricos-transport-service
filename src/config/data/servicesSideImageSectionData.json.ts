@@ -2,9 +2,12 @@ import {
   type LocalizedData,
   type ServicesSideImageSectionData,
 } from "../translations/configDataTypes.ts";
-import image1 from "@images/house.jpg";
-import image2 from "@images/living-room.jpg";
-import image3 from "@images/paint-swatches.jpg";
+import refulierTransportImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
+import incidenteelTransportImage from "@images/enricos-transportservice-bestelbus-laaddock-distributiecentrum-technische-unie-1x1.jpeg";
+import grootTransportImage from "@images/enricos-transportservice-bestelbus-laaddock-distributiecentrum-technische-unie-1x1.jpeg";
+import spoedTransportImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-bospad-herfst-1x1.jpeg";
+import documentenTransportImage from "@images/enricos-transportservice-bestelbus-zijkant-plaatsnaambord-feanwalden-1x1.jpeg";
+import meubelTransport from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
 import { ROUTES } from "@config/constants.ts";
 
 const READ_MORE_TEXT = {
@@ -18,7 +21,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
     services: [
       {
         image: {
-          src: image1,
+          src: refulierTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -30,7 +33,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image2,
+          src: incidenteelTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -43,7 +46,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image3,
+          src: grootTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -55,7 +58,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image1,
+          src: spoedTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -67,7 +70,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image2,
+          src: documentenTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -79,7 +82,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image3,
+          src: meubelTransport,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -97,7 +100,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
     services: [
       {
         image: {
-          src: image1,
+          src: refulierTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -109,7 +112,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image2,
+          src: incidenteelTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -121,7 +124,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image3,
+          src: grootTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -133,7 +136,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image1,
+          src: spoedTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -145,7 +148,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image2,
+          src: documentenTransportImage,
           alt: "een afbeelding",
         },
         ctaButton: {
@@ -157,7 +160,7 @@ export const servicesSideImageSectionData: LocalizedData<ServicesSideImageSectio
       },
       {
         image: {
-          src: image3,
+          src: meubelTransport,
           alt: "een afbeelding",
         },
         ctaButton: {
