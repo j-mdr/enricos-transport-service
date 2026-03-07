@@ -77,12 +77,14 @@ const deliveryAreasCollection = defineCollection({
 // other pages
 const otherPagesCollection = defineCollection({
   loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/otherPages" }),
-  schema: () =>
+  schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
       // mappingKey allows you to match entries across languages for SEO purposes
       mappingKey: z.string().optional(),
+      template: z.enum(["BaseLayout", "ServiceLayoutCenter"]).default("BaseLayout"),
+      image: image().optional(),
       draft: z.boolean().optional(),
     }),
 });

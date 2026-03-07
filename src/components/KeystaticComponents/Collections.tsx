@@ -13,6 +13,11 @@ import { locales } from "@config/siteSettings.json";
 
 type Locale = (typeof locales)[number];
 
+const templateOptions = {
+  baseLayout: { label: "Base Layout", value: "BaseLayout" },
+  serviceLayoutCenter: { label: "Service Layout (gecentreerd)", value: "ServiceLayoutCenter" },
+} as const;
+
 /**
  * * Blog posts collection
  * This gets used by Astro Content Collections, so if you update this, you'll need to update the Astro Content Collections schema
@@ -213,7 +218,7 @@ const Services = (locale: (typeof locales)[number]) =>
       template: fields.select({
         label: "Template",
         description: "De layout die voor deze pagina gebruikt wordt.",
-        options: [{ label: "Service Layout (gecentreerd)", value: "ServiceLayoutCenter" }],
+        options: [templateOptions.serviceLayoutCenter],
         defaultValue: "ServiceLayoutCenter",
       }),
       draft: fields.checkbox({
@@ -284,7 +289,7 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
       template: fields.select({
         label: "Template",
         description: "De layout die voor deze pagina gebruikt wordt.",
-        options: [{ label: "Service Layout (gecentreerd)", value: "ServiceLayoutCenter" }],
+        options: [templateOptions.serviceLayoutCenter],
         defaultValue: "ServiceLayoutCenter",
       }),
       draft: fields.checkbox({
@@ -347,6 +352,17 @@ const OtherPages = (locale: (typeof locales)[number]) =>
       mappingKey: fields.text({
         label: "Mapping Key",
         description: "This is used to map entries between languages.",
+      }),
+      template: fields.select({
+        label: "Template",
+        description: "De layout die voor deze pagina gebruikt wordt.",
+        options: [templateOptions.baseLayout, templateOptions.serviceLayoutCenter],
+        defaultValue: "BaseLayout",
+      }),
+      image: fields.image({
+        label: "Main Image",
+        description: "Optioneel. Alleen zichtbaar bij Service Layout.",
+        publicPath: "../",
       }),
       draft: fields.checkbox({
         label: "Draft",
