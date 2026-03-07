@@ -1,7 +1,4 @@
-import type {
-  LocalizedData,
-  FeatureLightboxMarqueeSectionData,
-} from "@config/configDataTypes.ts";
+import type { LocalizedData, FeatureLightboxMarqueeSectionData } from "@config/configDataTypes.ts";
 import image1 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
 import image2 from "@images/enricos-transportservice-bestelbus-achteraanzicht-bospad-herfst-1x1.jpeg";
 import image3 from "@images/enricos-transportservice-bestelbus-achterkant-hotel-apeldoorn-1x1.jpeg";

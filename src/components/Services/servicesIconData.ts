@@ -1,7 +1,4 @@
-import {
-  type LocalizedData,
-  type ServicesIconSectionData,
-} from "@config/configDataTypes.ts";
+import { type LocalizedData, type ServicesIconSectionData } from "@config/configDataTypes.ts";
 
 export const servicesIconData: LocalizedData<ServicesIconSectionData> = {
   nl: {

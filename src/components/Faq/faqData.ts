@@ -1,7 +1,4 @@
-import {
-  type LocalizedData,
-  type FaqAccordionSectionData,
-} from "@config/configDataTypes.ts";
+import { type LocalizedData, type FaqAccordionSectionData } from "@config/configDataTypes.ts";
 
 const PHONE = "+31 6 5517 4134";
 const EMAIL = "info@enricostransportservice.nl";

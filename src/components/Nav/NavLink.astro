@@ -27,9 +27,8 @@ const { navItem, class: className, noIcon = false } = Astro.props as Props;
 const { text, link, newTab = false, icon } = navItem;
 
 const { route } = await useTranslation(Astro.url);
-const actualLink = route(navItem.link);
 
-const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, actualLink);
+const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, navItem.link);
 ---
 
 <li>
@@ -41,7 +40,7 @@ const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, actualLink
         "bg-primary-200": currentPath,
       },
     ]}
-    href={actualLink}
+    href={navItem.link}
     target={newTab ? "_blank" : ""}
     rel={newTab ? "noopener noreferrer" : ""}
     aria-label={text}

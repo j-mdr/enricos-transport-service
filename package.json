@@ -8,12 +8,8 @@
     "build": "astro build",
     "preview": "wrangler dev",
     "astro": "astro",
-    "config-i18n": "node ./scripts/config-i18n.js",
-    "remove-keystatic": "node ./scripts/remove-keystatic.js",
     "format": "prettier -w \"**/*\" --ignore-unknown --cache",
-    "lint": "eslint .",
-    "sync-routes": "tsx scripts/sync-route-translations.ts",
-    "crop": "node scripts/crop-images.mjs"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

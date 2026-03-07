@@ -1,7 +1,4 @@
-import {
-  type LocalizedData,
-  type CtaCardCenterSectionData,
-} from "@config/configDataTypes.ts";
+import { type LocalizedData, type CtaCardCenterSectionData } from "@config/configDataTypes.ts";
 
 export const ctaCardCenterData: LocalizedData<CtaCardCenterSectionData> = {
   nl: {

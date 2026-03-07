@@ -17,7 +17,7 @@ type Props = ServiceIconCard & {
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
 };
 
-const { route, text } = await useTranslation(Astro.url);
+const { text } = await useTranslation(Astro.url);
 
 const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 ---
@@ -25,7 +25,7 @@ const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 <div {...rest} class="h-full">
   `
   <a
-    href={route(ctaButton.href)}
+    href={ctaButton.href}
     class="group bg-base-50 flex h-full flex-col justify-between overflow-hidden rounded-xl px-4 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
   >
     <div>

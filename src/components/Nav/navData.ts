@@ -35,31 +35,31 @@ export const navData: LocalizedData<NavData> = {
   en: {
     ctaButton: {
       text: "Contact us",
-      href: "/contact",
+      href: "/en/contact",
     },
     navItems: [
       {
         text: "About us",
-        link: "/about-us",
+        link: "/en/about-us",
       },
       {
         text: "Services",
         dropdown: [
-          { text: "Regular transport", link: "/services/regular-transport" },
-          { text: "Occasional transport", link: "/services/occasional-transport" },
-          { text: "Large transport", link: "/services/large-transport" },
-          { text: "Urgent transport", link: "/services/urgent-transport" },
-          { text: "Documentation transport", link: "/services/document-transport" },
-          { text: "Furniture transport", link: "/services/furniture-transport" },
+          { text: "Regular transport", link: "/en/services/regular-transport" },
+          { text: "Occasional transport", link: "/en/services/occasional-transport" },
+          { text: "Large transport", link: "/en/services/large-transport" },
+          { text: "Urgent transport", link: "/en/services/urgent-transport" },
+          { text: "Documentation transport", link: "/en/services/document-transport" },
+          { text: "Furniture transport", link: "/en/services/furniture-transport" },
         ],
       },
       {
         text: "Become partner",
-        link: "/become-a-partner",
+        link: "/en/become-a-partner",
       },
       {
         text: "Blog",
-        link: "/blog",
+        link: "/en/blog",
       },
     ],
   },
