@@ -6,11 +6,12 @@
  */
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import { useTranslation } from "@utils/translationUtils.ts";
+import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 import { createMarqueeRows } from "@utils/imageUtils.ts";
+import { featureLightboxMarqueeData } from "./featureLightboxMarqueeData";
 
-const { data } = useTranslation(Astro.url);
-const { title, images } = data("featureLightboxMarqueeSectionData");
+const currLocale = getLocaleFromUrl(Astro.url);
+const { title, images } = featureLightboxMarqueeData[currLocale];
 
 // change these images to whatever you want!
 const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = createMarqueeRows(images);
@@ -19,7 +20,7 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
 <section id="feature-lightbox-marquee" class="mx-auto my-12 py-12">
   <div class="flex justify-center">
     <h2 class="h2 relative inline">
-      Op pad voor klanten
+      {title}
       <Icon
         name="stellar/freehand-arrow"
         class="text-primary-500 absolute top-0 right-0 h-auto w-10 translate-x-10 translate-y-7 rotate-45"

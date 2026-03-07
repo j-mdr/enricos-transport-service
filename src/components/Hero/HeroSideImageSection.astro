@@ -7,12 +7,12 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import Button from "@components/Button/Button.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils.ts";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { HeroSideImageSectionData } from "@config/translations/configDataTypes.ts";
+import { heroSideImageData } from "./heroSideImageData";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("heroSideImageSectionData", currLocale);
+const data = heroSideImageData[currLocale];
 
 type Props = Partial<HeroSideImageSectionData>;
 

@@ -14,10 +14,10 @@ import FeatureCard from "@components/FeatureCard/FeatureCardSmall.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { FeatureCardSmallSectionData } from "@config/translations/configDataTypes.ts";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { getTranslatedData } from "@utils/translationUtils.ts";
+import { featureCardsSmallData } from "./featureCardsSmallData";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("featureCardSmallSectionJson", currLocale);
+const data = featureCardsSmallData[currLocale];
 
 type Props = Partial<FeatureCardSmallSectionData>;
 

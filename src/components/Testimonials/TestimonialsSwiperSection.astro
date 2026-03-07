@@ -5,11 +5,11 @@ import "swiper/css/pagination";
 import "./testimonialSwiper.css"; // have to define custom styles like this
 import TestimonialCard from "./TestimonialCard.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import { testimonialsData } from "./testimonialsData";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("testimonialSwiperSectionData", currLocale);
+const data = testimonialsData[currLocale];
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
   data.title,

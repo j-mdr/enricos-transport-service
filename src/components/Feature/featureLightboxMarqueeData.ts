@@ -1,6 +1,6 @@
 import type {
-  FeatureLightboxMarqueeSectionData,
   LocalizedData,
+  FeatureLightboxMarqueeSectionData,
 } from "@config/translations/configDataTypes.ts";
 import image1 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
 import image2 from "@images/enricos-transportservice-bestelbus-achteraanzicht-bospad-herfst-1x1.jpeg";
@@ -10,7 +10,7 @@ import image5 from "@images/enricos-transportservice-bestelbus-magazijn-laden-gr
 import image6 from "@images/enricos-transportservice-bestelbus-voor-verlichte-villa-avond-4x3.jpeg";
 import image7 from "@images/enricos-transportservice-bestelbus-voorkant-zonsopgang-mistig-landschap-4x3.jpeg";
 
-export const featureLightboxMarqueeSectionData: LocalizedData<FeatureLightboxMarqueeSectionData> = {
+export const featureLightboxMarqueeData: LocalizedData<FeatureLightboxMarqueeSectionData> = {
   nl: {
     title: "Onderweg naar onze klanten{highlight}",
     images: [

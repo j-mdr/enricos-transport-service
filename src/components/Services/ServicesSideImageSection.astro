@@ -6,12 +6,12 @@
 import { Icon } from "astro-icon/components";
 import ServiceCard from "@components/ServiceCard/ServiceCardSideImage.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils.ts";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { ServicesSideImageSectionData } from "@config/translations/configDataTypes.ts";
+import { servicesSideImageData } from "./servicesSideImageData";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("servicesSideImageSectionData", currLocale);
+const data = servicesSideImageData[currLocale];
 
 type Props = Partial<ServicesSideImageSectionData>;
 

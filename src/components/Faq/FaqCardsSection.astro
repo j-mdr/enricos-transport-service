@@ -7,11 +7,11 @@ import { Icon } from "astro-icon/components";
 // components
 import FaqCard from "./FaqCard.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
 import { type FaqCartSectionData } from "@config/translations/configDataTypes.ts";
+import { faqData } from "./faqData";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("faqSectionData", currLocale);
+const data = faqData[currLocale];
 
 type Props = Partial<FaqCartSectionData>;
 
@@ -40,16 +40,7 @@ if (remainder === 0) {
 
 <section id="faq2" class="site-container my-24 md:my-36">
   <h2 class="h2 mt-8 text-center">
-    <span class="relative whitespace-nowrap">
-      FAQ
-      <span>
-        <Icon
-          name="stellar/freehand-zig-underline"
-          class="text-primary-500 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-          aria-hidden="true"
-        />
-      </span>
-    </span>
+    {title}
   </h2>
   <div class="mx-auto mt-16 grid gap-10 md:grid-cols-2">
     {

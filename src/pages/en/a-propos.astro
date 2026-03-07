@@ -15,11 +15,11 @@ import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { teamMemberCardsData } from "@components/Team/teamMemberCardsData";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("teamMemberCardsSectionData", currLocale);
+const data = teamMemberCardsData[currLocale];
 ---
 
 <BaseLayout title="Contact Me" description="Get in touch! Contact information for Blogsmith.">

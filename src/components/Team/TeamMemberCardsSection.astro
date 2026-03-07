@@ -10,12 +10,12 @@ import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import { teamMemberCardsData } from "./teamMemberCardsData";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("teamMemberCardsSectionData", currLocale);
+const data = teamMemberCardsData[currLocale];
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
   data.title,

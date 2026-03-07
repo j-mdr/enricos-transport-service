@@ -9,13 +9,12 @@ import Accordion from "@components/Accordion/Accordion.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
-
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import { faqData } from "./faqData";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const { title, faqs } = getTranslatedData("faqSectionData", currLocale);
+const { title, faqs } = faqData[currLocale];
 
 const mid = Math.ceil(faqs.length / 2);
 

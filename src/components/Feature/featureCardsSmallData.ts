@@ -1,9 +1,9 @@
 import {
   type LocalizedData,
   type FeatureCardSmallSectionData,
-} from "../translations/configDataTypes.ts";
+} from "@config/translations/configDataTypes.ts";
 
-export const featureCardSmallSectionJson: LocalizedData<FeatureCardSmallSectionData> = {
+export const featureCardsSmallData: LocalizedData<FeatureCardSmallSectionData> = {
   nl: {
     title: "Onze kernwaarden{highlight}",
     features: [
@@ -17,7 +17,6 @@ export const featureCardSmallSectionJson: LocalizedData<FeatureCardSmallSectionD
         title: "Verzekerd",
         text: "Bij ons kunt u vertrouwen op zekerheid. Uw lading is verzekerd tegen schade.",
       },
-
       {
         icon: "tabler/laurel-wreath-1",
         title: "Kwaliteitskeurmerk",
@@ -53,7 +52,6 @@ export const featureCardSmallSectionJson: LocalizedData<FeatureCardSmallSectionD
         title: "Insured",
         text: "With us, you can rely on security. Your cargo is insured against damage.",
       },
-
       {
         icon: "tabler/laurel-wreath-1",
         title: "Quality",

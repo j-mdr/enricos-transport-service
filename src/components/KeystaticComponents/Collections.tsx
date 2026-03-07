@@ -378,7 +378,7 @@ const OtherPages = (locale: (typeof locales)[number]) =>
 const CompanyInfo = (locale: (typeof locales)[number]) =>
   singleton({
     label: `Bedrijfsinfo (${locale.toUpperCase()})`,
-    path: `src/data/companyInfo/${locale}`,
+    path: `src/content/companyInfo/${locale}`,
     format: { data: "json" },
     schema: {
       name: fields.text({ label: "Bedrijfsnaam" }),

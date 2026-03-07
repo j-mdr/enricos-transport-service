@@ -2,15 +2,14 @@
 /**
  * * CTA card with centered text and corner blobs
  */
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
 import Button from "@components/Button/Button.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
 import type { CtaCardCenterSectionData } from "@config/translations/configDataTypes.ts";
+import { ctaCardCenterData } from "./ctaCardCenterData";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = getTranslatedData("ctaCardCenterSectionData", currLocale);
+const data = ctaCardCenterData[currLocale];
 
 type Props = Partial<CtaCardCenterSectionData>;
 
@@ -19,8 +18,6 @@ const {
   description = data.description,
   ctaButton = data.ctaButton,
 } = Astro.props;
-
-const localizedCtaButtonHref = getLocalizedRoute(currLocale, ctaButton.href);
 ---
 
 <section id="cta" class="my-24 py-8 md:my-36">
@@ -58,7 +55,7 @@ const localizedCtaButtonHref = getLocalizedRoute(currLocale, ctaButton.href);
               {description}
             </p>
             <div class="mt-10 flex justify-center">
-              <Button variant="primary" href={localizedCtaButtonHref} arrow="right">
+              <Button variant="primary" href={ctaButton.href} arrow="right">
                 {ctaButton.text}
               </Button>
             </div>

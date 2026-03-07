@@ -7,7 +7,7 @@ import Virginia from "@images/nic_fassbender.jpg";
 import Victra from "@images/nic_fassbender.jpg";
 import Darrow from "@images/nic_fassbender.jpg";
 
-export const teamMemberCardsSectionData: LocalizedData<TeamMemberCardsSectionData> = {
+export const teamMemberCardsData: LocalizedData<TeamMemberCardsSectionData> = {
   nl: {
     title: "Maak kennis met ons team{highlight}",
     teamMembers: [
@@ -24,7 +24,7 @@ export const teamMemberCardsSectionData: LocalizedData<TeamMemberCardsSectionDat
         name: "Kelly Janssen",
         title: "Medeoprichter",
         bio: `I'm from the south side of Chicago. I graduated from the University of Illinois in 2013.
-      I've been working in the paint industry ever since. I’m a huge fan of the outdoors and I love to travel.
+      I've been working in the paint industry ever since. I'm a huge fan of the outdoors and I love to travel.
       `,
       },
     ],
@@ -36,9 +36,9 @@ export const teamMemberCardsSectionData: LocalizedData<TeamMemberCardsSectionDat
         image: Darrow,
         name: "Enrico Janssen",
         title: "Owner",
-        bio: `I’m originally from Indiana. I was raised on a farm and became an Eagle Scout in 2008.
-      I graduated from Purdue University in 2012 with a degree in Design, and I’ve been working in the
-      paint industry ever since. 
+        bio: `I'm originally from Indiana. I was raised on a farm and became an Eagle Scout in 2008.
+      I graduated from Purdue University in 2012 with a degree in Design, and I've been working in the
+      paint industry ever since.
       `,
       },
       {
