@@ -11,6 +11,8 @@ import ComponentBlocks from "@components/KeystaticComponents/ComponentBlocks";
 // utils
 import { locales } from "@config/siteSettings.json";
 
+type Locale = (typeof locales)[number];
+
 /**
  * * Blog posts collection
  * This gets used by Astro Content Collections, so if you update this, you'll need to update the Astro Content Collections schema
@@ -100,6 +102,7 @@ const Blog = (locale: (typeof locales)[number]) =>
         },
         components: {
           Admonition: ComponentBlocks.Admonition,
+          FaqSection: ComponentBlocks.FaqSection(locale),
         },
       }),
     },
@@ -237,22 +240,23 @@ const Services = (locale: (typeof locales)[number]) =>
           divider: true,
           codeBlock: false,
         },
-        // components: {
-        //   Admonition: ComponentBlocks.Admonition,
-        // },
+        components: {
+          Admonition: ComponentBlocks.Admonition,
+          FaqSection: ComponentBlocks.FaqSection(locale),
+        },
       }),
     },
   });
 
 /**
- * * Bezorggebieden collection
+ * * Delivery Areas collection
  * This gets used by Astro Content Collections, so if you update this, you'll need to update the Astro Content Collections schema
  */
-const Bezorggebieden = (locale: (typeof locales)[number]) =>
+const DeliveryAreas = (locale: (typeof locales)[number]) =>
   collection({
     label: `Bezorggebieden (${locale.toUpperCase()})`,
     slugField: "title",
-    path: `src/content/bezorggebieden/${locale}/*/`,
+    path: `src/content/deliveryAreas/${locale}/*/`,
     columns: ["title"],
     entryLayout: "content",
     format: { contentField: "content" },
@@ -301,11 +305,15 @@ const Bezorggebieden = (locale: (typeof locales)[number]) =>
           table: true,
           link: true,
           image: {
-            directory: `src/content/bezorggebieden/${locale}/`,
+            directory: `src/content/deliveryAreas/${locale}/`,
             publicPath: "../",
           },
           divider: true,
           codeBlock: false,
+        },
+        components: {
+          Admonition: ComponentBlocks.Admonition,
+          FaqSection: ComponentBlocks.FaqSection(locale),
         },
       }),
     },
@@ -366,8 +374,36 @@ const OtherPages = (locale: (typeof locales)[number]) =>
         },
         components: {
           Admonition: ComponentBlocks.Admonition,
+          FaqSection: ComponentBlocks.FaqSection(locale),
         },
       }),
+    },
+  });
+
+/**
+ * * FAQ Sets collection
+ * Keystatic-managed FAQ sets per locale
+ */
+const Faqs = (locale: Locale) =>
+  collection({
+    label: `FAQ Sets (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/faqs/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      faqs: fields.array(
+        fields.object({
+          question: fields.text({ label: "Vraag", validation: { isRequired: true } }),
+          answer: fields.text({
+            label: "Antwoord",
+            multiline: true,
+            validation: { isRequired: true },
+          }),
+        }),
+        { label: "FAQ items", itemLabel: (props) => props.fields.question.value || "FAQ item" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -428,8 +464,9 @@ export default {
   Blog,
   Authors,
   Services,
-  Bezorggebieden,
+  DeliveryAreas,
   OtherPages,
   CompanyInfo,
   Labels,
+  Faqs,
 };

@@ -7,6 +7,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 // components
 import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -45,7 +46,7 @@ const { title, description } = page.data;
     </div>
     <div class="mx-auto max-w-3xl">
       <div class="text-base-content markdown-content mt-10 max-w-none text-sm md:text-base">
-        <Content components={{ a: ExternalLink }} />
+        <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
       </div>
     </div>
   </section>

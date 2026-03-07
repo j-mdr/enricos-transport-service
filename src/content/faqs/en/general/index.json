@@ -1,0 +1,30 @@
+{
+  "title": "FAQ{highlight}",
+  "faqs": [
+    {
+      "question": "What is the range of your transport services?",
+      "answer": "Enrico's Transportservice serves customers throughout the Netherlands and also offers transport options in Europe."
+    },
+    {
+      "question": "Do you handle urgent transports?",
+      "answer": "Yes, we offer urgent transport services for time-sensitive deliveries. Please contact us for more information about our urgent options."
+    },
+    {
+      "question": "What are your rates and pricing structure?",
+      "answer": "Our rates vary depending on the service, distance, and other factors. You can calculate your rate with just a few clicks at this link."
+    },
+    {
+      "question": "How can I request transport?",
+      "answer": "Use the contact form via the menu. Prefer personal contact? Call us at <a href=\"tel:+31 6 5517 4134\" class=\"hover:text-primary-500 transition hover:underline\">+31 6 5517 4134</a> or email us at <a href=\"mailto:info@enricostransportservice.nl\" class=\"hover:text-primary-500 transition hover:underline\">info@enricostransportservice.nl</a>. We are here to assist you."
+    },
+    {
+      "question": "What about the safety of my goods during transport?",
+      "answer": "At Enrico's Transportservice, the safety of your cargo is always our top priority. We understand that your goods are valuable and need to be handled with care. Therefore, we take extensive measures to minimize risks:<br/><ol><li>- Proper insurance: We adhere to the official AVC and CMR conditions, ensuring that your shipment is always well insured – both nationally and internationally.</li><li>- Protection against damage and theft: Your cargo is standard insured against damage and theft.</li><li>- Careful packaging: We use the appropriate packaging methods to prevent goods from being damaged during transport.</li><li>- Experienced drivers: Our drivers are professionally trained and have years of experience. They treat your goods as if they were their own.</li><li>- Reliable vehicles: Our modern and well-maintained fleet reduces the chances of delays or incidents on the road.</li></ol><br/>This way, you can trust that your shipment will arrive safely, undamaged, and on time at its destination."
+    },
+    {
+      "question": "Do you also offer Onboard Courier (OBC) services?",
+      "answer": "<span>Yes, at Enrico's Transportservice you can take advantage of an Onboard Courier (OBC). With this service, a courier personally accompanies your shipment – whether by plane, train, or road – and guides it from door to door. This ensures maximum attention, speed, and safety.</span><br/><span>This service is often used for:</span><br/><ol><li>- Important documents or contracts</li><li>- Medical samples and pharmaceutical shipments</li><li>- Crucial IT or machine parts</li><li>- Spare parts for industry and aviation</li><li>- Other valuable or urgent goods</li></ol><br/><span>With our OBC service, your shipment receives personal guidance from start to finish, without any stops or transshipment. Perfect for goods that absolutely must arrive safely and on time.</span>"
+    }
+  ],
+  "mappingKey": "algemeen"
+}

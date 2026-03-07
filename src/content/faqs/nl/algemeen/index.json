@@ -1,0 +1,30 @@
+{
+  "title": "Veel gestelde vragen{highlight}",
+  "faqs": [
+    {
+      "question": "Wat is het bereik van jullie transportdiensten?",
+      "answer": "Enrico's Transportservice bedient klanten in heel Nederland en biedt ook transportmogelijkheden in Europa."
+    },
+    {
+      "question": "Kunnen jullie spoedtransporten aan?",
+      "answer": "Ja, we bieden spoedtransportdiensten voor dringende leveringen. Neem contact met ons op voor meer informatie over onze spoedopties."
+    },
+    {
+      "question": "Wat zijn jullie tarieven en prijsstructuur?",
+      "answer": "Onze tarieven variëren afhankelijk van de dienst, afstand en andere factoren. U kunt met een paar kliks uw tarief berekenen op deze link"
+    },
+    {
+      "question": "Hoe kan ik transport aanvragen?",
+      "answer": "Gebruik het contact formulier via het menu. Liever persoonlijk contact? Bel ons via <a href=\"tel:+31 6 5517 4134\" class=\"hover:text-primary-500 transition hover:underline\">+31 6 5517 4134</a> of mail naar <a href=\"mailto:info@enricostransportservice.nl\" class=\"hover:text-primary-500 transition hover:underline\">info@enricostransportservice.nl</a>. We staan voor je klaar."
+    },
+    {
+      "question": "Hoe zit het met de veiligheid van mijn goederen tijdens het transport?",
+      "answer": "Bij Enrico's Transportservice staat de veiligheid van uw lading altijd op de eerste plaats. Wij begrijpen dat uw goederen waardevol zijn en met zorg behandeld moeten worden. Daarom nemen wij uitgebreide maatregelen om risico's te minimaliseren:<br/><ol><li>- Goede verzekering: Wij hanteren de officiële AVC- en CMR-voorwaarden, zodat uw zending altijd goed verzekerd is – zowel nationaal als internationaal.</li><li>- Bescherming tegen schade en diefstal: Uw lading is standaard verzekerd tegen schade en diefstal.</li><li>- Zorgvuldige verpakking: We gebruiken de juiste verpakkingsmethoden om te voorkomen dat goederen beschadigd raken tijdens het transport.</li><li>- Ervaren chauffeurs: Onze chauffeurs zijn professioneel opgeleid en beschikken over jarenlange ervaring. Ze behandelen uw goederen alsof het hun eigen spullen zijn.</li><li>- Betrouwbare voertuigen: Onze moderne en goed onderhouden wagenpark verkleint de kans op vertragingen of incidenten onderweg.</li></ol><br/>Zo kunt u erop vertrouwen dat uw zending veilig, onbeschadigd en op tijd op de plaats van bestemming aankomt."
+    },
+    {
+      "question": "Bieden jullie ook Onboard Koerier (OBC)-diensten aan?",
+      "answer": "<span>Ja, bij Enrico's Transportservice kunt u gebruikmaken van een Onboard Koerier (OBC). Hierbij reist een koerier persoonlijk met uw zending mee – of dat nu per vliegtuig, trein of over de weg is – en begeleidt deze van deur tot deur. Zo bent u verzekerd van maximale aandacht, snelheid en veiligheid.</span><br/><span>Deze service wordt vaak ingezet voor:</span><br/><ol><li>- Belangrijke documenten of contracten</li><li>- Medische monsters en farmaceutische zendingen</li><li>- Cruciale IT- of machineonderdelen</li><li>- Reserveonderdelen voor industrie en luchtvaart</li><li>- Andere waardevolle of urgente goederen</li></ol><br/><span>Met onze OBC-dienst krijgt uw zending persoonlijke begeleiding van start tot eind, zonder tussenstops of overslag. Perfect voor goederen die absoluut veilig en op tijd moeten aankomen.</span>"
+    }
+  ],
+  "mappingKey": "algemeen"
+}

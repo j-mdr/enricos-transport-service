@@ -2,6 +2,7 @@
 /**
  * * FAQ section in accordions
  */
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 
 // components
@@ -10,11 +11,19 @@ import Accordion from "@components/Accordion/Accordion.astro";
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import { faqData } from "./faqData";
 
-// data
-const currLocale = getLocaleFromUrl(Astro.url);
-const { title, faqs } = faqData[currLocale];
+interface Props {
+  faqSet: string; // slug, e.g. "algemeen" or "general"
+}
+
+const { faqSet } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+
+const faqEntries = await getCollection("faqs");
+const entry = faqEntries.find((e) => e.id === `${locale}/${faqSet}`);
+if (!entry) return;
+
+const { title, faqs } = entry.data;
 
 const mid = Math.ceil(faqs.length / 2);
 
@@ -48,7 +57,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     {
       faqCols.map((faqCol) => (
         <div class="flex w-full flex-col gap-3">
-          {faqCol.map(({ question, answer }, idx) => (
+          {faqCol.map(({ question, answer }) => (
             <Accordion title={question} details={answer} />
           ))}
         </div>

@@ -6,6 +6,7 @@ import BlogLayout from "@layouts/BlogLayoutCenter.astro";
 
 // components
 import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { getAllPosts } from "@/utils/blogUtils";
@@ -26,5 +27,5 @@ const { Content, headings } = await render(post);
 ---
 
 <BlogLayout post={post}>
-  <Content components={{ a: ExternalLink }} />
+  <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
 </BlogLayout>

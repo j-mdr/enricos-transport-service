@@ -6,13 +6,14 @@ import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 
 // components
 import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
 import { defaultLocale } from "@config/siteSettings.json";
 
 export async function getStaticPaths() {
-  const gebieden = await getCollection("bezorggebieden", ({ data }) => {
+  const gebieden = await getCollection("deliveryAreas", ({ data }) => {
     // filter out draft entries
     return data.draft !== true;
   });
@@ -25,7 +26,7 @@ export async function getStaticPaths() {
     props: post,
   }));
 }
-type Props = CollectionEntry<"bezorggebieden">;
+type Props = CollectionEntry<"deliveryAreas">;
 
 const gebied = Astro.props as Props;
 const { Content } = await render(gebied);
@@ -35,7 +36,7 @@ const { template } = gebied.data;
 {
   template === "ServiceLayoutCenter" && (
     <ServiceLayoutCenter {...gebied.data}>
-      <Content components={{ a: ExternalLink }} />
+      <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
     </ServiceLayoutCenter>
   )
 }

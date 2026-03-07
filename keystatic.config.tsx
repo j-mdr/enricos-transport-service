@@ -25,18 +25,18 @@ export default config({
   ui: {
     brand: { name: "Enrico's transportservice" },
     navigation: {
-      Blog: ["blogEN", "blogNL"],
       Auteurs: ["authors"],
+      Blog: ["blogEN", "blogNL"],
       "Pagina's": [
-        "bezorggebiedenEN",
-        "bezorggebiedenNL",
+        "deliveryAreasEN",
+        "deliveryAreasNL",
         "servicesEN",
         "servicesNL",
         "otherPagesEN",
         "otherPagesNL",
       ],
-      Bedrijfsinfo: ["companyInfoNL", "companyInfoEN"],
-      Labels: ["labelsNL", "labelsEN"],
+      "Content sets": ["faqsNL", "faqsEN"],
+      "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
   },
   singletons: {
@@ -57,10 +57,13 @@ export default config({
     servicesEN: Collections.Services("en"),
     servicesNL: Collections.Services("nl"),
 
-    bezorggebiedenEN: Collections.Bezorggebieden("en"),
-    bezorggebiedenNL: Collections.Bezorggebieden("nl"),
+    deliveryAreasEN: Collections.DeliveryAreas("en"),
+    deliveryAreasNL: Collections.DeliveryAreas("nl"),
 
     otherPagesEN: Collections.OtherPages("en"),
     otherPagesNL: Collections.OtherPages("nl"),
+
+    faqsNL: Collections.Faqs("nl"),
+    faqsEN: Collections.Faqs("en"),
   },
 });

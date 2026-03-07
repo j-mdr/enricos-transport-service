@@ -1,8 +1,9 @@
 import { fields } from "@keystatic/core";
-import { wrapper } from "@keystatic/core/content-components";
+import { wrapper, block } from "@keystatic/core/content-components";
 
 // preview components
 import KeystaticAdmonition from "./KeystaticAdmonition";
+import KeystaticFaqSection from "./KeystaticFaqSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -32,6 +33,19 @@ const Admonition = wrapper({
   },
 });
 
+const FaqSection = (locale: "nl" | "en") =>
+  block({
+    label: "FAQ Sectie",
+    ContentView: (props) => <KeystaticFaqSection faqSet={props.value.faqSet} />,
+    schema: {
+      faqSet: fields.relationship({
+        label: "FAQ Set",
+        collection: locale === "nl" ? "faqsNL" : "faqsEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
+  FaqSection,
 };

@@ -2,25 +2,30 @@
 /**
  * * FAQ section columns (not accordions)
  */
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 
 // components
 import FaqCard from "./FaqCard.astro";
+
+// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { type FaqCartSectionData } from "@config/configDataTypes.ts";
-import { faqData } from "./faqData";
 
-const currLocale = getLocaleFromUrl(Astro.url);
-const data = faqData[currLocale];
+interface Props {
+  faqSet: string; // slug, e.g. "algemeen" or "general"
+}
 
-type Props = Partial<FaqCartSectionData>;
+const { faqSet } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
 
-const { title = data.title, faqs = data.faqs } = Astro.props;
+const faqEntries = await getCollection("faqs");
+const entry = faqEntries.find((e) => e.id === `${locale}/${faqSet}`);
+if (!entry) return;
 
-type FaqCols = FaqCartSectionData["faqs"];
+const { title, faqs } = entry.data;
 
 // array of columns for faq data
-const faqCols: FaqCols[] = [];
+const faqCols: (typeof faqs)[] = [];
 let faqsPerCol = Math.floor(faqs.length / 2);
 let remainder = faqs.length % 2;
 
@@ -34,7 +39,7 @@ if (remainder === 0) {
   faqCols[0] = faqs.slice(0, faqsPerCol + 1);
   faqCols[1] = faqs.slice(faqsPerCol + 1, 2 * faqsPerCol + 1);
 } else {
-  console.error("Something went wrong with the FAQ data in Faq2.astro");
+  console.error("Something went wrong with the FAQ data in FaqCardsSection.astro");
 }
 ---
 
@@ -46,7 +51,7 @@ if (remainder === 0) {
     {
       faqCols.map((faqCol) => (
         <div class="flex w-full flex-col gap-10">
-          {faqCol.map(({ question, answer }, idx) => (
+          {faqCol.map(({ question, answer }) => (
             <FaqCard question={question} answer={answer} />
           ))}
         </div>

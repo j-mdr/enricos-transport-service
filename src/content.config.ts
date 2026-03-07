@@ -58,9 +58,9 @@ const servicesCollection = defineCollection({
     }),
 });
 
-// bezorggebieden
-const bezorggebiedenCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/bezorggebieden" }),
+// delivery areas
+const deliveryAreasCollection = defineCollection({
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/deliveryAreas" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -87,10 +87,21 @@ const otherPagesCollection = defineCollection({
     }),
 });
 
+// faq sets
+const faqsCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/faqs" }),
+  schema: z.object({
+    title: z.string(),
+    faqs: z.array(z.object({ question: z.string(), answer: z.string() })),
+    mappingKey: z.string().optional(),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   authors: authorsCollection,
   services: servicesCollection,
-  bezorggebieden: bezorggebiedenCollection,
+  deliveryAreas: deliveryAreasCollection,
   otherPages: otherPagesCollection,
+  faqs: faqsCollection,
 };
