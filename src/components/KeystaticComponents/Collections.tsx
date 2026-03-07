@@ -207,6 +207,12 @@ const Services = (locale: (typeof locales)[number]) =>
         label: "Mapping Key",
         description: "This is used to map entries between languages.",
       }),
+      template: fields.select({
+        label: "Template",
+        description: "De layout die voor deze pagina gebruikt wordt.",
+        options: [{ label: "Service Layout (gecentreerd)", value: "ServiceLayoutCenter" }],
+        defaultValue: "ServiceLayoutCenter",
+      }),
       draft: fields.checkbox({
         label: "Draft",
         description: "Set this page as draft to prevent it from being published.",
@@ -270,6 +276,12 @@ const Bezorggebieden = (locale: (typeof locales)[number]) =>
       mappingKey: fields.text({
         label: "Mapping Key",
         description: "This is used to map entries between languages.",
+      }),
+      template: fields.select({
+        label: "Template",
+        description: "De layout die voor deze pagina gebruikt wordt.",
+        options: [{ label: "Service Layout (gecentreerd)", value: "ServiceLayoutCenter" }],
+        defaultValue: "ServiceLayoutCenter",
       }),
       draft: fields.checkbox({
         label: "Draft",

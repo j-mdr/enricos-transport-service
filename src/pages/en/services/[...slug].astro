@@ -2,7 +2,7 @@
 import { type InferGetStaticPropsType } from "astro";
 import { type CollectionEntry, getCollection, render } from "astro:content";
 
-// layout
+// layouts
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 
 // components
@@ -30,8 +30,13 @@ type Props = CollectionEntry<"diensten">;
 
 const service = Astro.props as Props;
 const { Content } = await render(service);
+const { template } = service.data;
 ---
 
-<ServiceLayoutCenter {...service.data}>
-  <Content components={{ a: ExternalLink }} />
-</ServiceLayoutCenter>
+{
+  template === "ServiceLayoutCenter" && (
+    <ServiceLayoutCenter {...service.data}>
+      <Content components={{ a: ExternalLink }} />
+    </ServiceLayoutCenter>
+  )
+}

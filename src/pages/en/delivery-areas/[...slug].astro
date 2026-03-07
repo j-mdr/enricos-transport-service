@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
 
-// layout
+// layouts
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 
 // components
@@ -28,8 +28,13 @@ type Props = CollectionEntry<"bezorggebieden">;
 
 const gebied = Astro.props as Props;
 const { Content } = await render(gebied);
+const { template } = gebied.data;
 ---
 
-<ServiceLayoutCenter {...gebied.data}>
-  <Content components={{ a: ExternalLink }} />
-</ServiceLayoutCenter>
+{
+  template === "ServiceLayoutCenter" && (
+    <ServiceLayoutCenter {...gebied.data}>
+      <Content components={{ a: ExternalLink }} />
+    </ServiceLayoutCenter>
+  )
+}

@@ -52,6 +52,7 @@ const dienstenCollection = defineCollection({
       image: image(),
       // mappingKey allows you to match entries across languages for SEO purposes
       mappingKey: z.string().optional(),
+      template: z.enum(["ServiceLayoutCenter"]).default("ServiceLayoutCenter"),
       // services will be excluded from build if draft is "true"
       draft: z.boolean().optional(),
     }),
@@ -67,6 +68,7 @@ const bezorggebiedenCollection = defineCollection({
       image: image(),
       // mappingKey allows you to match entries across languages for SEO purposes
       mappingKey: z.string().optional(),
+      template: z.enum(["ServiceLayoutCenter"]).default("ServiceLayoutCenter"),
       // entries will be excluded from build if draft is "true"
       draft: z.boolean().optional(),
     }),

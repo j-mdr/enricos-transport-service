@@ -27,7 +27,14 @@ export default config({
     navigation: {
       Blog: ["blogEN", "blogNL"],
       Auteurs: ["authors"],
-      "Pagina's": ["bezorggebiedenEN", "bezorggebiedenNL", "servicesEN", "servicesNL", "otherPagesEN", "otherPagesNL"],
+      "Pagina's": [
+        "bezorggebiedenEN",
+        "bezorggebiedenNL",
+        "servicesEN",
+        "servicesNL",
+        "otherPagesEN",
+        "otherPagesNL",
+      ],
       Bedrijfsinfo: ["companyInfoNL", "companyInfoEN"],
     },
   },
