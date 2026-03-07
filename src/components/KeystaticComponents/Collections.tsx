@@ -182,7 +182,7 @@ const Services = (locale: (typeof locales)[number]) =>
   collection({
     label: `Diensten (${locale.toUpperCase()})`,
     slugField: "title",
-    path: `src/content/diensten/${locale}/*/`,
+    path: `src/content/services/${locale}/*/`,
     columns: ["title"],
     entryLayout: "content",
     format: { contentField: "content" },

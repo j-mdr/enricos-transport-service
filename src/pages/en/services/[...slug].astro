@@ -13,7 +13,7 @@ import { filterCollectionByLanguage } from "@/utils/localeUtils";
 import { defaultLocale } from "@config/siteSettings.json";
 
 export async function getStaticPaths() {
-  const services = await getCollection("diensten", ({ data }) => {
+  const services = await getCollection("services", ({ data }) => {
     // filter out draft services
     return data.draft !== true;
   });
