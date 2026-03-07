@@ -8,13 +8,13 @@ Wanneer je een herbruikbaar section component wilt dat:
 - Inline in MDX content geplaatst kan worden (als block component)
 - Op meerdere pagina's gebruikt kan worden via een `slug`/set-prop
 
-Voorbeelden: FAQ sectie, testimonials sectie, pricing tabel, team sectie, feature sectie.
+Voorbeelden: FAQ sectie, hero sectie, testimonials sectie, pricing tabel, team sectie.
 
-## Het patroon (5 stappen)
+## Het patroon (6 stappen)
 
 ### Stap 1 — Keystatic collection definitie
 
-**`src/components/KeystaticComponents/Collections.tsx`**:
+**`src/components/KeystaticComponents/Collections.tsx`** — collection toevoegen vóór de export:
 
 ```typescript
 const MySection = (locale: Locale) =>
@@ -26,11 +26,26 @@ const MySection = (locale: Locale) =>
     schema: {
       title: fields.slug({ name: { label: "Titel" } }),
       // ... velden naar keuze
+      // Voor afbeeldingen:
+      image: fields.image({
+        label: "Afbeelding",
+        publicPath: "../",
+        validation: { isRequired: true },
+      }),
       mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
 export default { ...bestaande, MySection };
+```
+
+MDX components toevoegen in elke bestaande `fields.mdx()` blok in Collections.tsx:
+
+```typescript
+components: {
+  // ...bestaande
+  MySectionBlock: ComponentBlocks.MySectionBlock(locale),
+},
 ```
 
 **`keystatic.config.tsx`**:
@@ -41,7 +56,7 @@ collections: {
   mySectionEN: Collections.MySection("en"),
 }
 ui.navigation: {
-  "My Section": ["mySectionNL", "mySectionEN"],
+  "Content sets": ["faqsNL", "faqsEN", "mySectionNL", "mySectionEN"],
 }
 ```
 
@@ -52,17 +67,48 @@ ui.navigation: {
 ```typescript
 const mySectionCollection = defineCollection({
   loader: glob({ pattern: "**/index.json", base: "./src/content/mySection" }),
-  schema: z.object({
-    title: z.string(),
-    // ... zelfde velden als Keystatic schema
-    mappingKey: z.string().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      // ... zelfde velden als Keystatic schema
+      image: image(), // alleen als het schema een image heeft
+      mappingKey: z.string().optional(),
+    }),
 });
 
 export const collections = { ...bestaande, mySection: mySectionCollection };
 ```
 
-### Stap 3 — Astro section component
+> **Let op:** Gebruik `schema: ({ image }) => z.object({...})` alleen als er een `image()` veld in het schema zit. Anders gebruik je `schema: z.object({...})` zonder destructuring.
+
+### Stap 3 — Content JSON bestanden + afbeeldingen aanmaken
+
+```
+src/content/mySection/
+  nl/
+    home/
+      index.json
+      image.jpeg      ← alleen als het schema een image heeft
+  en/
+    home/
+      index.json
+      image.jpeg
+```
+
+`index.json` formaat:
+
+```json
+{
+  "title": "Mijn sectie titel",
+  "image": "image.jpeg",
+  "mappingKey": "my-section-home"
+}
+```
+
+> **Image pad:** Gebruik `"image.jpeg"` (relatief t.o.v. de index.json) voor handmatig aangemaakte entries.
+> Keystatic CMS slaat afbeeldingen op als `"../home/image.jpeg"` (o.b.v. `publicPath: "../"`). Beide paden werken.
+
+### Stap 4 — Astro section component
 
 ```astro
 ---
@@ -70,36 +116,38 @@ import { getCollection } from "astro:content";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 interface Props {
-  set: string; // slug van de gewenste set, bijv. "algemeen"
+  heroSet?: string; // naam van de prop = slug van de gewenste set
 }
 
-const { set } = Astro.props;
+const { heroSet = "home" } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 
 const entries = await getCollection("mySection");
-// LET OP: Astro glob loader stripped /index automatisch
+// Astro glob loader stripped /index automatisch uit het pad
 // ID formaat: "{locale}/{slug}" — NIET "{locale}/{slug}/index"
-const entry = entries.find((e) => e.id === `${locale}/${set}`);
-if (!entry) return;
+const entry = entries.find((e) => e.id === `${locale}/${heroSet}`);
+if (!entry) return; // ← KRITIEK: altijd guard, anders throw
 
-const { title, ...rest } = entry.data;
+const { title, image, ...rest } = entry.data;
 ---
 
 <section>
-  <!-- render met title en rest -->
+  <!-- render met title, image, en rest -->
 </section>
 ```
 
-### Stap 4 — Keystatic CMS preview component + block registreren
+> **Prop naam:** De prop naam (bijv. `heroSet`) moet exact overeenkomen met wat `fields.relationship()` doorgeeft in zowel de preview component als de Astro component.
 
-**`src/components/KeystaticComponents/KeystaticMySection.tsx`** (preview in editor):
+### Stap 5 — Keystatic CMS preview component + block registreren
+
+**`src/components/KeystaticComponents/KeystaticMySectionBlock.tsx`** (preview in editor):
 
 ```tsx
-export default function KeystaticMySection({ set }: { set: string | null }) {
+export default function KeystaticMySectionBlock({ mySet }: { mySet: string | null }) {
   return (
     <div style={{ border: "2px dashed #ccc", padding: "1rem", borderRadius: "8px" }}>
       <strong>My Section</strong>
-      {set ? <p>Set: {set}</p> : <p style={{ color: "#999" }}>Geen set geselecteerd</p>}
+      {mySet ? <p>Set: {mySet}</p> : <p style={{ color: "#999" }}>Geen set geselecteerd</p>}
     </div>
   );
 }
@@ -108,66 +156,71 @@ export default function KeystaticMySection({ set }: { set: string | null }) {
 **`src/components/KeystaticComponents/ComponentBlocks.tsx`** — block toevoegen:
 
 ```typescript
-import { block } from "@keystatic/core/content-components";
-import KeystaticMySection from "./KeystaticMySection";
+import KeystaticMySectionBlock from "./KeystaticMySectionBlock";
 
-const MySection = (locale: "nl" | "en") =>
+const MySectionBlock = (locale: "nl" | "en") =>
   block({
     label: "My Section",
-    ContentView: (props) => <KeystaticMySection set={props.value.set} />,
+    ContentView: (props) => <KeystaticMySectionBlock mySet={props.value.mySet} />,
     schema: {
-      set: fields.relationship({
+      mySet: fields.relationship({
         label: "Set",
         collection: locale === "nl" ? "mySectionNL" : "mySectionEN",
       }),
     },
   });
 
-export default { ...bestaande, MySection };
+export default { ...bestaande, MySectionBlock };
 ```
 
-In alle relevante `fields.mdx()` blokken in `Collections.tsx`:
+### Stap 6 — MDX page route bestanden updaten
 
-```typescript
-components: {
-  MySection: ComponentBlocks.MySection(locale),
-},
-```
+**Alle 8 pagina route bestanden** moeten bijgewerkt worden:
 
-### Stap 5 — MDX renderers + directe gebruik
+- `src/pages/[...page].astro`
+- `src/pages/en/[...page].astro`
+- `src/pages/blog/[...slug].astro`
+- `src/pages/en/blog/[...slug].astro`
+- `src/pages/diensten/[...slug].astro`
+- `src/pages/en/services/[...slug].astro`
+- `src/pages/bezorggebieden/[...slug].astro`
+- `src/pages/en/delivery-areas/[...slug].astro`
 
-In pagina routes waar MDX gerenderd wordt:
+In elk bestand: import toevoegen + component registreren in `<Content components={{}}/>`
 
 ```astro
 import MySectionComponent from "@components/MySection/MySectionComponent.astro";
 
-<Content components={{ MySection: MySectionComponent }} />
+<Content
+  components={{
+    a: ExternalLink,
+    FaqSection: FaqAccordionsSection,
+    MySectionBlock: MySectionComponent, // ← naam moet matchen met block label key
+  }}
+/>
 ```
 
-Directe (niet-MDX) gebruik:
+> **Kritiek:** Stap 6 wordt snel vergeten maar is VERPLICHT. Zonder deze stap rendert het block niet op de front-end, ook al werkt Keystatic CMS correct.
+
+---
+
+## Kritieke gotcha's samengevat
+
+| Punt                 | Detail                                                                             |
+| -------------------- | ---------------------------------------------------------------------------------- |
+| Astro glob loader ID | `"{locale}/{slug}"` — NIET `"{locale}/{slug}/index"`                               |
+| Guard na find()      | `if (!entry) return;` is verplicht                                                 |
+| Image pad in JSON    | `"image.jpeg"` voor handmatig; Keystatic gebruikt `"../home/image.jpeg"`           |
+| Image schema         | `schema: ({ image }) => z.object({...})` alleen met image velden                   |
+| Stap 6 vergeten      | Alle 8 page route bestanden moeten component registreren                           |
+| Component naam       | Moet exact overeenkomen tussen block label, ComponentBlocks key, en components map |
+
+## Directe (niet-MDX) gebruik
+
+Voor gebruik direct in Astro pagina's zonder MDX:
 
 ```astro
-<MySectionComponent set="mijn-slug" />
+<MySectionComponent heroSet="mijn-slug" />
 ```
 
-## Kritieke gotcha: Astro glob loader ID formaat
-
-Bestand: `src/content/mySection/nl/algemeen/index.json`
-→ Entry ID: **`nl/algemeen`** (NIET `nl/algemeen/index`)
-
-Astro stripped het `/index` gedeelte automatisch uit het pad. Gebruik altijd:
-
-```typescript
-entries.find((e) => e.id === `${locale}/${set}`);
-```
-
-## JSON bestand formaat
-
-`src/content/mySection/nl/{slug}/index.json`:
-
-```json
-{
-  "title": "Titel",
-  "mappingKey": "slug"
-}
-```
+De default prop zorgt dat `<MySectionComponent />` (zonder prop) altijd `"home"` gebruikt.

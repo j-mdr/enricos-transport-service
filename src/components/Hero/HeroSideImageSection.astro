@@ -3,26 +3,26 @@
  * * HeroCenteredSection with background blobs and side image
  *
  */
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import Button from "@components/Button/Button.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { HeroSideImageSectionData } from "@config/configDataTypes.ts";
-import { heroSideImageData } from "./heroSideImageData";
 
-const currLocale = getLocaleFromUrl(Astro.url);
-const data = heroSideImageData[currLocale];
+interface Props {
+  heroSet?: string;
+}
 
-type Props = Partial<HeroSideImageSectionData>;
+const { heroSet = "home" } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
 
-const {
-  image = data.image,
-  ctaButton = data.ctaButton,
-  title = data.title,
-  description = data.description,
-} = Astro.props;
+const heroEntries = await getCollection("hero");
+// Astro glob loader ID format: "{locale}/{slug}" (no /index suffix)
+const entry = heroEntries.find((e) => e.id === `${locale}/${heroSet}`);
+if (!entry) return;
 
+const { title, description, ctaButtonText, ctaButtonHref, image, imageAlt } = entry.data;
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
@@ -87,8 +87,8 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         {description}
       </p>
       <div class="mt-6 flex gap-4">
-        <Button variant="primary" href={ctaButton.href} data-mos="fade-up" data-mos-delay=".9">
-          {ctaButton.text}
+        <Button variant="primary" href={ctaButtonHref} data-mos="fade-up" data-mos-delay=".9">
+          {ctaButtonText}
         </Button>
       </div>
 
@@ -120,9 +120,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     <!-- hero image -->
     <div class="mx-auto max-w-lg md:max-w-full">
       <Image
-        src={image.src}
+        src={image}
         class="rounded-xl"
-        alt={image.alt}
+        alt={imageAlt}
         loading="eager"
         width={600}
         densities={[1.5, 2]}

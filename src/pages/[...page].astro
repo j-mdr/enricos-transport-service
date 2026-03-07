@@ -8,6 +8,9 @@ import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 // components
 import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
+import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
+import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
+import HeroCenteredSection from "@components/Hero/HeroCenteredSection.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -42,7 +45,15 @@ const { title, description, template, image } = page.data;
 {
   template === "BaseLayout" && (
     <BaseLayout title={title} description={description} type={"general"}>
-      <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
+      <Content
+        components={{
+          a: ExternalLink,
+          FaqSection: FaqAccordionsSection,
+          HeroSection: HeroSideImageSection,
+          HeroBgSection: HeroBgImageSection,
+          HeroCenteredSection: HeroCenteredSection,
+        }}
+      />
     </BaseLayout>
   )
 }
@@ -50,7 +61,15 @@ const { title, description, template, image } = page.data;
 {
   template === "ServiceLayoutCenter" && (
     <ServiceLayoutCenter title={title} description={description} image={image}>
-      <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
+      <Content
+        components={{
+          a: ExternalLink,
+          FaqSection: FaqAccordionsSection,
+          HeroSection: HeroSideImageSection,
+          HeroBgSection: HeroBgImageSection,
+          HeroCenteredSection: HeroCenteredSection,
+        }}
+      />
     </ServiceLayoutCenter>
   )
 }

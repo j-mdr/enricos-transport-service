@@ -89,6 +89,52 @@ const otherPagesCollection = defineCollection({
     }),
 });
 
+// hero sections
+const heroCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/hero" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      ctaButtonText: z.string(),
+      ctaButtonHref: z.string(),
+      image: image(),
+      imageAlt: z.string(),
+      mappingKey: z.string().optional(),
+    }),
+});
+
+// hero bg sections
+const heroBgCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/heroBg" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      ctaButton1Text: z.string(),
+      ctaButton1Href: z.string(),
+      ctaButton2Text: z.string().optional(),
+      ctaButton2Href: z.string().optional(),
+      image: image(),
+      imageAlt: z.string(),
+      mappingKey: z.string().optional(),
+    }),
+});
+
+// hero centered sections
+const heroCenteredCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/heroCentered" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    ctaButton1Text: z.string(),
+    ctaButton1Href: z.string(),
+    ctaButton2Text: z.string().optional(),
+    ctaButton2Href: z.string().optional(),
+    mappingKey: z.string().optional(),
+  }),
+});
+
 // faq sets
 const faqsCollection = defineCollection({
   loader: glob({ pattern: "**/index.json", base: "./src/content/faqs" }),
@@ -106,4 +152,7 @@ export const collections = {
   deliveryAreas: deliveryAreasCollection,
   otherPages: otherPagesCollection,
   faqs: faqsCollection,
+  hero: heroCollection,
+  heroBg: heroBgCollection,
+  heroCentered: heroCenteredCollection,
 };

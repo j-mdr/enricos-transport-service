@@ -1,17 +1,28 @@
 ---
 /**
- * * HeroCenteredSection with background blobs and side image
+ * * HeroCenteredSection with background blobs
  */
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
-
-// components
 import Button from "@components/Button/Button.astro";
-import VideoButton from "@components/Button/VideoButton.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
-const currLocale = getLocaleFromUrl(Astro.url);
+interface Props {
+  heroSet?: string;
+}
+
+const { heroSet = "home" } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+
+const heroCenteredEntries = await getCollection("heroCentered");
+const entry = heroCenteredEntries.find((e) => e.id === `${locale}/${heroSet}`);
+if (!entry) return;
+
+const { title, description, ctaButton1Text, ctaButton1Href, ctaButton2Text, ctaButton2Href } =
+  entry.data;
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="hero" class="relative mb-14 flex w-full overflow-hidden pb-10">
@@ -38,38 +49,46 @@ const currLocale = getLocaleFromUrl(Astro.url);
 
   <!-- hero items -->
   <div class="site-container pt-40 pb-10 text-center md:pb-20 lg:pt-48 lg:pb-36">
-    <!-- HeroCenteredSection text -->
     <div class="mx-auto max-w-[800px]">
       <h1
         class="text-4xl leading-tight font-medium md:text-5xl md:leading-tight"
         data-mos="fade-up"
       >
-        Quality work you deserve from the people you
-        <span class="relative whitespace-nowrap">
-          trust.
-          <span>
-            <Icon
-              name="stellar/freehand-zig-underline"
-              class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-              aria-hidden="true"
-            />
-          </span>
-        </span>
+        {leadingText}
+        {
+          hasHighlightedWord ? (
+            <span class="relative whitespace-nowrap">
+              {highlightedWord}
+              <span>
+                <Icon
+                  name="stellar/freehand-zig-underline"
+                  class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                  aria-hidden="true"
+                />
+              </span>
+            </span>
+          ) : null
+        }
+        {trailingText ?? null}
       </h1>
-      <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2"></p>
+      {
+        description && (
+          <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2">
+            {description}
+          </p>
+        )
+      }
       <div class="mt-6 flex flex-wrap justify-center gap-4">
-        <Button
-          variant="primary"
-          href="https://cosmicthemes.com/themes/stellar/"
-          target="_blank"
-          class=""
-          rel="noopener noreferrer"
-          data-mos="fade-up"
-          data-mos-delay=".9"
-        >
-          Get Stellar
+        <Button variant="primary" href={ctaButton1Href} data-mos="fade-up" data-mos-delay=".9">
+          {ctaButton1Text}
         </Button>
-        <VideoButton data-mos="fade-up" data-mos-delay="1.1" />
+        {
+          ctaButton2Text && ctaButton2Href && (
+            <Button variant="outline" href={ctaButton2Href} data-mos="fade-up" data-mos-delay="1.1">
+              {ctaButton2Text}
+            </Button>
+          )
+        }
       </div>
     </div>
   </div>

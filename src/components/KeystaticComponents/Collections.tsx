@@ -108,6 +108,9 @@ const Blog = (locale: (typeof locales)[number]) =>
         components: {
           Admonition: ComponentBlocks.Admonition,
           FaqSection: ComponentBlocks.FaqSection(locale),
+          HeroSection: ComponentBlocks.HeroSection(locale),
+          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
+          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
         },
       }),
     },
@@ -248,6 +251,9 @@ const Services = (locale: (typeof locales)[number]) =>
         components: {
           Admonition: ComponentBlocks.Admonition,
           FaqSection: ComponentBlocks.FaqSection(locale),
+          HeroSection: ComponentBlocks.HeroSection(locale),
+          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
+          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
         },
       }),
     },
@@ -319,6 +325,9 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
         components: {
           Admonition: ComponentBlocks.Admonition,
           FaqSection: ComponentBlocks.FaqSection(locale),
+          HeroSection: ComponentBlocks.HeroSection(locale),
+          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
+          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
         },
       }),
     },
@@ -391,6 +400,9 @@ const OtherPages = (locale: (typeof locales)[number]) =>
         components: {
           Admonition: ComponentBlocks.Admonition,
           FaqSection: ComponentBlocks.FaqSection(locale),
+          HeroSection: ComponentBlocks.HeroSection(locale),
+          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
+          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
         },
       }),
     },
@@ -419,6 +431,79 @@ const Faqs = (locale: Locale) =>
         }),
         { label: "FAQ items", itemLabel: (props) => props.fields.question.value || "FAQ item" },
       ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Hero (side image) collection
+ * Keystatic-managed hero section per locale
+ */
+const Hero = (locale: Locale) =>
+  collection({
+    label: `Hero (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/hero/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      description: fields.text({ label: "Beschrijving" }),
+      ctaButtonText: fields.text({ label: "CTA knop tekst" }),
+      ctaButtonHref: fields.text({ label: "CTA knop URL" }),
+      image: fields.image({
+        label: "Afbeelding",
+        publicPath: "../",
+        validation: { isRequired: true },
+      }),
+      imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Hero (background image) collection
+ * Keystatic-managed hero section with background image per locale
+ */
+const HeroBg = (locale: Locale) =>
+  collection({
+    label: `Hero achtergrond (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/heroBg/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      description: fields.text({ label: "Beschrijving" }),
+      ctaButton1Text: fields.text({ label: "CTA knop 1 tekst" }),
+      ctaButton1Href: fields.text({ label: "CTA knop 1 URL" }),
+      ctaButton2Text: fields.text({ label: "CTA knop 2 tekst (optioneel)" }),
+      ctaButton2Href: fields.text({ label: "CTA knop 2 URL (optioneel)" }),
+      image: fields.image({
+        label: "Achtergrond afbeelding",
+        publicPath: "../",
+        validation: { isRequired: true },
+      }),
+      imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Hero (centered) collection
+ * Keystatic-managed centered hero section per locale
+ */
+const HeroCentered = (locale: Locale) =>
+  collection({
+    label: `Hero gecentreerd (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/heroCentered/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      description: fields.text({ label: "Beschrijving" }),
+      ctaButton1Text: fields.text({ label: "CTA knop 1 tekst" }),
+      ctaButton1Href: fields.text({ label: "CTA knop 1 URL" }),
+      ctaButton2Text: fields.text({ label: "CTA knop 2 tekst (optioneel)" }),
+      ctaButton2Href: fields.text({ label: "CTA knop 2 URL (optioneel)" }),
       mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
@@ -485,4 +570,7 @@ export default {
   CompanyInfo,
   Labels,
   Faqs,
+  Hero,
+  HeroBg,
+  HeroCentered,
 };

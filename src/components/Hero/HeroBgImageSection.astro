@@ -1,47 +1,53 @@
 ---
 /**
  * * HeroCenteredSection with background image
- * You'll want a mobile image, and a desktop image for this.
  */
-import { getLocalizedRoute } from "@/utils/translationUtils";
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-
-// components
 import Button from "@components/Button/Button.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
-// images
-import heroImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
-import heroImageMobile from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
+interface Props {
+  heroSet?: string;
+}
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const { heroSet = "home" } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+
+const heroBgEntries = await getCollection("heroBg");
+const entry = heroBgEntries.find((e) => e.id === `${locale}/${heroSet}`);
+if (!entry) return;
+
+const {
+  title,
+  description,
+  ctaButton1Text,
+  ctaButton1Href,
+  ctaButton2Text,
+  ctaButton2Href,
+  image,
+  imageAlt,
+} = entry.data;
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-[60svh] w-full md:pb-22">
   <!-- background image -->
   <div class="absolute -z-20 h-full w-full overflow-hidden bg-white opacity-60">
     <Image
-      src={heroImage}
-      class="hidden h-full w-auto object-cover sm:block"
-      alt="smiling family"
+      src={image}
+      class="h-full w-auto object-cover"
+      alt={imageAlt}
       aria-hidden="true"
       loading="eager"
       height={2000}
     />
-    <Image
-      src={heroImageMobile}
-      class="h-full w-auto object-cover sm:hidden"
-      alt="smiling family"
-      aria-hidden="true"
-      loading="eager"
-      width={1200}
-    />
   </div>
 
-  <!-- another gradient filter so text has even light bg -->
+  <!-- gradient filter so text has even light bg -->
   <div
     class="absolute -z-10 h-full w-full bg-gradient-to-r from-white/90 via-white/50 to-white/50 md:to-transparent"
   >
@@ -49,45 +55,46 @@ const currLocale = getLocaleFromUrl(Astro.url);
 
   <!-- hero items -->
   <div class="site-container w-full gap-10 pt-36 pb-24 md:pt-44 md:pb-36">
-    <!-- HeroCenteredSection text -->
     <div class="mr-auto max-w-[450px]">
       <h1
         class="text-4xl leading-tight font-medium sm:text-5xl md:leading-tight"
         data-mos="fade-up"
       >
-        Quality work you deserve from the people you
-        <span class="relative whitespace-nowrap">
-          trust.
-          <span>
-            <Icon
-              name="stellar/freehand-zig-underline"
-              class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-              aria-hidden="true"
-            />
-          </span>
-        </span>
+        {leadingText}
+        {
+          hasHighlightedWord ? (
+            <span class="relative whitespace-nowrap">
+              {highlightedWord}
+              <span>
+                <Icon
+                  name="stellar/freehand-zig-underline"
+                  class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                  aria-hidden="true"
+                />
+              </span>
+            </span>
+          ) : null
+        }
+        {trailingText ?? null}
       </h1>
-      <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2"></p>
+      {
+        description && (
+          <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2">
+            {description}
+          </p>
+        )
+      }
       <div class="mt-6 flex flex-wrap gap-4">
-        <Button
-          variant="primary"
-          href={getLocalizedRoute(currLocale, "/contact")}
-          data-mos="fade-up"
-          data-mos-delay=".9"
-        >
-          Get a FREE quote
+        <Button variant="primary" href={ctaButton1Href} data-mos="fade-up" data-mos-delay=".9">
+          {ctaButton1Text}
         </Button>
-        <Button
-          variant="outline"
-          href="https://cosmicthemes.com/themes/stellar/"
-          target="_blank"
-          class=""
-          rel="noopener noreferrer"
-          data-mos="fade-up"
-          data-mos-delay="1.1"
-        >
-          Get Stellar
-        </Button>
+        {
+          ctaButton2Text && ctaButton2Href && (
+            <Button variant="outline" href={ctaButton2Href} data-mos="fade-up" data-mos-delay="1.1">
+              {ctaButton2Text}
+            </Button>
+          )
+        }
       </div>
     </div>
   </div>

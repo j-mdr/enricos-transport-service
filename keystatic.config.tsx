@@ -35,7 +35,16 @@ export default config({
         "otherPagesEN",
         "otherPagesNL",
       ],
-      "Content sets": ["faqsNL", "faqsEN"],
+      "Content sets": [
+        "faqsNL",
+        "faqsEN",
+        "heroNL",
+        "heroEN",
+        "heroBgNL",
+        "heroBgEN",
+        "heroCenteredNL",
+        "heroCenteredEN",
+      ],
       "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
   },
@@ -65,5 +74,14 @@ export default config({
 
     faqsNL: Collections.Faqs("nl"),
     faqsEN: Collections.Faqs("en"),
+
+    heroNL: Collections.Hero("nl"),
+    heroEN: Collections.Hero("en"),
+
+    heroBgNL: Collections.HeroBg("nl"),
+    heroBgEN: Collections.HeroBg("en"),
+
+    heroCenteredNL: Collections.HeroCentered("nl"),
+    heroCenteredEN: Collections.HeroCentered("en"),
   },
 });

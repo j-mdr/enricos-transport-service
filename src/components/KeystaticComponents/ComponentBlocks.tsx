@@ -4,6 +4,9 @@ import { wrapper, block } from "@keystatic/core/content-components";
 // preview components
 import KeystaticAdmonition from "./KeystaticAdmonition";
 import KeystaticFaqSection from "./KeystaticFaqSection";
+import KeystaticHeroSection from "./KeystaticHeroSection";
+import KeystaticHeroBgSection from "./KeystaticHeroBgSection";
+import KeystaticHeroCenteredSection from "./KeystaticHeroCenteredSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -45,7 +48,46 @@ const FaqSection = (locale: "nl" | "en") =>
     },
   });
 
+const HeroSection = (locale: "nl" | "en") =>
+  block({
+    label: "Hero Sectie",
+    ContentView: (props) => <KeystaticHeroSection heroSet={props.value.heroSet} />,
+    schema: {
+      heroSet: fields.relationship({
+        label: "Hero Set",
+        collection: locale === "nl" ? "heroNL" : "heroEN",
+      }),
+    },
+  });
+
+const HeroBgSection = (locale: "nl" | "en") =>
+  block({
+    label: "Hero Achtergrond Sectie",
+    ContentView: (props) => <KeystaticHeroBgSection heroSet={props.value.heroSet} />,
+    schema: {
+      heroSet: fields.relationship({
+        label: "Hero Set",
+        collection: locale === "nl" ? "heroBgNL" : "heroBgEN",
+      }),
+    },
+  });
+
+const HeroCenteredSection = (locale: "nl" | "en") =>
+  block({
+    label: "Hero Gecentreerd Sectie",
+    ContentView: (props) => <KeystaticHeroCenteredSection heroSet={props.value.heroSet} />,
+    schema: {
+      heroSet: fields.relationship({
+        label: "Hero Set",
+        collection: locale === "nl" ? "heroCenteredNL" : "heroCenteredEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
   FaqSection,
+  HeroSection,
+  HeroBgSection,
+  HeroCenteredSection,
 };
