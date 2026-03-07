@@ -2,8 +2,8 @@ import type { DataEntryMap } from "astro:content";
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { defaultLocale, type Locale, locales } from "@/config/siteSettings.json";
-import { routeTranslations } from "@config/translations/routeTranslations.ts";
-import { collectionTranslations } from "@config/translations/collectionTranslations.ts";
+import { routeTranslations } from "@config/routeTranslations.ts";
+import { collectionTranslations } from "@config/collectionTranslations.ts";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 import { useLabels } from "@utils/labels.ts";
 

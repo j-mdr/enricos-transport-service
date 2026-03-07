@@ -1,7 +1,7 @@
 import {
   type LocalizedData,
   type FeatureCardSmallSectionData,
-} from "@config/translations/configDataTypes.ts";
+} from "@config/configDataTypes.ts";
 
 export const featureCardsSmallData: LocalizedData<FeatureCardSmallSectionData> = {
   nl: {

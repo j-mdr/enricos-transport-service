@@ -11,7 +11,7 @@ import { useLabels } from "@/utils/labels";
 const currLocale = getLocaleFromUrl(Astro.url);
 const aboutText = (await useLabels(currLocale))("about").toLowerCase();
 import Button from "@components/Button/Button.astro";
-import type { ServiceCard } from "@config/translations/configDataTypes.ts";
+import type { ServiceCard } from "@config/configDataTypes.ts";
 
 type Props = ServiceCard & {
   imageSide: "left" | "right";

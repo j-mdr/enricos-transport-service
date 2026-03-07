@@ -1,7 +1,7 @@
 import {
   type LocalizedData,
   type TestimonialSwiperSectionData,
-} from "@config/translations/configDataTypes.ts";
+} from "@config/configDataTypes.ts";
 
 import BowTiedFocus from "@images/nic_fassbender.jpg";
 import Aniket from "@images/nic_fassbender.jpg";

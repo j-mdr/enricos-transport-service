@@ -7,7 +7,7 @@ import { Icon } from "astro-icon/components";
 import ServiceCard from "@components/ServiceCard/ServiceCardSideImage.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { ServicesSideImageSectionData } from "@config/translations/configDataTypes.ts";
+import type { ServicesSideImageSectionData } from "@config/configDataTypes.ts";
 import { servicesSideImageData } from "./servicesSideImageData";
 
 const currLocale = getLocaleFromUrl(Astro.url);

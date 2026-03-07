@@ -1,4 +1,4 @@
-import { type LocalizedData, type FooterData } from "@config/translations/configDataTypes.ts";
+import { type LocalizedData, type FooterData } from "@config/configDataTypes.ts";
 
 export const footerData: LocalizedData<FooterData> = {
   nl: {

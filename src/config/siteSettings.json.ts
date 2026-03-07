@@ -2,7 +2,7 @@
  * Global site settings
  */
 
-import { type LocalizedData, type SiteSettingsProps } from "./translations/configDataTypes.ts";
+import { type LocalizedData, type SiteSettingsProps } from "./configDataTypes.ts";
 
 export type Locale = (typeof locales)[number];
 

@@ -1,7 +1,7 @@
 import {
   type LocalizedData,
   type HeroSideImageSectionData,
-} from "@config/translations/configDataTypes.ts";
+} from "@config/configDataTypes.ts";
 import heroImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
 
 export const heroSideImageData: LocalizedData<HeroSideImageSectionData> = {

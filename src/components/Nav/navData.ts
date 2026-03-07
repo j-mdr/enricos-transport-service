@@ -1,4 +1,4 @@
-import { type LocalizedData, type NavData } from "@config/translations/configDataTypes.ts";
+import { type LocalizedData, type NavData } from "@config/configDataTypes.ts";
 
 export const navData: LocalizedData<NavData> = {
   nl: {

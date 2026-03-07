@@ -1,7 +1,7 @@
 import {
   type LocalizedData,
   type ServicesSideImageSectionData,
-} from "@config/translations/configDataTypes.ts";
+} from "@config/configDataTypes.ts";
 import refulierTransportImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
 import incidenteelTransportImage from "@images/enricos-transportservice-bestelbus-laaddock-distributiecentrum-technische-unie-1x1.jpeg";
 import grootTransportImage from "@images/enricos-transportservice-bestelbus-laaddock-distributiecentrum-technische-unie-1x1.jpeg";

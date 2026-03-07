@@ -1,4 +1,4 @@
-import type { ImageType } from "@config/translations/configDataTypes.ts";
+import type { ImageType } from "@config/configDataTypes.ts";
 
 export function createMarqueeRows(images: ImageType[]) {
   const rotate = (arr: ImageType[], offset: number) => [
