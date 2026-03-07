@@ -3,11 +3,7 @@
  * This makes it much cleaner to work with content in different languages
  */
 
-import {
-  collection,
-  fields,
-  // singleton,
-} from "@keystatic/core";
+import { collection, fields, singleton } from "@keystatic/core";
 
 // components
 import ComponentBlocks from "@components/KeystaticComponents/ComponentBlocks";
@@ -115,7 +111,7 @@ const Blog = (locale: (typeof locales)[number]) =>
  */
 const Authors = (locale: (typeof locales)[number] | "") =>
   collection({
-    label: `Authors ${locale === "" ? "" : `(${locale.toUpperCase()})`} `,
+    label: `Auteur's ${locale === "" ? "" : `(${locale.toUpperCase()})`} `,
     slugField: "name",
     path: `src/content/authors/${locale}/*/`,
     columns: ["name"],
@@ -184,7 +180,7 @@ const Authors = (locale: (typeof locales)[number] | "") =>
  */
 const Services = (locale: (typeof locales)[number]) =>
   collection({
-    label: `Services (${locale.toUpperCase()})`,
+    label: `Diensten (${locale.toUpperCase()})`,
     slugField: "title",
     path: `src/content/diensten/${locale}/*/`,
     columns: ["title"],
@@ -310,7 +306,7 @@ const Bezorggebieden = (locale: (typeof locales)[number]) =>
  */
 const OtherPages = (locale: (typeof locales)[number]) =>
   collection({
-    label: `Other Pages (${locale.toUpperCase()})`,
+    label: `Pagina's (${locale.toUpperCase()})`,
     slugField: "title",
     path: `src/content/otherPages/${locale}/*/`,
     columns: ["title"],
@@ -363,10 +359,42 @@ const OtherPages = (locale: (typeof locales)[number]) =>
     },
   });
 
+/**
+ * * Company Info singleton
+ * Editable company information per locale
+ */
+const CompanyInfo = (locale: (typeof locales)[number]) =>
+  singleton({
+    label: `Bedrijfsinfo (${locale.toUpperCase()})`,
+    path: `src/data/companyInfo/${locale}`,
+    format: { data: "json" },
+    schema: {
+      name: fields.text({ label: "Bedrijfsnaam" }),
+      title: fields.text({ label: "SEO Titel" }),
+      description: fields.text({ label: "SEO Beschrijving", multiline: true }),
+      baseUrl: fields.url({ label: "Basis URL" }),
+      street: fields.text({ label: "Straat" }),
+      city: fields.text({ label: "Stad" }),
+      zipCode: fields.text({ label: "Postcode" }),
+      province: fields.text({ label: "Provincie" }),
+      country: fields.text({ label: "Land" }),
+      phone: fields.text({ label: "Telefoon" }),
+      email: fields.text({ label: "E-mail" }),
+      facebookUrl: fields.url({ label: "Facebook URL" }),
+      instagramUrl: fields.url({ label: "Instagram URL" }),
+      linkedinUrl: fields.url({ label: "LinkedIn URL" }),
+      author: fields.relationship({
+        label: "Auteur",
+        collection: "authors",
+      }),
+    },
+  });
+
 export default {
   Blog,
   Authors,
   Services,
   Bezorggebieden,
   OtherPages,
+  CompanyInfo,
 };

@@ -24,6 +24,16 @@ export default config({
   cloud: { project: "cosmic-themes/stellar" },
   ui: {
     brand: { name: "Enrico's transportservice" },
+    navigation: {
+      Blog: ["blogEN", "blogNL"],
+      Auteurs: ["authors"],
+      "Pagina's": ["bezorggebiedenEN", "bezorggebiedenNL", "servicesEN", "servicesNL", "otherPagesEN", "otherPagesNL"],
+      Bedrijfsinfo: ["companyInfoNL", "companyInfoEN"],
+    },
+  },
+  singletons: {
+    companyInfoNL: Collections.CompanyInfo("nl"),
+    companyInfoEN: Collections.CompanyInfo("en"),
   },
   collections: {
     blogEN: Collections.Blog("en"),
