@@ -12,7 +12,7 @@ import Button from "@components/Button/Button.astro";
 // utils
 import { formatDate, humanize, slugify } from "@/utils/textUtils";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTextTranslation } from "@/utils/translationUtils";
+import { useLabels } from "@/utils/labels";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -22,7 +22,7 @@ const { post } = Astro.props as Props;
 const { title, description, authors, categories, pubDate, updatedDate, heroImage } = post.data;
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTextTranslation(currLocale);
+const t = await useLabels(currLocale);
 const authorsData = await getEntries(authors);
 ---
 
@@ -124,7 +124,7 @@ const authorsData = await getEntries(authors);
               arrow="left"
               class="py-2"
             >
-              {t("back_to_all_posts")}
+              {t("backToAllPosts")}
             </Button>
           </div>
         </div>

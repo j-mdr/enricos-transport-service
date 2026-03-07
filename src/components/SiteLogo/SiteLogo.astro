@@ -7,15 +7,15 @@ import logo from "@images/logo-enrico's-transportservice.webp";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getCompanyInfo } from "@/utils/companyInfo";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const siteData = getTranslatedData("siteData", currLocale);
+const companyInfo = await getCompanyInfo(currLocale);
 ---
 
 <a class="primary-focus flex items-center align-middle" href={getLocalizedRoute(currLocale, "/")}>
-  <p class="sr-only">{siteData.title}</p>
+  <p class="sr-only">{companyInfo?.title}</p>
   <Image
     src={logo}
     alt="Stellar logo"

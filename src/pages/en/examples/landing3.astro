@@ -13,19 +13,19 @@ import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getCompanyInfo } from "@/utils/companyInfo";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const siteData = getTranslatedData("siteData", currLocale);
+const companyInfo = await getCompanyInfo(currLocale);
 ---
 
-<BaseLayout title={siteData.title} description={siteData.description}>
+<BaseLayout title={companyInfo?.title ?? ""} description={companyInfo?.description ?? ""}>
   <HeroCenteredSection />
   <ServicesSideImageSection />
   <FeatureCardsSmallSection />
-  <TestimonialsSwiperSection />
   <FeatureGalleryMarqueeSection />
+  <TestimonialsSwiperSection />
   <CtaBgImageSection />
   <FaqAccordionsSection />
 </BaseLayout>

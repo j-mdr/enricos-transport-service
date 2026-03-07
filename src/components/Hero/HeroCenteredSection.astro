@@ -10,10 +10,8 @@ import VideoButton from "@components/Button/VideoButton.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTextTranslation } from "@/utils/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTextTranslation(currLocale);
 ---
 
 <section id="hero" class="relative mb-14 flex w-full overflow-hidden pb-10">
@@ -58,9 +56,7 @@ const t = useTextTranslation(currLocale);
           </span>
         </span>
       </h1>
-      <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2">
-        {t("hero_description")}
-      </p>
+      <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2"></p>
       <div class="mt-6 flex flex-wrap justify-center gap-4">
         <Button
           variant="primary"

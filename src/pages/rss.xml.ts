@@ -4,14 +4,13 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 // utils
 import { getAllPosts } from "@/utils/blogUtils";
-import { defaultLocale } from "@config/siteSettings.json";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getCompanyInfo } from "@/utils/companyInfo";
 
 // data
-const siteData = getTranslatedData("siteData", defaultLocale);
+const companyInfo = await getCompanyInfo("nl");
 
 // you can switch the RSS locale here to something else if desired
-const rssLocale = defaultLocale;
+const rssLocale = "nl";
 
 // this is needed for getAuthorName() and getAuthorEmail() below
 const authors: CollectionEntry<"authors">[] = await getCollection("authors");
@@ -24,9 +23,9 @@ export async function GET(context) {
     // ex. you can use a stylesheet from "public/rss/styles.xsl"
     // stylesheet: "/rss/styles.xsl",
     // `<title>` field in output xml
-    title: siteData.title,
+    title: companyInfo?.title ?? "",
     // `<description>` field in output xml
-    description: siteData.description,
+    description: companyInfo?.description ?? "",
     // Pull in your project "site" from the endpoint context
     // https://docs.astro.build/en/reference/api-reference/#contextsite
     site: context.site,

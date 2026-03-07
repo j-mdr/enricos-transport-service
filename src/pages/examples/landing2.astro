@@ -15,14 +15,14 @@ import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getCompanyInfo } from "@/utils/companyInfo";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const siteData = getTranslatedData("siteData", currLocale);
+const companyInfo = await getCompanyInfo(currLocale);
 ---
 
-<BaseLayout title={siteData.title} description={siteData.description}>
+<BaseLayout title={companyInfo?.title ?? ""} description={companyInfo?.description ?? ""}>
   <HeroBgImageSection />
   <AwardsSection />
   <FeatureVideoSection />

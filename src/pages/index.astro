@@ -8,14 +8,15 @@ import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMa
 import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData, getLocalizedRoute } from "@/utils/translationUtils";
+import { getLocalizedRoute } from "@/utils/translationUtils";
 import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
+import { getCompanyInfo } from "@/utils/companyInfo";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const siteData = getTranslatedData("siteData", currLocale);
+const companyInfo = await getCompanyInfo(currLocale);
 ---
 
-<BaseLayout title={siteData.title} description={siteData.description}>
+<BaseLayout title={companyInfo?.title ?? ""} description={companyInfo?.description ?? ""}>
   <HeroSideImageSection />
   <FeatureCardsSmallSection />
   <ServicesIconSection />

@@ -17,7 +17,7 @@ type Props = ServiceIconCard & {
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
 };
 
-const { route, text } = useTranslation(Astro.url);
+const { route, text } = await useTranslation(Astro.url);
 
 const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 ---

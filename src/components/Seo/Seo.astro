@@ -5,12 +5,14 @@ import { SEO } from "astro-seo";
 
 import jsonLDGenerator from "@/utils/jsonLD";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getTranslatedData } from "@/utils/translationUtils";
+import { getCompanyInfo } from "@/utils/companyInfo";
 
 import HrefLang from "./HrefLang.astro";
 
+const DEFAULT_IMAGE = { src: "/images/cosmic-themes-logo.jpg", alt: "Enrico's Transportservice" };
+
 const currLocale = getLocaleFromUrl(Astro.url);
-const siteData = getTranslatedData("siteData", currLocale);
+const companyInfo = await getCompanyInfo(currLocale);
 
 interface BaseProps {
   title: string;
@@ -49,7 +51,7 @@ if (image) {
 if (type === "blog") {
   const { authors, postFrontmatter } = Astro.props as BlogProps;
 
-  const jsonldImage = image ? optimizedImage : siteData.defaultImage;
+  const jsonldImage = optimizedImage ?? DEFAULT_IMAGE;
 
   jsonLD = jsonLDGenerator({
     type: "blog",
@@ -63,6 +65,7 @@ if (type === "blog") {
 else {
   jsonLD = jsonLDGenerator({
     type: "general",
+    siteTitle: companyInfo?.title ?? "",
   });
 }
 
@@ -76,7 +79,7 @@ function trimEndSlash(str: string) {
 
 // put together the image URL
 const imageUrl =
-  trimEndSlash(Astro.site?.toString() || "") + (optimizedImage?.src || siteData.defaultImage.src);
+  trimEndSlash(Astro.site?.toString() || "") + (optimizedImage?.src || DEFAULT_IMAGE.src);
 ---
 
 <SEO
@@ -92,7 +95,7 @@ const imageUrl =
     },
     optional: {
       description: description,
-      siteName: siteData.title,
+      siteName: companyInfo?.title,
     },
     image: {
       type: "image/webp",
@@ -102,8 +105,8 @@ const imageUrl =
     },
   }}
   twitter={{
-    site: "@" + siteData.author.twitter,
-    creator: "@" + siteData.author.twitter,
+    site: "",
+    creator: "",
     card: "summary_large_image",
     title: title,
     description: description,

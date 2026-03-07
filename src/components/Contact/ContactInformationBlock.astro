@@ -1,18 +1,22 @@
 ---
-import { useTranslation } from "@/utils/translationUtils";
+import { useLabels } from "@/utils/labels";
+import { getCompanyInfo } from "@/utils/companyInfo";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { Icon } from "astro-icon/components";
 
-const { companyInfo, text } = useTranslation(Astro.url);
+const currLocale = getLocaleFromUrl(Astro.url);
+const text = await useLabels(currLocale);
+const companyInfo = await getCompanyInfo(currLocale);
 ---
 
 <div>
-  <!-- contact info pulled from siteData.json -->
-  <h3 class="mt-4 mb-2 text-lg font-medium">{text("contact_information")}</h3>
+  <!-- contact info pulled from companyInfo -->
+  <h3 class="mt-4 mb-2 text-lg font-medium">{text("contactInformation")}</h3>
 
   <p>
     <span class="inline-flex items-center gap-1">
       <Icon name="tabler/compass" aria-hidden="true" class="h-4 w-4" />
-      {companyInfo("street")}
+      {companyInfo?.street}
     </span>
   </p>
 
@@ -20,10 +24,10 @@ const { companyInfo, text } = useTranslation(Astro.url);
     <span class="inline-flex items-center gap-1">
       <Icon name="tabler/phone" aria-hidden="true" class="h-4 w-4" />
       <a
-        href={`tel:${companyInfo("phone")}`}
+        href={`tel:${companyInfo?.phone}`}
         class="hover:text-primary-500 transition hover:underline"
       >
-        {companyInfo("phone")}
+        {companyInfo?.phone}
       </a>
     </span>
   </p>
@@ -32,8 +36,8 @@ const { companyInfo, text } = useTranslation(Astro.url);
     <span class="inline-flex items-center gap-1">
       <Icon name="tabler/mail" aria-hidden="true" class="h-4 w-4" />
       <a
-        href={`mailto:${companyInfo("email")}`}
-        class="hover:text-primary-500 transition hover:underline">{companyInfo("email")}</a
+        href={`mailto:${companyInfo?.email}`}
+        class="hover:text-primary-500 transition hover:underline">{companyInfo?.email}</a
       >
     </span>
   </p>

@@ -9,12 +9,11 @@ import MobileLanguageSelect from "@components/LanguageSelect/MobileLanguageSelec
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute, useTextTranslation } from "@/utils/translationUtils";
+import { getLocalizedRoute } from "@/utils/translationUtils";
 import { navData } from "../navData";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTextTranslation(currLocale);
 const data = navData[currLocale];
 import { locales } from "@config/siteSettings.json";
 ---

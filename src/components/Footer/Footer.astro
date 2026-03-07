@@ -5,11 +5,11 @@ import ContactInformationBlock from "@components/Contact/ContactInformationBlock
 import SocialIcon from "@components/Social/SocialIcon.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { footerData } from "./footerData";
-import { companyInfoTranslations } from "@config/translations/companyInfoTranslations.ts";
+import { getCompanyInfo } from "@/utils/companyInfo";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const { companyName, ctaButton } = footerData[currLocale];
-const socialLinks = companyInfoTranslations[currLocale].social;
+const companyInfo = await getCompanyInfo(currLocale);
 const today = new Date();
 ---
 
@@ -35,9 +35,25 @@ const today = new Date();
     <div class="flex items-center md:justify-end">
       <!-- Socials -->
       <div class="flex gap-2">
-        <SocialIcon href={socialLinks.facebook.url} icon="tabler/facebook" social="Facebook" />
-        <SocialIcon href={socialLinks.instagram.url} icon="tabler/instagram" social="Instagram" />
-        <SocialIcon href={socialLinks.linkedin.url} icon="tabler/linkedin" social="LinkedIn" />
+        {
+          companyInfo?.facebookUrl && (
+            <SocialIcon href={companyInfo.facebookUrl} icon="tabler/facebook" social="Facebook" />
+          )
+        }
+        {
+          companyInfo?.instagramUrl && (
+            <SocialIcon
+              href={companyInfo.instagramUrl}
+              icon="tabler/instagram"
+              social="Instagram"
+            />
+          )
+        }
+        {
+          companyInfo?.linkedinUrl && (
+            <SocialIcon href={companyInfo.linkedinUrl} icon="tabler/linkedin" social="LinkedIn" />
+          )
+        }
       </div>
     </div>
   </div>

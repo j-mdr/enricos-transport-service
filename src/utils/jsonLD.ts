@@ -1,14 +1,8 @@
 import { type CollectionEntry } from "astro:content";
 
-// utils
-import { getTranslatedData } from "@/utils/translationUtils";
-import { defaultLocale } from "@/config/siteSettings.json";
-
-// data - siteData.title should not change based on locale so this should be fine
-const siteData = getTranslatedData("siteData", defaultLocale);
-
 interface GeneralProps {
   type: "general";
+  siteTitle?: string;
 }
 
 export interface BlogProps {
@@ -63,7 +57,7 @@ export default function jsonLDGenerator(props: JsonLDProps) {
       {
       "@context": "https://schema.org/",
       "@type": "WebSite",
-      "name": "${siteData.title}",
+      "name": "${(props as GeneralProps).siteTitle ?? ""}",
       "url": "${import.meta.env.SITE}"
       }
     </script>`;

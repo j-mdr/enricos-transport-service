@@ -2,21 +2,10 @@ import type { DataEntryMap } from "astro:content";
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { defaultLocale, type Locale, locales } from "@/config/siteSettings.json";
-import { dataTranslations } from "@config/translations/dataTranslations.ts";
-import { textTranslations } from "@config/translations/textTranslations.ts";
 import { routeTranslations } from "@config/translations/routeTranslations.ts";
-import { companyInfoTranslations } from "@config/translations/companyInfoTranslations.ts";
 import { collectionTranslations } from "@config/translations/collectionTranslations.ts";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-
-/**
- * * text translation helper function to use inside of components
- */
-export function useTextTranslation(locale: Locale) {
-  return function t(key: keyof (typeof textTranslations)[typeof locale]) {
-    return textTranslations[locale][key] || textTranslations[defaultLocale][key];
-  };
-}
+import { useLabels } from "@utils/labels.ts";
 
 export function useRouteTranslation(locale: Locale) {
   return function r(pathname: string) {
@@ -24,54 +13,13 @@ export function useRouteTranslation(locale: Locale) {
   };
 }
 
-export const useDataTranslation = (locale: Locale) => {
-  return <K extends keyof (typeof dataTranslations)[Locale]>(
-    key: K,
-  ): (typeof dataTranslations)[Locale][K] => {
-    return getTranslatedData(key, locale);
-  };
-};
-
-export function useCompanyInfoTranslation(locale: Locale) {
-  return function t<K extends keyof (typeof companyInfoTranslations)[Locale]>(
-    key: K,
-  ): (typeof companyInfoTranslations)[Locale][K] {
-    return companyInfoTranslations[locale][key] || companyInfoTranslations[defaultLocale][key];
-  };
-}
-
-export function useTranslation(url: URL) {
+export async function useTranslation(url: URL) {
   const locale = getLocaleFromUrl(url);
 
   return {
-    text: useTextTranslation(locale),
+    text: await useLabels(locale),
     route: useRouteTranslation(locale),
-    data: useDataTranslation(locale),
-    companyInfo: useCompanyInfoTranslation(locale),
   };
-}
-
-type DataKey<T extends Locale> = keyof (typeof dataTranslations)[T];
-/**
- * * data file translation helper function
- * @param data: key in the data file to translate, like "siteData" or "navData"
- * @param locale: Language to use for translation, one of the locales
- * @returns appropriate data file as specified in src/config/translations.ts
- *
- * ## Example
- *
- * ```ts
- * import { getLocaleFromUrl } from "@/utils/i18nUtils";
- * import { getTranslatedData } from "@/utils/translations";
- * const currLocale = getLocaleFromUrl(Astro.url);
- * const siteData = getTranslatedData("siteData", currLocale);
- * ```
- */
-export function getTranslatedData<T extends Locale, K extends DataKey<T>>(
-  data: K,
-  locale: T,
-): (typeof dataTranslations)[T][K] {
-  return dataTranslations[locale][data] || dataTranslations[defaultLocale as T][data];
 }
 
 /**
@@ -331,8 +279,6 @@ export async function generateRouteTranslations() {
     }
   });
 
-  // console.log("Entries by mapping:", entriesByMapping);
-
   // Assign and generate unique key names dynamically for each mapped item
   let itemIndex = 1;
 
@@ -347,6 +293,5 @@ export async function generateRouteTranslations() {
     });
   });
 
-  // console.log("Generated dynamic route translations:", dynamicRouteTranslations);
   return dynamicRouteTranslations;
 }

@@ -10,13 +10,12 @@ import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTextTranslation, getLocalizedRoute } from "@/utils/translationUtils";
+import { getLocalizedRoute } from "@/utils/translationUtils";
 import { navData } from "./navData";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = navData[currLocale];
-const t = useTextTranslation(currLocale);
 import { locales } from "@config/siteSettings.json";
 ---
 

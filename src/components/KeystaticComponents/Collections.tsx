@@ -372,6 +372,28 @@ const OtherPages = (locale: (typeof locales)[number]) =>
   });
 
 /**
+ * * Labels singleton
+ * Editable UI labels per locale
+ */
+const Labels = (locale: (typeof locales)[number]) =>
+  singleton({
+    label: `Labels (${locale.toUpperCase()})`,
+    path: `src/content/labels/${locale}`,
+    format: { data: "json" },
+    schema: {
+      contactButtonText: fields.text({ label: "Contact knop tekst" }),
+      contactButtonTextShort: fields.text({ label: "Contact knop tekst (kort)" }),
+      getQuoteButtonText: fields.text({ label: "Offerte knop tekst" }),
+      getQuoteButtonTextShort: fields.text({ label: "Offerte knop tekst (kort)" }),
+      backToAllPosts: fields.text({ label: "Terug naar alle posts" }),
+      updated: fields.text({ label: "Bijgewerkt" }),
+      about: fields.text({ label: "Over" }),
+      readMore: fields.text({ label: "Lees meer" }),
+      contactInformation: fields.text({ label: "Contactgegevens" }),
+    },
+  });
+
+/**
  * * Company Info singleton
  * Editable company information per locale
  */
@@ -409,4 +431,5 @@ export default {
   Bezorggebieden,
   OtherPages,
   CompanyInfo,
+  Labels,
 };

@@ -12,14 +12,12 @@ import Button from "@components/Button/Button.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useTextTranslation } from "@/utils/translationUtils";
 
 // images
 import heroImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
 import heroImageMobile from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTextTranslation(currLocale);
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-[60svh] w-full md:pb-22">
@@ -69,9 +67,7 @@ const t = useTextTranslation(currLocale);
           </span>
         </span>
       </h1>
-      <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2">
-        {t("hero_description")}
-      </p>
+      <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2"></p>
       <div class="mt-6 flex flex-wrap gap-4">
         <Button
           variant="primary"

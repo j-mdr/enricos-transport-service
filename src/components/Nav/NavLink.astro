@@ -1,9 +1,6 @@
 ---
-import { getLocalizedRoute, useTranslation } from "@/utils/translationUtils";
+import { useTranslation } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
-
-// utils
-import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 // data
 import { type navLinkItem } from "@config/translations/configDataTypes.ts";
@@ -29,9 +26,7 @@ interface Props {
 const { navItem, class: className, noIcon = false } = Astro.props as Props;
 const { text, link, newTab = false, icon } = navItem;
 
-const currLocale = getLocaleFromUrl(Astro.url);
-
-const { route } = useTranslation(Astro.url);
+const { route } = await useTranslation(Astro.url);
 const actualLink = route(navItem.link);
 
 const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, actualLink);

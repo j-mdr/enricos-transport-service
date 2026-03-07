@@ -3,45 +3,6 @@ export type LocalizedData<T> = {
   nl: T;
 };
 
-type SocialLink = {
-  url: string; // full URL to the social media profile
-  id: string; // the username or page name on the social media platform, used for display purposes
-};
-
-// site data types
-export interface SiteData {
-  name: string;
-  title: string;
-  description: string;
-  baseUrl: string;
-  contact: {
-    // used for contact page and footer
-    street: string; // contact street address
-    city: string; // contact city
-    zipCode: string; // contact zip code
-    province: string; // contact province/state
-    country: string; // contact country
-    phone: string; // contact phone number
-    email: string; // contact email address
-  };
-  social: {
-    // used for social media links in the footer and contact page
-    facebook: SocialLink;
-    instagram: SocialLink;
-    linkedin: SocialLink;
-  };
-  author: {
-    // used for blog post purposes
-    name: string;
-    email: string;
-    twitter: string; // used for twitter cards when sharing a blog post on twitter
-  };
-  defaultImage: {
-    src: string;
-    alt: string;
-  };
-}
-
 // --------------------------------------------------------
 // cta
 export interface CtaButton {

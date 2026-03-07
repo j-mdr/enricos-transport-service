@@ -36,11 +36,14 @@ export default config({
         "otherPagesNL",
       ],
       Bedrijfsinfo: ["companyInfoNL", "companyInfoEN"],
+      Labels: ["labelsNL", "labelsEN"],
     },
   },
   singletons: {
     companyInfoNL: Collections.CompanyInfo("nl"),
     companyInfoEN: Collections.CompanyInfo("en"),
+    labelsNL: Collections.Labels("nl"),
+    labelsEN: Collections.Labels("en"),
   },
   collections: {
     blogEN: Collections.Blog("en"),
