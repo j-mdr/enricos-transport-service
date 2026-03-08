@@ -1,0 +1,168 @@
+{
+  "title": "Koerier in Deventer",
+  "description": "Koerier in deventer en omgeving",
+  "image": "../koerier-deventer/image.jpeg",
+  "mappingKey": "koerier-deventer",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "richText",
+      "value": [
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Koerier Deventer – Snel, Betrouwbaar & Direct Bezorgd" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Zoekt u een betrouwbare transport- of koeriersdienst in Deventer voor zakelijke zendingen, halffabricaten of technische producten?"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Enrico's Transportservice ondersteunt dagelijks bedrijven in maakindustrie, techniek, productie en groothandel met flexibel transport – lokaal, nationaal en internationaal."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Uw koerier in Deventer voor spoedzendingen" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Wij verzorgen transport van en naar bedrijven op onder andere Bergweide, Kloosterlanden en A1 Bedrijvenpark Deventer en leveren door heel Nederland en Europa."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Professionele koeriersdiensten in Deventer" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Enrico's Transportservice biedt professionele koeriersdiensten in Deventer voor bedrijven en particulieren die behoefte hebben aan snelle, betrouwbare en veilige levering. Van urgente documenten tot pakketten van elk formaat: wij zorgen voor zorgvuldig transport en tijdige bezorging, zodat u altijd met vertrouwen uw deadlines haalt."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Koerier in Deventer voor bedrijven en particulieren" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Wij bieden flexibele koeriersoplossingen in Deventer voor zowel zakelijke klanten als particulieren. Of u nu op zoek bent naar een vaste logistieke partner of een eenmalige spoedzending, onze diensten passen zich moeiteloos aan uw wensen aan."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "children": [{ "text": "Voor bedrijven" }]
+        },
+        {
+          "type": "unordered-list",
+          "children": [
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [{ "text": "Betrouwbare dagelijkse koeriersdiensten" }]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [{ "text": "Geplande ritten en contractvervoer" }]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [{ "text": "Koerier op afroep voor spoedzendingen" }]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [
+                    { "text": "Professionele en discrete behandeling van documenten en pakketten" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "children": [{ "text": "Voor particulieren" }]
+        },
+        {
+          "type": "unordered-list",
+          "children": [
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [{ "text": "Eenmalige en incidentele zendingen" }]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [{ "text": "Spoedtransport voor persoonlijke leveringen" }]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [{ "text": "Snelle ophaalservice en directe bezorging" }]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [{ "text": "Heldere communicatie en betrouwbare service" }]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

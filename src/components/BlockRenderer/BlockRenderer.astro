@@ -1,0 +1,52 @@
+---
+/**
+ * * BlockRenderer
+ * Renders a blocks array from the Keystatic block builder.
+ * Each block references an existing hero/faq collection entry or contains inline rich text.
+ */
+import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
+import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
+import HeroCenteredSection from "@components/Hero/HeroCenteredSection.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
+import RichTextBlock from "./RichTextBlock";
+
+interface Block {
+  discriminant: string;
+  value: unknown;
+}
+
+interface Props {
+  blocks: Block[];
+}
+
+const { blocks } = Astro.props;
+---
+
+{
+  blocks.map((block) => (
+    <Fragment>
+      {block.discriminant === "heroBg" && (block.value as { heroSet?: string | null })?.heroSet && (
+        <HeroBgImageSection heroSet={(block.value as { heroSet: string }).heroSet} />
+      )}
+      {block.discriminant === "hero" && (block.value as { heroSet?: string | null })?.heroSet && (
+        <HeroSideImageSection heroSet={(block.value as { heroSet: string }).heroSet} />
+      )}
+      {block.discriminant === "heroCentered" &&
+        (block.value as { heroSet?: string | null })?.heroSet && (
+          <HeroCenteredSection heroSet={(block.value as { heroSet: string }).heroSet} />
+        )}
+      {block.discriminant === "faq" && (block.value as { faqSet?: string | null })?.faqSet && (
+        <FaqAccordionsSection faqSet={(block.value as { faqSet: string }).faqSet} />
+      )}
+      {block.discriminant === "richText" && (
+        <div class="site-container my-16">
+          <div class="markdown-content mx-auto max-w-3xl">
+            <RichTextBlock
+              document={block.value as Parameters<typeof RichTextBlock>[0]["document"]}
+            />
+          </div>
+        </div>
+      )}
+    </Fragment>
+  ))
+}

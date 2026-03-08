@@ -34,12 +34,12 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
 
-<section id="hero" class="relative mb-14 flex min-h-[60svh] w-full md:pb-22">
+<section id="hero" class="relative mb-14 flex min-h-svh w-full md:pb-22">
   <!-- background image -->
-  <div class="absolute -z-20 h-full w-full overflow-hidden bg-white opacity-60">
+  <div class="absolute -z-20 h-full w-full overflow-hidden">
     <Image
       src={image}
-      class="h-full w-auto object-cover"
+      class="h-full w-full object-cover"
       alt={imageAlt}
       aria-hidden="true"
       loading="eager"
@@ -68,7 +68,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
               <span>
                 <Icon
                   name="stellar/freehand-zig-underline"
-                  class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                  class="text-primary-300 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
                   aria-hidden="true"
                 />
               </span>

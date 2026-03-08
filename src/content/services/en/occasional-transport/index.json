@@ -1,0 +1,8 @@
+{
+  "title": "Occasional transport",
+  "description": "Details of the interior painting services offered by example company",
+  "image": "../occasional-transport/image.jpg",
+  "mappingKey": "incidenteel-transport",
+  "draft": false,
+  "blocks": []
+}

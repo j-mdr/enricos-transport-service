@@ -1,16 +1,12 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 // layouts
 import BaseLayout from "@layouts/BaseLayout.astro";
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 
 // components
-import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
-import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
-import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
-import HeroCenteredSection from "@components/Hero/HeroCenteredSection.astro";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -36,24 +32,13 @@ export async function getStaticPaths() {
 
 type Props = CollectionEntry<"otherPages">;
 const page = Astro.props as Props;
-
-// convert markdown to html
-const { Content } = await render(page);
 const { title, description, template, image } = page.data;
 ---
 
 {
   template === "BaseLayout" && (
     <BaseLayout title={title} description={description} type={"general"}>
-      <Content
-        components={{
-          a: ExternalLink,
-          FaqSection: FaqAccordionsSection,
-          HeroSection: HeroSideImageSection,
-          HeroBgSection: HeroBgImageSection,
-          HeroCenteredSection: HeroCenteredSection,
-        }}
-      />
+      <BlockRenderer blocks={page.data.blocks ?? []} />
     </BaseLayout>
   )
 }
@@ -61,15 +46,7 @@ const { title, description, template, image } = page.data;
 {
   template === "ServiceLayoutCenter" && (
     <ServiceLayoutCenter title={title} description={description} image={image}>
-      <Content
-        components={{
-          a: ExternalLink,
-          FaqSection: FaqAccordionsSection,
-          HeroSection: HeroSideImageSection,
-          HeroBgSection: HeroBgImageSection,
-          HeroCenteredSection: HeroCenteredSection,
-        }}
-      />
+      <BlockRenderer blocks={page.data.blocks ?? []} />
     </ServiceLayoutCenter>
   )
 }

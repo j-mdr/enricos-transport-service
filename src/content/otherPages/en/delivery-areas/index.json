@@ -1,0 +1,39 @@
+{
+  "title": "Delivery areas",
+  "description": "Delivery areas",
+  "mappingKey": "bezorggebieden",
+  "template": "BaseLayout",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "heroCentered",
+      "value": { "heroSet": "home" }
+    },
+    {
+      "discriminant": "richText",
+      "value": [
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Text about delivery areas" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

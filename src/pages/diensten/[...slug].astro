@@ -1,16 +1,11 @@
 ---
-import { type InferGetStaticPropsType } from "astro";
-import { type CollectionEntry, getCollection, render } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 // layouts
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 
 // components
-import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
-import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
-import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
-import HeroCenteredSection from "@components/Hero/HeroCenteredSection.astro";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -33,22 +28,13 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"services">;
 
 const service = Astro.props as Props;
-const { Content } = await render(service);
 const { template } = service.data;
 ---
 
 {
   template === "ServiceLayoutCenter" && (
     <ServiceLayoutCenter {...service.data}>
-      <Content
-        components={{
-          a: ExternalLink,
-          FaqSection: FaqAccordionsSection,
-          HeroSection: HeroSideImageSection,
-          HeroBgSection: HeroBgImageSection,
-          HeroCenteredSection: HeroCenteredSection,
-        }}
-      />
+      <BlockRenderer blocks={service.data.blocks ?? []} />
     </ServiceLayoutCenter>
   )
 }

@@ -1,0 +1,25 @@
+{
+  "title": "Bezorggebieden",
+  "description": "Bezorggebieden",
+  "mappingKey": "bezorggebieden",
+  "template": "BaseLayout",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "hero",
+      "value": { "heroSet": "home" }
+    },
+    {
+      "discriminant": "faq",
+      "value": { "faqSet": "algemeen" }
+    },
+    {
+      "discriminant": "heroBg",
+      "value": { "heroSet": "home" }
+    },
+    {
+      "discriminant": "heroCentered",
+      "value": { "heroSet": "home" }
+    }
+  ]
+}

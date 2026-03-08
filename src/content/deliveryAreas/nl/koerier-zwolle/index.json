@@ -1,0 +1,97 @@
+{
+  "title": "Uw koerier in Zwolle",
+  "description": "Uw koerier in Zwolle en omgeving",
+  "image": "../koerier-zwolle/image.jpeg",
+  "mappingKey": "koerier-zwolle",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "richText",
+      "value": [
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Uw koerier in Zwolle voor veilig en verzekerd transport" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Zoek je een betrouwbare koerier in Zwolle? Bij Enrico's Transportservice, uw professionele koerier in Zwolle, bent u aan het juiste adres voor koeriersdiensten, spoedtransport en maatwerktransport. Of het nu gaat om een klein pakket, een pallet, belangrijke documenten of een complete lading: wij zorgen dat uw goederen veilig, snel en verzekerd op de plaats van bestemming komen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Onze vestiging aan de Paxtonstraat 1C in Zwolle maakt ons de ideale koerier in Zwolle. Vanuit hier rijden wij dagelijks naar klanten in heel Nederland en Europa."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 4,
+          "children": [{ "text": "Transport vanaf bedrijventerreinen in Zwolle" }]
+        },
+        {
+          "type": "unordered-list",
+          "children": [
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [
+                    {
+                      "text": "Hessenpoort – perfect voor spoedtransport van productie- en logistieke bedrijven."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [
+                    {
+                      "text": "Marslanden – snelle afhandeling voor winkels, groothandels en werkplaatsen."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [
+                    {
+                      "text": "Voorst – betrouwbare transportoplossingen voor logistieke en technische bedrijven."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "list-item",
+              "children": [
+                {
+                  "type": "list-item-content",
+                  "children": [
+                    {
+                      "text": "Paxtonstraat – onze centrale vestiging, ideaal gelegen voor directe dispatch van zendingen."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,15 +1,11 @@
 ---
-import { type CollectionEntry, render } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 
 // layout
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
 
 // components
-import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
-import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
-import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
-import HeroCenteredSection from "@components/Hero/HeroCenteredSection.astro";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 
 // utils
 import { getAllPosts } from "@/utils/blogUtils";
@@ -26,17 +22,8 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props as Props;
-const { Content, headings } = await render(post);
 ---
 
 <BlogLayout post={post}>
-  <Content
-    components={{
-      a: ExternalLink,
-      FaqSection: FaqAccordionsSection,
-      HeroSection: HeroSideImageSection,
-      HeroBgSection: HeroBgImageSection,
-      HeroCenteredSection: HeroCenteredSection,
-    }}
-  />
+  <BlockRenderer blocks={post.data.blocks ?? []} />
 </BlogLayout>

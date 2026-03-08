@@ -1,11 +1,11 @@
 {
   "title": "Quality work{highlight} you deserve",
-  "description": "",
+  "description": "A description text",
   "ctaButton1Text": "Get quote",
   "ctaButton1Href": "/en/request-quote",
-  "ctaButton2Text": "",
-  "ctaButton2Href": "",
-  "image": "image.jpeg",
+  "ctaButton2Text": "sfsdf",
+  "ctaButton2Href": "sdfsd",
+  "image": "../home/image.jpeg",
   "imageAlt": "Enrico Janssen delivery van rear view sunset",
   "mappingKey": "hero-bg-home"
 }

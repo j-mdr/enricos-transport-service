@@ -1,0 +1,43 @@
+{
+  "title": "Spoed transport",
+  "description": "Details of the deck and fence staining services offered by example company",
+  "image": "../spoed-transport/image.jpg",
+  "mappingKey": "spoed-transport",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "richText",
+      "value": [
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Spoedtransport dat altijd op tijd aankomt" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Wanneer tijd cruciaal is, biedt Enrico's Transportservice de oplossing met professioneel spoedtransport. Of het nu gaat om een vergeten levering, een dringende order of een zending die dezelfde dag nog moet worden afgeleverd, wij zorgen dat uw goederen direct en veilig op de juiste plek terechtkomen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Dankzij onze flexibele inzet en korte communicatielijnen kunnen wij vaak onmiddellijk een voertuig inzetten. Elke spoedzending wordt zorgvuldig geladen en rechtstreeks, zonder onnodige tussenstops, naar de bestemming gebracht."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Of het nu om een enkel pakket, een pallet of een groter transport gaat, u kunt vertrouwen op onze ervaring en nauwkeurige aanpak. Met Enrico's Transportservice is uw spoedtransport altijd veilig, snel en betrouwbaar geregeld."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

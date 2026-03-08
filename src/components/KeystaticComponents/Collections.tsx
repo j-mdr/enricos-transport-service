@@ -5,9 +5,6 @@
 
 import { collection, fields, singleton } from "@keystatic/core";
 
-// components
-import ComponentBlocks from "@components/KeystaticComponents/ComponentBlocks";
-
 // utils
 import { locales } from "@config/siteSettings.json";
 
@@ -19,6 +16,60 @@ const templateOptions = {
 } as const;
 
 /**
+ * * Page Blocks - gedeelde block builder voor alle page collections
+ * Blokken refereren naar bestaande hero/faq collection entries via een relationship veld.
+ */
+const pageBlocks = (locale: Locale) =>
+  fields.array(
+    fields.conditional(
+      fields.select({
+        label: "Blok type",
+        options: [
+          { value: "heroBg", label: "Hero (achtergrond afbeelding)" },
+          { value: "hero", label: "Hero (zij-afbeelding)" },
+          { value: "heroCentered", label: "Hero (gecentreerd)" },
+          { value: "faq", label: "FAQ Sectie" },
+          { value: "richText", label: "Tekst blok" },
+        ],
+        defaultValue: "richText",
+      }),
+      {
+        heroBg: fields.object({
+          heroSet: fields.relationship({
+            label: "Hero Set",
+            collection: locale === "nl" ? "heroBgNL" : "heroBgEN",
+          }),
+        }),
+        hero: fields.object({
+          heroSet: fields.relationship({
+            label: "Hero Set",
+            collection: locale === "nl" ? "heroNL" : "heroEN",
+          }),
+        }),
+        heroCentered: fields.object({
+          heroSet: fields.relationship({
+            label: "Hero Set",
+            collection: locale === "nl" ? "heroCenteredNL" : "heroCenteredEN",
+          }),
+        }),
+        faq: fields.object({
+          faqSet: fields.relationship({
+            label: "FAQ Set",
+            collection: locale === "nl" ? "faqsNL" : "faqsEN",
+          }),
+        }),
+        richText: fields.document({
+          label: "Tekst inhoud",
+          formatting: true,
+          dividers: true,
+          links: true,
+        }),
+      },
+    ),
+    { label: "Blokken", itemLabel: (props) => props.discriminant },
+  );
+
+/**
  * * Blog posts collection
  * This gets used by Astro Content Collections, so if you update this, you'll need to update the Astro Content Collections schema
  */
@@ -28,8 +79,8 @@ const Blog = (locale: (typeof locales)[number]) =>
     slugField: "title",
     path: `src/content/blog/${locale}/*/`,
     columns: ["title", "pubDate"],
-    entryLayout: "content",
-    format: { contentField: "content" },
+    entryLayout: "form",
+    format: { data: "json" },
     schema: {
       title: fields.slug({
         name: { label: "Title" },
@@ -46,7 +97,6 @@ const Blog = (locale: (typeof locales)[number]) =>
         label: "Draft",
         description: "Set this post as draft to prevent it from being published.",
       }),
-
       authors: fields.array(
         fields.relationship({
           label: "Post author",
@@ -68,7 +118,7 @@ const Blog = (locale: (typeof locales)[number]) =>
         description: "This is used to map entries between languages.",
       }),
       heroImage: fields.image({
-        label: "HeroCenteredSection Image",
+        label: "Hero Image",
         publicPath: "../",
         validation: { isRequired: true },
       }),
@@ -78,41 +128,7 @@ const Blog = (locale: (typeof locales)[number]) =>
         itemLabel: (props) => props.value,
         validation: { length: { min: 1 } },
       }),
-      content: fields.mdx({
-        label: "Content",
-        options: {
-          bold: true,
-          italic: true,
-          strikethrough: true,
-          code: true,
-          heading: [2, 3, 4, 5, 6],
-          blockquote: true,
-          orderedList: true,
-          unorderedList: true,
-          table: true,
-          link: true,
-          image: {
-            directory: `src/content/blog/${locale}/`,
-            publicPath: "../",
-            // schema: {
-            //   title: fields.text({
-            //     label: "Caption",
-            //     description:
-            //       "The text to display under the image in a caption.",
-            //   }),
-            // },
-          },
-          divider: true,
-          codeBlock: true,
-        },
-        components: {
-          Admonition: ComponentBlocks.Admonition,
-          FaqSection: ComponentBlocks.FaqSection(locale),
-          HeroSection: ComponentBlocks.HeroSection(locale),
-          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
-          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
-        },
-      }),
+      blocks: pageBlocks(locale),
     },
   });
 
@@ -195,8 +211,8 @@ const Services = (locale: (typeof locales)[number]) =>
     slugField: "title",
     path: `src/content/services/${locale}/*/`,
     columns: ["title"],
-    entryLayout: "content",
-    format: { contentField: "content" },
+    entryLayout: "form",
+    format: { data: "json" },
     schema: {
       title: fields.slug({
         name: { label: "Title" },
@@ -228,34 +244,7 @@ const Services = (locale: (typeof locales)[number]) =>
         label: "Draft",
         description: "Set this page as draft to prevent it from being published.",
       }),
-      content: fields.mdx({
-        label: "Page Contents",
-        options: {
-          bold: true,
-          italic: true,
-          strikethrough: true,
-          code: false,
-          heading: [2, 3, 4],
-          blockquote: true,
-          orderedList: true,
-          unorderedList: true,
-          table: true,
-          link: true,
-          image: {
-            directory: `src/content/diensten/${locale}/`,
-            publicPath: "../",
-          },
-          divider: true,
-          codeBlock: false,
-        },
-        components: {
-          Admonition: ComponentBlocks.Admonition,
-          FaqSection: ComponentBlocks.FaqSection(locale),
-          HeroSection: ComponentBlocks.HeroSection(locale),
-          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
-          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
-        },
-      }),
+      blocks: pageBlocks(locale),
     },
   });
 
@@ -269,8 +258,8 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
     slugField: "title",
     path: `src/content/deliveryAreas/${locale}/*/`,
     columns: ["title"],
-    entryLayout: "content",
-    format: { contentField: "content" },
+    entryLayout: "form",
+    format: { data: "json" },
     schema: {
       title: fields.slug({
         name: { label: "Title" },
@@ -302,34 +291,7 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
         label: "Draft",
         description: "Set this page as draft to prevent it from being published.",
       }),
-      content: fields.mdx({
-        label: "Page Contents",
-        options: {
-          bold: true,
-          italic: true,
-          strikethrough: true,
-          code: false,
-          heading: [2, 3, 4],
-          blockquote: true,
-          orderedList: true,
-          unorderedList: true,
-          table: true,
-          link: true,
-          image: {
-            directory: `src/content/deliveryAreas/${locale}/`,
-            publicPath: "../",
-          },
-          divider: true,
-          codeBlock: false,
-        },
-        components: {
-          Admonition: ComponentBlocks.Admonition,
-          FaqSection: ComponentBlocks.FaqSection(locale),
-          HeroSection: ComponentBlocks.HeroSection(locale),
-          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
-          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
-        },
-      }),
+      blocks: pageBlocks(locale),
     },
   });
 
@@ -344,8 +306,8 @@ const OtherPages = (locale: (typeof locales)[number]) =>
     slugField: "title",
     path: `src/content/otherPages/${locale}/*/`,
     columns: ["title"],
-    entryLayout: "content",
-    format: { contentField: "content" },
+    entryLayout: "form",
+    format: { data: "json" },
     schema: {
       title: fields.slug({
         name: { label: "Title" },
@@ -377,34 +339,7 @@ const OtherPages = (locale: (typeof locales)[number]) =>
         label: "Draft",
         description: "Set this page as draft to prevent it from being published.",
       }),
-      content: fields.mdx({
-        label: "Page Contents",
-        options: {
-          bold: true,
-          italic: true,
-          strikethrough: true,
-          code: true,
-          heading: [2, 3, 4, 5, 6],
-          blockquote: true,
-          orderedList: true,
-          unorderedList: true,
-          table: true,
-          link: true,
-          image: {
-            directory: `src/content/otherPages/${locale}/`,
-            publicPath: "../",
-          },
-          divider: true,
-          codeBlock: true,
-        },
-        components: {
-          Admonition: ComponentBlocks.Admonition,
-          FaqSection: ComponentBlocks.FaqSection(locale),
-          HeroSection: ComponentBlocks.HeroSection(locale),
-          HeroBgSection: ComponentBlocks.HeroBgSection(locale),
-          HeroCenteredSection: ComponentBlocks.HeroCenteredSection(locale),
-        },
-      }),
+      blocks: pageBlocks(locale),
     },
   });
 

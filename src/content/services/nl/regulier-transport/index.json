@@ -1,0 +1,51 @@
+{
+  "title": "Regulier transport",
+  "description": "Details of the deck and fence staining services offered by example company",
+  "image": "../regulier-transport/image.jpg",
+  "mappingKey": "regulier-transport",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "richText",
+      "value": [
+        {
+          "type": "heading",
+          "level": 2,
+          "children": [{ "text": "Regulier transport altijd geleverd volgens afspraak" }]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Een betrouwbare levering staat of valt met timing en zorgvuldigheid. Bij Enrico's Transportservice zorgen wij ervoor dat uw goederen exact op het afgesproken moment en in uitstekende staat worden afgeleverd. Dankzij onze doordachte planning en persoonlijke werkwijze weet u altijd waar u aan toe bent."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Wij denken vooruit en stemmen iedere rit af op uw agenda. Of het nu gaat om een vaste transportopdracht of een losse levering, wij voorkomen vertragingen door voorbereid te werken en flexibel te schakelen wanneer dat nodig is."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Ook wanneer een locatie lastig bereikbaar is, zoeken wij naar een oplossing. Indien nodig brengen wij de goederen te voet verder naar de afleverplek, zodat de levering altijd succesvol wordt afgerond."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Met Enrico's Transportservice kiest u voor een logistieke partner die afspraken serieus neemt en uw transport betrouwbaar uitvoert — van vertrek tot eindbestemming."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
