@@ -113,6 +113,26 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     value: z.object({ ctaSet: z.string().nullable().optional() }),
   }),
   z.object({
+    discriminant: z.literal("featureCardsSmall"),
+    value: z.object({ featureSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("featureLightboxMarquee"),
+    value: z.object({ featureSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("featureGalleryMarquee"),
+    value: z.object({ featureSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("featureSideImage"),
+    value: z.object({ featureSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("featureToggleImage"),
+    value: z.object({ featureSet: z.string().nullable().optional() }),
+  }),
+  z.object({
     discriminant: z.literal("richText"),
     value: z.any(),
   }),
@@ -227,6 +247,63 @@ const faqsCollection = defineCollection({
   }),
 });
 
+// featureCardsSmall sections
+const featureCardsSmallCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/featureCardsSmall" }),
+  schema: z.object({
+    title: z.string(),
+    features: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })),
+    mappingKey: z.string().optional(),
+  }),
+});
+
+// featureLightboxMarquee sections (also used by FeatureGalleryMarqueeSection)
+const featureLightboxMarqueeCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/featureLightboxMarquee" }),
+  schema: z.object({
+    title: z.string(),
+    images: z.array(z.object({ image: z.string().nullable().optional(), alt: z.string() })),
+    mappingKey: z.string().optional(),
+  }),
+});
+
+// featureSideImage sections
+const featureSideImageCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/featureSideImage" }),
+  schema: ({ image }) =>
+    z.object({
+      sectionTitle: z.string(),
+      items: z.array(
+        z.object({
+          image: image().optional(),
+          imageAlt: z.string().optional(),
+          title: z.string(),
+          checkItems: z.array(z.string()),
+          href: z.string().optional(),
+        }),
+      ),
+      mappingKey: z.string().optional(),
+    }),
+});
+
+// featureToggleImage sections
+const featureToggleImageCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/featureToggleImage" }),
+  schema: ({ image }) =>
+    z.object({
+      sectionTitle: z.string(),
+      sections: z.array(
+        z.object({
+          icon: z.string().optional(),
+          title: z.string(),
+          image: image().optional(),
+          imageAlt: z.string().optional(),
+        }),
+      ),
+      mappingKey: z.string().optional(),
+    }),
+});
+
 export const collections = {
   blog: blogCollection,
   authors: authorsCollection,
@@ -240,4 +317,8 @@ export const collections = {
   ctaBgImage: ctaBgImageCollection,
   ctaCard: ctaCardCollection,
   ctaCards: ctaCardsCollection,
+  featureCardsSmall: featureCardsSmallCollection,
+  featureLightboxMarquee: featureLightboxMarqueeCollection,
+  featureSideImage: featureSideImageCollection,
+  featureToggleImage: featureToggleImageCollection,
 };

@@ -8,36 +8,23 @@
  */
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
+import { getLocaleFromUrl } from "@utils/localeUtils.ts";
+import { getCollection } from "astro:content";
 
-// images. Recommend having a different image for toggle section
-import image1 from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
-import image2 from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
-import image3 from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
-
-interface ToggleSection {
-  icon: string;
-  title: string;
-  image: ImageMetadata;
+interface Props {
+  featureSet?: string;
 }
 
-// data
-const featureData: ToggleSection[] = [
-  {
-    icon: "tabler/home",
-    title: "Housing Exterior",
-    image: image1,
-  },
-  {
-    icon: "tabler/sofa",
-    title: "Living room repaint",
-    image: image2,
-  },
-  {
-    icon: "tabler/paint",
-    title: "Hallway restoration",
-    image: image3,
-  },
-];
+const { featureSet = "home" } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+
+const entries = await getCollection("featureToggleImage");
+const entry = entries.find((e) => e.id === `${locale}/${featureSet}`);
+
+// Component renders nothing if no entry found or sections empty
+if (!entry || !entry.data.sections.length) return;
+
+const { sectionTitle, sections } = entry.data;
 ---
 
 <section id="feature-toggle-image" class="my-24 md:my-36">
@@ -45,7 +32,7 @@ const featureData: ToggleSection[] = [
     <div class="mx-auto grid gap-8 rounded-xl md:grid-cols-5 lg:gap-12">
       <div class="md:col-span-2">
         <h2 class="h2 relative inline">
-          See the results
+          {sectionTitle}
           <Icon
             name="stellar/freehand-arrow"
             class="text-primary-500 absolute top-0 right-0 h-auto w-10 translate-x-10 translate-y-7 rotate-45"
@@ -54,14 +41,16 @@ const featureData: ToggleSection[] = [
         </h2>
         <div class="mt-6 flex flex-col gap-2">
           {
-            featureData.map((section, idx) => (
+            sections.map((section, idx) => (
               <button
                 id={`toggle-feature__toggle-${idx}`}
                 class={`${
                   idx === 0 ? "toggle-feature__toggle--active" : ""
                 } border-base-300 hover:border-primary-300 flex items-start justify-start gap-2 rounded-lg border p-2 transition duration-300 hover:opacity-100`}
               >
-                <Icon name={section.icon} class="mt-1 h-5 w-5" aria-hidden="true" />
+                {section.icon && (
+                  <Icon name={section.icon} class="mt-1 h-5 w-5" aria-hidden="true" />
+                )}
                 <p class="text-start text-lg">{section.title}</p>
               </button>
             ))
@@ -72,17 +61,24 @@ const featureData: ToggleSection[] = [
       <!-- image -->
       <div class="mx-auto max-w-4xl md:col-span-3">
         {
-          featureData.map((section, idx) => (
-            <Image
-              id={`feature8__image-${idx}`}
-              class={`${
-                idx === 0 ? "" : "hidden"
-              } relative z-10 rounded-xl border border-transparent object-cover`}
-              src={section.image}
-              alt={section.title}
-              width={1200}
-            />
-          ))
+          sections.map((section, idx) =>
+            section.image ? (
+              <Image
+                id={`feature8__image-${idx}`}
+                class={`${idx === 0 ? "" : "hidden"} relative z-10 rounded-xl border border-transparent object-cover`}
+                src={section.image}
+                alt={section.imageAlt || section.title}
+                width={1200}
+              />
+            ) : (
+              <div
+                id={`feature8__image-${idx}`}
+                class={`${idx === 0 ? "" : "hidden"} relative z-10 flex aspect-video items-center justify-center rounded-xl border border-transparent bg-gray-100`}
+              >
+                <p class="text-muted-foreground text-sm">{section.imageAlt || section.title}</p>
+              </div>
+            ),
+          )
         }
       </div>
     </div>
@@ -105,7 +101,7 @@ const featureData: ToggleSection[] = [
     ) as NodeListOf<HTMLButtonElement>;
     const toggleImages = document.querySelectorAll(
       "[id^=feature8__image-]",
-    ) as NodeListOf<HTMLImageElement>;
+    ) as NodeListOf<HTMLDivElement>;
 
     // add event listeners to toggle buttons
     toggleButtons?.forEach((button, idx) => {

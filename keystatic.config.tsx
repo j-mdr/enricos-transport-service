@@ -50,6 +50,14 @@ export default config({
         "ctaCardEN",
         "ctaCardsNL",
         "ctaCardsEN",
+        "featureCardsSmallNL",
+        "featureCardsSmallEN",
+        "featureLightboxMarqueeNL",
+        "featureLightboxMarqueeEN",
+        "featureSideImageNL",
+        "featureSideImageEN",
+        "featureToggleImageNL",
+        "featureToggleImageEN",
       ],
       "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
@@ -98,5 +106,17 @@ export default config({
 
     ctaCardsNL: Collections.CtaCards("nl"),
     ctaCardsEN: Collections.CtaCards("en"),
+
+    featureCardsSmallNL: Collections.FeatureCardsSmall("nl"),
+    featureCardsSmallEN: Collections.FeatureCardsSmall("en"),
+
+    featureLightboxMarqueeNL: Collections.FeatureLightboxMarquee("nl"),
+    featureLightboxMarqueeEN: Collections.FeatureLightboxMarquee("en"),
+
+    featureSideImageNL: Collections.FeatureSideImage("nl"),
+    featureSideImageEN: Collections.FeatureSideImage("en"),
+
+    featureToggleImageNL: Collections.FeatureToggleImage("nl"),
+    featureToggleImageEN: Collections.FeatureToggleImage("en"),
   },
 });

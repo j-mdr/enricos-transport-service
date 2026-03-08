@@ -7,10 +7,25 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 import { createMarqueeRows } from "@utils/imageUtils.ts";
+import { getCollection } from "astro:content";
 import { featureLightboxMarqueeData } from "./featureLightboxMarqueeData";
 
+interface Props {
+  featureSet?: string;
+}
+
+const { featureSet = "home" } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const { title, images } = featureLightboxMarqueeData[currLocale];
+
+const entries = await getCollection("featureLightboxMarquee");
+const entry = entries.find((e) => e.id === `${currLocale}/${featureSet}`);
+
+// Fall back to static data since CMS images are strings not ImageMetadata
+const staticData = featureLightboxMarqueeData[currLocale];
+const title = entry ? entry.data.title : staticData.title;
+const images = staticData.images;
+
+if (!images || images.length === 0) return;
 
 // change these images to whatever you want!
 const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = createMarqueeRows(images);
@@ -19,7 +34,7 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
 <section id="feature-gallery-marquee" class="mx-auto my-12 py-12">
   <div class="flex justify-center">
     <h2 class="h2 relative inline">
-      See the results
+      {title}
       <Icon
         name="stellar/freehand-arrow"
         class="text-primary-500 absolute top-0 right-0 h-auto w-10 translate-x-10 translate-y-7 rotate-45"

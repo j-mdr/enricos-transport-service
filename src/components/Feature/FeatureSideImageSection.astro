@@ -5,67 +5,46 @@
  */
 import { Icon } from "astro-icon/components";
 import FeatureCard from "@components/FeatureCard/FeatureCardSideImage.astro";
-import image1 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
-import image2 from "@images/enricos-transportservice-bestelbus-geparkeerd-attractiepark-1x1.jpeg";
+import { getLocaleFromUrl } from "@utils/localeUtils.ts";
+import { getCollection } from "astro:content";
 
-interface FeatureItem {
-  image: ImageMetadata; // an imported image
-  title: string;
-  items: string[]; // list of items that will have check marks next to
-  href: string; // link to learn more
+interface Props {
+  featureSet?: string;
 }
 
-// data
-const featureData: FeatureItem[] = [
-  {
-    image: image1,
-    title: "Highest quality painting services",
-    items: [
-      "Professional painters with years of experience.",
-      "Help you realise your vision.",
-      "Guaranteed satisfaction.",
-    ],
-    href: "/services/exterior-painting/",
-  },
-  {
-    image: image2,
-    title: "Guaranteed satisfaction",
-    items: [
-      "Professional painters with years of experience.",
-      "Help you realise your vision.",
-      "Guaranteed satisfaction.",
-    ],
-    href: "/services/interior-painting/",
-  },
-];
+const { featureSet = "home" } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+
+const entries = await getCollection("featureSideImage");
+const entry = entries.find((e) => e.id === `${locale}/${featureSet}`);
+
+// Component renders nothing if no entry found or items empty
+if (!entry || !entry.data.items.length) return;
+
+const { sectionTitle, items } = entry.data;
 ---
 
 <section id="feature-side-image" class="my-12 overflow-hidden py-12">
   <div class="site-container">
     <div class="mx-auto flex max-w-2xl justify-center text-center">
       <h2 class="h2 text-center">
-        The <span class="relative whitespace-nowrap">
-          best choice
-          <Icon
-            name="stellar/freehand-circle-multi-loop"
-            class="text-primary-200 absolute inset-0 -z-10 w-full translate-y-1 scale-x-325 scale-y-150"
-            aria-hidden="true"
-          />
-        </span> for your painting needs
+        {sectionTitle}
       </h2>
     </div>
     <div class="mt-10 flex flex-col gap-16 md:mt-16 md:gap-24">
       {
-        featureData.map((feature, idx) => (
-          <FeatureCard
-            title={feature.title}
-            items={feature.items}
-            image={feature.image}
-            imageSide={idx % 2 === 0 ? "right" : "left"}
-            href={feature.href}
-            idx={idx}
-          />
-        ))
+        items
+          .filter((item) => item.image)
+          .map((item, idx) => (
+            <FeatureCard
+              title={item.title}
+              items={item.checkItems}
+              image={item.image!}
+              imageSide={idx % 2 === 0 ? "right" : "left"}
+              href={item.href ?? "#"}
+              idx={idx}
+            />
+          ))
       }
     </div>
   </div>

@@ -37,6 +37,20 @@ const pageBlocks = (locale: Locale) =>
           { value: "ctaCardCenter", label: "CTA Kaart Gecentreerd (CtaCardCenterSection)" },
           { value: "ctaCardCenter2", label: "CTA Kaart Gecentreerd v2 (CtaCardCenter2Section)" },
           { value: "ctaCards", label: "CTA Kaarten (CtaCardsSection)" },
+          { value: "featureCardsSmall", label: "Feature Kaarten Klein (FeatureCardsSmallSection)" },
+          {
+            value: "featureLightboxMarquee",
+            label: "Feature Lightbox Marquee (FeatureLightboxMarqueeSection)",
+          },
+          {
+            value: "featureGalleryMarquee",
+            label: "Feature Gallery Marquee (FeatureGalleryMarqueeSection)",
+          },
+          { value: "featureSideImage", label: "Feature Zij-afbeelding (FeatureSideImageSection)" },
+          {
+            value: "featureToggleImage",
+            label: "Feature Toggle Afbeelding (FeatureToggleImageSection)",
+          },
           { value: "richText", label: "Tekst blok" },
         ],
         defaultValue: "richText",
@@ -94,6 +108,36 @@ const pageBlocks = (locale: Locale) =>
           ctaSet: fields.relationship({
             label: "CTA Set",
             collection: locale === "nl" ? "ctaCardsNL" : "ctaCardsEN",
+          }),
+        }),
+        featureCardsSmall: fields.object({
+          featureSet: fields.relationship({
+            label: "Feature Set",
+            collection: locale === "nl" ? "featureCardsSmallNL" : "featureCardsSmallEN",
+          }),
+        }),
+        featureLightboxMarquee: fields.object({
+          featureSet: fields.relationship({
+            label: "Feature Set",
+            collection: locale === "nl" ? "featureLightboxMarqueeNL" : "featureLightboxMarqueeEN",
+          }),
+        }),
+        featureGalleryMarquee: fields.object({
+          featureSet: fields.relationship({
+            label: "Feature Set",
+            collection: locale === "nl" ? "featureLightboxMarqueeNL" : "featureLightboxMarqueeEN",
+          }),
+        }),
+        featureSideImage: fields.object({
+          featureSet: fields.relationship({
+            label: "Feature Set",
+            collection: locale === "nl" ? "featureSideImageNL" : "featureSideImageEN",
+          }),
+        }),
+        featureToggleImage: fields.object({
+          featureSet: fields.relationship({
+            label: "Feature Set",
+            collection: locale === "nl" ? "featureToggleImageNL" : "featureToggleImageEN",
           }),
         }),
         richText: fields.document({
@@ -194,6 +238,11 @@ const Blog = (locale: (typeof locales)[number]) =>
           CtaCardCenterSection: ComponentBlocks.CtaCardCenterSection(locale),
           CtaCardCenter2Section: ComponentBlocks.CtaCardCenter2Section(locale),
           CtaCardsSection: ComponentBlocks.CtaCardsSection(locale),
+          FeatureCardsSmallSection: ComponentBlocks.FeatureCardsSmallSection(locale),
+          FeatureLightboxMarqueeSection: ComponentBlocks.FeatureLightboxMarqueeSection(locale),
+          FeatureGalleryMarqueeSection: ComponentBlocks.FeatureGalleryMarqueeSection(locale),
+          FeatureSideImageSection: ComponentBlocks.FeatureSideImageSection(locale),
+          FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
         },
       }),
     },
@@ -339,6 +388,11 @@ const Services = (locale: (typeof locales)[number]) =>
           CtaCardCenterSection: ComponentBlocks.CtaCardCenterSection(locale),
           CtaCardCenter2Section: ComponentBlocks.CtaCardCenter2Section(locale),
           CtaCardsSection: ComponentBlocks.CtaCardsSection(locale),
+          FeatureCardsSmallSection: ComponentBlocks.FeatureCardsSmallSection(locale),
+          FeatureLightboxMarqueeSection: ComponentBlocks.FeatureLightboxMarqueeSection(locale),
+          FeatureGalleryMarqueeSection: ComponentBlocks.FeatureGalleryMarqueeSection(locale),
+          FeatureSideImageSection: ComponentBlocks.FeatureSideImageSection(locale),
+          FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
         },
       }),
     },
@@ -415,6 +469,11 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
           CtaCardCenterSection: ComponentBlocks.CtaCardCenterSection(locale),
           CtaCardCenter2Section: ComponentBlocks.CtaCardCenter2Section(locale),
           CtaCardsSection: ComponentBlocks.CtaCardsSection(locale),
+          FeatureCardsSmallSection: ComponentBlocks.FeatureCardsSmallSection(locale),
+          FeatureLightboxMarqueeSection: ComponentBlocks.FeatureLightboxMarqueeSection(locale),
+          FeatureGalleryMarqueeSection: ComponentBlocks.FeatureGalleryMarqueeSection(locale),
+          FeatureSideImageSection: ComponentBlocks.FeatureSideImageSection(locale),
+          FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
         },
       }),
     },
@@ -684,6 +743,120 @@ const CtaCards = (locale: Locale) =>
     },
   });
 
+/**
+ * * Feature Cards Small collection
+ * Keystatic-managed feature cards section per locale
+ */
+const FeatureCardsSmall = (locale: Locale) =>
+  collection({
+    label: `Feature Kaarten Klein (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/featureCardsSmall/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      features: fields.array(
+        fields.object({
+          icon: fields.text({ label: "Icon naam (bijv. tabler/heart-handshake)" }),
+          title: fields.text({ label: "Titel", validation: { isRequired: true } }),
+          text: fields.text({ label: "Tekst", multiline: true, validation: { isRequired: true } }),
+        }),
+        { label: "Feature kaarten", itemLabel: (props) => props.fields.title.value || "Feature" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Feature Lightbox Marquee collection
+ * Keystatic-managed feature lightbox marquee section per locale
+ * Also used by FeatureGalleryMarqueeSection
+ */
+const FeatureLightboxMarquee = (locale: Locale) =>
+  collection({
+    label: `Feature Lightbox Marquee (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/featureLightboxMarquee/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      images: fields.array(
+        fields.object({
+          image: fields.image({
+            label: "Afbeelding",
+            publicPath: "../",
+            validation: { isRequired: false },
+          }),
+          alt: fields.text({ label: "Alt tekst" }),
+        }),
+        { label: "Afbeeldingen", itemLabel: (props) => props.fields.alt.value || "Afbeelding" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Feature Side Image collection
+ * Keystatic-managed feature side image section per locale
+ */
+const FeatureSideImage = (locale: Locale) =>
+  collection({
+    label: `Feature Zij-afbeelding (${locale.toUpperCase()})`,
+    slugField: "sectionTitle",
+    path: `src/content/featureSideImage/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      sectionTitle: fields.slug({ name: { label: "Sectie titel" } }),
+      items: fields.array(
+        fields.object({
+          image: fields.image({
+            label: "Afbeelding",
+            publicPath: "../",
+            validation: { isRequired: false },
+          }),
+          imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
+          title: fields.text({ label: "Titel", validation: { isRequired: true } }),
+          checkItems: fields.array(fields.text({ label: "Item" }), {
+            label: "Check items",
+            itemLabel: (props) => props.value || "Item",
+          }),
+          href: fields.text({ label: "Link URL" }),
+        }),
+        { label: "Items", itemLabel: (props) => props.fields.title.value || "Item" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Feature Toggle Image collection
+ * Keystatic-managed feature toggle image section per locale
+ */
+const FeatureToggleImage = (locale: Locale) =>
+  collection({
+    label: `Feature Toggle Afbeelding (${locale.toUpperCase()})`,
+    slugField: "sectionTitle",
+    path: `src/content/featureToggleImage/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      sectionTitle: fields.slug({ name: { label: "Sectie titel" } }),
+      sections: fields.array(
+        fields.object({
+          icon: fields.text({ label: "Icon naam (bijv. tabler/home)" }),
+          title: fields.text({ label: "Titel", validation: { isRequired: true } }),
+          image: fields.image({
+            label: "Afbeelding",
+            publicPath: "../",
+            validation: { isRequired: false },
+          }),
+          imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
+        }),
+        { label: "Secties", itemLabel: (props) => props.fields.title.value || "Sectie" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
 export default {
   Blog,
   Authors,
@@ -699,4 +872,8 @@ export default {
   CtaBgImage,
   CtaCard,
   CtaCards,
+  FeatureCardsSmall,
+  FeatureLightboxMarquee,
+  FeatureSideImage,
+  FeatureToggleImage,
 };

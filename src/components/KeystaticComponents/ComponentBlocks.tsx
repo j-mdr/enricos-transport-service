@@ -10,6 +10,10 @@ import KeystaticHeroCenteredSection from "./KeystaticHeroCenteredSection";
 import KeystaticCtaBgImageSection from "./KeystaticCtaBgImageSection";
 import KeystaticCtaCardSection from "./KeystaticCtaCardSection";
 import KeystaticCtaCardsSection from "./KeystaticCtaCardsSection";
+import KeystaticFeatureCardsSmallSection from "./KeystaticFeatureCardsSmallSection";
+import KeystaticFeatureLightboxMarqueeSection from "./KeystaticFeatureLightboxMarqueeSection";
+import KeystaticFeatureSideImageSection from "./KeystaticFeatureSideImageSection";
+import KeystaticFeatureToggleImageSection from "./KeystaticFeatureToggleImageSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -157,6 +161,91 @@ const CtaCardsSection = (locale: "nl" | "en") =>
     },
   });
 
+const FeatureCardsSmallSection = (locale: "nl" | "en") =>
+  block({
+    label: "Feature Kaarten Klein (FeatureCardsSmallSection)",
+    ContentView: (props) => (
+      <KeystaticFeatureCardsSmallSection
+        featureSet={props.value.featureSet}
+        label="Feature Kaarten Klein"
+      />
+    ),
+    schema: {
+      featureSet: fields.relationship({
+        label: "Feature Set",
+        collection: locale === "nl" ? "featureCardsSmallNL" : "featureCardsSmallEN",
+      }),
+    },
+  });
+
+const FeatureLightboxMarqueeSection = (locale: "nl" | "en") =>
+  block({
+    label: "Feature Lightbox Marquee (FeatureLightboxMarqueeSection)",
+    ContentView: (props) => (
+      <KeystaticFeatureLightboxMarqueeSection
+        featureSet={props.value.featureSet}
+        label="Feature Lightbox Marquee"
+      />
+    ),
+    schema: {
+      featureSet: fields.relationship({
+        label: "Feature Set",
+        collection: locale === "nl" ? "featureLightboxMarqueeNL" : "featureLightboxMarqueeEN",
+      }),
+    },
+  });
+
+const FeatureGalleryMarqueeSection = (locale: "nl" | "en") =>
+  block({
+    label: "Feature Gallery Marquee (FeatureGalleryMarqueeSection)",
+    ContentView: (props) => (
+      <KeystaticFeatureLightboxMarqueeSection
+        featureSet={props.value.featureSet}
+        label="Feature Gallery Marquee"
+      />
+    ),
+    schema: {
+      featureSet: fields.relationship({
+        label: "Feature Set",
+        collection: locale === "nl" ? "featureLightboxMarqueeNL" : "featureLightboxMarqueeEN",
+      }),
+    },
+  });
+
+const FeatureSideImageSection = (locale: "nl" | "en") =>
+  block({
+    label: "Feature Zij-afbeelding (FeatureSideImageSection)",
+    ContentView: (props) => (
+      <KeystaticFeatureSideImageSection
+        featureSet={props.value.featureSet}
+        label="Feature Zij-afbeelding"
+      />
+    ),
+    schema: {
+      featureSet: fields.relationship({
+        label: "Feature Set",
+        collection: locale === "nl" ? "featureSideImageNL" : "featureSideImageEN",
+      }),
+    },
+  });
+
+const FeatureToggleImageSection = (locale: "nl" | "en") =>
+  block({
+    label: "Feature Toggle Afbeelding (FeatureToggleImageSection)",
+    ContentView: (props) => (
+      <KeystaticFeatureToggleImageSection
+        featureSet={props.value.featureSet}
+        label="Feature Toggle Afbeelding"
+      />
+    ),
+    schema: {
+      featureSet: fields.relationship({
+        label: "Feature Set",
+        collection: locale === "nl" ? "featureToggleImageNL" : "featureToggleImageEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
   FaqSection,
@@ -168,4 +257,9 @@ export default {
   CtaCardCenterSection,
   CtaCardCenter2Section,
   CtaCardsSection,
+  FeatureCardsSmallSection,
+  FeatureLightboxMarqueeSection,
+  FeatureGalleryMarqueeSection,
+  FeatureSideImageSection,
+  FeatureToggleImageSection,
 };

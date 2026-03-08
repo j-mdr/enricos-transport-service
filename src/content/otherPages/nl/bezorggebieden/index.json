@@ -52,6 +52,30 @@
       "value": {
         "ctaSet": "home"
       }
+    },
+    {
+      "discriminant": "featureSideImage",
+      "value": {
+        "featureSet": "home"
+      }
+    },
+    {
+      "discriminant": "featureToggleImage",
+      "value": {
+        "featureSet": "home"
+      }
+    },
+    {
+      "discriminant": "featureLightboxMarquee",
+      "value": {
+        "featureSet": "home"
+      }
+    },
+    {
+      "discriminant": "featureCardsSmall",
+      "value": {
+        "featureSet": "home"
+      }
     }
   ]
 }

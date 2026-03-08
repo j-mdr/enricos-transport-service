@@ -1,0 +1,12 @@
+{
+  "sectionTitle": "De beste keuze voor uw transport",
+  "items": [
+    {
+      "image": "../home/items/0/image.jpeg",
+      "imageAlt": "Afbeelding",
+      "title": "Test titelitem 2",
+      "checkItems": ["item 1", "item 3"],
+      "href": "/contact"
+    }
+  ]
+}

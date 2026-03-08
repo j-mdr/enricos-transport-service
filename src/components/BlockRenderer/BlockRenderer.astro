@@ -13,6 +13,11 @@ import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
 import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 import CtaCardCenter2Section from "@components/Cta/CtaCardCenter2Section.astro";
 import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
+import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
+import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMarqueeSection.astro";
+import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
+import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
+import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -61,6 +66,36 @@ const { blocks } = Astro.props;
       {block.discriminant === "ctaCards" && (block.value as { ctaSet?: string | null })?.ctaSet && (
         <CtaCardsSection ctaSet={(block.value as { ctaSet: string }).ctaSet} />
       )}
+      {block.discriminant === "featureCardsSmall" &&
+        (block.value as { featureSet?: string | null })?.featureSet && (
+          <FeatureCardsSmallSection
+            featureSet={(block.value as { featureSet: string }).featureSet}
+          />
+        )}
+      {block.discriminant === "featureLightboxMarquee" &&
+        (block.value as { featureSet?: string | null })?.featureSet && (
+          <FeatureLightboxMarqueeSection
+            featureSet={(block.value as { featureSet: string }).featureSet}
+          />
+        )}
+      {block.discriminant === "featureGalleryMarquee" &&
+        (block.value as { featureSet?: string | null })?.featureSet && (
+          <FeatureGalleryMarqueeSection
+            featureSet={(block.value as { featureSet: string }).featureSet}
+          />
+        )}
+      {block.discriminant === "featureSideImage" &&
+        (block.value as { featureSet?: string | null })?.featureSet && (
+          <FeatureSideImageSection
+            featureSet={(block.value as { featureSet: string }).featureSet}
+          />
+        )}
+      {block.discriminant === "featureToggleImage" &&
+        (block.value as { featureSet?: string | null })?.featureSet && (
+          <FeatureToggleImageSection
+            featureSet={(block.value as { featureSet: string }).featureSet}
+          />
+        )}
       {block.discriminant === "richText" && (
         <div class="site-container my-16">
           <div class="markdown-content mx-auto max-w-3xl">

@@ -12,6 +12,11 @@ import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
 import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 import CtaCardCenter2Section from "@components/Cta/CtaCardCenter2Section.astro";
 import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
+import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
+import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMarqueeSection.astro";
+import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
+import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
+import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
 
 // utils
 import { getAllPosts } from "@/utils/blogUtils";
@@ -40,6 +45,11 @@ const { Content, headings } = await render(post);
       CtaCardCenterSection: CtaCardCenterSection,
       CtaCardCenter2Section: CtaCardCenter2Section,
       CtaCardsSection: CtaCardsSection,
+      FeatureCardsSmallSection: FeatureCardsSmallSection,
+      FeatureLightboxMarqueeSection: FeatureLightboxMarqueeSection,
+      FeatureGalleryMarqueeSection: FeatureGalleryMarqueeSection,
+      FeatureSideImageSection: FeatureSideImageSection,
+      FeatureToggleImageSection: FeatureToggleImageSection,
     }}
   />
 </BlogLayout>

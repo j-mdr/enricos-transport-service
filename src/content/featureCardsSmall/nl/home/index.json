@@ -1,0 +1,35 @@
+{
+  "title": "Onze kernwaarden{highlight}",
+  "features": [
+    {
+      "icon": "tabler/heart-handshake",
+      "title": "Betrouwbaar",
+      "text": "Wij houden ons altijd aan onze beloftes en uw goederen zijn in veilige handen."
+    },
+    {
+      "icon": "tabler/car-crash",
+      "title": "Verzekerd",
+      "text": "Bij ons kunt u vertrouwen op zekerheid. Uw lading is verzekerd tegen schade."
+    },
+    {
+      "icon": "tabler/laurel-wreath-1",
+      "title": "Kwaliteitskeurmerk",
+      "text": "We passen ons aan uw specifieke behoeften aan, ongeacht de complexiteit."
+    },
+    {
+      "icon": "tabler/stretching-2",
+      "title": "Flexibel",
+      "text": "Wij staan voor kwaliteit. Uiteraard hebben wij dan ook een NIWO vergunning."
+    },
+    {
+      "icon": "tabler/mood-check",
+      "title": "Persoonlijk",
+      "text": "Wij geloven in een persoonlijke aanpak. We luisteren naar uw wensen en zorgen voor een op maat gemaakte oplossing."
+    },
+    {
+      "icon": "tabler/settings-heart",
+      "title": "Servicegericht",
+      "text": "Ons team staat altijd klaar om u te helpen. We streven naar uitstekende klantenservice en ondersteuning."
+    }
+  ]
+}

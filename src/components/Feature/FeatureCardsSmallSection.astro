@@ -12,16 +12,21 @@ import { Icon } from "astro-icon/components";
 import FeatureCard from "@components/FeatureCard/FeatureCardSmall.astro";
 
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { FeatureCardSmallSectionData } from "@config/configDataTypes.ts";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { featureCardsSmallData } from "./featureCardsSmallData";
+import { getCollection } from "astro:content";
 
-const currLocale = getLocaleFromUrl(Astro.url);
-const data = featureCardsSmallData[currLocale];
+interface Props {
+  featureSet?: string;
+}
 
-type Props = Partial<FeatureCardSmallSectionData>;
+const { featureSet = "home" } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
 
-const { title = data.title, features = data.features } = Astro.props;
+const entries = await getCollection("featureCardsSmall");
+const entry = entries.find((e) => e.id === `${locale}/${featureSet}`);
+if (!entry) return;
+
+const { title, features } = entry.data;
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
