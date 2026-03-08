@@ -56,6 +56,14 @@ const pageBlocks = (locale: Locale) =>
             value: "servicesSideImage",
             label: "Services Zij-afbeelding (ServicesSideImageSection)",
           },
+          {
+            value: "testimonialsColumns",
+            label: "Testimonials Kolommen (TestimonialsColumnsSection)",
+          },
+          {
+            value: "testimonialsSwiper",
+            label: "Testimonials Swiper (TestimonialsSwiperSection)",
+          },
           { value: "richText", label: "Tekst blok" },
         ],
         defaultValue: "richText",
@@ -155,6 +163,18 @@ const pageBlocks = (locale: Locale) =>
           servicesSet: fields.relationship({
             label: "Services Set",
             collection: locale === "nl" ? "servicesSideImageNL" : "servicesSideImageEN",
+          }),
+        }),
+        testimonialsColumns: fields.object({
+          testimonialsSet: fields.relationship({
+            label: "Testimonials Set",
+            collection: locale === "nl" ? "testimonialsNL" : "testimonialsEN",
+          }),
+        }),
+        testimonialsSwiper: fields.object({
+          testimonialsSet: fields.relationship({
+            label: "Testimonials Set",
+            collection: locale === "nl" ? "testimonialsNL" : "testimonialsEN",
           }),
         }),
         richText: fields.document({
@@ -262,6 +282,8 @@ const Blog = (locale: (typeof locales)[number]) =>
           FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
           ServicesIconSection: ComponentBlocks.ServicesIconSection(locale),
           ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
+          TestimonialsColumnsSection: ComponentBlocks.TestimonialsColumnsSection(locale),
+          TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
         },
       }),
     },
@@ -414,6 +436,8 @@ const Services = (locale: (typeof locales)[number]) =>
           FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
           ServicesIconSection: ComponentBlocks.ServicesIconSection(locale),
           ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
+          TestimonialsColumnsSection: ComponentBlocks.TestimonialsColumnsSection(locale),
+          TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
         },
       }),
     },
@@ -497,6 +521,8 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
           FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
           ServicesIconSection: ComponentBlocks.ServicesIconSection(locale),
           ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
+          TestimonialsColumnsSection: ComponentBlocks.TestimonialsColumnsSection(locale),
+          TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
         },
       }),
     },
@@ -937,6 +963,39 @@ const ServicesSideImage = (locale: Locale) =>
     },
   });
 
+/**
+ * * Testimonials section collection
+ * Shared by TestimonialsColumnsSection and TestimonialsSwiperSection
+ */
+const Testimonials = (locale: Locale) =>
+  collection({
+    label: `Testimonials (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/testimonials/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Sectie titel" } }),
+      testimonials: fields.array(
+        fields.object({
+          name: fields.text({ label: "Naam", validation: { isRequired: true } }),
+          personTitle: fields.text({ label: "Functie / omschrijving (optioneel)" }),
+          testimonial: fields.text({
+            label: "Review tekst",
+            multiline: true,
+            validation: { isRequired: true },
+          }),
+          avatar: fields.image({
+            label: "Profielfoto (optioneel)",
+            publicPath: "../",
+            validation: { isRequired: false },
+          }),
+        }),
+        { label: "Reviews", itemLabel: (props) => props.fields.name.value || "Review" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
 export default {
   Blog,
   Authors,
@@ -958,4 +1017,5 @@ export default {
   FeatureToggleImage,
   ServicesIcon,
   ServicesSideImage,
+  Testimonials,
 };

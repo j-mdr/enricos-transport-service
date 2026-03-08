@@ -1,11 +1,16 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import type { ImageMetadata } from "astro";
 
-// data
-import { type TestimonialItem } from "@config/configDataTypes.ts";
+interface Props {
+  avatar?: ImageMetadata | null;
+  name: string;
+  title?: string;
+  testimonial: string;
+}
 
-const { avatar, name, title, testimonial } = Astro.props as TestimonialItem;
+const { avatar, name, title, testimonial } = Astro.props;
 ---
 
 <div class="flex h-full">
@@ -13,14 +18,22 @@ const { avatar, name, title, testimonial } = Astro.props as TestimonialItem;
     class="bg-base-50 flex flex-col items-center justify-between rounded-xl px-4 pb-8 text-center"
   >
     <div class="flex flex-col items-center">
-      <Image
-        src={avatar}
-        alt={name}
-        height={160}
-        class="border-primary-500 -mt-10 h-20 w-20 rounded-full border-2 object-cover"
-      />
+      {
+        avatar ? (
+          <Image
+            src={avatar}
+            alt={name}
+            height={160}
+            class="border-primary-500 -mt-10 h-20 w-20 rounded-full border-2 object-cover"
+          />
+        ) : (
+          <div class="border-primary-500 bg-base-200 -mt-10 flex h-20 w-20 items-center justify-center rounded-full border-2">
+            <Icon name="tabler/user" class="h-10 w-10 opacity-60" aria-hidden="true" />
+          </div>
+        )
+      }
       <p class="mt-4 text-lg">{name}</p>
-      <p class="opacity-80">{title}</p>
+      {title && <p class="opacity-80">{title}</p>}
       <p class="mt-4">{testimonial}</p>
     </div>
     <div class="mt-4 flex items-center justify-center gap-1">

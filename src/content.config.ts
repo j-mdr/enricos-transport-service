@@ -141,6 +141,14 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     value: z.object({ servicesSet: z.string().nullable().optional() }),
   }),
   z.object({
+    discriminant: z.literal("testimonialsColumns"),
+    value: z.object({ testimonialsSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("testimonialsSwiper"),
+    value: z.object({ testimonialsSet: z.string().nullable().optional() }),
+  }),
+  z.object({
     discriminant: z.literal("richText"),
     value: z.any(),
   }),
@@ -350,6 +358,24 @@ const servicesSideImageCollection = defineCollection({
     }),
 });
 
+// testimonials sections (shared by TestimonialsColumnsSection and TestimonialsSwiperSection)
+const testimonialsCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/testimonials" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      testimonials: z.array(
+        z.object({
+          name: z.string(),
+          personTitle: z.string().optional(),
+          testimonial: z.string(),
+          avatar: image().nullable().optional(),
+        }),
+      ),
+      mappingKey: z.string().optional(),
+    }),
+});
+
 export const collections = {
   blog: blogCollection,
   authors: authorsCollection,
@@ -369,4 +395,5 @@ export const collections = {
   featureToggleImage: featureToggleImageCollection,
   servicesIcon: servicesIconCollection,
   servicesSideImage: servicesSideImageCollection,
+  testimonials: testimonialsCollection,
 };

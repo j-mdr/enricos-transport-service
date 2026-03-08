@@ -19,6 +19,8 @@ import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection
 import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
 import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
 import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
+import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsColumnsSection.astro";
+import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
 
 // utils
 import { getAllPosts } from "@/utils/blogUtils";
@@ -54,6 +56,8 @@ const { Content, headings } = await render(post);
       FeatureToggleImageSection: FeatureToggleImageSection,
       ServicesIconSection: ServicesIconSection,
       ServicesSideImageSection: ServicesSideImageSection,
+      TestimonialsColumnsSection: TestimonialsColumnsSection,
+      TestimonialsSwiperSection: TestimonialsSwiperSection,
     }}
   />
 </BlogLayout>

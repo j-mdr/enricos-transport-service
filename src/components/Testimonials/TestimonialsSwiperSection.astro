@@ -1,5 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import type { ImageMetadata } from "astro";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./testimonialSwiper.css"; // have to define custom styles like this
@@ -7,13 +9,38 @@ import TestimonialCard from "./TestimonialCard.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import { testimonialsData } from "./testimonialsData";
+import type { TestimonialSwiperSectionData } from "@config/configDataTypes.ts";
 
+interface Props extends Partial<TestimonialSwiperSectionData> {
+  testimonialsSet?: string;
+}
+
+const { title: propTitle, testimonials: propTestimonials, testimonialsSet } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = testimonialsData[currLocale];
+const staticData = testimonialsData[currLocale];
 
-const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
-  data.title,
-);
+// Load from collection when testimonialsSet is provided, fallback to static data
+const entries = testimonialsSet !== undefined ? await getCollection("testimonials") : [];
+const collectionEntry =
+  testimonialsSet !== undefined
+    ? (entries.find((e) => e.id === `${currLocale}/${testimonialsSet}`) ?? null)
+    : null;
+
+if (testimonialsSet !== undefined && !collectionEntry) return;
+
+const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? staticData.title);
+
+const testimonials = collectionEntry
+  ? collectionEntry.data.testimonials.map((t) => ({
+      avatar: t.avatar ?? null,
+      name: t.name,
+      title: t.personTitle ?? "",
+      testimonial: t.testimonial,
+    }))
+  : (propTestimonials ?? staticData.testimonials);
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="faq2" class="bg-base-200/50 py-20 md:my-16">
@@ -44,7 +71,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
         <div class="swiper-wrapper">
           <!-- Slides -->
           {
-            data.testimonials.map((testimonial, idx) => (
+            testimonials.map((testimonial, idx) => (
               <div class="swiper-slide">
                 <TestimonialCard {...testimonial} />
               </div>

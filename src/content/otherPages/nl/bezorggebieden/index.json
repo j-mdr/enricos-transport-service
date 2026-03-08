@@ -88,6 +88,18 @@
       "value": {
         "servicesSet": "home"
       }
+    },
+    {
+      "discriminant": "testimonialsColumns",
+      "value": {
+        "testimonialsSet": "home"
+      }
+    },
+    {
+      "discriminant": "testimonialsSwiper",
+      "value": {
+        "testimonialsSet": "home"
+      }
     }
   ]
 }

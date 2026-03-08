@@ -16,6 +16,7 @@ import KeystaticFeatureSideImageSection from "./KeystaticFeatureSideImageSection
 import KeystaticFeatureToggleImageSection from "./KeystaticFeatureToggleImageSection";
 import KeystaticServicesIconSection from "./KeystaticServicesIconSection";
 import KeystaticServicesSideImageSection from "./KeystaticServicesSideImageSection";
+import KeystaticTestimonialsSection from "./KeystaticTestimonialsSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -279,6 +280,40 @@ const ServicesSideImageSection = (locale: "nl" | "en") =>
     },
   });
 
+const TestimonialsColumnsSection = (locale: "nl" | "en") =>
+  block({
+    label: "Testimonials Kolommen (TestimonialsColumnsSection)",
+    ContentView: (props) => (
+      <KeystaticTestimonialsSection
+        testimonialsSet={props.value.testimonialsSet}
+        label="Testimonials Kolommen"
+      />
+    ),
+    schema: {
+      testimonialsSet: fields.relationship({
+        label: "Testimonials Set",
+        collection: locale === "nl" ? "testimonialsNL" : "testimonialsEN",
+      }),
+    },
+  });
+
+const TestimonialsSwiperSection = (locale: "nl" | "en") =>
+  block({
+    label: "Testimonials Swiper (TestimonialsSwiperSection)",
+    ContentView: (props) => (
+      <KeystaticTestimonialsSection
+        testimonialsSet={props.value.testimonialsSet}
+        label="Testimonials Swiper"
+      />
+    ),
+    schema: {
+      testimonialsSet: fields.relationship({
+        label: "Testimonials Set",
+        collection: locale === "nl" ? "testimonialsNL" : "testimonialsEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
   FaqSection,
@@ -297,4 +332,6 @@ export default {
   FeatureToggleImageSection,
   ServicesIconSection,
   ServicesSideImageSection,
+  TestimonialsColumnsSection,
+  TestimonialsSwiperSection,
 };

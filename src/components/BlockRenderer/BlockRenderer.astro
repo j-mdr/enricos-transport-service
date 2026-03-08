@@ -20,6 +20,8 @@ import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection
 import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
 import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
 import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
+import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsColumnsSection.astro";
+import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -106,6 +108,18 @@ const { blocks } = Astro.props;
         (block.value as { servicesSet?: string | null })?.servicesSet && (
           <ServicesSideImageSection
             servicesSet={(block.value as { servicesSet: string }).servicesSet}
+          />
+        )}
+      {block.discriminant === "testimonialsColumns" &&
+        (block.value as { testimonialsSet?: string | null })?.testimonialsSet && (
+          <TestimonialsColumnsSection
+            testimonialsSet={(block.value as { testimonialsSet: string }).testimonialsSet}
+          />
+        )}
+      {block.discriminant === "testimonialsSwiper" &&
+        (block.value as { testimonialsSet?: string | null })?.testimonialsSet && (
+          <TestimonialsSwiperSection
+            testimonialsSet={(block.value as { testimonialsSet: string }).testimonialsSet}
           />
         )}
       {block.discriminant === "richText" && block.value && (

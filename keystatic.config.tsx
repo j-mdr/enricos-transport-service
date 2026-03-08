@@ -62,6 +62,8 @@ export default config({
         "servicesIconEN",
         "servicesSideImageNL",
         "servicesSideImageEN",
+        "testimonialsNL",
+        "testimonialsEN",
       ],
       "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
@@ -128,5 +130,8 @@ export default config({
 
     servicesSideImageNL: Collections.ServicesSideImage("nl"),
     servicesSideImageEN: Collections.ServicesSideImage("en"),
+
+    testimonialsNL: Collections.Testimonials("nl"),
+    testimonialsEN: Collections.Testimonials("en"),
   },
 });
