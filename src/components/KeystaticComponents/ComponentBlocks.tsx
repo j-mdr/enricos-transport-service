@@ -17,6 +17,8 @@ import KeystaticFeatureToggleImageSection from "./KeystaticFeatureToggleImageSec
 import KeystaticServicesIconSection from "./KeystaticServicesIconSection";
 import KeystaticServicesSideImageSection from "./KeystaticServicesSideImageSection";
 import KeystaticTestimonialsSection from "./KeystaticTestimonialsSection";
+import KeystaticTeamMemberCardsSection from "./KeystaticTeamMemberCardsSection";
+import KeystaticIntroSection from "./KeystaticIntroSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -314,6 +316,34 @@ const TestimonialsSwiperSection = (locale: "nl" | "en") =>
     },
   });
 
+const IntroSection = (locale: "nl" | "en") =>
+  block({
+    label: "Intro Sectie (IntroSection)",
+    ContentView: (props) => (
+      <KeystaticIntroSection introSet={props.value.introSet} label="Intro Sectie" />
+    ),
+    schema: {
+      introSet: fields.relationship({
+        label: "Intro Set",
+        collection: locale === "nl" ? "introSectionNL" : "introSectionEN",
+      }),
+    },
+  });
+
+const TeamMemberCardsSection = (locale: "nl" | "en") =>
+  block({
+    label: "Team Leden Kaarten (TeamMemberCardsSection)",
+    ContentView: (props) => (
+      <KeystaticTeamMemberCardsSection teamSet={props.value.teamSet} label="Team Leden Kaarten" />
+    ),
+    schema: {
+      teamSet: fields.relationship({
+        label: "Team Set",
+        collection: locale === "nl" ? "teamMemberCardsNL" : "teamMemberCardsEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
   FaqSection,
@@ -334,4 +364,6 @@ export default {
   ServicesSideImageSection,
   TestimonialsColumnsSection,
   TestimonialsSwiperSection,
+  TeamMemberCardsSection,
+  IntroSection,
 };

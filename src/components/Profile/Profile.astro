@@ -1,21 +1,36 @@
 ---
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { ImageMetadata } from "astro";
 
-import { type teamMember } from "@config/configDataTypes.ts";
+interface Props {
+  image?: ImageMetadata | null;
+  name: string;
+  title: string;
+  bio: string;
+}
 
-const { image, name, title, bio } = Astro.props as teamMember;
+const { image, name, title, bio } = Astro.props;
 ---
 
 <div
   class="border-base-300 bg-base-50 flex flex-col items-center justify-between rounded-xl border px-4 py-4 text-center shadow-md md:py-8"
 >
   <div class="flex flex-col items-center">
-    <Image
-      src={image}
-      alt={name}
-      height={320}
-      class="border-primary-500 aspect-square max-w-[clamp(6rem,20vmin,10rem)] rounded-full border-2 object-cover"
-    />
+    {
+      image ? (
+        <Image
+          src={image}
+          alt={name}
+          height={320}
+          class="border-primary-500 aspect-square max-w-[clamp(6rem,20vmin,10rem)] rounded-full border-2 object-cover"
+        />
+      ) : (
+        <div class="border-primary-500 bg-base-200 flex aspect-square w-full max-w-[clamp(6rem,20vmin,10rem)] items-center justify-center rounded-full border-2">
+          <Icon name="tabler/user" class="h-12 w-12 opacity-60" aria-hidden="true" />
+        </div>
+      )
+    }
     <p class="mt-4 text-lg">{name}</p>
     <p class="opacity-80">{title}</p>
     <p class="mt-4">{bio}</p>

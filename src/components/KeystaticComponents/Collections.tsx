@@ -56,6 +56,8 @@ const pageBlocks = (locale: Locale) =>
             value: "servicesSideImage",
             label: "Services Zij-afbeelding (ServicesSideImageSection)",
           },
+          { value: "introSection", label: "Intro Sectie (IntroSection)" },
+          { value: "teamMemberCards", label: "Team Leden Kaarten (TeamMemberCardsSection)" },
           {
             value: "testimonialsColumns",
             label: "Testimonials Kolommen (TestimonialsColumnsSection)",
@@ -163,6 +165,18 @@ const pageBlocks = (locale: Locale) =>
           servicesSet: fields.relationship({
             label: "Services Set",
             collection: locale === "nl" ? "servicesSideImageNL" : "servicesSideImageEN",
+          }),
+        }),
+        introSection: fields.object({
+          introSet: fields.relationship({
+            label: "Intro Set",
+            collection: locale === "nl" ? "introSectionNL" : "introSectionEN",
+          }),
+        }),
+        teamMemberCards: fields.object({
+          teamSet: fields.relationship({
+            label: "Team Set",
+            collection: locale === "nl" ? "teamMemberCardsNL" : "teamMemberCardsEN",
           }),
         }),
         testimonialsColumns: fields.object({
@@ -284,6 +298,8 @@ const Blog = (locale: (typeof locales)[number]) =>
           ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
           TestimonialsColumnsSection: ComponentBlocks.TestimonialsColumnsSection(locale),
           TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
+          TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
+          IntroSection: ComponentBlocks.IntroSection(locale),
         },
       }),
     },
@@ -438,6 +454,8 @@ const Services = (locale: (typeof locales)[number]) =>
           ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
           TestimonialsColumnsSection: ComponentBlocks.TestimonialsColumnsSection(locale),
           TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
+          TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
+          IntroSection: ComponentBlocks.IntroSection(locale),
         },
       }),
     },
@@ -523,6 +541,8 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
           ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
           TestimonialsColumnsSection: ComponentBlocks.TestimonialsColumnsSection(locale),
           TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
+          TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
+          IntroSection: ComponentBlocks.IntroSection(locale),
         },
       }),
     },
@@ -964,6 +984,50 @@ const ServicesSideImage = (locale: Locale) =>
   });
 
 /**
+ * * Intro Section collection
+ */
+const IntroSection = (locale: Locale) =>
+  collection({
+    label: `Intro Sectie (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/introSection/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      introText: fields.text({ label: "Intro tekst", multiline: true }),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Team Member Cards section collection
+ */
+const TeamMemberCards = (locale: Locale) =>
+  collection({
+    label: `Team Leden (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/teamMemberCards/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Sectie titel" } }),
+      teamMembers: fields.array(
+        fields.object({
+          image: fields.image({
+            label: "Profielfoto (optioneel)",
+            publicPath: "../",
+            validation: { isRequired: false },
+          }),
+          name: fields.text({ label: "Naam", validation: { isRequired: true } }),
+          personTitle: fields.text({ label: "Functie / rol", validation: { isRequired: true } }),
+          bio: fields.text({ label: "Bio", multiline: true, validation: { isRequired: true } }),
+        }),
+        { label: "Team leden", itemLabel: (props) => props.fields.name.value || "Teamlid" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
  * * Testimonials section collection
  * Shared by TestimonialsColumnsSection and TestimonialsSwiperSection
  */
@@ -1018,4 +1082,6 @@ export default {
   ServicesIcon,
   ServicesSideImage,
   Testimonials,
+  TeamMemberCards,
+  IntroSection,
 };

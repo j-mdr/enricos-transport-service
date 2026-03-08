@@ -64,6 +64,10 @@ export default config({
         "servicesSideImageEN",
         "testimonialsNL",
         "testimonialsEN",
+        "teamMemberCardsNL",
+        "teamMemberCardsEN",
+        "introSectionNL",
+        "introSectionEN",
       ],
       "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
@@ -133,5 +137,11 @@ export default config({
 
     testimonialsNL: Collections.Testimonials("nl"),
     testimonialsEN: Collections.Testimonials("en"),
+
+    teamMemberCardsNL: Collections.TeamMemberCards("nl"),
+    teamMemberCardsEN: Collections.TeamMemberCards("en"),
+
+    introSectionNL: Collections.IntroSection("nl"),
+    introSectionEN: Collections.IntroSection("en"),
   },
 });

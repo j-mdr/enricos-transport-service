@@ -6,99 +6,15 @@
   "draft": false,
   "blocks": [
     {
-      "discriminant": "hero",
+      "discriminant": "introSection",
       "value": {
-        "heroSet": "home"
+        "introSet": "home"
       }
     },
     {
-      "discriminant": "heroBg",
+      "discriminant": "teamMemberCards",
       "value": {
-        "heroSet": "home"
-      }
-    },
-    {
-      "discriminant": "heroCentered",
-      "value": {
-        "heroSet": "home"
-      }
-    },
-    {
-      "discriminant": "faqCards",
-      "value": {
-        "faqSet": "algemeen"
-      }
-    },
-    {
-      "discriminant": "ctaBgImage",
-      "value": {
-        "ctaSet": "home"
-      }
-    },
-    {
-      "discriminant": "ctaCardCenter",
-      "value": {
-        "ctaSet": "home"
-      }
-    },
-    {
-      "discriminant": "ctaCards",
-      "value": {
-        "ctaSet": "home"
-      }
-    },
-    {
-      "discriminant": "ctaCardCenter",
-      "value": {
-        "ctaSet": "home"
-      }
-    },
-    {
-      "discriminant": "featureSideImage",
-      "value": {
-        "featureSet": "home"
-      }
-    },
-    {
-      "discriminant": "featureToggleImage",
-      "value": {
-        "featureSet": "home"
-      }
-    },
-    {
-      "discriminant": "featureLightboxMarquee",
-      "value": {
-        "featureSet": "home"
-      }
-    },
-    {
-      "discriminant": "featureCardsSmall",
-      "value": {
-        "featureSet": "home"
-      }
-    },
-    {
-      "discriminant": "servicesIcon",
-      "value": {
-        "servicesSet": "home"
-      }
-    },
-    {
-      "discriminant": "servicesSideImage",
-      "value": {
-        "servicesSet": "home"
-      }
-    },
-    {
-      "discriminant": "testimonialsColumns",
-      "value": {
-        "testimonialsSet": "home"
-      }
-    },
-    {
-      "discriminant": "testimonialsSwiper",
-      "value": {
-        "testimonialsSet": "home"
+        "teamSet": "home"
       }
     }
   ]

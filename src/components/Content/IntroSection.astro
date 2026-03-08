@@ -1,13 +1,29 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
 
-type Props = {
-  title: string;
-  introText: string;
-};
+interface Props {
+  title?: string;
+  introText?: string;
+  introSet?: string;
+}
 
-const { title, introText } = Astro.props;
+const { title: propTitle, introText: propIntroText, introSet } = Astro.props;
+const currLocale = getLocaleFromUrl(Astro.url);
+
+// Load from collection when introSet is provided, fallback to props
+const entries = introSet !== undefined ? await getCollection("introSection") : [];
+const collectionEntry =
+  introSet !== undefined
+    ? (entries.find((e) => e.id === `${currLocale}/${introSet}`) ?? null)
+    : null;
+
+if (introSet !== undefined && !collectionEntry) return;
+
+const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? "");
+const introText = collectionEntry ? collectionEntry.data.introText : (propIntroText ?? "");
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);

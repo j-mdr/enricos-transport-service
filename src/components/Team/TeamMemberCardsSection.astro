@@ -4,22 +4,45 @@
  * Edit the team member information inside src/config/teamMemberCardsSectionData.ts
  */
 
+import { getCollection } from "astro:content";
+
 // components
 import Profile from "@components/Profile/Profile.astro";
-import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import { teamMemberCardsData } from "./teamMemberCardsData";
+import type { TeamMemberCardsSectionData } from "@config/configDataTypes.ts";
 
-// data
+interface Props extends Partial<TeamMemberCardsSectionData> {
+  teamSet?: string;
+}
+
+const { title: propTitle, teamMembers: propTeamMembers, teamSet } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = teamMemberCardsData[currLocale];
+const staticData = teamMemberCardsData[currLocale];
 
-const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
-  data.title,
-);
+// Load from collection when teamSet is provided, fallback to static data
+const entries = teamSet !== undefined ? await getCollection("teamMemberCards") : [];
+const collectionEntry =
+  teamSet !== undefined ? (entries.find((e) => e.id === `${currLocale}/${teamSet}`) ?? null) : null;
+
+if (teamSet !== undefined && !collectionEntry) return;
+
+const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? staticData.title);
+
+const teamMembers = collectionEntry
+  ? collectionEntry.data.teamMembers.map((m) => ({
+      image: m.image ?? null,
+      name: m.name,
+      title: m.personTitle,
+      bio: m.bio,
+    }))
+  : (propTeamMembers ?? staticData.teamMembers);
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section class="site-container mt-24 md:mt-36">
@@ -30,7 +53,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
   </h2>
   <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {
-      data.teamMembers.map((member) => (
+      teamMembers.map((member) => (
         <Profile name={member.name} title={member.title} image={member.image} bio={member.bio} />
       ))
     }

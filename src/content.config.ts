@@ -141,6 +141,14 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     value: z.object({ servicesSet: z.string().nullable().optional() }),
   }),
   z.object({
+    discriminant: z.literal("introSection"),
+    value: z.object({ introSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("teamMemberCards"),
+    value: z.object({ teamSet: z.string().nullable().optional() }),
+  }),
+  z.object({
     discriminant: z.literal("testimonialsColumns"),
     value: z.object({ testimonialsSet: z.string().nullable().optional() }),
   }),
@@ -358,6 +366,34 @@ const servicesSideImageCollection = defineCollection({
     }),
 });
 
+// introSection sections
+const introSectionCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/introSection" }),
+  schema: z.object({
+    title: z.string(),
+    introText: z.string(),
+    mappingKey: z.string().optional(),
+  }),
+});
+
+// teamMemberCards sections
+const teamMemberCardsCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/teamMemberCards" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      teamMembers: z.array(
+        z.object({
+          image: image().nullable().optional(),
+          name: z.string(),
+          personTitle: z.string(),
+          bio: z.string(),
+        }),
+      ),
+      mappingKey: z.string().optional(),
+    }),
+});
+
 // testimonials sections (shared by TestimonialsColumnsSection and TestimonialsSwiperSection)
 const testimonialsCollection = defineCollection({
   loader: glob({ pattern: "**/index.json", base: "./src/content/testimonials" }),
@@ -396,4 +432,6 @@ export const collections = {
   servicesIcon: servicesIconCollection,
   servicesSideImage: servicesSideImageCollection,
   testimonials: testimonialsCollection,
+  teamMemberCards: teamMemberCardsCollection,
+  introSection: introSectionCollection,
 };
