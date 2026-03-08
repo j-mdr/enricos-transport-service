@@ -1,11 +1,12 @@
 ---
-import { type CollectionEntry } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
 
 // layout
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
 
 // components
-import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { getAllPosts } from "@/utils/blogUtils";
@@ -21,8 +22,9 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 
 const post = Astro.props as Props;
+const { Content, headings } = await render(post);
 ---
 
 <BlogLayout post={post}>
-  <BlockRenderer blocks={post.data.blocks ?? []} />
+  <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
 </BlogLayout>

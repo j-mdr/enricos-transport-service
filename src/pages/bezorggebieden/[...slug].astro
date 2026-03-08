@@ -1,11 +1,12 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 
 // layouts
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 
 // components
-import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -28,13 +29,14 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"deliveryAreas">;
 
 const gebied = Astro.props as Props;
+const { Content } = await render(gebied);
 const { template } = gebied.data;
 ---
 
 {
   template === "ServiceLayoutCenter" && (
     <ServiceLayoutCenter {...gebied.data}>
-      <BlockRenderer blocks={gebied.data.blocks ?? []} />
+      <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
     </ServiceLayoutCenter>
   )
 }

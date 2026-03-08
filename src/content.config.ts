@@ -1,33 +1,9 @@
 import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-// Block schema shared across page collections
-const blockSchema = z.discriminatedUnion("discriminant", [
-  z.object({
-    discriminant: z.literal("heroBg"),
-    value: z.object({ heroSet: z.string().nullable().optional() }),
-  }),
-  z.object({
-    discriminant: z.literal("hero"),
-    value: z.object({ heroSet: z.string().nullable().optional() }),
-  }),
-  z.object({
-    discriminant: z.literal("heroCentered"),
-    value: z.object({ heroSet: z.string().nullable().optional() }),
-  }),
-  z.object({
-    discriminant: z.literal("faq"),
-    value: z.object({ faqSet: z.string().nullable().optional() }),
-  }),
-  z.object({
-    discriminant: z.literal("richText"),
-    value: z.any(),
-  }),
-]);
-
 // Type-check frontmatter using a schema
 const blogCollection = defineCollection({
-  loader: glob({ pattern: "**/index.json", base: "./src/content/blog" }),
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/blog" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -50,7 +26,6 @@ const blogCollection = defineCollection({
       mappingKey: z.string().optional(),
       // blog posts will be excluded from build if draft is "true"
       draft: z.boolean().optional(),
-      blocks: z.array(blockSchema).optional().default([]),
     }),
 });
 
@@ -69,7 +44,7 @@ const authorsCollection = defineCollection({
 
 // diensten
 const servicesCollection = defineCollection({
-  loader: glob({ pattern: "**/index.json", base: "./src/content/services" }),
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/services" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -80,13 +55,12 @@ const servicesCollection = defineCollection({
       template: z.enum(["ServiceLayoutCenter"]).default("ServiceLayoutCenter"),
       // services will be excluded from build if draft is "true"
       draft: z.boolean().optional(),
-      blocks: z.array(blockSchema).optional().default([]),
     }),
 });
 
 // delivery areas
 const deliveryAreasCollection = defineCollection({
-  loader: glob({ pattern: "**/index.json", base: "./src/content/deliveryAreas" }),
+  loader: glob({ pattern: "**/[^_]*{md,mdx}", base: "./src/content/deliveryAreas" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -97,9 +71,32 @@ const deliveryAreasCollection = defineCollection({
       template: z.enum(["ServiceLayoutCenter"]).default("ServiceLayoutCenter"),
       // entries will be excluded from build if draft is "true"
       draft: z.boolean().optional(),
-      blocks: z.array(blockSchema).optional().default([]),
     }),
 });
+
+// Block schema for otherPages
+const blockSchema = z.discriminatedUnion("discriminant", [
+  z.object({
+    discriminant: z.literal("heroBg"),
+    value: z.object({ heroSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("hero"),
+    value: z.object({ heroSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("heroCentered"),
+    value: z.object({ heroSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("faq"),
+    value: z.object({ faqSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("richText"),
+    value: z.any(),
+  }),
+]);
 
 // other pages
 const otherPagesCollection = defineCollection({

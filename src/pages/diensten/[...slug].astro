@@ -1,11 +1,12 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 
 // layouts
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 
 // components
-import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
+import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -28,13 +29,14 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"services">;
 
 const service = Astro.props as Props;
+const { Content } = await render(service);
 const { template } = service.data;
 ---
 
 {
   template === "ServiceLayoutCenter" && (
     <ServiceLayoutCenter {...service.data}>
-      <BlockRenderer blocks={service.data.blocks ?? []} />
+      <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
     </ServiceLayoutCenter>
   )
 }

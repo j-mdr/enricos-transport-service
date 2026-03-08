@@ -5,6 +5,9 @@
 
 import { collection, fields, singleton } from "@keystatic/core";
 
+// components
+import ComponentBlocks from "@components/KeystaticComponents/ComponentBlocks";
+
 // utils
 import { locales } from "@config/siteSettings.json";
 
@@ -16,7 +19,7 @@ const templateOptions = {
 } as const;
 
 /**
- * * Page Blocks - gedeelde block builder voor alle page collections
+ * * Page Blocks - block builder voor otherPages collection
  * Blokken refereren naar bestaande hero/faq collection entries via een relationship veld.
  */
 const pageBlocks = (locale: Locale) =>
@@ -79,8 +82,8 @@ const Blog = (locale: (typeof locales)[number]) =>
     slugField: "title",
     path: `src/content/blog/${locale}/*/`,
     columns: ["title", "pubDate"],
-    entryLayout: "form",
-    format: { data: "json" },
+    entryLayout: "content",
+    format: { contentField: "content" },
     schema: {
       title: fields.slug({
         name: { label: "Title" },
@@ -128,7 +131,31 @@ const Blog = (locale: (typeof locales)[number]) =>
         itemLabel: (props) => props.value,
         validation: { length: { min: 1 } },
       }),
-      blocks: pageBlocks(locale),
+      content: fields.mdx({
+        label: "Content",
+        options: {
+          bold: true,
+          italic: true,
+          strikethrough: true,
+          code: true,
+          heading: [2, 3, 4, 5, 6],
+          blockquote: true,
+          orderedList: true,
+          unorderedList: true,
+          table: true,
+          link: true,
+          image: {
+            directory: `src/content/blog/${locale}/`,
+            publicPath: "../",
+          },
+          divider: true,
+          codeBlock: true,
+        },
+        components: {
+          Admonition: ComponentBlocks.Admonition,
+          FaqSection: ComponentBlocks.FaqSection(locale),
+        },
+      }),
     },
   });
 
@@ -211,8 +238,8 @@ const Services = (locale: (typeof locales)[number]) =>
     slugField: "title",
     path: `src/content/services/${locale}/*/`,
     columns: ["title"],
-    entryLayout: "form",
-    format: { data: "json" },
+    entryLayout: "content",
+    format: { contentField: "content" },
     schema: {
       title: fields.slug({
         name: { label: "Title" },
@@ -244,7 +271,31 @@ const Services = (locale: (typeof locales)[number]) =>
         label: "Draft",
         description: "Set this page as draft to prevent it from being published.",
       }),
-      blocks: pageBlocks(locale),
+      content: fields.mdx({
+        label: "Page Contents",
+        options: {
+          bold: true,
+          italic: true,
+          strikethrough: true,
+          code: false,
+          heading: [2, 3, 4],
+          blockquote: true,
+          orderedList: true,
+          unorderedList: true,
+          table: true,
+          link: true,
+          image: {
+            directory: `src/content/services/${locale}/`,
+            publicPath: "../",
+          },
+          divider: true,
+          codeBlock: false,
+        },
+        components: {
+          Admonition: ComponentBlocks.Admonition,
+          FaqSection: ComponentBlocks.FaqSection(locale),
+        },
+      }),
     },
   });
 
@@ -258,8 +309,8 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
     slugField: "title",
     path: `src/content/deliveryAreas/${locale}/*/`,
     columns: ["title"],
-    entryLayout: "form",
-    format: { data: "json" },
+    entryLayout: "content",
+    format: { contentField: "content" },
     schema: {
       title: fields.slug({
         name: { label: "Title" },
@@ -291,7 +342,31 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
         label: "Draft",
         description: "Set this page as draft to prevent it from being published.",
       }),
-      blocks: pageBlocks(locale),
+      content: fields.mdx({
+        label: "Page Contents",
+        options: {
+          bold: true,
+          italic: true,
+          strikethrough: true,
+          code: false,
+          heading: [2, 3, 4],
+          blockquote: true,
+          orderedList: true,
+          unorderedList: true,
+          table: true,
+          link: true,
+          image: {
+            directory: `src/content/deliveryAreas/${locale}/`,
+            publicPath: "../",
+          },
+          divider: true,
+          codeBlock: false,
+        },
+        components: {
+          Admonition: ComponentBlocks.Admonition,
+          FaqSection: ComponentBlocks.FaqSection(locale),
+        },
+      }),
     },
   });
 
