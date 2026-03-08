@@ -10,6 +10,7 @@ import FaqCard from "./FaqCard.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 interface Props {
   faqSet: string; // slug, e.g. "algemeen" or "general"
@@ -24,28 +25,31 @@ if (!entry) return;
 
 const { title, faqs } = entry.data;
 
-// array of columns for faq data
-const faqCols: (typeof faqs)[] = [];
-let faqsPerCol = Math.floor(faqs.length / 2);
-let remainder = faqs.length % 2;
+const mid = Math.ceil(faqs.length / 2);
+const faqCols = [faqs.slice(0, mid), faqs.slice(mid)];
 
-// this assumes more than 2 items for FAQ...
-if (remainder === 0) {
-  // even split
-  faqCols[0] = faqs.slice(0, faqsPerCol);
-  faqCols[1] = faqs.slice(faqsPerCol, 2 * faqsPerCol);
-} else if (remainder === 1) {
-  // extra goes to first column
-  faqCols[0] = faqs.slice(0, faqsPerCol + 1);
-  faqCols[1] = faqs.slice(faqsPerCol + 1, 2 * faqsPerCol + 1);
-} else {
-  console.error("Something went wrong with the FAQ data in FaqCardsSection.astro");
-}
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="faq2" class="site-container my-24 md:my-36">
   <h2 class="h2 mt-8 text-center">
-    {title}
+    {leadingText}
+    {
+      hasHighlightedWord && (
+        <span class="relative whitespace-nowrap">
+          {highlightedWord}
+          <span>
+            <Icon
+              name="stellar/freehand-zig-underline"
+              class="text-primary-500 absolute top-2 left-0 -z-10 h-full w-full translate-y-1/2"
+              aria-hidden="true"
+            />
+          </span>
+        </span>
+      )
+    }
+    {trailingText ?? null}
   </h2>
   <div class="mx-auto mt-16 grid gap-10 md:grid-cols-2">
     {

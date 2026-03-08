@@ -8,6 +8,11 @@ import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
 import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
 import HeroCenteredSection from "@components/Hero/HeroCenteredSection.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
+import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
+import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
+import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
+import CtaCardCenter2Section from "@components/Cta/CtaCardCenter2Section.astro";
+import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -37,6 +42,24 @@ const { blocks } = Astro.props;
         )}
       {block.discriminant === "faq" && (block.value as { faqSet?: string | null })?.faqSet && (
         <FaqAccordionsSection faqSet={(block.value as { faqSet: string }).faqSet} />
+      )}
+      {block.discriminant === "faqCards" && (block.value as { faqSet?: string | null })?.faqSet && (
+        <FaqCardsSection faqSet={(block.value as { faqSet: string }).faqSet} />
+      )}
+      {block.discriminant === "ctaBgImage" &&
+        (block.value as { ctaSet?: string | null })?.ctaSet && (
+          <CtaBgImageSection ctaSet={(block.value as { ctaSet: string }).ctaSet} />
+        )}
+      {block.discriminant === "ctaCardCenter" &&
+        (block.value as { ctaSet?: string | null })?.ctaSet && (
+          <CtaCardCenterSection ctaSet={(block.value as { ctaSet: string }).ctaSet} />
+        )}
+      {block.discriminant === "ctaCardCenter2" &&
+        (block.value as { ctaSet?: string | null })?.ctaSet && (
+          <CtaCardCenter2Section ctaSet={(block.value as { ctaSet: string }).ctaSet} />
+        )}
+      {block.discriminant === "ctaCards" && (block.value as { ctaSet?: string | null })?.ctaSet && (
+        <CtaCardsSection ctaSet={(block.value as { ctaSet: string }).ctaSet} />
       )}
       {block.discriminant === "richText" && (
         <div class="site-container my-16">

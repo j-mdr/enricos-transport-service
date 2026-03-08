@@ -1,0 +1,24 @@
+{
+  "title": "Wij regelen het {highlight}voor u",
+  "description": "Vraag geheel vrijblijvend een offerte aan en ervaar onze persoonlijke service en betrouwbare transportoplossingen.",
+  "ctaButtonText": "Vraag een offerte aan",
+  "ctaButtonHref": "/offerte-aanvragen",
+  "cards": [
+    {
+      "icon": "tabler/truck",
+      "title": "Betrouwbaar transport",
+      "text": "Veilige en tijdige levering van uw goederen, altijd met persoonlijke aandacht."
+    },
+    {
+      "icon": "tabler/home-heart",
+      "title": "Persoonlijke service",
+      "text": "U wordt door een vast aanspreekpunt begeleid gedurende het hele traject."
+    },
+    {
+      "icon": "tabler/list-check",
+      "title": "Tijdig & zorgvuldig",
+      "text": "Wij garanderen een zorgvuldige behandeling van uw goederen en respecteren uw planning."
+    }
+  ],
+  "mappingKey": "cta-cards-home"
+}

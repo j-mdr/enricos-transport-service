@@ -1,0 +1,24 @@
+{
+  "title": "We take care of {highlight}everything",
+  "description": "Request a free quote and experience our personal service and reliable transport solutions.",
+  "ctaButtonText": "Get a free quote",
+  "ctaButtonHref": "/request-quote",
+  "cards": [
+    {
+      "icon": "tabler/truck",
+      "title": "Reliable transport",
+      "text": "Safe and timely delivery of your goods, always with personal attention."
+    },
+    {
+      "icon": "tabler/home-heart",
+      "title": "Personal service",
+      "text": "You'll be guided by a dedicated contact person throughout the entire process."
+    },
+    {
+      "icon": "tabler/list-check",
+      "title": "On time & careful",
+      "text": "We guarantee careful handling of your goods and respect your planning."
+    }
+  ],
+  "mappingKey": "cta-cards-home"
+}

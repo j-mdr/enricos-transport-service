@@ -31,7 +31,12 @@ const pageBlocks = (locale: Locale) =>
           { value: "heroBg", label: "Hero (achtergrond afbeelding)" },
           { value: "hero", label: "Hero (zij-afbeelding)" },
           { value: "heroCentered", label: "Hero (gecentreerd)" },
-          { value: "faq", label: "FAQ Sectie" },
+          { value: "faq", label: "FAQ Accordeon (FaqAccordionsSection)" },
+          { value: "faqCards", label: "FAQ Kaarten (FaqCardsSection)" },
+          { value: "ctaBgImage", label: "CTA Achtergrond (CtaBgImageSection)" },
+          { value: "ctaCardCenter", label: "CTA Kaart Gecentreerd (CtaCardCenterSection)" },
+          { value: "ctaCardCenter2", label: "CTA Kaart Gecentreerd v2 (CtaCardCenter2Section)" },
+          { value: "ctaCards", label: "CTA Kaarten (CtaCardsSection)" },
           { value: "richText", label: "Tekst blok" },
         ],
         defaultValue: "richText",
@@ -59,6 +64,36 @@ const pageBlocks = (locale: Locale) =>
           faqSet: fields.relationship({
             label: "FAQ Set",
             collection: locale === "nl" ? "faqsNL" : "faqsEN",
+          }),
+        }),
+        faqCards: fields.object({
+          faqSet: fields.relationship({
+            label: "FAQ Set",
+            collection: locale === "nl" ? "faqsNL" : "faqsEN",
+          }),
+        }),
+        ctaBgImage: fields.object({
+          ctaSet: fields.relationship({
+            label: "CTA Set",
+            collection: locale === "nl" ? "ctaBgImageNL" : "ctaBgImageEN",
+          }),
+        }),
+        ctaCardCenter: fields.object({
+          ctaSet: fields.relationship({
+            label: "CTA Set",
+            collection: locale === "nl" ? "ctaCardNL" : "ctaCardEN",
+          }),
+        }),
+        ctaCardCenter2: fields.object({
+          ctaSet: fields.relationship({
+            label: "CTA Set",
+            collection: locale === "nl" ? "ctaCardNL" : "ctaCardEN",
+          }),
+        }),
+        ctaCards: fields.object({
+          ctaSet: fields.relationship({
+            label: "CTA Set",
+            collection: locale === "nl" ? "ctaCardsNL" : "ctaCardsEN",
           }),
         }),
         richText: fields.document({
@@ -154,6 +189,11 @@ const Blog = (locale: (typeof locales)[number]) =>
         components: {
           Admonition: ComponentBlocks.Admonition,
           FaqSection: ComponentBlocks.FaqSection(locale),
+          FaqCardsSection: ComponentBlocks.FaqCardsSection(locale),
+          CtaBgImageSection: ComponentBlocks.CtaBgImageSection(locale),
+          CtaCardCenterSection: ComponentBlocks.CtaCardCenterSection(locale),
+          CtaCardCenter2Section: ComponentBlocks.CtaCardCenter2Section(locale),
+          CtaCardsSection: ComponentBlocks.CtaCardsSection(locale),
         },
       }),
     },
@@ -294,6 +334,11 @@ const Services = (locale: (typeof locales)[number]) =>
         components: {
           Admonition: ComponentBlocks.Admonition,
           FaqSection: ComponentBlocks.FaqSection(locale),
+          FaqCardsSection: ComponentBlocks.FaqCardsSection(locale),
+          CtaBgImageSection: ComponentBlocks.CtaBgImageSection(locale),
+          CtaCardCenterSection: ComponentBlocks.CtaCardCenterSection(locale),
+          CtaCardCenter2Section: ComponentBlocks.CtaCardCenter2Section(locale),
+          CtaCardsSection: ComponentBlocks.CtaCardsSection(locale),
         },
       }),
     },
@@ -365,6 +410,11 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
         components: {
           Admonition: ComponentBlocks.Admonition,
           FaqSection: ComponentBlocks.FaqSection(locale),
+          FaqCardsSection: ComponentBlocks.FaqCardsSection(locale),
+          CtaBgImageSection: ComponentBlocks.CtaBgImageSection(locale),
+          CtaCardCenterSection: ComponentBlocks.CtaCardCenterSection(locale),
+          CtaCardCenter2Section: ComponentBlocks.CtaCardCenter2Section(locale),
+          CtaCardsSection: ComponentBlocks.CtaCardsSection(locale),
         },
       }),
     },
@@ -415,6 +465,25 @@ const OtherPages = (locale: (typeof locales)[number]) =>
         description: "Set this page as draft to prevent it from being published.",
       }),
       blocks: pageBlocks(locale),
+    },
+  });
+
+/**
+ * * CTA Background Image section collection
+ * Keystatic-managed CTA sections per locale
+ */
+const CtaBgImage = (locale: Locale) =>
+  collection({
+    label: `CTA Achtergrond (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/ctaBgImage/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      description: fields.text({ label: "Beschrijving", multiline: true }),
+      ctaButtonText: fields.text({ label: "Knop tekst" }),
+      ctaButtonHref: fields.text({ label: "Knop URL (base route, bijv. /contact)" }),
+      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -571,6 +640,50 @@ const CompanyInfo = (locale: (typeof locales)[number]) =>
     },
   });
 
+/**
+ * * CTA Card section collection (shared by CtaCardCenterSection and CtaCardCenter2Section)
+ */
+const CtaCard = (locale: Locale) =>
+  collection({
+    label: `CTA Kaart (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/ctaCard/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      description: fields.text({ label: "Beschrijving", multiline: true }),
+      ctaButtonText: fields.text({ label: "Knop tekst" }),
+      ctaButtonHref: fields.text({ label: "Knop URL (base route)" }),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * CTA Cards section collection (for CtaCardsSection with cards array)
+ */
+const CtaCards = (locale: Locale) =>
+  collection({
+    label: `CTA Kaarten (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/ctaCards/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      description: fields.text({ label: "Beschrijving", multiline: true }),
+      ctaButtonText: fields.text({ label: "Knop tekst" }),
+      ctaButtonHref: fields.text({ label: "Knop URL (base route)" }),
+      cards: fields.array(
+        fields.object({
+          icon: fields.text({ label: "Icon naam (bijv. tabler/truck)" }),
+          title: fields.text({ label: "Kaart titel" }),
+          text: fields.text({ label: "Kaart tekst", multiline: true }),
+        }),
+        { label: "Kaarten", itemLabel: (props) => props.fields.title.value || "Kaart" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
 export default {
   Blog,
   Authors,
@@ -583,4 +696,7 @@ export default {
   Hero,
   HeroBg,
   HeroCentered,
+  CtaBgImage,
+  CtaCard,
+  CtaCards,
 };

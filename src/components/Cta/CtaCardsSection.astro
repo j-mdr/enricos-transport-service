@@ -1,11 +1,14 @@
 ---
 /**
  * * CTA with title, text, button, and cards on the side
+ * Data is managed via Keystatic CMS (ctaCards collection)
  *
- * ! If you can an error for an icon like "Error: Not Found: "calendar-check" in pack "tabler",
- * ! You can copy to actual SVG into src/icons and name it however and use similar to below
+ * ! If you get an error for an icon like "Error: Not Found: "calendar-check" in pack "tabler",
+ * ! You can copy the actual SVG into src/icons and name it however and use similar to below
  */
+import { getCollection } from "astro:content";
 import { getLocalizedRoute } from "@/utils/translationUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 // components
 import FeatureCard from "@components/FeatureCard/FeatureCardMedium.astro";
@@ -14,61 +17,46 @@ import Button from "@components/Button/Button.astro";
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 
-const currLocale = getLocaleFromUrl(Astro.url);
-
-interface FeatureData {
-  icon: string;
-  title: string;
-  text: string;
+interface Props {
+  ctaSet?: string;
 }
 
-// data
-const featureData: FeatureData[] = [
-  {
-    icon: "tabler/paint",
-    title: "Eco-friendly paints",
-    text: `We use low-VOC paints that are safe for you and your family. We also use eco-friendly 
-      cleaning products to ensure that your home is safe for you and your family.`,
-  },
-  {
-    icon: "tabler/home-heart",
-    title: "Your satisfaction guaranteed",
-    text: `You want to know that you and your home will be respected. You won't pay a dime until 
-      your project is completed, an inspection is done, and you are 100% satisfied.`,
-  },
-  {
-    icon: "tabler/list-check",
-    title: "Leading warranties",
-    text: `We offer a 2-year warranty on all of our work. If you're not satisfied with the quality of 
-      our work, we'll come back and fix it for free.`,
-  },
-];
+const { ctaSet = "home" } = Astro.props;
+const currLocale = getLocaleFromUrl(Astro.url);
+
+const ctaEntries = await getCollection("ctaCards");
+const entry = ctaEntries.find((e) => e.id === `${currLocale}/${ctaSet}`);
+if (!entry) return;
+
+const { title, description, ctaButtonText, ctaButtonHref, cards } = entry.data;
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="cta" class="bg-primary-100 my-20 py-20">
   <div class="site-container relative grid gap-10 md:grid-cols-2">
     <div class="mx-auto flex max-w-lg flex-col">
-      <h2 class="h1 leading-tight">What are you waiting for?</h2>
+      <h2 class="h1 leading-tight">
+        {leadingText}
+        {hasHighlightedWord && <span class="relative whitespace-nowrap">{highlightedWord}</span>}
+        {trailingText ?? null}
+      </h2>
       <p class="description mt-6">
-        Schedule your free quote today and turn your vision into reality.
+        {description}
       </p>
       <div class="flex">
         <Button
           variant="primary"
-          href={getLocalizedRoute(currLocale, "/contact")}
+          href={getLocalizedRoute(currLocale, ctaButtonHref)}
           class="mt-6"
           arrow="right"
         >
-          Schedule a free estimate
+          {ctaButtonText}
         </Button>
       </div>
     </div>
     <div class="mx-auto flex max-w-lg flex-col gap-8">
-      {
-        featureData.map((feature) => (
-          <FeatureCard title={feature.title} text={feature.text} icon={feature.icon} />
-        ))
-      }
+      {cards.map((card) => <FeatureCard title={card.title} text={card.text} icon={card.icon} />)}
     </div>
   </div>
 </section>

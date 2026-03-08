@@ -1,3 +1,8 @@
+---
+name: keystatic-section-block
+description: Voeg een nieuw Keystatic-beheerd section component toe als selecteerbaar blok in de CMS block builder (otherPages) én als MDX insert component (blog/services/deliveryAreas). Gebruik dit wanneer je een herbruikbaar section component wilt koppelen aan een Keystatic JSON collection — volledig nieuw of als variant van een bestaande collection.
+---
+
 # Skill: Keystatic JSON collection + Section component als MDX block
 
 ## Wanneer gebruiken
@@ -41,7 +46,7 @@ Gebruik dit als je een **tweede weergave** wilt voor een bestaande collection (b
 
 ### Stap 1 — Keystatic collection definitie
 
-**`src/components/KeystaticComponents/Collections.tsx`** — collection toevoegen vóór de export, en `FaqCardsSection` toevoegen aan MDX components in **alle drie** de `fields.mdx()` blokken (Blog, Services, DeliveryAreas):
+**`src/components/KeystaticComponents/Collections.tsx`** — collection toevoegen vóór de export, en het nieuwe MDX component toevoegen in **alle drie** de `fields.mdx()` blokken (Blog, Services, DeliveryAreas — elk apart):
 
 ```typescript
 const MySection = (locale: Locale) =>
@@ -203,7 +208,7 @@ import KeystaticMySectionBlock from "./KeystaticMySectionBlock";
 
 const MySectionBlock = (locale: "nl" | "en") =>
   block({
-    label: "My Section (MySectionComponent)",  // wees specifiek: label + componentnaam
+    label: "My Section (MySectionComponent)", // wees specifiek: label + componentnaam
     ContentView: (props) => (
       <KeystaticMySectionBlock mySet={props.value.mySet} label="My Section" />
     ),
@@ -305,7 +310,7 @@ pnpm format && pnpm build
 | Block label duidelijk | Gebruik `"Functie (ComponentNaam)"` als er meerdere varianten zijn                                                                  |
 | Preview label prop    | Voeg altijd een optionele `label` prop toe aan preview component — herbruikbaar voor varianten                                      |
 | Scenario B: hernoem   | Hernoem bestaande labels als je een tweede variant toevoegt, anders is het verwarrend in de CMS UI                                  |
-| Collections.tsx MDX   | `FaqCardsSection` toevoegen in **alle drie** MDX blokken (Blog, Services, DeliveryAreas) — elk apart                                |
+| Collections.tsx MDX   | Nieuw component toevoegen in **alle drie** MDX blokken (Blog, Services, DeliveryAreas) — elk apart                                  |
 
 ## Directe (niet-MDX) gebruik
 

@@ -1,17 +1,29 @@
 ---
 /**
  * * CTA card with centered text and blobs
+ * Data is managed via Keystatic CMS (ctaCard collection)
  */
-import { getLocalizedRoute } from "@/utils/translationUtils";
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
-
-// components
 import Button from "@components/Button/Button.astro";
-
-// utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { getLocalizedRoute } from "@/utils/translationUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
+interface Props {
+  ctaSet?: string;
+}
+
+const { ctaSet = "home" } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
+
+const ctaEntries = await getCollection("ctaCard");
+const entry = ctaEntries.find((e) => e.id === `${currLocale}/${ctaSet}`);
+if (!entry) return;
+
+const { title, description, ctaButtonText, ctaButtonHref } = entry.data;
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="cta" class="my-24 py-8 md:my-36">
@@ -36,27 +48,33 @@ const currLocale = getLocaleFromUrl(Astro.url);
         <div class="rounded-xl px-4 py-20 text-center">
           <div class="mx-auto max-w-2xl">
             <h2 class="h1">
-              What are <span class="relative whitespace-nowrap">
-                you
-                <span>
-                  <Icon
-                    name="stellar/freehand-zig-underline"
-                    class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-                    aria-hidden="true"
-                  />
-                </span>
-              </span> waiting for?
+              {leadingText}
+              {
+                hasHighlightedWord && (
+                  <span class="relative whitespace-nowrap">
+                    {highlightedWord}
+                    <span>
+                      <Icon
+                        name="stellar/freehand-zig-underline"
+                        class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </span>
+                )
+              }
+              {trailingText ?? null}
             </h2>
             <p class="description mt-6">
-              Schedule your free quote today and turn your vision into reality.
+              {description}
             </p>
             <div class="mt-10 flex justify-center">
               <Button
                 variant="primary"
-                href={getLocalizedRoute(currLocale, "/contact")}
+                href={getLocalizedRoute(currLocale, ctaButtonHref)}
                 arrow="right"
               >
-                Schedule a free estimate
+                {ctaButtonText}
               </Button>
             </div>
           </div>

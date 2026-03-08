@@ -7,6 +7,11 @@ import BlogLayout from "@layouts/BlogLayoutCenter.astro";
 // components
 import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
+import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
+import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
+import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
+import CtaCardCenter2Section from "@components/Cta/CtaCardCenter2Section.astro";
+import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
 
 // utils
 import { getAllPosts } from "@/utils/blogUtils";
@@ -26,5 +31,15 @@ const { Content, headings } = await render(post);
 ---
 
 <BlogLayout post={post}>
-  <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
+  <Content
+    components={{
+      a: ExternalLink,
+      FaqSection: FaqAccordionsSection,
+      FaqCardsSection: FaqCardsSection,
+      CtaBgImageSection: CtaBgImageSection,
+      CtaCardCenterSection: CtaCardCenterSection,
+      CtaCardCenter2Section: CtaCardCenter2Section,
+      CtaCardsSection: CtaCardsSection,
+    }}
+  />
 </BlogLayout>

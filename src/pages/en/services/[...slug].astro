@@ -7,6 +7,11 @@ import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 // components
 import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
 import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
+import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
+import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
+import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
+import CtaCardCenter2Section from "@components/Cta/CtaCardCenter2Section.astro";
+import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -35,7 +40,17 @@ const { template } = service.data;
 {
   template === "ServiceLayoutCenter" && (
     <ServiceLayoutCenter {...service.data}>
-      <Content components={{ a: ExternalLink, FaqSection: FaqAccordionsSection }} />
+      <Content
+        components={{
+          a: ExternalLink,
+          FaqSection: FaqAccordionsSection,
+          FaqCardsSection: FaqCardsSection,
+          CtaBgImageSection: CtaBgImageSection,
+          CtaCardCenterSection: CtaCardCenterSection,
+          CtaCardCenter2Section: CtaCardCenter2Section,
+          CtaCardsSection: CtaCardsSection,
+        }}
+      />
     </ServiceLayoutCenter>
   )
 }

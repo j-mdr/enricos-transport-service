@@ -44,6 +44,12 @@ export default config({
         "heroBgEN",
         "heroCenteredNL",
         "heroCenteredEN",
+        "ctaBgImageNL",
+        "ctaBgImageEN",
+        "ctaCardNL",
+        "ctaCardEN",
+        "ctaCardsNL",
+        "ctaCardsEN",
       ],
       "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
@@ -83,5 +89,14 @@ export default config({
 
     heroCenteredNL: Collections.HeroCentered("nl"),
     heroCenteredEN: Collections.HeroCentered("en"),
+
+    ctaBgImageNL: Collections.CtaBgImage("nl"),
+    ctaBgImageEN: Collections.CtaBgImage("en"),
+
+    ctaCardNL: Collections.CtaCard("nl"),
+    ctaCardEN: Collections.CtaCard("en"),
+
+    ctaCardsNL: Collections.CtaCards("nl"),
+    ctaCardsEN: Collections.CtaCards("en"),
   },
 });

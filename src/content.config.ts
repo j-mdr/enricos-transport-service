@@ -93,6 +93,26 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     value: z.object({ faqSet: z.string().nullable().optional() }),
   }),
   z.object({
+    discriminant: z.literal("faqCards"),
+    value: z.object({ faqSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("ctaBgImage"),
+    value: z.object({ ctaSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("ctaCardCenter"),
+    value: z.object({ ctaSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("ctaCardCenter2"),
+    value: z.object({ ctaSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("ctaCards"),
+    value: z.object({ ctaSet: z.string().nullable().optional() }),
+  }),
+  z.object({
     discriminant: z.literal("richText"),
     value: z.any(),
   }),
@@ -160,6 +180,43 @@ const heroCenteredCollection = defineCollection({
   }),
 });
 
+// ctaBgImage sections
+const ctaBgImageCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/ctaBgImage" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    ctaButtonText: z.string(),
+    ctaButtonHref: z.string(),
+    mappingKey: z.string().optional(),
+  }),
+});
+
+// ctaCard sections (shared by CtaCardCenterSection and CtaCardCenter2Section)
+const ctaCardCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/ctaCard" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    ctaButtonText: z.string(),
+    ctaButtonHref: z.string(),
+    mappingKey: z.string().optional(),
+  }),
+});
+
+// ctaCards sections (for CtaCardsSection with cards array)
+const ctaCardsCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/ctaCards" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    ctaButtonText: z.string(),
+    ctaButtonHref: z.string(),
+    cards: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })),
+    mappingKey: z.string().optional(),
+  }),
+});
+
 // faq sets
 const faqsCollection = defineCollection({
   loader: glob({ pattern: "**/index.json", base: "./src/content/faqs" }),
@@ -180,4 +237,7 @@ export const collections = {
   hero: heroCollection,
   heroBg: heroBgCollection,
   heroCentered: heroCenteredCollection,
+  ctaBgImage: ctaBgImageCollection,
+  ctaCard: ctaCardCollection,
+  ctaCards: ctaCardsCollection,
 };

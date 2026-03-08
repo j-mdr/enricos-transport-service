@@ -7,19 +7,51 @@
   "blocks": [
     {
       "discriminant": "hero",
-      "value": { "heroSet": "home" }
-    },
-    {
-      "discriminant": "faq",
-      "value": { "faqSet": "algemeen" }
+      "value": {
+        "heroSet": "home"
+      }
     },
     {
       "discriminant": "heroBg",
-      "value": { "heroSet": "home" }
+      "value": {
+        "heroSet": "home"
+      }
     },
     {
       "discriminant": "heroCentered",
-      "value": { "heroSet": "home" }
+      "value": {
+        "heroSet": "home"
+      }
+    },
+    {
+      "discriminant": "faqCards",
+      "value": {
+        "faqSet": "algemeen"
+      }
+    },
+    {
+      "discriminant": "ctaBgImage",
+      "value": {
+        "ctaSet": "home"
+      }
+    },
+    {
+      "discriminant": "ctaCardCenter",
+      "value": {
+        "ctaSet": "home"
+      }
+    },
+    {
+      "discriminant": "ctaCards",
+      "value": {
+        "ctaSet": "home"
+      }
+    },
+    {
+      "discriminant": "ctaCardCenter",
+      "value": {
+        "ctaSet": "home"
+      }
     }
   ]
 }

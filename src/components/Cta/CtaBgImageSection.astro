@@ -1,10 +1,9 @@
 ---
 /**
- * * CTA with title, text, button, and cards on the side
- *
- * ! If you can an error for an icon like "Error: Not Found: "calendar-check" in pack "tabler",
- * ! You can copy to actual SVG into src/icons and name it however and use similar to below
+ * * CTA with background image, title (with highlight), description, and button
+ * Data is managed via Keystatic CMS (ctaBgImage collection)
  */
+import { getCollection } from "astro:content";
 import { getLocalizedRoute } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
@@ -14,8 +13,22 @@ import Button from "@components/Button/Button.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
+interface Props {
+  ctaSet?: string;
+}
+
+const { ctaSet = "home" } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
+
+const ctaEntries = await getCollection("ctaBgImage");
+const entry = ctaEntries.find((e) => e.id === `${currLocale}/${ctaSet}`);
+if (!entry) return;
+
+const { title, description, ctaButtonText, ctaButtonHref } = entry.data;
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 
 import image from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
 ---
@@ -27,14 +40,13 @@ import image from "@images/enricos-transportservice-bestelbus-achteraanzicht-zon
       <div class="relative mx-auto h-full max-w-[2000px]">
         <Image
           src={image}
-          class="mx-auto h-full w-auto object-cover opacity-30"
+          class="absolute inset-0 h-full w-full object-cover opacity-30"
           alt="smiling family"
           aria-hidden="true"
           loading="lazy"
           height={2000}
         />
 
-        <!-- <div class="relative h-full w-full"> -->
         <!-- left fade-out -->
         <div
           class="from-base-900 absolute top-0 -left-px z-10 h-full w-[10%] bg-gradient-to-r from-10% to-transparent"
@@ -45,7 +57,6 @@ import image from "@images/enricos-transportservice-bestelbus-achteraanzicht-zon
           class="to-base-900 absolute top-0 -right-px z-10 h-full w-[10%] bg-gradient-to-r from-transparent to-90%"
         >
         </div>
-        <!-- </div> -->
       </div>
     </div>
 
@@ -55,28 +66,31 @@ import image from "@images/enricos-transportservice-bestelbus-achteraanzicht-zon
         <div class="rounded-xl px-4 py-20">
           <div class="mx-auto max-w-2xl">
             <h2 class="h1">
-              What are <span class="relative whitespace-nowrap">
-                you
-                <span>
-                  <Icon
-                    name="stellar/freehand-zig-underline"
-                    class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-                    aria-hidden="true"
-                  />
-                </span>
-              </span>
-              waiting for?
+              {leadingText}
+              {
+                hasHighlightedWord && (
+                  <span class="relative whitespace-nowrap">
+                    {highlightedWord}
+                    <span>
+                      <Icon
+                        name="stellar/freehand-zig-underline"
+                        class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </span>
+                )
+              }
+              {trailingText ?? null}
             </h2>
-            <p class="description mt-6">
-              Schedule your free quote today and turn your vision into reality.
-            </p>
+            <p class="description mt-6">{description}</p>
             <div class="text-base-900 mt-10 flex">
               <Button
                 variant="primary"
-                href={getLocalizedRoute(currLocale, "/contact")}
+                href={getLocalizedRoute(currLocale, ctaButtonHref)}
                 arrow="right"
               >
-                Schedule a free estimate
+                {ctaButtonText}
               </Button>
             </div>
           </div>
