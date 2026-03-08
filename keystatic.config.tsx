@@ -58,6 +58,10 @@ export default config({
         "featureSideImageEN",
         "featureToggleImageNL",
         "featureToggleImageEN",
+        "servicesIconNL",
+        "servicesIconEN",
+        "servicesSideImageNL",
+        "servicesSideImageEN",
       ],
       "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
@@ -118,5 +122,11 @@ export default config({
 
     featureToggleImageNL: Collections.FeatureToggleImage("nl"),
     featureToggleImageEN: Collections.FeatureToggleImage("en"),
+
+    servicesIconNL: Collections.ServicesIcon("nl"),
+    servicesIconEN: Collections.ServicesIcon("en"),
+
+    servicesSideImageNL: Collections.ServicesSideImage("nl"),
+    servicesSideImageEN: Collections.ServicesSideImage("en"),
   },
 });

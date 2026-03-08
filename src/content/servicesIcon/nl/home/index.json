@@ -1,0 +1,48 @@
+{
+  "title": "Wat wij voor u{highlight} kunnen betekenen",
+  "services": [
+    {
+      "icon": "tabler/truck",
+      "title": "Reguliere transport",
+      "description": "Een betrouwbare levering staat of valt met timing en zorgvuldigheid.",
+      "ctaButtonText": "Lees meer",
+      "ctaButtonHref": "/diensten/regulier-transport"
+    },
+    {
+      "icon": "tabler/calendar-plus",
+      "title": "Incidenteel transport",
+      "description": "Niet elke transportbehoefte past binnen een vaste planning.",
+      "ctaButtonText": "Lees meer",
+      "ctaButtonHref": "/diensten/incidenteel-transport"
+    },
+    {
+      "icon": "tabler/truck-delivery",
+      "title": "Groot transport",
+      "description": "Het vervoeren van grote, zware of volumineuze ladingen vraagt om een goede planning vooraf.",
+      "ctaButtonText": "Lees meer",
+      "ctaButtonHref": "/diensten/groot-transport"
+    },
+    {
+      "icon": "tabler/urgent",
+      "title": "Spoedtransport",
+      "description": "Wanneer tijd cruciaal is, bieden wij de oplossing met spoedtransport.",
+      "ctaButtonText": "Lees meer",
+      "ctaButtonHref": "/diensten/spoed-transport"
+    },
+    {
+      "icon": "tabler/checklist",
+      "title": "Documententransport",
+      "description": "Bij ons staat de veiligheid en vertrouwelijkheid van uw documenten voorop.",
+      "ctaButtonText": "Lees meer",
+      "ctaButtonHref": "/diensten/documenten-transport"
+    },
+    {
+      "icon": "tabler/sofa",
+      "title": "Meubeltransport",
+      "description": "Meubels vervoeren vraagt om aandacht, zorg en een nauwkeurige aanpak.",
+      "ctaButtonText": "Lees meer",
+      "ctaButtonHref": "/diensten/meubel-transport"
+    }
+  ],
+  "mappingKey": "home"
+}

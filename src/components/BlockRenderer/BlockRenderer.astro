@@ -18,6 +18,8 @@ import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMa
 import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
 import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
 import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
+import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
+import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -96,7 +98,17 @@ const { blocks } = Astro.props;
             featureSet={(block.value as { featureSet: string }).featureSet}
           />
         )}
-      {block.discriminant === "richText" && (
+      {block.discriminant === "servicesIcon" &&
+        (block.value as { servicesSet?: string | null })?.servicesSet && (
+          <ServicesIconSection servicesSet={(block.value as { servicesSet: string }).servicesSet} />
+        )}
+      {block.discriminant === "servicesSideImage" &&
+        (block.value as { servicesSet?: string | null })?.servicesSet && (
+          <ServicesSideImageSection
+            servicesSet={(block.value as { servicesSet: string }).servicesSet}
+          />
+        )}
+      {block.discriminant === "richText" && block.value && (
         <div class="site-container my-16">
           <div class="markdown-content mx-auto max-w-3xl">
             <RichTextBlock

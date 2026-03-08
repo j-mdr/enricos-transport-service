@@ -76,6 +76,18 @@
       "value": {
         "featureSet": "home"
       }
+    },
+    {
+      "discriminant": "servicesIcon",
+      "value": {
+        "servicesSet": "home"
+      }
+    },
+    {
+      "discriminant": "servicesSideImage",
+      "value": {
+        "servicesSet": "home"
+      }
     }
   ]
 }

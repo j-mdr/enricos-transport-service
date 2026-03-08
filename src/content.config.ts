@@ -133,6 +133,14 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     value: z.object({ featureSet: z.string().nullable().optional() }),
   }),
   z.object({
+    discriminant: z.literal("servicesIcon"),
+    value: z.object({ servicesSet: z.string().nullable().optional() }),
+  }),
+  z.object({
+    discriminant: z.literal("servicesSideImage"),
+    value: z.object({ servicesSet: z.string().nullable().optional() }),
+  }),
+  z.object({
     discriminant: z.literal("richText"),
     value: z.any(),
   }),
@@ -304,6 +312,44 @@ const featureToggleImageCollection = defineCollection({
     }),
 });
 
+// servicesIcon sections
+const servicesIconCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/servicesIcon" }),
+  schema: z.object({
+    title: z.string(),
+    services: z.array(
+      z.object({
+        icon: z.string(),
+        title: z.string(),
+        description: z.string(),
+        ctaButtonText: z.string(),
+        ctaButtonHref: z.string(),
+      }),
+    ),
+    mappingKey: z.string().optional(),
+  }),
+});
+
+// servicesSideImage sections
+const servicesSideImageCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/servicesSideImage" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      services: z.array(
+        z.object({
+          image: image().nullable().optional(),
+          imageAlt: z.string(),
+          title: z.string(),
+          description: z.string(),
+          ctaButtonText: z.string(),
+          ctaButtonHref: z.string(),
+        }),
+      ),
+      mappingKey: z.string().optional(),
+    }),
+});
+
 export const collections = {
   blog: blogCollection,
   authors: authorsCollection,
@@ -321,4 +367,6 @@ export const collections = {
   featureLightboxMarquee: featureLightboxMarqueeCollection,
   featureSideImage: featureSideImageCollection,
   featureToggleImage: featureToggleImageCollection,
+  servicesIcon: servicesIconCollection,
+  servicesSideImage: servicesSideImageCollection,
 };

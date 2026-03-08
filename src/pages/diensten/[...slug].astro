@@ -17,6 +17,8 @@ import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMa
 import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
 import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
 import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
+import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
+import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
 
 // utils
 import { filterCollectionByLanguage } from "@/utils/localeUtils";
@@ -60,6 +62,8 @@ const { template } = service.data;
           FeatureGalleryMarqueeSection: FeatureGalleryMarqueeSection,
           FeatureSideImageSection: FeatureSideImageSection,
           FeatureToggleImageSection: FeatureToggleImageSection,
+          ServicesIconSection: ServicesIconSection,
+          ServicesSideImageSection: ServicesSideImageSection,
         }}
       />
     </ServiceLayoutCenter>

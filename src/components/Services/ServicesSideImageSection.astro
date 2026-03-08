@@ -4,18 +4,42 @@
  * Recommend using 2 or 3 cards in a row
  */
 import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
 import ServiceCard from "@components/ServiceCard/ServiceCardSideImage.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { ServicesSideImageSectionData } from "@config/configDataTypes.ts";
 import { servicesSideImageData } from "./servicesSideImageData";
 
+interface Props extends Partial<ServicesSideImageSectionData> {
+  servicesSet?: string;
+}
+
+const { title: propTitle, services: propServices, servicesSet } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = servicesSideImageData[currLocale];
+const staticData = servicesSideImageData[currLocale];
 
-type Props = Partial<ServicesSideImageSectionData>;
+// Load from collection when servicesSet is provided, fallback to static data
+const entries = servicesSet !== undefined ? await getCollection("servicesSideImage") : [];
+const collectionEntry =
+  servicesSet !== undefined
+    ? (entries.find((e) => e.id === `${currLocale}/${servicesSet}`) ?? null)
+    : null;
 
-const { title = data.title, services = data.services } = Astro.props;
+if (servicesSet !== undefined && !collectionEntry) return;
+
+const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? staticData.title);
+
+const services = collectionEntry
+  ? collectionEntry.data.services
+      .filter((s) => s.image)
+      .map((s) => ({
+        image: { src: s.image!, alt: s.imageAlt },
+        ctaButton: { href: s.ctaButtonHref, text: s.ctaButtonText },
+        title: s.title,
+        description: s.description,
+      }))
+  : (propServices ?? staticData.services);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);

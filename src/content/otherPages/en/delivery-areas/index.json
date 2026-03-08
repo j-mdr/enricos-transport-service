@@ -7,33 +7,18 @@
   "blocks": [
     {
       "discriminant": "heroCentered",
-      "value": { "heroSet": "home" }
+      "value": {
+        "heroSet": "home"
+      }
     },
     {
-      "discriminant": "richText",
-      "value": [
-        {
-          "type": "heading",
-          "level": 2,
-          "children": [{ "text": "Text about delivery areas" }]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text"
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "children": [
-            {
-              "text": "Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text Lorem ipsum text"
-            }
-          ]
-        }
-      ]
+      "discriminant": "richText"
+    },
+    {
+      "discriminant": "servicesIcon",
+      "value": {
+        "servicesSet": "home"
+      }
     }
   ]
 }

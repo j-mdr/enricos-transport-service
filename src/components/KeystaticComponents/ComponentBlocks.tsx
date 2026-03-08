@@ -14,6 +14,8 @@ import KeystaticFeatureCardsSmallSection from "./KeystaticFeatureCardsSmallSecti
 import KeystaticFeatureLightboxMarqueeSection from "./KeystaticFeatureLightboxMarqueeSection";
 import KeystaticFeatureSideImageSection from "./KeystaticFeatureSideImageSection";
 import KeystaticFeatureToggleImageSection from "./KeystaticFeatureToggleImageSection";
+import KeystaticServicesIconSection from "./KeystaticServicesIconSection";
+import KeystaticServicesSideImageSection from "./KeystaticServicesSideImageSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -246,6 +248,37 @@ const FeatureToggleImageSection = (locale: "nl" | "en") =>
     },
   });
 
+const ServicesIconSection = (locale: "nl" | "en") =>
+  block({
+    label: "Services Icon (ServicesIconSection)",
+    ContentView: (props) => (
+      <KeystaticServicesIconSection servicesSet={props.value.servicesSet} label="Services Icon" />
+    ),
+    schema: {
+      servicesSet: fields.relationship({
+        label: "Services Set",
+        collection: locale === "nl" ? "servicesIconNL" : "servicesIconEN",
+      }),
+    },
+  });
+
+const ServicesSideImageSection = (locale: "nl" | "en") =>
+  block({
+    label: "Services Zij-afbeelding (ServicesSideImageSection)",
+    ContentView: (props) => (
+      <KeystaticServicesSideImageSection
+        servicesSet={props.value.servicesSet}
+        label="Services Zij-afbeelding"
+      />
+    ),
+    schema: {
+      servicesSet: fields.relationship({
+        label: "Services Set",
+        collection: locale === "nl" ? "servicesSideImageNL" : "servicesSideImageEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
   FaqSection,
@@ -262,4 +295,6 @@ export default {
   FeatureGalleryMarqueeSection,
   FeatureSideImageSection,
   FeatureToggleImageSection,
+  ServicesIconSection,
+  ServicesSideImageSection,
 };

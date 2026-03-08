@@ -8,24 +8,45 @@
  * ! You can copy to actual SVG into src/icons, name it whatever, and use similar to below example "tabler/calendar-check"
  */
 
+import { getCollection } from "astro:content";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { ServicesIconSectionData } from "@config/configDataTypes.ts";
 import { servicesIconData } from "./servicesIconData";
 
+// components
+import ServiceCardIcon from "@components/ServiceCard/ServiceCardIcon.astro";
+
+interface Props extends Partial<ServicesIconSectionData> {
+  servicesSet?: string;
+}
+
+const { title: propTitle, services: propServices, servicesSet } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = servicesIconData[currLocale];
+const staticData = servicesIconData[currLocale];
 
-type Props = Partial<ServicesIconSectionData>;
+// Load from collection when servicesSet is provided, fallback to static data
+const entries = servicesSet !== undefined ? await getCollection("servicesIcon") : [];
+const collectionEntry =
+  servicesSet !== undefined
+    ? (entries.find((e) => e.id === `${currLocale}/${servicesSet}`) ?? null)
+    : null;
 
-const { title = data.title, services = data.services } = Astro.props;
+if (servicesSet !== undefined && !collectionEntry) return;
+
+const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? staticData.title);
+
+const services = collectionEntry
+  ? collectionEntry.data.services.map((s) => ({
+      icon: s.icon,
+      title: s.title,
+      description: s.description,
+      ctaButton: { href: s.ctaButtonHref, text: s.ctaButtonText },
+    }))
+  : (propServices ?? staticData.services);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
-
-// components
-import ServiceCardIcon from "@components/ServiceCard/ServiceCardIcon.astro";
-// import FeatureCard from "@components/FeatureCard/FeatureCardTest.astro";
 ---
 
 <section id="services-icon" class="bg-base-200/50 my-12 py-20 md:my-24">

@@ -51,6 +51,11 @@ const pageBlocks = (locale: Locale) =>
             value: "featureToggleImage",
             label: "Feature Toggle Afbeelding (FeatureToggleImageSection)",
           },
+          { value: "servicesIcon", label: "Services Icon (ServicesIconSection)" },
+          {
+            value: "servicesSideImage",
+            label: "Services Zij-afbeelding (ServicesSideImageSection)",
+          },
           { value: "richText", label: "Tekst blok" },
         ],
         defaultValue: "richText",
@@ -138,6 +143,18 @@ const pageBlocks = (locale: Locale) =>
           featureSet: fields.relationship({
             label: "Feature Set",
             collection: locale === "nl" ? "featureToggleImageNL" : "featureToggleImageEN",
+          }),
+        }),
+        servicesIcon: fields.object({
+          servicesSet: fields.relationship({
+            label: "Services Set",
+            collection: locale === "nl" ? "servicesIconNL" : "servicesIconEN",
+          }),
+        }),
+        servicesSideImage: fields.object({
+          servicesSet: fields.relationship({
+            label: "Services Set",
+            collection: locale === "nl" ? "servicesSideImageNL" : "servicesSideImageEN",
           }),
         }),
         richText: fields.document({
@@ -243,6 +260,8 @@ const Blog = (locale: (typeof locales)[number]) =>
           FeatureGalleryMarqueeSection: ComponentBlocks.FeatureGalleryMarqueeSection(locale),
           FeatureSideImageSection: ComponentBlocks.FeatureSideImageSection(locale),
           FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
+          ServicesIconSection: ComponentBlocks.ServicesIconSection(locale),
+          ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
         },
       }),
     },
@@ -393,6 +412,8 @@ const Services = (locale: (typeof locales)[number]) =>
           FeatureGalleryMarqueeSection: ComponentBlocks.FeatureGalleryMarqueeSection(locale),
           FeatureSideImageSection: ComponentBlocks.FeatureSideImageSection(locale),
           FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
+          ServicesIconSection: ComponentBlocks.ServicesIconSection(locale),
+          ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
         },
       }),
     },
@@ -474,6 +495,8 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
           FeatureGalleryMarqueeSection: ComponentBlocks.FeatureGalleryMarqueeSection(locale),
           FeatureSideImageSection: ComponentBlocks.FeatureSideImageSection(locale),
           FeatureToggleImageSection: ComponentBlocks.FeatureToggleImageSection(locale),
+          ServicesIconSection: ComponentBlocks.ServicesIconSection(locale),
+          ServicesSideImageSection: ComponentBlocks.ServicesSideImageSection(locale),
         },
       }),
     },
@@ -857,6 +880,63 @@ const FeatureToggleImage = (locale: Locale) =>
     },
   });
 
+/**
+ * * Services Icon section collection
+ * Keystatic-managed services icon section per locale
+ */
+const ServicesIcon = (locale: Locale) =>
+  collection({
+    label: `Services Icon (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/servicesIcon/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      services: fields.array(
+        fields.object({
+          icon: fields.text({ label: "Icon naam (bijv. tabler/truck)" }),
+          title: fields.text({ label: "Titel", validation: { isRequired: true } }),
+          description: fields.text({ label: "Beschrijving", multiline: true }),
+          ctaButtonText: fields.text({ label: "Knop tekst" }),
+          ctaButtonHref: fields.text({ label: "Knop URL" }),
+        }),
+        { label: "Services", itemLabel: (props) => props.fields.title.value || "Service" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
+ * * Services Side Image section collection
+ * Keystatic-managed services side image section per locale
+ */
+const ServicesSideImage = (locale: Locale) =>
+  collection({
+    label: `Services Zij-afbeelding (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/servicesSideImage/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      services: fields.array(
+        fields.object({
+          image: fields.image({
+            label: "Afbeelding",
+            publicPath: "../",
+            validation: { isRequired: false },
+          }),
+          imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
+          title: fields.text({ label: "Titel", validation: { isRequired: true } }),
+          description: fields.text({ label: "Beschrijving", multiline: true }),
+          ctaButtonText: fields.text({ label: "Knop tekst" }),
+          ctaButtonHref: fields.text({ label: "Knop URL" }),
+        }),
+        { label: "Services", itemLabel: (props) => props.fields.title.value || "Service" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
 export default {
   Blog,
   Authors,
@@ -876,4 +956,6 @@ export default {
   FeatureLightboxMarquee,
   FeatureSideImage,
   FeatureToggleImage,
+  ServicesIcon,
+  ServicesSideImage,
 };
