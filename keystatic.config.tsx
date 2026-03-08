@@ -35,6 +35,7 @@ export default config({
         "otherPagesEN",
         "otherPagesNL",
       ],
+      Navigatie: ["navNL", "navEN"],
       "Content sets": [
         "faqsNL",
         "faqsEN",
@@ -81,6 +82,9 @@ export default config({
     labelsEN: Collections.Labels("en"),
   },
   collections: {
+    navNL: Collections.Nav("nl"),
+    navEN: Collections.Nav("en"),
+
     blogEN: Collections.Blog("en"),
     blogNL: Collections.Blog("nl"),
 

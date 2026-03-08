@@ -1064,6 +1064,45 @@ const TeamMemberCards = (locale: Locale) =>
   });
 
 /**
+ * * Nav collection
+ * Keystatic-managed navigation per locale (links, logo, CTA button)
+ */
+const Nav = (locale: Locale) =>
+  collection({
+    label: `Navigatie (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/nav/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Naam (intern)" } }),
+      logo: fields.image({
+        label: "Logo afbeelding",
+        publicPath: "../",
+        validation: { isRequired: true },
+      }),
+      logoAlt: fields.text({ label: "Logo alt tekst", validation: { isRequired: true } }),
+      ctaButton: fields.object({
+        text: fields.text({ label: "Knop tekst", validation: { isRequired: true } }),
+        href: fields.text({ label: "Knop URL", validation: { isRequired: true } }),
+      }),
+      navItems: fields.array(
+        fields.object({
+          text: fields.text({ label: "Menu tekst", validation: { isRequired: true } }),
+          link: fields.text({ label: "Link URL (leeg voor dropdown)" }),
+          dropdown: fields.array(
+            fields.object({
+              text: fields.text({ label: "Tekst", validation: { isRequired: true } }),
+              link: fields.text({ label: "Link URL", validation: { isRequired: true } }),
+            }),
+            { label: "Dropdown links", itemLabel: (props) => props.fields.text.value || "Link" },
+          ),
+        }),
+        { label: "Menu items", itemLabel: (props) => props.fields.text.value || "Item" },
+      ),
+    },
+  });
+
+/**
  * * Testimonials section collection
  * Shared by TestimonialsColumnsSection and TestimonialsSwiperSection
  */
@@ -1117,6 +1156,7 @@ export default {
   FeatureToggleImage,
   ServicesIcon,
   ServicesSideImage,
+  Nav,
   Testimonials,
   TeamMemberCards,
   IntroSection,

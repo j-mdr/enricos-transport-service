@@ -10,12 +10,12 @@ import MobileLanguageSelect from "@components/LanguageSelect/MobileLanguageSelec
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getLocalizedRoute } from "@/utils/translationUtils";
-import { navData } from "../navData";
+import { getNavData } from "@/utils/navUtils";
+import { locales } from "@config/siteSettings.json";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = navData[currLocale];
-import { locales } from "@config/siteSettings.json";
+const data = await getNavData(currLocale);
 ---
 
 <div id="mobile-nav__container">

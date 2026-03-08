@@ -1,27 +1,37 @@
 ---
 import { getLocalizedRoute } from "@/utils/translationUtils";
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 // images
-import logo from "@images/logo-enrico's-transportservice.webp";
+import staticLogo from "@images/logo-enrico's-transportservice.webp";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getCompanyInfo } from "@/utils/companyInfo";
 
+interface Props {
+  logo?: ImageMetadata | null;
+  logoAlt?: string | null;
+}
+
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const companyInfo = await getCompanyInfo(currLocale);
+const { logo = null, logoAlt = null } = Astro.props;
+
+const logoSrc = logo ?? staticLogo;
+const altText = logoAlt ?? companyInfo?.title ?? "Logo";
 ---
 
 <a class="primary-focus flex items-center align-middle" href={getLocalizedRoute(currLocale, "/")}>
   <p class="sr-only">{companyInfo?.title}</p>
   <Image
-    src={logo}
-    alt="Stellar logo"
+    src={logoSrc}
+    alt={altText}
     loading="eager"
     height={90}
     class="h-14 w-auto"
-    aria-label="Stellar logo"
+    aria-label={altText}
   />
 </a>

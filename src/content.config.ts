@@ -414,6 +414,36 @@ const teamMemberCardsCollection = defineCollection({
     }),
 });
 
+// nav collection
+const navCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/nav" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      logo: image(),
+      logoAlt: z.string(),
+      ctaButton: z.object({
+        text: z.string(),
+        href: z.string(),
+      }),
+      navItems: z.array(
+        z.object({
+          text: z.string(),
+          link: z.string().optional().default(""),
+          dropdown: z
+            .array(
+              z.object({
+                text: z.string(),
+                link: z.string(),
+              }),
+            )
+            .optional()
+            .default([]),
+        }),
+      ),
+    }),
+});
+
 // testimonials sections (shared by TestimonialsColumnsSection and TestimonialsSwiperSection)
 const testimonialsCollection = defineCollection({
   loader: glob({ pattern: "**/index.json", base: "./src/content/testimonials" }),
@@ -433,6 +463,7 @@ const testimonialsCollection = defineCollection({
 });
 
 export const collections = {
+  nav: navCollection,
   blog: blogCollection,
   authors: authorsCollection,
   services: servicesCollection,
