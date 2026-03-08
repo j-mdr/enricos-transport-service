@@ -4,24 +4,49 @@
  */
 
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
+import type { ImageMetadata } from "astro";
 
 import award1 from "@images/awards/award-yelp.png";
 import award2 from "@images/awards/award-homeadvisor.png";
 import award3 from "@images/awards/award-angieslist.png";
+
+interface Props {
+  awardsSet?: string;
+}
+
+const { awardsSet } = Astro.props;
+const currLocale = getLocaleFromUrl(Astro.url);
+
+// Load from collection when awardsSet is provided, fallback to static images
+const entries = awardsSet !== undefined ? await getCollection("awardsSection") : [];
+const collectionEntry =
+  awardsSet !== undefined
+    ? (entries.find((e) => e.id === `${currLocale}/${awardsSet}`) ?? null)
+    : null;
+
+if (awardsSet !== undefined && !collectionEntry) return;
+
+const awards: { src: ImageMetadata; alt: string }[] = collectionEntry
+  ? collectionEntry.data.awards
+      .filter((a) => a.image)
+      .map((a) => ({ src: a.image as ImageMetadata, alt: a.alt }))
+  : [
+      { src: award1, alt: "yelp award" },
+      { src: award2, alt: "home advisor award" },
+      { src: award3, alt: "angies list award" },
+    ];
 ---
 
 <section id="awards" class="my-10 w-full">
   <div class="site-container flex justify-center">
     <div class="flex flex-wrap gap-12 md:col-span-2">
-      <Image src={award1} alt="yelp award" loading="lazy" height={200} class="h-20 w-auto" />
-      <Image
-        src={award2}
-        alt="home advisor award"
-        loading="lazy"
-        height={200}
-        class="h-20 w-auto"
-      />
-      <Image src={award3} alt="angies list award" loading="lazy" height={200} class="h-20 w-auto" />
+      {
+        awards.map((award) => (
+          <Image src={award.src} alt={award.alt} loading="lazy" height={200} class="h-20 w-auto" />
+        ))
+      }
     </div>
   </div>
 </section>

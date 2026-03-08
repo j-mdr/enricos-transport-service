@@ -56,6 +56,7 @@ const pageBlocks = (locale: Locale) =>
             value: "servicesSideImage",
             label: "Services Zij-afbeelding (ServicesSideImageSection)",
           },
+          { value: "awardsSection", label: "Awards Sectie (AwardsSection)" },
           { value: "introSection", label: "Intro Sectie (IntroSection)" },
           { value: "teamMemberCards", label: "Team Leden Kaarten (TeamMemberCardsSection)" },
           {
@@ -165,6 +166,12 @@ const pageBlocks = (locale: Locale) =>
           servicesSet: fields.relationship({
             label: "Services Set",
             collection: locale === "nl" ? "servicesSideImageNL" : "servicesSideImageEN",
+          }),
+        }),
+        awardsSection: fields.object({
+          awardsSet: fields.relationship({
+            label: "Awards Set",
+            collection: locale === "nl" ? "awardsSectionNL" : "awardsSectionEN",
           }),
         }),
         introSection: fields.object({
@@ -300,6 +307,7 @@ const Blog = (locale: (typeof locales)[number]) =>
           TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
           TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
           IntroSection: ComponentBlocks.IntroSection(locale),
+          AwardsSection: ComponentBlocks.AwardsSection(locale),
         },
       }),
     },
@@ -456,6 +464,7 @@ const Services = (locale: (typeof locales)[number]) =>
           TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
           TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
           IntroSection: ComponentBlocks.IntroSection(locale),
+          AwardsSection: ComponentBlocks.AwardsSection(locale),
         },
       }),
     },
@@ -543,6 +552,7 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
           TestimonialsSwiperSection: ComponentBlocks.TestimonialsSwiperSection(locale),
           TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
           IntroSection: ComponentBlocks.IntroSection(locale),
+          AwardsSection: ComponentBlocks.AwardsSection(locale),
         },
       }),
     },
@@ -984,6 +994,32 @@ const ServicesSideImage = (locale: Locale) =>
   });
 
 /**
+ * * Awards Section collection
+ */
+const AwardsSection = (locale: Locale) =>
+  collection({
+    label: `Awards Sectie (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/awardsSection/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      awards: fields.array(
+        fields.object({
+          image: fields.image({
+            label: "Award logo",
+            publicPath: "../",
+            validation: { isRequired: false },
+          }),
+          alt: fields.text({ label: "Alt tekst", validation: { isRequired: true } }),
+        }),
+        { label: "Awards", itemLabel: (props) => props.fields.alt.value || "Award" },
+      ),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
  * * Intro Section collection
  */
 const IntroSection = (locale: Locale) =>
@@ -1084,4 +1120,5 @@ export default {
   Testimonials,
   TeamMemberCards,
   IntroSection,
+  AwardsSection,
 };

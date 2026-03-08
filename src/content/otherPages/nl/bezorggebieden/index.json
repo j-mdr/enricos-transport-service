@@ -16,6 +16,12 @@
       "value": {
         "teamSet": "home"
       }
+    },
+    {
+      "discriminant": "awardsSection",
+      "value": {
+        "awardsSet": "home"
+      }
     }
   ]
 }

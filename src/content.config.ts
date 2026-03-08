@@ -141,6 +141,10 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     value: z.object({ servicesSet: z.string().nullable().optional() }),
   }),
   z.object({
+    discriminant: z.literal("awardsSection"),
+    value: z.object({ awardsSet: z.string().nullable().optional() }),
+  }),
+  z.object({
     discriminant: z.literal("introSection"),
     value: z.object({ introSet: z.string().nullable().optional() }),
   }),
@@ -366,6 +370,22 @@ const servicesSideImageCollection = defineCollection({
     }),
 });
 
+// awardsSection sections
+const awardsSectionCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/awardsSection" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      awards: z.array(
+        z.object({
+          image: image().nullable().optional(),
+          alt: z.string(),
+        }),
+      ),
+      mappingKey: z.string().optional(),
+    }),
+});
+
 // introSection sections
 const introSectionCollection = defineCollection({
   loader: glob({ pattern: "**/index.json", base: "./src/content/introSection" }),
@@ -434,4 +454,5 @@ export const collections = {
   testimonials: testimonialsCollection,
   teamMemberCards: teamMemberCardsCollection,
   introSection: introSectionCollection,
+  awardsSection: awardsSectionCollection,
 };

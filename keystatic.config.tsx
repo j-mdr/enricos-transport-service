@@ -68,6 +68,8 @@ export default config({
         "teamMemberCardsEN",
         "introSectionNL",
         "introSectionEN",
+        "awardsSectionNL",
+        "awardsSectionEN",
       ],
       "Globale instellingen": ["companyInfoNL", "companyInfoEN", "labelsNL", "labelsEN"],
     },
@@ -143,5 +145,8 @@ export default config({
 
     introSectionNL: Collections.IntroSection("nl"),
     introSectionEN: Collections.IntroSection("en"),
+
+    awardsSectionNL: Collections.AwardsSection("nl"),
+    awardsSectionEN: Collections.AwardsSection("en"),
   },
 });

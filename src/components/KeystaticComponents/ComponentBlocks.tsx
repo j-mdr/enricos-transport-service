@@ -19,6 +19,7 @@ import KeystaticServicesSideImageSection from "./KeystaticServicesSideImageSecti
 import KeystaticTestimonialsSection from "./KeystaticTestimonialsSection";
 import KeystaticTeamMemberCardsSection from "./KeystaticTeamMemberCardsSection";
 import KeystaticIntroSection from "./KeystaticIntroSection";
+import KeystaticAwardsSection from "./KeystaticAwardsSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -316,6 +317,20 @@ const TestimonialsSwiperSection = (locale: "nl" | "en") =>
     },
   });
 
+const AwardsSection = (locale: "nl" | "en") =>
+  block({
+    label: "Awards Sectie (AwardsSection)",
+    ContentView: (props) => (
+      <KeystaticAwardsSection awardsSet={props.value.awardsSet} label="Awards Sectie" />
+    ),
+    schema: {
+      awardsSet: fields.relationship({
+        label: "Awards Set",
+        collection: locale === "nl" ? "awardsSectionNL" : "awardsSectionEN",
+      }),
+    },
+  });
+
 const IntroSection = (locale: "nl" | "en") =>
   block({
     label: "Intro Sectie (IntroSection)",
@@ -366,4 +381,5 @@ export default {
   TestimonialsSwiperSection,
   TeamMemberCardsSection,
   IntroSection,
+  AwardsSection,
 };

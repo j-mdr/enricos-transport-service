@@ -1,0 +1,18 @@
+{
+  "title": "Awards",
+  "awards": [
+    {
+      "image": "award-yelp.png",
+      "alt": "Yelp award"
+    },
+    {
+      "image": "award-homeadvisor.png",
+      "alt": "HomeAdvisor award"
+    },
+    {
+      "image": "award-angieslist.png",
+      "alt": "Angie's List award"
+    }
+  ],
+  "mappingKey": "home"
+}

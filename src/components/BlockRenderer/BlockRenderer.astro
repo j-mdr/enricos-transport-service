@@ -24,6 +24,7 @@ import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsCol
 import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
 import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astro";
 import IntroSection from "@components/Content/IntroSection.astro";
+import AwardsSection from "@components/Awards/AwardsSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -111,6 +112,10 @@ const { blocks } = Astro.props;
           <ServicesSideImageSection
             servicesSet={(block.value as { servicesSet: string }).servicesSet}
           />
+        )}
+      {block.discriminant === "awardsSection" &&
+        (block.value as { awardsSet?: string | null })?.awardsSet && (
+          <AwardsSection awardsSet={(block.value as { awardsSet: string }).awardsSet} />
         )}
       {block.discriminant === "introSection" &&
         (block.value as { introSet?: string | null })?.introSet && (
