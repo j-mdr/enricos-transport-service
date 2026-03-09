@@ -1,0 +1,17 @@
+{
+  "title": "Parter worden",
+  "description": "Word partner van ons",
+  "mappingKey": "partner-worden",
+  "template": "BaseLayout",
+  "image": "../partner-worden/image.jpeg",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "introSection",
+      "value": {
+        "title": "Partner worden",
+        "introText": "intro tekst.."
+      }
+    }
+  ]
+}

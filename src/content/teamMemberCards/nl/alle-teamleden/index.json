@@ -10,7 +10,11 @@
       "name": "Kelly Janssen",
       "personTitle": "Medeoprichter",
       "bio": "Kelly is mede-oprichter en zorgt voor de administratieve en organisatorische kant van het bedrijf."
+    },
+    {
+      "name": "Vacant",
+      "personTitle": "Solliciteren?",
+      "bio": "Vul het contactformulier in en voeg uw CV en motivatie toe."
     }
-  ],
-  "mappingKey": "home"
+  ]
 }

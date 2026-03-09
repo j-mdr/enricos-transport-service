@@ -25,6 +25,12 @@
       }
     },
     {
+      "discriminant": "ctaCardCenter",
+      "value": {
+        "ctaSet": "home"
+      }
+    },
+    {
       "discriminant": "testimonialsSwiper",
       "value": {
         "testimonialsSet": "home"
@@ -34,12 +40,6 @@
       "discriminant": "featureLightboxMarquee",
       "value": {
         "featureSet": "home"
-      }
-    },
-    {
-      "discriminant": "ctaCardCenter",
-      "value": {
-        "ctaSet": "home"
       }
     }
   ]
