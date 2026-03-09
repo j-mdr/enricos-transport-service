@@ -1,9 +1,9 @@
 {
-  "title": "Helder, snel{highlight} en zonder ver\u00ADras\u00ADsingen",
-  "description": "Direct inzicht in kosten",
+  "title": "Veilig, vlot{highlight} en vertrouwd",
+  "description": "Bij Enrico's Transportservice staan wij klaar om uw zending snel, veilig en efficiënt te vervoeren. Wij zorgen dat het op tijd en in perfecte staat aankomt.",
   "ctaButtonText": "Offerte aanvragen",
   "ctaButtonHref": "/offerte-aanvragen",
-  "image": "image.jpeg",
+  "image": "../home/image.jpeg",
   "imageAlt": "Enrico Janssen in bestelbus",
   "mappingKey": "hero-home"
 }

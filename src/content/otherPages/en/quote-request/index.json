@@ -1,0 +1,23 @@
+{
+  "title": "Request a quote",
+  "description": "Request a quotation",
+  "mappingKey": "offerte-aanvragen",
+  "template": "BaseLayout",
+  "image": "../quote-request/image.jpeg",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "introSection",
+      "value": {
+        "title": "Request quotation",
+        "introText": "Would you like to have a package delivered quickly and reliably? Simply request a quote from Enrico's Transportservice. We will contact you as soon as possible with a suitable price estimate. 🚚"
+      }
+    },
+    {
+      "discriminant": "requestQuoteSection",
+      "value": {
+        "sectionSet": "offerte-aanvragen-pagina"
+      }
+    }
+  ]
+}

@@ -1,27 +1,27 @@
 ---
+import { getEntry } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
-import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
-import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
-import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
-import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMarqueeSection.astro";
-import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
-import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute } from "@/utils/translationUtils";
-import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
-import { getCompanyInfo } from "@/utils/companyInfo";
+import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 
-const currLocale = getLocaleFromUrl(Astro.url);
-const companyInfo = await getCompanyInfo(currLocale);
+const page = await getEntry("otherPages", "nl/home");
+if (!page) return Astro.redirect("/404");
+
+const { title, description, template, image } = page.data;
 ---
 
-<BaseLayout title={companyInfo?.title ?? ""} description={companyInfo?.description ?? ""}>
-  <HeroSideImageSection />
-  <FeatureCardsSmallSection />
-  <ServicesIconSection />
-  <FeatureLightboxMarqueeSection />
-  <CtaCardCenterSection />
-  <TestimonialsSwiperSection />
-  <FaqAccordionsSection faqSet="algemeen" />
-</BaseLayout>
+{
+  template === "BaseLayout" && (
+    <BaseLayout title={title} description={description} type={"general"}>
+      <BlockRenderer blocks={page.data.blocks ?? []} />
+    </BaseLayout>
+  )
+}
+
+{
+  template === "ServiceLayoutCenter" && (
+    <ServiceLayoutCenter title={title} description={description} image={image}>
+      <BlockRenderer blocks={page.data.blocks ?? []} />
+    </ServiceLayoutCenter>
+  )
+}

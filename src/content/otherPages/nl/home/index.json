@@ -1,0 +1,46 @@
+{
+  "title": "Enrico's transportservice",
+  "description": "Enrico's transportservice",
+  "mappingKey": "home",
+  "template": "BaseLayout",
+  "image": "../home/image.jpeg",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "hero",
+      "value": {
+        "heroSet": "home"
+      }
+    },
+    {
+      "discriminant": "featureCardsSmall",
+      "value": {
+        "featureSet": "home"
+      }
+    },
+    {
+      "discriminant": "servicesIcon",
+      "value": {
+        "servicesSet": "home"
+      }
+    },
+    {
+      "discriminant": "testimonialsSwiper",
+      "value": {
+        "testimonialsSet": "home"
+      }
+    },
+    {
+      "discriminant": "featureLightboxMarquee",
+      "value": {
+        "featureSet": "home"
+      }
+    },
+    {
+      "discriminant": "ctaCardCenter",
+      "value": {
+        "ctaSet": "home"
+      }
+    }
+  ]
+}
