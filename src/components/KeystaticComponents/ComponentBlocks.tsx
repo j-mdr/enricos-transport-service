@@ -21,6 +21,8 @@ import KeystaticTeamMemberCardsSection from "./KeystaticTeamMemberCardsSection";
 import KeystaticIntroSection from "./KeystaticIntroSection";
 import KeystaticAwardsSection from "./KeystaticAwardsSection";
 import KeystaticContactFormSection from "./KeystaticContactFormSection";
+import KeystaticRequestQuoteSection from "./KeystaticRequestQuoteSection";
+import KeystaticRequestQuoteSectionBlock from "./KeystaticRequestQuoteSectionBlock";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -366,9 +368,30 @@ const ContactFormSection = block({
   schema: {},
 });
 
+const RequestQuoteSection = block({
+  label: "Offerteformulier (RequestQuote)",
+  ContentView: () => <KeystaticRequestQuoteSection />,
+  schema: {},
+});
+
+const RequestQuoteSectionBlock = (locale: "nl" | "en") =>
+  block({
+    label: "Offerte sectie met afbeelding (RequestQuoteSection)",
+    ContentView: (props) => (
+      <KeystaticRequestQuoteSectionBlock sectionSet={props.value.sectionSet} />
+    ),
+    schema: {
+      sectionSet: fields.relationship({
+        label: "Offerte sectie set",
+        collection: locale === "nl" ? "requestQuoteSectionNL" : "requestQuoteSectionEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
   ContactFormSection,
+  RequestQuoteSection,
   FaqSection,
   FaqCardsSection,
   HeroSection,
@@ -390,4 +413,5 @@ export default {
   TeamMemberCardsSection,
   IntroSection,
   AwardsSection,
+  RequestQuoteSectionBlock,
 };

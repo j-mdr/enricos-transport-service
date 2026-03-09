@@ -1,0 +1,30 @@
+{
+  "formTitle": "Request a Quote",
+  "firstNameLabel": "First Name",
+  "lastNameLabel": "Last Name",
+  "emailLabel": "Email Address",
+  "postalCodeFromLabel": "Postal Code (from)",
+  "postalCodeToLabel": "Postal Code (to)",
+  "cargoTypeLabel": "What needs to be transported?",
+  "cargoOptions": [
+    { "value": "pakket-dozen", "label": "Package / boxes" },
+    { "value": "pallets", "label": "Pallets" },
+    { "value": "meubels", "label": "Furniture" },
+    { "value": "documenten", "label": "Documents" }
+  ],
+  "cargoOptionAnders": "Other",
+  "otherCargoLabel": "Describe the goods to be transported",
+  "sizeWeightLabel": "Estimated size / weight",
+  "sizeOptions": [
+    { "value": "klein", "label": "Small (up to 25 kg)" },
+    { "value": "middel", "label": "Medium (up to 100 kg)" },
+    { "value": "groot", "label": "Large (up to 500 kg)" },
+    { "value": "zwaar", "label": "Heavy (500+ kg)" },
+    { "value": "weet-niet", "label": "I don't know" }
+  ],
+  "transportDateLabel": "Transport date",
+  "urgentLabel": "Express transport",
+  "submitButtonText": "Request Quote",
+  "successMessage": "Thank you! We will get back to you as soon as possible with a quote.",
+  "errorMessage": "Something went wrong. Please try again later."
+}

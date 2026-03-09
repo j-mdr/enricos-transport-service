@@ -59,6 +59,11 @@ const pageBlocks = (locale: Locale) =>
           { value: "awardsSection", label: "Awards Sectie (AwardsSection)" },
           { value: "introSection", label: "Intro Sectie (IntroSection)" },
           { value: "contactForm", label: "Contactformulier (ContactSection)" },
+          { value: "requestQuote", label: "Offerteformulier (RequestQuote)" },
+          {
+            value: "requestQuoteSection",
+            label: "Offerte sectie met afbeelding (RequestQuoteSection)",
+          },
           { value: "teamMemberCards", label: "Team Leden Kaarten (TeamMemberCardsSection)" },
           {
             value: "testimonialsColumns",
@@ -182,6 +187,13 @@ const pageBlocks = (locale: Locale) =>
           }),
         }),
         contactForm: fields.object({}),
+        requestQuote: fields.object({}),
+        requestQuoteSection: fields.object({
+          sectionSet: fields.relationship({
+            label: "Offerte sectie set",
+            collection: locale === "nl" ? "requestQuoteSectionNL" : "requestQuoteSectionEN",
+          }),
+        }),
         teamMemberCards: fields.object({
           teamSet: fields.relationship({
             label: "Team Set",
@@ -996,6 +1008,28 @@ const ServicesSideImage = (locale: Locale) =>
   });
 
 /**
+ * * RequestQuoteSection collection
+ * Stores the title and image for the RequestQuoteSection block.
+ */
+const RequestQuoteSectionData = (locale: Locale) =>
+  collection({
+    label: `Offerte sectie (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/requestQuoteSection/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      image: fields.image({
+        label: "Afbeelding",
+        publicPath: "../",
+        validation: { isRequired: true },
+      }),
+      imageAlt: fields.text({ label: "Afbeelding alt tekst", validation: { isRequired: true } }),
+      mappingKey: fields.text({ label: "Mapping Key" }),
+    },
+  });
+
+/**
  * * Awards Section collection
  */
 const AwardsSection = (locale: Locale) =>
@@ -1160,6 +1194,51 @@ const ContactFormLabels = (locale: Locale) =>
   });
 
 /**
+ * * RequestQuote labels singleton
+ * Only stores editable labels/teksten voor het offerteformulier per locale.
+ */
+const RequestQuoteLabels = (locale: Locale) =>
+  singleton({
+    label: `Offerte labels (${locale.toUpperCase()})`,
+    path: `src/content/requestQuote/${locale}`,
+    format: { data: "json" },
+    schema: {
+      formTitle: fields.text({ label: "Formulier titel" }),
+      firstNameLabel: fields.text({ label: "Voornaam label" }),
+      lastNameLabel: fields.text({ label: "Achternaam label" }),
+      emailLabel: fields.text({ label: "Emailadres label" }),
+      postalCodeFromLabel: fields.text({ label: "Postcode van label" }),
+      postalCodeToLabel: fields.text({ label: "Postcode naar label" }),
+      cargoTypeLabel: fields.text({ label: "Vrachttype label" }),
+      cargoOptions: fields.array(
+        fields.object({
+          value: fields.text({ label: "Waarde (intern)", validation: { isRequired: true } }),
+          label: fields.text({ label: "Label (zichtbaar)", validation: { isRequired: true } }),
+        }),
+        { label: "Vrachttype opties", itemLabel: (props) => props.fields.label.value || "Optie" },
+      ),
+      cargoOptionAnders: fields.text({ label: "Optie: Anders (label)" }),
+      otherCargoLabel: fields.text({ label: "Anders vrachttype label" }),
+      sizeWeightLabel: fields.text({ label: "Grootte / gewicht label" }),
+      sizeOptions: fields.array(
+        fields.object({
+          value: fields.text({ label: "Waarde (intern)", validation: { isRequired: true } }),
+          label: fields.text({ label: "Label (zichtbaar)", validation: { isRequired: true } }),
+        }),
+        {
+          label: "Grootte / gewicht opties",
+          itemLabel: (props) => props.fields.label.value || "Optie",
+        },
+      ),
+      transportDateLabel: fields.text({ label: "Datum transport label" }),
+      urgentLabel: fields.text({ label: "Spoedtransport label" }),
+      submitButtonText: fields.text({ label: "Knop tekst" }),
+      successMessage: fields.text({ label: "Succesbericht", multiline: true }),
+      errorMessage: fields.text({ label: "Foutmelding", multiline: true }),
+    },
+  });
+
+/**
  * * Footer singleton
  * Editable footer data per locale. companyName falls back to CompanyInfo.name if empty.
  */
@@ -1188,6 +1267,7 @@ export default {
   Labels,
   Footer,
   ContactFormLabels,
+  RequestQuoteLabels,
   Faqs,
   Hero,
   HeroBg,
@@ -1206,4 +1286,5 @@ export default {
   TeamMemberCards,
   IntroSection,
   AwardsSection,
+  RequestQuoteSectionData,
 };

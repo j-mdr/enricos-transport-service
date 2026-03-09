@@ -25,6 +25,18 @@
     },
     {
       "discriminant": "richText"
+    },
+    {
+      "discriminant": "featureSideImage",
+      "value": {
+        "featureSet": "home"
+      }
+    },
+    {
+      "discriminant": "requestQuoteSection",
+      "value": {
+        "sectionSet": "home"
+      }
     }
   ]
 }

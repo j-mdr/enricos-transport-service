@@ -26,6 +26,8 @@ import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astr
 import IntroSection from "@components/Content/IntroSection.astro";
 import AwardsSection from "@components/Awards/AwardsSection.astro";
 import ContactSection from "@components/Contact/ContactSection.astro";
+import RequestQuote from "@components/Contact/RequestQuote.astro";
+import RequestQuoteSection from "@components/Contact/RequestQuoteSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -139,6 +141,11 @@ const { blocks } = Astro.props;
           />
         )}
       {block.discriminant === "contactForm" && <ContactSection />}
+      {block.discriminant === "requestQuote" && <RequestQuote />}
+      {block.discriminant === "requestQuoteSection" &&
+        (block.value as { sectionSet?: string | null })?.sectionSet && (
+          <RequestQuoteSection sectionSet={(block.value as { sectionSet: string }).sectionSet} />
+        )}
       {block.discriminant === "richText" && block.value && (
         <div class="site-container my-16">
           <div class="markdown-content mx-auto max-w-3xl">

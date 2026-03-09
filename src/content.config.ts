@@ -168,6 +168,14 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     discriminant: z.literal("contactForm"),
     value: z.object({}),
   }),
+  z.object({
+    discriminant: z.literal("requestQuote"),
+    value: z.object({}),
+  }),
+  z.object({
+    discriminant: z.literal("requestQuoteSection"),
+    value: z.object({ sectionSet: z.string().nullable().optional() }),
+  }),
 ]);
 
 // other pages
@@ -374,6 +382,18 @@ const servicesSideImageCollection = defineCollection({
     }),
 });
 
+// requestQuoteSection sections
+const requestQuoteSectionCollection = defineCollection({
+  loader: glob({ pattern: "**/index.json", base: "./src/content/requestQuoteSection" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      image: image(),
+      imageAlt: z.string(),
+      mappingKey: z.string().optional(),
+    }),
+});
+
 // awardsSection sections
 const awardsSectionCollection = defineCollection({
   loader: glob({ pattern: "**/index.json", base: "./src/content/awardsSection" }),
@@ -490,4 +510,5 @@ export const collections = {
   teamMemberCards: teamMemberCardsCollection,
   introSection: introSectionCollection,
   awardsSection: awardsSectionCollection,
+  requestQuoteSection: requestQuoteSectionCollection,
 };
