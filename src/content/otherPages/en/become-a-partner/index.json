@@ -1,0 +1,17 @@
+{
+  "title": "Become a partner",
+  "description": "Become a partner of us",
+  "mappingKey": "partner-worden",
+  "template": "BaseLayout",
+  "image": "../become-a-partner/image.jpeg",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "introSection",
+      "value": {
+        "title": "Become a partner of us",
+        "introText": "intro tekst..."
+      }
+    }
+  ]
+}

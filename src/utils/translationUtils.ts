@@ -239,18 +239,20 @@ export async function generateRouteTranslations() {
 
     const base = collectionTranslations[entry.collection]?.[locale] ?? entry.collection;
 
+    const path = base ? `${base}/${slug}` : slug;
+
     if (mappingKey) {
       if (!entriesByMapping[mappingKey]) {
         entriesByMapping[mappingKey] = {};
       }
-      entriesByMapping[mappingKey][locale] = `${base}/${slug}`;
+      entriesByMapping[mappingKey][locale] = path;
     } else {
       // Generate a unique mapping key
       const generatedKey = `generatedMappingKey_${generatedMappingKeyCounter++}`;
       if (!entriesByMapping[generatedKey]) {
         entriesByMapping[generatedKey] = {};
       }
-      entriesByMapping[generatedKey][locale] = `${base}/${slug}`;
+      entriesByMapping[generatedKey][locale] = path;
 
       // Find the other locale
       const otherLocales = locales.filter((l: string) => l !== locale);
@@ -258,7 +260,7 @@ export async function generateRouteTranslations() {
       otherLocales.forEach((otherLocale: string) => {
         const otherBase =
           collectionTranslations[entry.collection]?.[otherLocale] ?? entry.collection;
-        entriesByMapping[generatedKey][otherLocale] = `${otherBase}/${slug}`;
+        entriesByMapping[generatedKey][otherLocale] = otherBase ? `${otherBase}/${slug}` : slug;
       });
     }
   });
