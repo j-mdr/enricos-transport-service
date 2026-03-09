@@ -169,10 +169,6 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     value: z.object({}),
   }),
   z.object({
-    discriminant: z.literal("requestQuote"),
-    value: z.object({}),
-  }),
-  z.object({
     discriminant: z.literal("requestQuoteSection"),
     value: z.object({ sectionSet: z.string().nullable().optional() }),
   }),

@@ -59,7 +59,6 @@ const pageBlocks = (locale: Locale) =>
           { value: "awardsSection", label: "Awards Sectie (AwardsSection)" },
           { value: "introSection", label: "Intro Sectie (IntroSection)" },
           { value: "contactForm", label: "Contactformulier (ContactSection)" },
-          { value: "requestQuote", label: "Offerteformulier (RequestQuote)" },
           {
             value: "requestQuoteSection",
             label: "Offerte sectie met afbeelding (RequestQuoteSection)",
@@ -187,7 +186,6 @@ const pageBlocks = (locale: Locale) =>
           }),
         }),
         contactForm: fields.object({}),
-        requestQuote: fields.object({}),
         requestQuoteSection: fields.object({
           sectionSet: fields.relationship({
             label: "Offerte sectie set",
