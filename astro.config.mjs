@@ -55,7 +55,7 @@ export default defineConfig({
       SVG: false, // astro-icon handles this
     }),
   ],
-  output: "static",
+  output: "server",
 
   vite: {
     plugins: [tailwindcss()],
