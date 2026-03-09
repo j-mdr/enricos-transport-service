@@ -1,0 +1,23 @@
+{
+  "title": "offerte-aanvragen",
+  "description": "Vraag een offerte aan",
+  "mappingKey": "offerte-aanvragen",
+  "template": "BaseLayout",
+  "image": "../offerte-aanvragen/image.jpeg",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "introSection",
+      "value": {
+        "title": "Vraag geheel vrijblijvend een offerte{highlight} aan",
+        "introText": "Wilt u een pakket snel en betrouwbaar laten bezorgen? Vraag eenvoudig een offerte aan bij Enrico's Transportservice. Wij nemen zo snel mogelijk contact met u op met een passende prijsopgave."
+      }
+    },
+    {
+      "discriminant": "requestQuoteSection",
+      "value": {
+        "sectionSet": "offerte-aanvragen-pagina"
+      }
+    }
+  ]
+}
