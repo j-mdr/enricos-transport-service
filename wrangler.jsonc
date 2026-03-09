@@ -1,11 +1,16 @@
 {
   "name": "enricos-transport-service",
+  "main": "./dist/_worker.js/index.js",
   // Set this to today's date
   "compatibility_date": "2026-03-09",
-  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist",
     "not_found_handling": "404-page",
+  },
+  "observability": {
+    "enabled": true
   },
   "routes": [
     {

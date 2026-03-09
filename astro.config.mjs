@@ -56,7 +56,6 @@ export default defineConfig({
     }),
   ],
   output: "server",
-
   vite: {
     plugins: [tailwindcss()],
     // stop inlining short scripts to fix issues with ClientRouter
