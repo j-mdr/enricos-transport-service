@@ -25,6 +25,7 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [fileName, setFileName] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
+  const messageRef = useRef<HTMLParagraphElement>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -49,6 +50,7 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
     } catch {
       setStatus("error");
     }
+    setTimeout(() => messageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 0);
   }
 
   return (
@@ -56,7 +58,7 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
       <h2 className="h2">{labels.formTitle}</h2>
 
       {status === "success" ? (
-        <p className="mt-6 text-green-600">{labels.successMessage}</p>
+        <p ref={messageRef} className="mt-6 text-green-600">{labels.successMessage}</p>
       ) : (
         <form ref={formRef} onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
           {/* Voornaam + Achternaam */}
@@ -168,7 +170,7 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
 
           <Turnstile siteKey={turnstileSiteKey} onSuccess={(token) => setTurnstileToken(token)} />
 
-          {status === "error" && <p className="text-red-600">{labels.errorMessage}</p>}
+          {status === "error" && <p ref={messageRef} className="text-red-600">{labels.errorMessage}</p>}
 
           <button
             type="submit"

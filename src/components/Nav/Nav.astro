@@ -10,7 +10,6 @@ import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import { getNavData, getNavLogo } from "@/utils/navUtils";
 import { locales } from "@config/siteSettings.json";
 
@@ -62,7 +61,7 @@ const navLogo = await getNavLogo(currLocale);
           <Button
             variant="primary"
             class="my-auto hidden h-10 items-center justify-center md:flex"
-            href={getLocalizedRoute(currLocale, data.ctaButton.href)}
+            href={data.ctaButton.href}
           >
             {data.ctaButton.text}
           </Button>
