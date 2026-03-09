@@ -146,7 +146,7 @@ const blockSchema = z.discriminatedUnion("discriminant", [
   }),
   z.object({
     discriminant: z.literal("introSection"),
-    value: z.object({ introSet: z.string().nullable().optional() }),
+    value: z.object({ title: z.string().optional(), introText: z.string().optional() }),
   }),
   z.object({
     discriminant: z.literal("teamMemberCards"),

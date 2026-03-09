@@ -119,10 +119,12 @@ const { blocks } = Astro.props;
         (block.value as { awardsSet?: string | null })?.awardsSet && (
           <AwardsSection awardsSet={(block.value as { awardsSet: string }).awardsSet} />
         )}
-      {block.discriminant === "introSection" &&
-        (block.value as { introSet?: string | null })?.introSet && (
-          <IntroSection introSet={(block.value as { introSet: string }).introSet} />
-        )}
+      {block.discriminant === "introSection" && (
+        <IntroSection
+          title={(block.value as { title?: string }).title}
+          introText={(block.value as { introText?: string }).introText}
+        />
+      )}
       {block.discriminant === "teamMemberCards" &&
         (block.value as { teamSet?: string | null })?.teamSet && (
           <TeamMemberCardsSection teamSet={(block.value as { teamSet: string }).teamSet} />

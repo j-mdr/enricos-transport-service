@@ -1,17 +1,15 @@
 export default function KeystaticIntroSection({
-  introSet,
-  label = "Intro Sectie",
+  title,
+  introText,
 }: {
-  introSet: string | null;
-  label?: string;
+  title: string;
+  introText: string;
 }) {
   return (
     <div style={{ border: "2px dashed #ccc", padding: "1rem", borderRadius: "8px" }}>
-      <strong>{label}</strong>
-      {introSet ? (
-        <p>Set: {introSet}</p>
-      ) : (
-        <p style={{ color: "#999" }}>Geen intro set geselecteerd</p>
+      <strong>{title || "Intro Sectie"}</strong>
+      {introText && (
+        <p style={{ color: "#666", marginTop: "0.5rem", fontSize: "0.875rem" }}>{introText}</p>
       )}
     </div>
   );

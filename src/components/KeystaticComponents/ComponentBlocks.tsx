@@ -333,16 +333,18 @@ const AwardsSection = (locale: "nl" | "en") =>
     },
   });
 
-const IntroSection = (locale: "nl" | "en") =>
+const IntroSection = (_locale: "nl" | "en") =>
   block({
     label: "Intro Sectie (IntroSection)",
     ContentView: (props) => (
-      <KeystaticIntroSection introSet={props.value.introSet} label="Intro Sectie" />
+      <KeystaticIntroSection title={props.value.title} introText={props.value.introText} />
     ),
     schema: {
-      introSet: fields.relationship({
-        label: "Intro Set",
-        collection: locale === "nl" ? "introSectionNL" : "introSectionEN",
+      title: fields.text({ label: "Titel", validation: { isRequired: true } }),
+      introText: fields.text({
+        label: "Intro tekst",
+        multiline: true,
+        validation: { isRequired: true },
       }),
     },
   });

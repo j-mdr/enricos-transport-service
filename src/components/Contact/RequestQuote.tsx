@@ -35,6 +35,7 @@ export default function RequestQuote({ labels, turnstileSiteKey }: Props) {
   const [turnstileToken, setTurnstileToken] = useState<string>("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [cargoType, setCargoType] = useState<string>("");
+  const otherCargoRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const messageRef = useRef<HTMLParagraphElement>(null);
 
@@ -163,7 +164,12 @@ export default function RequestQuote({ labels, turnstileSiteKey }: Props) {
               name="cargoType"
               id="cargoType"
               value={cargoType}
-              onChange={(e) => setCargoType(e.target.value)}
+              onChange={(e) => {
+                setCargoType(e.target.value);
+                if (e.target.value === "anders") {
+                  setTimeout(() => otherCargoRef.current?.focus(), 0);
+                }
+              }}
               required
             >
               <option value="" disabled>
@@ -185,6 +191,7 @@ export default function RequestQuote({ labels, turnstileSiteKey }: Props) {
                 {labels.otherCargoLabel}
               </label>
               <input
+                ref={otherCargoRef}
                 type="text"
                 className="form__input"
                 name="otherCargo"

@@ -180,9 +180,11 @@ const pageBlocks = (locale: Locale) =>
           }),
         }),
         introSection: fields.object({
-          introSet: fields.relationship({
-            label: "Intro Set",
-            collection: locale === "nl" ? "introSectionNL" : "introSectionEN",
+          title: fields.text({ label: "Titel", validation: { isRequired: true } }),
+          introText: fields.text({
+            label: "Intro tekst",
+            multiline: true,
+            validation: { isRequired: true },
           }),
         }),
         contactForm: fields.object({}),
