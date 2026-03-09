@@ -1,0 +1,13 @@
+{
+  "formTitle": "Contactformulier",
+  "firstNameLabel": "Voornaam",
+  "lastNameLabel": "Achternaam",
+  "addressLabel": "Adres",
+  "emailLabel": "Emailadres",
+  "phoneLabel": "Telefoonnummer",
+  "descriptionLabel": "Beschrijving",
+  "fileUploadLabel": "Bestand uploaden",
+  "submitButtonText": "Versturen",
+  "successMessage": "Bedankt! We nemen zo snel mogelijk contact met u op.",
+  "errorMessage": "Er is iets misgegaan. Probeer het later opnieuw."
+}

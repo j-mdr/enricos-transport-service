@@ -58,6 +58,7 @@ const pageBlocks = (locale: Locale) =>
           },
           { value: "awardsSection", label: "Awards Sectie (AwardsSection)" },
           { value: "introSection", label: "Intro Sectie (IntroSection)" },
+          { value: "contactForm", label: "Contactformulier (ContactSection)" },
           { value: "teamMemberCards", label: "Team Leden Kaarten (TeamMemberCardsSection)" },
           {
             value: "testimonialsColumns",
@@ -180,6 +181,7 @@ const pageBlocks = (locale: Locale) =>
             collection: locale === "nl" ? "introSectionNL" : "introSectionEN",
           }),
         }),
+        contactForm: fields.object({}),
         teamMemberCards: fields.object({
           teamSet: fields.relationship({
             label: "Team Set",
@@ -1135,6 +1137,49 @@ const Testimonials = (locale: Locale) =>
     },
   });
 
+/**
+ * * ContactForm labels singleton
+ * Only stores editable labels/teksten voor het contactformulier per locale.
+ */
+const ContactFormLabels = (locale: Locale) =>
+  singleton({
+    label: `Contactformulier labels (${locale.toUpperCase()})`,
+    path: `src/content/contactForm/${locale}`,
+    format: { data: "json" },
+    schema: {
+      formTitle: fields.text({ label: "Formulier titel" }),
+      firstNameLabel: fields.text({ label: "Voornaam label" }),
+      lastNameLabel: fields.text({ label: "Achternaam label" }),
+      addressLabel: fields.text({ label: "Adres label" }),
+      emailLabel: fields.text({ label: "Emailadres label" }),
+      phoneLabel: fields.text({ label: "Telefoonnummer label" }),
+      descriptionLabel: fields.text({ label: "Beschrijving label" }),
+      fileUploadLabel: fields.text({ label: "Bestandsupload label" }),
+      submitButtonText: fields.text({ label: "Knop tekst" }),
+      successMessage: fields.text({ label: "Succesbericht", multiline: true }),
+      errorMessage: fields.text({ label: "Foutmelding", multiline: true }),
+    },
+  });
+
+/**
+ * * Footer singleton
+ * Editable footer data per locale. companyName falls back to CompanyInfo.name if empty.
+ */
+const Footer = (locale: Locale) =>
+  singleton({
+    label: `Footer (${locale.toUpperCase()})`,
+    path: `src/content/footer/${locale}`,
+    format: { data: "json" },
+    schema: {
+      companyName: fields.text({
+        label: "Bedrijfsnaam",
+        description: "Leeg laten om de bedrijfsnaam uit Bedrijfsinfo te gebruiken.",
+      }),
+      ctaButtonText: fields.text({ label: "Knop tekst" }),
+      ctaButtonHref: fields.text({ label: "Knop URL" }),
+    },
+  });
+
 export default {
   Blog,
   Authors,
@@ -1143,6 +1188,8 @@ export default {
   OtherPages,
   CompanyInfo,
   Labels,
+  Footer,
+  ContactFormLabels,
   Faqs,
   Hero,
   HeroBg,

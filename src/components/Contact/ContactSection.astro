@@ -1,0 +1,19 @@
+---
+import ContactForm from "@components/Contact/ContactForm.astro";
+import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
+---
+
+<section id="contact-section" class="mx-auto pt-36 md:pt-44">
+  <div class="site-container grid gap-8 lg:grid-cols-3">
+    <!-- Contact info -->
+    <div class="hidden flex-col lg:flex">
+      <!-- gap to align with h2 of contact form -->
+      <div class="h2 opacity-0">-</div>
+      <ContactInformationBlock />
+    </div>
+    <!-- contact form -->
+    <div class="lg:col-span-2">
+      <ContactForm />
+    </div>
+  </div>
+</section>

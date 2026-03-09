@@ -1,0 +1,38 @@
+---
+import { getLocaleFromUrl } from "@utils/localeUtils";
+import { getContactFormLabels } from "@utils/contactForm";
+import { getCompanyInfo } from "@utils/companyInfo";
+import ContactFormReact from "./ContactForm";
+
+const locale = getLocaleFromUrl(Astro.url);
+const labels = await getContactFormLabels(locale);
+const companyInfo = await getCompanyInfo(locale);
+
+// Fallback labels indien singleton leeg is
+const resolvedLabels = {
+  formTitle: labels?.formTitle ?? (locale === "nl" ? "Contactformulier" : "Contact Form"),
+  firstNameLabel: labels?.firstNameLabel ?? (locale === "nl" ? "Voornaam" : "First Name"),
+  lastNameLabel: labels?.lastNameLabel ?? (locale === "nl" ? "Achternaam" : "Last Name"),
+  addressLabel: labels?.addressLabel ?? (locale === "nl" ? "Adres" : "Address"),
+  emailLabel: labels?.emailLabel ?? (locale === "nl" ? "Emailadres" : "Email Address"),
+  phoneLabel: labels?.phoneLabel ?? (locale === "nl" ? "Telefoonnummer" : "Phone Number"),
+  descriptionLabel: labels?.descriptionLabel ?? (locale === "nl" ? "Beschrijving" : "Description"),
+  fileUploadLabel:
+    labels?.fileUploadLabel ?? (locale === "nl" ? "Bestand uploaden" : "Upload File"),
+  submitButtonText: labels?.submitButtonText ?? (locale === "nl" ? "Versturen" : "Submit"),
+  successMessage:
+    labels?.successMessage ??
+    (locale === "nl"
+      ? "Bedankt! We nemen zo snel mogelijk contact met u op."
+      : "Thank you! We will get back to you as soon as possible."),
+  errorMessage:
+    labels?.errorMessage ??
+    (locale === "nl"
+      ? "Er is iets misgegaan. Probeer het later opnieuw."
+      : "Something went wrong. Please try again later."),
+};
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
+---
+
+<ContactFormReact labels={resolvedLabels} turnstileSiteKey={turnstileSiteKey} client:load />

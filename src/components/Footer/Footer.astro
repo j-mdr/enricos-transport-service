@@ -4,11 +4,11 @@ import Button from "@components/Button/Button.astro";
 import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
 import SocialIcon from "@components/Social/SocialIcon.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { footerData } from "./footerData";
+import { getFooterData } from "@/utils/footer";
 import { getCompanyInfo } from "@/utils/companyInfo";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const { companyName, ctaButton } = footerData[currLocale];
+const { companyName, ctaButton } = await getFooterData(currLocale);
 const companyInfo = await getCompanyInfo(currLocale);
 const today = new Date();
 ---

@@ -164,6 +164,10 @@ const blockSchema = z.discriminatedUnion("discriminant", [
     discriminant: z.literal("richText"),
     value: z.any(),
   }),
+  z.object({
+    discriminant: z.literal("contactForm"),
+    value: z.object({}),
+  }),
 ]);
 
 // other pages

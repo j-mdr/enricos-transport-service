@@ -25,6 +25,7 @@ import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwip
 import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astro";
 import IntroSection from "@components/Content/IntroSection.astro";
 import AwardsSection from "@components/Awards/AwardsSection.astro";
+import ContactSection from "@components/Contact/ContactSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -137,6 +138,7 @@ const { blocks } = Astro.props;
             testimonialsSet={(block.value as { testimonialsSet: string }).testimonialsSet}
           />
         )}
+      {block.discriminant === "contactForm" && <ContactSection />}
       {block.discriminant === "richText" && block.value && (
         <div class="site-container my-16">
           <div class="markdown-content mx-auto max-w-3xl">

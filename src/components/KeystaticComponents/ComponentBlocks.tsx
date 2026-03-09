@@ -20,6 +20,7 @@ import KeystaticTestimonialsSection from "./KeystaticTestimonialsSection";
 import KeystaticTeamMemberCardsSection from "./KeystaticTeamMemberCardsSection";
 import KeystaticIntroSection from "./KeystaticIntroSection";
 import KeystaticAwardsSection from "./KeystaticAwardsSection";
+import KeystaticContactFormSection from "./KeystaticContactFormSection";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -359,8 +360,15 @@ const TeamMemberCardsSection = (locale: "nl" | "en") =>
     },
   });
 
+const ContactFormSection = block({
+  label: "Contactformulier (ContactSection)",
+  ContentView: () => <KeystaticContactFormSection />,
+  schema: {},
+});
+
 export default {
   Admonition,
+  ContactFormSection,
   FaqSection,
   FaqCardsSection,
   HeroSection,

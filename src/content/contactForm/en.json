@@ -1,0 +1,13 @@
+{
+  "formTitle": "Contact Form",
+  "firstNameLabel": "First Name",
+  "lastNameLabel": "Last Name",
+  "addressLabel": "Address",
+  "emailLabel": "Email Address",
+  "phoneLabel": "Phone Number",
+  "descriptionLabel": "Description",
+  "fileUploadLabel": "Upload File",
+  "submitButtonText": "Submit",
+  "successMessage": "Thank you! We will get back to you as soon as possible.",
+  "errorMessage": "Something went wrong. Please try again later."
+}
