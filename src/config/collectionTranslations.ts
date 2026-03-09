@@ -21,5 +21,9 @@ export const collectionTranslations = {
     en: "delivery-areas",
     nl: "bezorggebieden",
   },
+  otherPages: {
+    en: "",
+    nl: "",
+  },
   // Add more collections/locales as needed
 } as const;

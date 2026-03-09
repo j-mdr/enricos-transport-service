@@ -8,11 +8,13 @@ export const routeTranslations = {
     "blog*": "blog/*",
     "categorieen*": "categorieen/*",
     "diensten*": "diensten/*",
+    "otherPages*": "/*",
   },
   en: {
     "bezorggebieden*": "delivery-areas/*",
     "blog*": "blog/*",
     "categorieen*": "categories/*",
     "diensten*": "services/*",
+    "otherPages*": "*",
   },
 } as const;
