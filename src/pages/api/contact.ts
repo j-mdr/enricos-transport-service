@@ -1,19 +1,28 @@
 export const prerender = false;
 
+interface ContactPayload {
+  "cf-turnstile-response": string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  description: string;
+  file?: { name: string; data: string; type: string } | null;
+}
+
 export async function POST({ request }: { request: Request }): Promise<Response> {
-  let formData: FormData;
+  let body: ContactPayload;
   try {
-    formData = await request.formData();
+    body = (await request.json()) as ContactPayload;
   } catch {
     return json({ error: "Ongeldig verzoek" }, 400);
   }
 
-  const turnstileToken = formData.get("cf-turnstile-response") as string;
-  const firstName = (formData.get("firstName") as string) ?? "";
-  const lastName = (formData.get("lastName") as string) ?? "";
-  const email = (formData.get("email") as string) ?? "";
-  const description = (formData.get("description") as string) ?? "";
-  const file = formData.get("file") as File | null;
+  const turnstileToken = body["cf-turnstile-response"] ?? "";
+  const firstName = body.firstName ?? "";
+  const lastName = body.lastName ?? "";
+  const email = body.email ?? "";
+  const description = body.description ?? "";
+  const file = body.file ?? null;
 
   // Verify Cloudflare Turnstile token
   const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
@@ -43,18 +52,12 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     message: description,
   };
 
-  // Attach file if present
-  if (file && file.size > 0) {
-    const buffer = await file.arrayBuffer();
-    const bytes = new Uint8Array(buffer);
-    let binary = "";
-    for (let i = 0; i < bytes.byteLength; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
+  // Attach file if present (file.data is already base64-encoded)
+  if (file && file.data) {
     payload.$attachments = [
       {
         filename: file.name,
-        data: btoa(binary),
+        data: file.data,
         contentType: file.type || "application/octet-stream",
       },
     ];

@@ -107,14 +107,14 @@ export default function RequestQuote({ labels, turnstileSiteKey, locale }: Props
     if (!turnstileToken) return;
     setStatus("loading");
 
-    const formData = new FormData();
-    Object.entries(data).forEach(([k, v]) => {
-      if (v !== undefined) formData.set(k, String(v));
-    });
-    formData.set("cf-turnstile-response", turnstileToken);
+    const payload = { ...data, "cf-turnstile-response": turnstileToken };
 
     try {
-      const res = await fetch("/api/request-quote", { method: "POST", body: formData });
+      const res = await fetch("/api/request-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const json = (await res.json()) as { success?: boolean; error?: string };
 
       if (res.ok && json.success) {

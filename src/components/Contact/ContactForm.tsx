@@ -31,11 +31,34 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
 
     setStatus("loading");
 
-    const formData = new FormData(e.currentTarget);
-    formData.set("cf-turnstile-response", turnstileToken);
+    const form = e.currentTarget;
+    const rawData = new FormData(form);
+
+    const fileInput = rawData.get("file") as File | null;
+    let filePayload: { name: string; data: string; type: string } | null = null;
+    if (fileInput && fileInput.size > 0) {
+      const buffer = await fileInput.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      let binary = "";
+      for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+      filePayload = { name: fileInput.name, data: btoa(binary), type: fileInput.type };
+    }
+
+    const payload = {
+      "cf-turnstile-response": turnstileToken,
+      firstName: rawData.get("firstName") as string,
+      lastName: rawData.get("lastName") as string,
+      email: rawData.get("email") as string,
+      description: rawData.get("description") as string,
+      file: filePayload,
+    };
 
     try {
-      const res = await fetch("/api/contact", { method: "POST", body: formData });
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const data = (await res.json()) as { success?: boolean; error?: string };
 
       if (res.ok && data.success) {

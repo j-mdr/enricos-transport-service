@@ -1,24 +1,38 @@
 export const prerender = false;
 
+interface QuotePayload {
+  "cf-turnstile-response": string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  postalCodeFrom: string;
+  postalCodeTo: string;
+  cargoType: string;
+  otherCargo?: string;
+  sizeWeight: string;
+  transportDate: string;
+  urgent?: boolean;
+}
+
 export async function POST({ request }: { request: Request }): Promise<Response> {
-  let formData: FormData;
+  let body: QuotePayload;
   try {
-    formData = await request.formData();
+    body = (await request.json()) as QuotePayload;
   } catch {
     return json({ error: "Ongeldig verzoek" }, 400);
   }
 
-  const turnstileToken = formData.get("cf-turnstile-response") as string;
-  const firstName = (formData.get("firstName") as string) ?? "";
-  const lastName = (formData.get("lastName") as string) ?? "";
-  const email = (formData.get("email") as string) ?? "";
-  const postalCodeFrom = (formData.get("postalCodeFrom") as string) ?? "";
-  const postalCodeTo = (formData.get("postalCodeTo") as string) ?? "";
-  const cargoType = (formData.get("cargoType") as string) ?? "";
-  const otherCargo = (formData.get("otherCargo") as string) ?? "";
-  const sizeWeight = (formData.get("sizeWeight") as string) ?? "";
-  const transportDate = (formData.get("transportDate") as string) ?? "";
-  const urgent = (formData.get("urgent") as string) ?? "";
+  const turnstileToken = body["cf-turnstile-response"] ?? "";
+  const firstName = body.firstName ?? "";
+  const lastName = body.lastName ?? "";
+  const email = body.email ?? "";
+  const postalCodeFrom = body.postalCodeFrom ?? "";
+  const postalCodeTo = body.postalCodeTo ?? "";
+  const cargoType = body.cargoType ?? "";
+  const otherCargo = body.otherCargo ?? "";
+  const sizeWeight = body.sizeWeight ?? "";
+  const transportDate = body.transportDate ?? "";
+  const urgent = body.urgent ? "Ja" : "Nee";
 
   // Verify Cloudflare Turnstile token
   const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
