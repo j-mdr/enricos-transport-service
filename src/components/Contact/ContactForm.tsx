@@ -5,9 +5,7 @@ interface Labels {
   formTitle: string;
   firstNameLabel: string;
   lastNameLabel: string;
-  addressLabel: string;
   emailLabel: string;
-  phoneLabel: string;
   descriptionLabel: string;
   fileUploadLabel: string;
   submitButtonText: string;
@@ -50,7 +48,10 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
     } catch {
       setStatus("error");
     }
-    setTimeout(() => messageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 0);
+    setTimeout(
+      () => messageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }),
+      0,
+    );
   }
 
   return (
@@ -58,7 +59,9 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
       <h2 className="h2">{labels.formTitle}</h2>
 
       {status === "success" ? (
-        <p ref={messageRef} className="mt-6 text-green-600">{labels.successMessage}</p>
+        <p ref={messageRef} className="mt-6 text-green-600">
+          {labels.successMessage}
+        </p>
       ) : (
         <form ref={formRef} onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
           {/* Voornaam + Achternaam */}
@@ -91,21 +94,6 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
             </div>
           </div>
 
-          {/* Adres */}
-          <div className="flex flex-col gap-1">
-            <label htmlFor="address" className="form__label">
-              {labels.addressLabel} <span className="text-red-600">*</span>
-            </label>
-            <input
-              type="text"
-              className="form__input"
-              name="address"
-              id="address"
-              placeholder={labels.addressLabel}
-              required
-            />
-          </div>
-
           {/* Emailadres */}
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="form__label">
@@ -122,26 +110,10 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
             />
           </div>
 
-          {/* Telefoonnummer */}
-          <div className="flex flex-col gap-1">
-            <label htmlFor="phone" className="form__label">
-              {labels.phoneLabel} <span className="text-red-600">*</span>
-            </label>
-            <input
-              type="tel"
-              className="form__input"
-              name="phone"
-              id="phone"
-              inputMode="tel"
-              placeholder={labels.phoneLabel}
-              required
-            />
-          </div>
-
-          {/* Beschrijving (optioneel) */}
+          {/* Beschrijving */}
           <div className="flex flex-col gap-1">
             <label htmlFor="description" className="form__label">
-              {labels.descriptionLabel}
+              {labels.descriptionLabel} <span className="text-red-600">*</span>
             </label>
             <textarea
               className="form__input"
@@ -149,6 +121,7 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
               id="description"
               rows={4}
               placeholder={labels.descriptionLabel}
+              required
             />
           </div>
 
@@ -170,7 +143,11 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
 
           <Turnstile siteKey={turnstileSiteKey} onSuccess={(token) => setTurnstileToken(token)} />
 
-          {status === "error" && <p ref={messageRef} className="text-red-600">{labels.errorMessage}</p>}
+          {status === "error" && (
+            <p ref={messageRef} className="text-red-600">
+              {labels.errorMessage}
+            </p>
+          )}
 
           <button
             type="submit"

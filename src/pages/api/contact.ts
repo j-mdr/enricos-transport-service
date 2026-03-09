@@ -11,9 +11,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   const turnstileToken = formData.get("cf-turnstile-response") as string;
   const firstName = (formData.get("firstName") as string) ?? "";
   const lastName = (formData.get("lastName") as string) ?? "";
-  const address = (formData.get("address") as string) ?? "";
   const email = (formData.get("email") as string) ?? "";
-  const phone = (formData.get("phone") as string) ?? "";
   const description = (formData.get("description") as string) ?? "";
   const file = formData.get("file") as File | null;
 
@@ -38,12 +36,10 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     subject: `Nieuw contactformulier van ${firstName} ${lastName}`,
     replyTo: email,
     name: `${firstName} ${lastName}`,
-    $fields: ["firstName", "lastName", "address", "email", "phone", "description"],
+    $fields: ["firstName", "lastName", "email", "description"],
     firstName,
     lastName,
-    address,
     email,
-    phone,
     message: description,
   };
 
