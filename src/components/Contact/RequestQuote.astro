@@ -78,4 +78,9 @@ const resolvedLabels = {
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
 ---
 
-<RequestQuoteReact labels={resolvedLabels} turnstileSiteKey={turnstileSiteKey} client:load />
+<RequestQuoteReact
+  labels={resolvedLabels}
+  turnstileSiteKey={turnstileSiteKey}
+  locale={locale}
+  client:only="react"
+/>
