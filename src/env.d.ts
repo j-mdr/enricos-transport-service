@@ -4,6 +4,7 @@
 type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
 
 interface Env {
+  PUBLIC_TURNSTILE_SITE_KEY: string;
   TURNSTILE_SECRET_KEY: string;
   STATICFORMS_ACCESS_KEY: string;
 }
