@@ -1,4 +1,5 @@
 export const prerender = false;
+import { getSecret } from "astro:env/server";
 
 interface ContactPayload {
   "cf-turnstile-response": string;
@@ -31,7 +32,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      secret: import.meta.env.TURNSTILE_SECRET_KEY,
+      secret: getSecret('TURNSTILE_SECRET_KEY'),
       response: turnstileToken,
     }),
   });
@@ -43,7 +44,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   // Build StaticForms payload
   // The recipient email is configured in your StaticForms dashboard (linked to the access key).
   const payload: Record<string, unknown> = {
-    accessKey: import.meta.env.STATICFORMS_ACCESS_KEY,
+    accessKey: getSecret('STATICFORMS_ACCESS_KEY'),
     subject: `Nieuw contactformulier van ${firstName} ${lastName}`,
     replyTo: email,
     name: `${firstName} ${lastName}`,
