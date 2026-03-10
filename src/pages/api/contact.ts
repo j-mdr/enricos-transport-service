@@ -24,6 +24,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   const description = body.description ?? "";
   const file = body.file ?? null;
   console.log("STATICFORMS_ACCESS_KEY: ", STATICFORMS_ACCESS_KEY);
+  console.log("TURNSTILE_SECRET_KEY: ", TURNSTILE_SECRET_KEY);
   console.log("turnstileToken: ", turnstileToken);
 
   // Verify Cloudflare Turnstile token
