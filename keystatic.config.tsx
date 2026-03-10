@@ -17,12 +17,11 @@ import Collections from "@components/KeystaticComponents/Collections";
 
 export default config({
   // works in local mode in dev, then cloud mode in prod
-  storage:    import.meta.env.DEV === true
-    ? { kind: "local" } : { kind: "github",pathPrefix: 'prod', repo: "j-mdr/enricos-transport-service" },
+  storage: { kind: "github",pathPrefix: 'prod', repo: "j-mdr/enricos-transport-service" },
   // cloud deployment is free to sign up (up to 3 users per team)
   // docs: https://keystatic.com/docs/cloud
   // create a Keystatic Cloud account here: https://keystatic.cloud/
-  cloud: { project: "cosmic-themes/stellar" },
+  // cloud: { project: "cosmic-themes/stellar" },
   ui: {
     brand: { name: "Enrico's transportservice" },
     navigation: {
