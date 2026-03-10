@@ -23,6 +23,8 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   const email = body.email ?? "";
   const description = body.description ?? "";
   const file = body.file ?? null;
+  console.log("import.meta.env.TURNSTILE_SECRET_KEY: ", import.meta.env.TURNSTILE_SECRET_KEY);
+  console.log("turnstileToken: ", turnstileToken);
 
   // Verify Cloudflare Turnstile token
   const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
