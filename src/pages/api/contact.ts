@@ -1,5 +1,3 @@
-import { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } from "astro:env/server";
-
 interface ContactPayload {
   "cf-turnstile-response": string;
   firstName: string;
@@ -23,8 +21,8 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   const email = body.email ?? "";
   const description = body.description ?? "";
   const file = body.file ?? null;
-  console.log("STATICFORMS_ACCESS_KEY: ", STATICFORMS_ACCESS_KEY);
-  console.log("TURNSTILE_SECRET_KEY: ", TURNSTILE_SECRET_KEY);
+  console.log("STATICFORMS_ACCESS_KEY: ", import.meta.env.STATICFORMS_ACCESS_KEY);
+  console.log("TURNSTILE_SECRET_KEY: ", import.meta.env.TURNSTILE_SECRET_KEY);
   console.log("turnstileToken: ", turnstileToken);
 
   // Verify Cloudflare Turnstile token
@@ -32,7 +30,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      secret: TURNSTILE_SECRET_KEY,
+      secret: import.meta.env.TURNSTILE_SECRET_KEY,
       response: turnstileToken,
     }),
   });
@@ -44,7 +42,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   // Build StaticForms payload
   // The recipient email is configured in your StaticForms dashboard (linked to the access key).
   const payload: Record<string, unknown> = {
-    accessKey: STATICFORMS_ACCESS_KEY,
+    accessKey: import.meta.env.STATICFORMS_ACCESS_KEY,
     subject: `Nieuw contactformulier van ${firstName} ${lastName}`,
     replyTo: email,
     name: `${firstName} ${lastName}`,

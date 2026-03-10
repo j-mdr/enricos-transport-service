@@ -2,8 +2,6 @@
 import { getLocaleFromUrl } from "@utils/localeUtils";
 import { getRequestQuoteLabels } from "@utils/requestQuote";
 import RequestQuoteReact from "./RequestQuote";
-import { PUBLIC_TURNSTILE_SITE_KEY } from "astro:env/client";
-
 
 const locale = getLocaleFromUrl(Astro.url);
 const labels = await getRequestQuoteLabels(locale);
@@ -77,7 +75,7 @@ const resolvedLabels = {
       : "Something went wrong. Please try again later."),
 };
 
-const turnstileSiteKey = PUBLIC_TURNSTILE_SITE_KEY?? "";
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?? "";
 ---
 
 <RequestQuoteReact

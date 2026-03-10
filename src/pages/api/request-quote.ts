@@ -1,6 +1,4 @@
 export const prerender = false;
-import { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } from "astro:env/server";
-
 
 interface QuotePayload {
   "cf-turnstile-response": string;
@@ -41,7 +39,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      secret: TURNSTILE_SECRET_KEY,
+      secret: import.meta.env.TURNSTILE_SECRET_KEY,
       response: turnstileToken,
     }),
   });
@@ -52,7 +50,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
 
   // Build StaticForms payload
   const payload: Record<string, unknown> = {
-    accessKey: STATICFORMS_ACCESS_KEY,
+    accessKey: import.meta.env.STATICFORMS_ACCESS_KEY,
     subject: `Nieuwe offerteaanvraag van ${firstName} ${lastName}`,
     replyTo: email,
     name: `${firstName} ${lastName}`,
