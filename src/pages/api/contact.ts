@@ -7,7 +7,13 @@ interface ContactPayload {
   file?: { name: string; data: string; type: string } | null;
 }
 
-export async function POST({ request }: { request: Request }): Promise<Response> {
+export async function POST({
+  request,
+  locals,
+}: {
+  request: Request;
+  locals: App.Locals;
+}): Promise<Response> {
   let body: ContactPayload;
   try {
     body = (await request.json()) as ContactPayload;
@@ -21,16 +27,15 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   const email = body.email ?? "";
   const description = body.description ?? "";
   const file = body.file ?? null;
-  console.log("STATICFORMS_ACCESS_KEY: ", import.meta.env.STATICFORMS_ACCESS_KEY);
-  console.log("TURNSTILE_SECRET_KEY: ", import.meta.env.TURNSTILE_SECRET_KEY);
-  console.log("turnstileToken: ", turnstileToken);
+
+  const { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } = locals.runtime.env;
 
   // Verify Cloudflare Turnstile token
   const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      secret: import.meta.env.TURNSTILE_SECRET_KEY,
+      secret: TURNSTILE_SECRET_KEY,
       response: turnstileToken,
     }),
   });
@@ -42,7 +47,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   // Build StaticForms payload
   // The recipient email is configured in your StaticForms dashboard (linked to the access key).
   const payload: Record<string, unknown> = {
-    accessKey: import.meta.env.STATICFORMS_ACCESS_KEY,
+    accessKey: STATICFORMS_ACCESS_KEY,
     subject: `Nieuw contactformulier van ${firstName} ${lastName}`,
     replyTo: email,
     name: `${firstName} ${lastName}`,

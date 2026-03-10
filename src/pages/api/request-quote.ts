@@ -14,7 +14,13 @@ interface QuotePayload {
   urgent?: boolean;
 }
 
-export async function POST({ request }: { request: Request }): Promise<Response> {
+export async function POST({
+  request,
+  locals,
+}: {
+  request: Request;
+  locals: App.Locals;
+}): Promise<Response> {
   let body: QuotePayload;
   try {
     body = (await request.json()) as QuotePayload;
@@ -34,12 +40,14 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   const transportDate = body.transportDate ?? "";
   const urgent = body.urgent ? "Ja" : "Nee";
 
+  const { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } = locals.runtime.env;
+
   // Verify Cloudflare Turnstile token
   const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      secret: import.meta.env.TURNSTILE_SECRET_KEY,
+      secret: TURNSTILE_SECRET_KEY,
       response: turnstileToken,
     }),
   });
@@ -50,7 +58,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
 
   // Build StaticForms payload
   const payload: Record<string, unknown> = {
-    accessKey: import.meta.env.STATICFORMS_ACCESS_KEY,
+    accessKey: STATICFORMS_ACCESS_KEY,
     subject: `Nieuwe offerteaanvraag van ${firstName} ${lastName}`,
     replyTo: email,
     name: `${firstName} ${lastName}`,
