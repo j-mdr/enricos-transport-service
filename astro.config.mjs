@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
@@ -17,6 +17,25 @@ export default defineConfig({
   adapter: cloudflare({
     platformProxy: { enabled: true },
   }),
+  env: {
+    schema: {
+      PUBLIC_TURNSTILE_SITE_KEY: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
+      }),
+      TURNSTILE_SECRET_KEY: envField.number({
+        context: "server",
+        access: "secret",
+        optional: false,
+      }),
+      STATICFORMS_ACCESS_KEY: envField.string({
+        context: "server",
+        access: "secret",
+        optional: false,
+      }),
+    },
+  },
   redirects: {
     "/admin/": "/keystatic/",
   },
