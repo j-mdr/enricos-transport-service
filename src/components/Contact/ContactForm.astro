@@ -3,6 +3,7 @@ import { getLocaleFromUrl } from "@utils/localeUtils";
 import { getContactFormLabels } from "@utils/contactForm";
 import { getCompanyInfo } from "@utils/companyInfo";
 import ContactFormReact from "./ContactForm";
+import { PUBLIC_TURNSTILE_SITE_KEY } from "astro:env/client";
 
 const locale = getLocaleFromUrl(Astro.url);
 const labels = await getContactFormLabels(locale);
@@ -30,7 +31,7 @@ const resolvedLabels = {
       : "Something went wrong. Please try again later."),
 };
 
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
+const turnstileSiteKey = PUBLIC_TURNSTILE_SITE_KEY ?? "";
 ---
 
 <ContactFormReact labels={resolvedLabels} turnstileSiteKey={turnstileSiteKey} client:load />

@@ -1,4 +1,4 @@
-export const prerender = false;
+import { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } from "astro:env/server";
 
 interface QuotePayload {
   "cf-turnstile-response": string;
@@ -16,7 +16,6 @@ interface QuotePayload {
 
 export async function POST({
   request,
-  locals,
 }: {
   request: Request;
   locals: App.Locals;
@@ -39,8 +38,6 @@ export async function POST({
   const sizeWeight = body.sizeWeight ?? "";
   const transportDate = body.transportDate ?? "";
   const urgent = body.urgent ? "Ja" : "Nee";
-
-  const { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } = locals.runtime.env;
 
   // Verify Cloudflare Turnstile token
   const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
