@@ -16,7 +16,7 @@ Should you need any assistance, send me a message at support@cosmicthemes.com
 I have created a few code tours to help introduce you to the codebase. You will need the extension [Code Tour](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) to view them in VSCode.
 
 The source files have the following setup. Note that not all files are included - it is already long, no one wants it to be longer.
-
+ test
 ```
 .
 ├── .tours/
