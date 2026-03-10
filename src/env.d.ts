@@ -9,7 +9,6 @@ interface Env {
   STATICFORMS_ACCESS_KEY: string;
 }
 
-
 declare namespace App {
   interface Locals extends Runtime {}
 }
