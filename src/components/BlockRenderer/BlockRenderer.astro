@@ -27,6 +27,7 @@ import IntroSection from "@components/Content/IntroSection.astro";
 import AwardsSection from "@components/Awards/AwardsSection.astro";
 import ContactSection from "@components/Contact/ContactSection.astro";
 import RequestQuoteSection from "@components/Contact/RequestQuoteSection.astro";
+import BecomePartnerSection from "@components/Contact/BecomePartnerSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
 interface Block {
@@ -145,6 +146,10 @@ const { blocks } = Astro.props;
       {block.discriminant === "requestQuoteSection" &&
         (block.value as { sectionSet?: string | null })?.sectionSet && (
           <RequestQuoteSection sectionSet={(block.value as { sectionSet: string }).sectionSet} />
+        )}
+      {block.discriminant === "becomePartnerSection" &&
+        (block.value as { sectionSet?: string | null })?.sectionSet && (
+          <BecomePartnerSection sectionSet={(block.value as { sectionSet: string }).sectionSet} />
         )}
       {block.discriminant === "richText" && block.value && (
         <div class="site-container my-16">

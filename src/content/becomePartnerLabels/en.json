@@ -1,0 +1,18 @@
+{
+  "formTitle": "",
+  "firstNameLabel": "",
+  "lastNameLabel": "",
+  "companyLabel": "",
+  "locationLabel": "",
+  "emailLabel": "",
+  "phoneLabel": "",
+  "vehicleTypeLabel": "",
+  "availabilityLabel": "",
+  "niwoLabel": "",
+  "adrLabel": "",
+  "transportInsuranceLabel": "",
+  "messageLabel": "",
+  "submitButtonText": "",
+  "successMessage": "",
+  "errorMessage": ""
+}

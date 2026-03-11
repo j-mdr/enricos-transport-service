@@ -1,0 +1,53 @@
+---
+import { getLocaleFromUrl } from "@utils/localeUtils";
+import { getBecomePartnerLabels } from "@utils/becomePartner";
+import BecomePartnerFormReact from "./BecomePartnerForm";
+import { PUBLIC_TURNSTILE_SITE_KEY } from "astro:env/client";
+
+const locale = getLocaleFromUrl(Astro.url);
+const labels = await getBecomePartnerLabels(locale);
+
+// Fallback labels indien singleton leeg is
+const resolvedLabels = {
+  formTitle:
+    labels?.formTitle ??
+    (locale === "nl" ? "Aanmelden als onderaannemer" : "Register as subcontractor"),
+  firstNameLabel: labels?.firstNameLabel ?? (locale === "nl" ? "Voornaam" : "First Name"),
+  lastNameLabel: labels?.lastNameLabel ?? (locale === "nl" ? "Achternaam" : "Last Name"),
+  companyLabel: labels?.companyLabel ?? (locale === "nl" ? "Bedrijf" : "Company"),
+  locationLabel: labels?.locationLabel ?? (locale === "nl" ? "Locatie" : "Location"),
+  emailLabel: labels?.emailLabel ?? (locale === "nl" ? "Emailadres" : "Email Address"),
+  phoneLabel: labels?.phoneLabel ?? (locale === "nl" ? "Telefoonnummer" : "Phone Number"),
+  vehicleTypeLabel:
+    labels?.vehicleTypeLabel ?? (locale === "nl" ? "Type voertuig" : "Vehicle Type"),
+  availabilityLabel:
+    labels?.availabilityLabel ?? (locale === "nl" ? "Uren per week" : "Hours per week"),
+  niwoLabel: labels?.niwoLabel ?? "NIWO",
+  adrLabel: labels?.adrLabel ?? "ADR",
+  transportInsuranceLabel:
+    labels?.transportInsuranceLabel ??
+    (locale === "nl" ? "Transportverzekering" : "Transport Insurance"),
+  messageLabel:
+    labels?.messageLabel ?? (locale === "nl" ? "Bericht (optioneel)" : "Message (optional)"),
+  submitButtonText: labels?.submitButtonText ?? (locale === "nl" ? "Aanmelden" : "Register"),
+  successMessage:
+    labels?.successMessage ??
+    (locale === "nl"
+      ? "Bedankt voor uw aanmelding! We nemen zo snel mogelijk contact met u op."
+      : "Thank you for registering! We will get back to you as soon as possible."),
+  errorMessage:
+    labels?.errorMessage ??
+    (locale === "nl"
+      ? "Er is iets misgegaan. Probeer het later opnieuw."
+      : "Something went wrong. Please try again later."),
+};
+
+const turnstileSiteKey = PUBLIC_TURNSTILE_SITE_KEY ?? "";
+---
+
+<BecomePartnerFormReact
+  labels={resolvedLabels}
+  turnstileSiteKey={turnstileSiteKey}
+  locale={locale}
+  client:only="react"
+/>

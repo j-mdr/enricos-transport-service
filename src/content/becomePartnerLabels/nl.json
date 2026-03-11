@@ -1,0 +1,16 @@
+{
+  "formTitle": "Aanmeldformulier",
+  "firstNameLabel": "Voornaam",
+  "lastNameLabel": "Achternam",
+  "companyLabel": "Bedrijfnaam",
+  "locationLabel": "Locatie",
+  "emailLabel": "Emailadres",
+  "phoneLabel": "Telefoonnummer",
+  "vehicleTypeLabel": "Type voertuig",
+  "availabilityLabel": "Beschikbaarheid",
+  "niwoLabel": "NIWO",
+  "adrLabel": "ADR",
+  "transportInsuranceLabel": "Transportverzekering",
+  "messageLabel": "Bericht",
+  "submitButtonText": "Aanmelden"
+}

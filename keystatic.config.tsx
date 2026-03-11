@@ -71,6 +71,8 @@ export default config({
         "awardsSectionEN",
         "requestQuoteSectionNL",
         "requestQuoteSectionEN",
+        "becomePartnerSectionNL",
+        "becomePartnerSectionEN",
       ],
       "Globale instellingen": [
         "navNL",
@@ -81,6 +83,8 @@ export default config({
         "contactFormLabelsEN",
         "requestQuoteLabelsNL",
         "requestQuoteLabelsEN",
+        "becomePartnerLabelsNL",
+        "becomePartnerLabelsEN",
         "companyInfoNL",
         "companyInfoEN",
         "labelsNL",
@@ -97,6 +101,8 @@ export default config({
     contactFormLabelsEN: Collections.ContactFormLabels("en"),
     requestQuoteLabelsNL: Collections.RequestQuoteLabels("nl"),
     requestQuoteLabelsEN: Collections.RequestQuoteLabels("en"),
+    becomePartnerLabelsNL: Collections.BecomePartnerLabels("nl"),
+    becomePartnerLabelsEN: Collections.BecomePartnerLabels("en"),
     companyInfoNL: Collections.CompanyInfo("nl"),
     companyInfoEN: Collections.CompanyInfo("en"),
     labelsNL: Collections.Labels("nl"),
@@ -173,5 +179,8 @@ export default config({
 
     requestQuoteSectionNL: Collections.RequestQuoteSectionData("nl"),
     requestQuoteSectionEN: Collections.RequestQuoteSectionData("en"),
+
+    becomePartnerSectionNL: Collections.BecomePartnerSection("nl"),
+    becomePartnerSectionEN: Collections.BecomePartnerSection("en"),
   },
 });

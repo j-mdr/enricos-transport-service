@@ -1,5 +1,5 @@
 {
-  "title": "Parter worden",
+  "title": "Parter{highlight} worden",
   "description": "Word partner van ons",
   "mappingKey": "partner-worden",
   "template": "BaseLayout",
@@ -11,6 +11,12 @@
       "value": {
         "title": "Partner worden",
         "introText": "intro tekst.."
+      }
+    },
+    {
+      "discriminant": "becomePartnerSection",
+      "value": {
+        "sectionSet": "home"
       }
     }
   ]

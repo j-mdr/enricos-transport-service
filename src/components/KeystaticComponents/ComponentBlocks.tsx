@@ -22,6 +22,7 @@ import KeystaticIntroSection from "./KeystaticIntroSection";
 import KeystaticAwardsSection from "./KeystaticAwardsSection";
 import KeystaticContactFormSection from "./KeystaticContactFormSection";
 import KeystaticRequestQuoteSectionBlock from "./KeystaticRequestQuoteSectionBlock";
+import KeystaticBecomePartnerSectionBlock from "./KeystaticBecomePartnerSectionBlock";
 
 const Admonition = wrapper({
   label: "Admonition",
@@ -383,6 +384,20 @@ const RequestQuoteSectionBlock = (locale: "nl" | "en") =>
     },
   });
 
+const BecomePartnerSectionBlock = (locale: "nl" | "en") =>
+  block({
+    label: "Partner aanmelding sectie (BecomePartnerSection)",
+    ContentView: (props) => (
+      <KeystaticBecomePartnerSectionBlock sectionSet={props.value.sectionSet} />
+    ),
+    schema: {
+      sectionSet: fields.relationship({
+        label: "Set",
+        collection: locale === "nl" ? "becomePartnerSectionNL" : "becomePartnerSectionEN",
+      }),
+    },
+  });
+
 export default {
   Admonition,
   ContactFormSection,
@@ -408,4 +423,5 @@ export default {
   IntroSection,
   AwardsSection,
   RequestQuoteSectionBlock,
+  BecomePartnerSectionBlock,
 };

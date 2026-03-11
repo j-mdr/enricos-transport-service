@@ -63,6 +63,10 @@ const pageBlocks = (locale: Locale) =>
             value: "requestQuoteSection",
             label: "Offerte sectie met afbeelding (RequestQuoteSection)",
           },
+          {
+            value: "becomePartnerSection",
+            label: "Partner aanmelding sectie (BecomePartnerSection)",
+          },
           { value: "teamMemberCards", label: "Team Leden Kaarten (TeamMemberCardsSection)" },
           {
             value: "testimonialsColumns",
@@ -194,6 +198,12 @@ const pageBlocks = (locale: Locale) =>
             collection: locale === "nl" ? "requestQuoteSectionNL" : "requestQuoteSectionEN",
           }),
         }),
+        becomePartnerSection: fields.object({
+          sectionSet: fields.relationship({
+            label: "Set",
+            collection: locale === "nl" ? "becomePartnerSectionNL" : "becomePartnerSectionEN",
+          }),
+        }),
         teamMemberCards: fields.object({
           teamSet: fields.relationship({
             label: "Team Set",
@@ -322,6 +332,7 @@ const Blog = (locale: (typeof locales)[number]) =>
           TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
           IntroSection: ComponentBlocks.IntroSection(locale),
           AwardsSection: ComponentBlocks.AwardsSection(locale),
+          BecomePartnerSectionBlock: ComponentBlocks.BecomePartnerSectionBlock(locale),
         },
       }),
     },
@@ -479,6 +490,7 @@ const Services = (locale: (typeof locales)[number]) =>
           TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
           IntroSection: ComponentBlocks.IntroSection(locale),
           AwardsSection: ComponentBlocks.AwardsSection(locale),
+          BecomePartnerSectionBlock: ComponentBlocks.BecomePartnerSectionBlock(locale),
         },
       }),
     },
@@ -567,6 +579,7 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
           TeamMemberCardsSection: ComponentBlocks.TeamMemberCardsSection(locale),
           IntroSection: ComponentBlocks.IntroSection(locale),
           AwardsSection: ComponentBlocks.AwardsSection(locale),
+          BecomePartnerSectionBlock: ComponentBlocks.BecomePartnerSectionBlock(locale),
         },
       }),
     },
@@ -1213,6 +1226,56 @@ const RequestQuoteLabels = (locale: Locale) =>
   });
 
 /**
+ * * BecomePartnerSection collection
+ * Stores the title and image for the BecomePartnerSection block.
+ */
+const BecomePartnerSection = (locale: Locale) =>
+  collection({
+    label: `Partner aanmelding sectie (${locale.toUpperCase()})`,
+    slugField: "title",
+    path: `src/content/becomePartnerSection/${locale}/*/`,
+    format: { data: "json" },
+    schema: {
+      title: fields.slug({ name: { label: "Titel" } }),
+      image: fields.image({
+        label: "Afbeelding",
+        publicPath: "../",
+        validation: { isRequired: true },
+      }),
+      imageAlt: fields.text({ label: "Afbeelding alt tekst", validation: { isRequired: true } }),
+    },
+  });
+
+/**
+ * * BecomePartnerLabels singleton
+ * Only stores editable labels/teksten voor het partner aanmelding formulier per locale.
+ */
+const BecomePartnerLabels = (locale: Locale) =>
+  singleton({
+    label: `Partner aanmelding labels (${locale.toUpperCase()})`,
+    path: `src/content/becomePartnerLabels/${locale}`,
+    format: { data: "json" },
+    schema: {
+      formTitle: fields.text({ label: "Formulier titel" }),
+      firstNameLabel: fields.text({ label: "Voornaam label" }),
+      lastNameLabel: fields.text({ label: "Achternaam label" }),
+      companyLabel: fields.text({ label: "Bedrijf label" }),
+      locationLabel: fields.text({ label: "Locatie label" }),
+      emailLabel: fields.text({ label: "Emailadres label" }),
+      phoneLabel: fields.text({ label: "Telefoonnummer label" }),
+      vehicleTypeLabel: fields.text({ label: "Type voertuig label" }),
+      availabilityLabel: fields.text({ label: "Beschikbaarheid label" }),
+      niwoLabel: fields.text({ label: "NIWO label" }),
+      adrLabel: fields.text({ label: "ADR label" }),
+      transportInsuranceLabel: fields.text({ label: "Transportverzekering label" }),
+      messageLabel: fields.text({ label: "Bericht label" }),
+      submitButtonText: fields.text({ label: "Knop tekst" }),
+      successMessage: fields.text({ label: "Succesbericht", multiline: true }),
+      errorMessage: fields.text({ label: "Foutmelding", multiline: true }),
+    },
+  });
+
+/**
  * * Footer singleton
  * Editable footer data per locale. companyName falls back to CompanyInfo.name if empty.
  */
@@ -1261,4 +1324,6 @@ export default {
   IntroSection,
   AwardsSection,
   RequestQuoteSectionData,
+  BecomePartnerSection,
+  BecomePartnerLabels,
 };
