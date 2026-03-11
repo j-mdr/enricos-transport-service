@@ -1,4 +1,7 @@
-import { useState, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Turnstile } from "@marsidev/react-turnstile";
 
 interface Labels {
@@ -16,25 +19,61 @@ interface Labels {
 interface Props {
   labels: Labels;
   turnstileSiteKey: string;
+  locale: "nl" | "en";
 }
 
-export default function ContactForm({ labels, turnstileSiteKey }: Props) {
+const messages = {
+  nl: {
+    required: "Dit veld is verplicht.",
+    emailInvalid: "Vul een geldig emailadres in.",
+    turnstileFailed: "CAPTCHA verificatie mislukt. Ververs de pagina en probeer opnieuw.",
+    turnstileExpired: "CAPTCHA is verlopen. Verifieer opnieuw hierboven.",
+  },
+  en: {
+    required: "This field is required.",
+    emailInvalid: "Please enter a valid email address.",
+    turnstileFailed: "CAPTCHA verification failed. Refresh the page and try again.",
+    turnstileExpired: "CAPTCHA has expired. Please verify again above.",
+  },
+} as const;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function buildSchema(locale: "nl" | "en") {
+  const m = messages[locale];
+  return z.object({
+    firstName: z.string().min(1, m.required),
+    lastName: z.string().min(1, m.required),
+    email: z.string().min(1, m.required).regex(EMAIL_RE, m.emailInvalid),
+    description: z.string().min(1, m.required),
+  });
+}
+
+export default function ContactForm({ labels, turnstileSiteKey, locale }: Props) {
   const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const [turnstileFailed, setTurnstileFailed] = useState(false);
+  const [turnstileExpired, setTurnstileExpired] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [fileName, setFileName] = useState<string>("");
-  const formRef = useRef<HTMLFormElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLParagraphElement>(null);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!turnstileToken) return;
+  const m = messages[locale];
+  const schema = useMemo(() => buildSchema(locale), [locale]);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
+  async function onSubmit(data: z.infer<ReturnType<typeof buildSchema>>) {
+    if (!turnstileToken) return;
     setStatus("loading");
 
-    const form = e.currentTarget;
-    const rawData = new FormData(form);
-
-    const fileInput = rawData.get("file") as File | null;
+    const fileInput = fileRef.current?.files?.[0] ?? null;
     let filePayload: { name: string; data: string; type: string } | null = null;
     if (fileInput && fileInput.size > 0) {
       const buffer = await fileInput.arrayBuffer();
@@ -44,14 +83,7 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
       filePayload = { name: fileInput.name, data: btoa(binary), type: fileInput.type };
     }
 
-    const payload = {
-      "cf-turnstile-response": turnstileToken,
-      firstName: rawData.get("firstName") as string,
-      lastName: rawData.get("lastName") as string,
-      email: rawData.get("email") as string,
-      description: rawData.get("description") as string,
-      file: filePayload,
-    };
+    const payload = { ...data, file: filePayload, "cf-turnstile-response": turnstileToken };
 
     try {
       const res = await fetch("/api/contact", {
@@ -59,12 +91,13 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await res.json()) as { success?: boolean; error?: string };
+      const json = (await res.json()) as { success?: boolean; error?: string };
 
-      if (res.ok && data.success) {
+      if (res.ok && json.success) {
         setStatus("success");
-        formRef.current?.reset();
+        reset();
         setFileName("");
+        if (fileRef.current) fileRef.current.value = "";
       } else {
         setStatus("error");
       }
@@ -86,7 +119,7 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
           {labels.successMessage}
         </p>
       ) : (
-        <form ref={formRef} onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex flex-col gap-4">
           {/* Voornaam + Achternaam */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-1">
@@ -96,11 +129,13 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
               <input
                 type="text"
                 className="form__input"
-                name="firstName"
                 id="firstName"
                 placeholder={labels.firstNameLabel}
-                required
+                {...register("firstName")}
               />
+              {errors.firstName && (
+                <p className="text-xs text-red-600">{errors.firstName.message}</p>
+              )}
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="lastName" className="form__label">
@@ -109,11 +144,11 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
               <input
                 type="text"
                 className="form__input"
-                name="lastName"
                 id="lastName"
                 placeholder={labels.lastNameLabel}
-                required
+                {...register("lastName")}
               />
+              {errors.lastName && <p className="text-xs text-red-600">{errors.lastName.message}</p>}
             </div>
           </div>
 
@@ -125,12 +160,12 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
             <input
               type="email"
               className="form__input"
-              name="email"
               id="email"
               inputMode="email"
               placeholder={labels.emailLabel}
-              required
+              {...register("email")}
             />
+            {errors.email && <p className="text-xs text-red-600">{errors.email.message}</p>}
           </div>
 
           {/* Beschrijving */}
@@ -140,12 +175,14 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
             </label>
             <textarea
               className="form__input"
-              name="description"
               id="description"
               rows={4}
               placeholder={labels.descriptionLabel}
-              required
+              {...register("description")}
             />
+            {errors.description && (
+              <p className="text-xs text-red-600">{errors.description.message}</p>
+            )}
           </div>
 
           {/* Bestandsupload (optioneel) */}
@@ -155,16 +192,35 @@ export default function ContactForm({ labels, turnstileSiteKey }: Props) {
             </label>
             <input
               type="file"
-              className="form__input"
-              name="file"
+              className="form__input pointer"
               id="file"
+              ref={fileRef}
               accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.webp,.zip"
               onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
             />
             {fileName && <p className="text-sm opacity-70">{fileName}</p>}
           </div>
 
-          <Turnstile siteKey={turnstileSiteKey} onSuccess={(token) => setTurnstileToken(token)} />
+          <Turnstile
+            siteKey={turnstileSiteKey}
+            onSuccess={(token) => {
+              setTurnstileToken(token);
+              setTurnstileFailed(false);
+              setTurnstileExpired(false);
+            }}
+            onError={() => {
+              setTurnstileToken("");
+              setTurnstileFailed(true);
+            }}
+            onExpire={() => {
+              setTurnstileToken("");
+              setTurnstileExpired(true);
+            }}
+          />
+          {turnstileFailed && <p className="text-sm text-red-600">{m.turnstileFailed}</p>}
+          {turnstileExpired && !turnstileFailed && (
+            <p className="text-sm text-amber-600">{m.turnstileExpired}</p>
+          )}
 
           {status === "error" && (
             <p ref={messageRef} className="text-red-600">

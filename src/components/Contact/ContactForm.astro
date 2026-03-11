@@ -34,4 +34,9 @@ const resolvedLabels = {
 const turnstileSiteKey = PUBLIC_TURNSTILE_SITE_KEY ?? "";
 ---
 
-<ContactFormReact labels={resolvedLabels} turnstileSiteKey={turnstileSiteKey} client:load />
+<ContactFormReact
+  labels={resolvedLabels}
+  turnstileSiteKey={turnstileSiteKey}
+  locale={locale}
+  client:load
+/>

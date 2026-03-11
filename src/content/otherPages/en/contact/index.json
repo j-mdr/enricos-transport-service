@@ -1,0 +1,20 @@
+{
+  "title": "Contact",
+  "description": "Contact us today",
+  "mappingKey": "contact",
+  "template": "BaseLayout",
+  "draft": false,
+  "blocks": [
+    {
+      "discriminant": "introSection",
+      "value": {
+        "title": "Contact us today{highlight}",
+        "introText": "Do you have a question about our courier services or would you like more information about a shipment? Please feel free to contact us. Our team is ready to help and is happy to think along with you about the best transport solution."
+      }
+    },
+    {
+      "discriminant": "contactForm",
+      "value": {}
+    }
+  ]
+}
