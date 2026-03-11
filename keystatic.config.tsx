@@ -17,11 +17,10 @@ import Collections from "@components/KeystaticComponents/Collections";
 
 export default config({
   // works in local mode in dev, then cloud mode in prod
-  storage: { kind: "github",pathPrefix: 'prod', repo: "j-mdr/enricos-transport-service" },
-  // cloud deployment is free to sign up (up to 3 users per team)
-  // docs: https://keystatic.com/docs/cloud
-  // create a Keystatic Cloud account here: https://keystatic.cloud/
-  // cloud: { project: "cosmic-themes/stellar" },
+  storage:
+    process.env.NODE_ENV === "development"
+      ? { kind: "local" }
+      : { kind: "github", repo: "j-mdr/enricos-transport-service" },
   ui: {
     brand: { name: "Enrico's transportservice" },
     navigation: {
@@ -90,6 +89,8 @@ export default config({
     },
   },
   singletons: {
+    navNL: Collections.Nav("nl"),
+    navEN: Collections.Nav("en"),
     footerNL: Collections.Footer("nl"),
     footerEN: Collections.Footer("en"),
     contactFormLabelsNL: Collections.ContactFormLabels("nl"),
@@ -102,9 +103,6 @@ export default config({
     labelsEN: Collections.Labels("en"),
   },
   collections: {
-    navNL: Collections.Nav("nl"),
-    navEN: Collections.Nav("en"),
-
     blogEN: Collections.Blog("en"),
     blogNL: Collections.Blog("nl"),
 

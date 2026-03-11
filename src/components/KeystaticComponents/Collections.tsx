@@ -635,7 +635,6 @@ const CtaBgImage = (locale: Locale) =>
       description: fields.text({ label: "Beschrijving", multiline: true }),
       ctaButtonText: fields.text({ label: "Knop tekst" }),
       ctaButtonHref: fields.text({ label: "Knop URL (base route, bijv. /contact)" }),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -662,7 +661,6 @@ const Faqs = (locale: Locale) =>
         }),
         { label: "FAQ items", itemLabel: (props) => props.fields.question.value || "FAQ item" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -687,7 +685,6 @@ const Hero = (locale: Locale) =>
         validation: { isRequired: true },
       }),
       imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -714,7 +711,6 @@ const HeroBg = (locale: Locale) =>
         validation: { isRequired: true },
       }),
       imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -735,7 +731,6 @@ const HeroCentered = (locale: Locale) =>
       ctaButton1Href: fields.text({ label: "CTA knop 1 URL" }),
       ctaButton2Text: fields.text({ label: "CTA knop 2 tekst (optioneel)" }),
       ctaButton2Href: fields.text({ label: "CTA knop 2 URL (optioneel)" }),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -806,7 +801,6 @@ const CtaCard = (locale: Locale) =>
       description: fields.text({ label: "Beschrijving", multiline: true }),
       ctaButtonText: fields.text({ label: "Knop tekst" }),
       ctaButtonHref: fields.text({ label: "Knop URL (base route)" }),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -832,7 +826,6 @@ const CtaCards = (locale: Locale) =>
         }),
         { label: "Kaarten", itemLabel: (props) => props.fields.title.value || "Kaart" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -856,7 +849,6 @@ const FeatureCardsSmall = (locale: Locale) =>
         }),
         { label: "Feature kaarten", itemLabel: (props) => props.fields.title.value || "Feature" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -884,7 +876,6 @@ const FeatureLightboxMarquee = (locale: Locale) =>
         }),
         { label: "Afbeeldingen", itemLabel: (props) => props.fields.alt.value || "Afbeelding" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -917,7 +908,6 @@ const FeatureSideImage = (locale: Locale) =>
         }),
         { label: "Items", itemLabel: (props) => props.fields.title.value || "Item" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -946,7 +936,6 @@ const FeatureToggleImage = (locale: Locale) =>
         }),
         { label: "Secties", itemLabel: (props) => props.fields.title.value || "Sectie" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -972,7 +961,6 @@ const ServicesIcon = (locale: Locale) =>
         }),
         { label: "Services", itemLabel: (props) => props.fields.title.value || "Service" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -1003,7 +991,6 @@ const ServicesSideImage = (locale: Locale) =>
         }),
         { label: "Services", itemLabel: (props) => props.fields.title.value || "Service" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -1025,7 +1012,6 @@ const RequestQuoteSectionData = (locale: Locale) =>
         validation: { isRequired: true },
       }),
       imageAlt: fields.text({ label: "Afbeelding alt tekst", validation: { isRequired: true } }),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -1051,7 +1037,6 @@ const AwardsSection = (locale: Locale) =>
         }),
         { label: "Awards", itemLabel: (props) => props.fields.alt.value || "Award" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -1067,7 +1052,6 @@ const IntroSection = (locale: Locale) =>
     schema: {
       title: fields.slug({ name: { label: "Titel" } }),
       introText: fields.text({ label: "Intro tekst", multiline: true }),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
@@ -1095,28 +1079,19 @@ const TeamMemberCards = (locale: Locale) =>
         }),
         { label: "Team leden", itemLabel: (props) => props.fields.name.value || "Teamlid" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 
 /**
- * * Nav collection
- * Keystatic-managed navigation per locale (links, logo, CTA button)
+ * * Nav singleton
+ * Keystatic-managed navigation per locale (links, CTA button)
  */
 const Nav = (locale: Locale) =>
-  collection({
+  singleton({
     label: `Navigatie (${locale.toUpperCase()})`,
-    slugField: "title",
-    path: `src/content/nav/${locale}/*/`,
+    path: `src/content/nav/${locale}`,
     format: { data: "json" },
     schema: {
-      title: fields.slug({ name: { label: "Naam (intern)" } }),
-      logo: fields.image({
-        label: "Logo afbeelding",
-        publicPath: "../",
-        validation: { isRequired: true },
-      }),
-      logoAlt: fields.text({ label: "Logo alt tekst", validation: { isRequired: true } }),
       ctaButton: fields.object({
         text: fields.text({ label: "Knop tekst", validation: { isRequired: true } }),
         href: fields.text({ label: "Knop URL", validation: { isRequired: true } }),
@@ -1167,7 +1142,6 @@ const Testimonials = (locale: Locale) =>
         }),
         { label: "Reviews", itemLabel: (props) => props.fields.name.value || "Review" },
       ),
-      mappingKey: fields.text({ label: "Mapping Key" }),
     },
   });
 

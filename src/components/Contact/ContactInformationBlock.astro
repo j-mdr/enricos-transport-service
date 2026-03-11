@@ -14,9 +14,12 @@ const companyInfo = await getCompanyInfo(currLocale);
   <h3 class="mt-4 mb-2 text-lg font-medium">{text("contactInformation")}</h3>
 
   <p>
-    <span class="inline-flex items-center gap-1">
-      <Icon name="tabler/compass" aria-hidden="true" class="h-4 w-4" />
-      {companyInfo?.street}
+    <span class="inline-flex items-start gap-1">
+      <Icon name="tabler/compass" aria-hidden="true" class="mt-1 h-4 w-4 shrink-0" />
+      <span>
+        <span class="block">{companyInfo?.street}</span>
+        <span class="block">{companyInfo?.zipCode} {companyInfo?.city}</span>
+      </span>
     </span>
   </p>
 

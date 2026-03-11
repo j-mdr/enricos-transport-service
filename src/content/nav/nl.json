@@ -1,0 +1,52 @@
+{
+  "ctaButton": {
+    "text": "Contact",
+    "href": "/contact"
+  },
+  "navItems": [
+    {
+      "text": "Over ons",
+      "link": "/over-ons",
+      "dropdown": []
+    },
+    {
+      "text": "Diensten",
+      "dropdown": [
+        {
+          "text": "Regulier transport",
+          "link": "/diensten/regulier-transport"
+        },
+        {
+          "text": "Incidenteel transport",
+          "link": "/diensten/incidenteel-transport"
+        },
+        {
+          "text": "Groot transport",
+          "link": "/diensten/groot-transport"
+        },
+        {
+          "text": "Spoed transport",
+          "link": "/diensten/spoed-transport"
+        },
+        {
+          "text": "Documententransport",
+          "link": "/diensten/documenten-transport"
+        },
+        {
+          "text": "Meubeltransport",
+          "link": "/diensten/meubel-transport"
+        }
+      ]
+    },
+    {
+      "text": "Partner worden",
+      "link": "/partner-worden",
+      "dropdown": []
+    },
+    {
+      "text": "Blog",
+      "link": "/blog",
+      "dropdown": []
+    }
+  ]
+}

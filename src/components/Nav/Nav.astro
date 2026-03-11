@@ -10,13 +10,12 @@ import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getNavData, getNavLogo } from "@/utils/navUtils";
+import { getNavData } from "@/utils/navUtils";
 import { locales } from "@config/siteSettings.json";
 
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = await getNavData(currLocale);
-const navLogo = await getNavLogo(currLocale);
 ---
 
 <div
@@ -29,7 +28,7 @@ const navLogo = await getNavLogo(currLocale);
       <header class="relative flex w-full items-center gap-2">
         <!-- home button / image -->
         <div class="flex flex-auto justify-start">
-          <SiteLogo logo={navLogo?.logo} logoAlt={navLogo?.logoAlt} />
+          <SiteLogo />
         </div>
 
         <div class="flex flex-auto justify-center">

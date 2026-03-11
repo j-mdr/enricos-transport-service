@@ -201,7 +201,6 @@ const heroCollection = defineCollection({
       ctaButtonHref: z.string(),
       image: image(),
       imageAlt: z.string(),
-      mappingKey: z.string().optional(),
     }),
 });
 
@@ -218,7 +217,6 @@ const heroBgCollection = defineCollection({
       ctaButton2Href: z.string().optional(),
       image: image(),
       imageAlt: z.string(),
-      mappingKey: z.string().optional(),
     }),
 });
 
@@ -232,7 +230,6 @@ const heroCenteredCollection = defineCollection({
     ctaButton1Href: z.string(),
     ctaButton2Text: z.string().optional(),
     ctaButton2Href: z.string().optional(),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -244,7 +241,6 @@ const ctaBgImageCollection = defineCollection({
     description: z.string(),
     ctaButtonText: z.string(),
     ctaButtonHref: z.string(),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -256,7 +252,6 @@ const ctaCardCollection = defineCollection({
     description: z.string(),
     ctaButtonText: z.string(),
     ctaButtonHref: z.string(),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -269,7 +264,6 @@ const ctaCardsCollection = defineCollection({
     ctaButtonText: z.string(),
     ctaButtonHref: z.string(),
     cards: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -279,7 +273,6 @@ const faqsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     faqs: z.array(z.object({ question: z.string(), answer: z.string() })),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -289,7 +282,6 @@ const featureCardsSmallCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     features: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -299,7 +291,6 @@ const featureLightboxMarqueeCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     images: z.array(z.object({ image: z.string().nullable().optional(), alt: z.string() })),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -318,7 +309,6 @@ const featureSideImageCollection = defineCollection({
           href: z.string().optional(),
         }),
       ),
-      mappingKey: z.string().optional(),
     }),
 });
 
@@ -336,7 +326,6 @@ const featureToggleImageCollection = defineCollection({
           imageAlt: z.string().optional(),
         }),
       ),
-      mappingKey: z.string().optional(),
     }),
 });
 
@@ -354,7 +343,6 @@ const servicesIconCollection = defineCollection({
         ctaButtonHref: z.string(),
       }),
     ),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -374,7 +362,6 @@ const servicesSideImageCollection = defineCollection({
           ctaButtonHref: z.string(),
         }),
       ),
-      mappingKey: z.string().optional(),
     }),
 });
 
@@ -386,7 +373,6 @@ const requestQuoteSectionCollection = defineCollection({
       title: z.string(),
       image: image(),
       imageAlt: z.string(),
-      mappingKey: z.string().optional(),
     }),
 });
 
@@ -402,7 +388,6 @@ const awardsSectionCollection = defineCollection({
           alt: z.string(),
         }),
       ),
-      mappingKey: z.string().optional(),
     }),
 });
 
@@ -412,7 +397,6 @@ const introSectionCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     introText: z.string(),
-    mappingKey: z.string().optional(),
   }),
 });
 
@@ -428,37 +412,6 @@ const teamMemberCardsCollection = defineCollection({
           name: z.string(),
           personTitle: z.string(),
           bio: z.string(),
-        }),
-      ),
-      mappingKey: z.string().optional(),
-    }),
-});
-
-// nav collection
-const navCollection = defineCollection({
-  loader: glob({ pattern: "**/index.json", base: "./src/content/nav" }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      logo: image(),
-      logoAlt: z.string(),
-      ctaButton: z.object({
-        text: z.string(),
-        href: z.string(),
-      }),
-      navItems: z.array(
-        z.object({
-          text: z.string(),
-          link: z.string().optional().default(""),
-          dropdown: z
-            .array(
-              z.object({
-                text: z.string(),
-                link: z.string(),
-              }),
-            )
-            .optional()
-            .default([]),
         }),
       ),
     }),
@@ -478,12 +431,10 @@ const testimonialsCollection = defineCollection({
           avatar: image().nullable().optional(),
         }),
       ),
-      mappingKey: z.string().optional(),
     }),
 });
 
 export const collections = {
-  nav: navCollection,
   blog: blogCollection,
   authors: authorsCollection,
   services: servicesCollection,

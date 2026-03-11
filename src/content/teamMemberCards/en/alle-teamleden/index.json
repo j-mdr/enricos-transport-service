@@ -2,14 +2,14 @@
   "title": "Meet the team",
   "teamMembers": [
     {
-      "name": "Enrico Janssen",
+      "name": "Enrico",
       "personTitle": "Founder",
       "bio": "Enrico is the founder of Enrico's Transportservice. With years of experience in the transport industry, he guarantees reliable and professional service."
     },
     {
-      "name": "Kelly Janssen",
-      "personTitle": "Co-founder",
-      "bio": "Kelly is co-founder and takes care of the administrative and organizational side of the company."
+      "name": "Kelly",
+      "personTitle": "Co-owner",
+      "bio": "Kelly is co-owner and takes care of the administrative and organizational side of the company."
     }
   ]
 }

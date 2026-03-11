@@ -4,6 +4,5 @@
   "ctaButtonText": "Offerte aanvragen",
   "ctaButtonHref": "/offerte-aanvragen",
   "image": "../home/image.jpeg",
-  "imageAlt": "Enrico Janssen in bestelbus",
-  "mappingKey": "hero-home"
+  "imageAlt": "Enrico Janssen in bestelbus"
 }

@@ -59,6 +59,6 @@
     "wrangler": "^4.71.0"
   },
   "overrides": {
-    "sharp": "^0.33.0"
+    "sharp": "^0.34.5"
   }
 }

@@ -1,17 +1,20 @@
-import { getCollection } from "astro:content";
+import { createReader } from "@keystatic/core/reader";
 import type { Locale } from "@config/siteSettings.json";
 import type { NavData, NavItem } from "@config/configDataTypes";
+import keystaticConfig from "../../keystatic.config";
+
+const reader = createReader(process.cwd(), keystaticConfig);
 
 export async function getNavData(locale: Locale): Promise<NavData> {
-  const entries = await getCollection("nav");
-  const entry = entries.find((e) => e.id === `${locale}/main`);
+  const data = await (locale === "nl"
+    ? reader.singletons.navNL.read()
+    : reader.singletons.navEN.read());
 
-  if (!entry) {
-    // fallback: return empty nav
+  if (!data) {
     return { ctaButton: { text: "", href: "" }, navItems: [] };
   }
 
-  const { ctaButton, navItems } = entry.data;
+  const { ctaButton, navItems } = data;
 
   const mappedNavItems: NavItem[] = navItems.map((item) => {
     if (item.dropdown && item.dropdown.length > 0) {
@@ -24,11 +27,4 @@ export async function getNavData(locale: Locale): Promise<NavData> {
   });
 
   return { ctaButton, navItems: mappedNavItems };
-}
-
-export async function getNavLogo(locale: Locale) {
-  const entries = await getCollection("nav");
-  const entry = entries.find((e) => e.id === `${locale}/main`);
-  if (!entry) return null;
-  return { logo: entry.data.logo, logoAlt: entry.data.logoAlt };
 }

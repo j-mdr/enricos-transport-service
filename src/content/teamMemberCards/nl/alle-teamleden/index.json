@@ -2,19 +2,14 @@
   "title": "Maak kennis met ons team",
   "teamMembers": [
     {
-      "name": "Enrico Janssen",
+      "name": "Enrico",
       "personTitle": "Oprichter",
       "bio": "Enrico is de oprichter van Enrico's Transportservice. Met jarenlange ervaring in de transportsector staat hij garant voor betrouwbare en professionele service."
     },
     {
-      "name": "Kelly Janssen",
-      "personTitle": "Medeoprichter",
-      "bio": "Kelly is mede-oprichter en zorgt voor de administratieve en organisatorische kant van het bedrijf."
-    },
-    {
-      "name": "Vacant",
-      "personTitle": "Solliciteren?",
-      "bio": "Vul het contactformulier in en voeg uw CV en motivatie toe."
+      "name": "Kelly",
+      "personTitle": "Mede eigenaar",
+      "bio": "Kelly is mede eigenaar en zorgt voor de administratieve en organisatorische kant van het bedrijf."
     }
   ]
 }

@@ -4,6 +4,5 @@
   "ctaButtonText": "Get quote",
   "ctaButtonHref": "/en/request-quote",
   "image": "../home/image.jpeg",
-  "imageAlt": "Enrico Janssen sitting in a delivery van",
-  "mappingKey": "hero-home"
+  "imageAlt": "Enrico Janssen sitting in a delivery van"
 }

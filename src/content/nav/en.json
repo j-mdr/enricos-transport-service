@@ -1,7 +1,4 @@
 {
-  "title": "main",
-  "logo": "logo.webp",
-  "logoAlt": "Enrico's Transportservice logo",
   "ctaButton": {
     "text": "Contact us",
     "href": "/en/contact"

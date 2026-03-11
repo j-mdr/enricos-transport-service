@@ -13,10 +13,8 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://stellar.cosmicthemes.com",
-  adapter: cloudflare({
-    platformProxy: { enabled: true },
-  }),
+  site: "https://enricostransportservice.nl",
+  adapter: cloudflare(),
   env: {
     schema: {
       PUBLIC_TURNSTILE_SITE_KEY: envField.string({
@@ -78,6 +76,13 @@ export default defineConfig({
   ],
   output: "server",
   vite: {
+    // resolve: {
+    //   // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
+    //   // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
+    //   alias: import.meta.env.PROD && {
+    //     "react-dom/server": "react-dom/server.edge",
+    //   },
+    // },
     plugins: [tailwindcss()],
     // stop inlining short scripts to fix issues with ClientRouter
     build: {

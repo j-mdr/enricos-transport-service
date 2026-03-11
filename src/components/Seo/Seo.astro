@@ -36,7 +36,8 @@ const { type, title, description, image, noindex = false } = Astro.props as GenP
 
 let optimizedImage;
 let jsonLD;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const siteBase = new URL(companyInfo?.baseUrl ?? Astro.site ?? "");
+const canonicalUrl = new URL(Astro.url.pathname, siteBase);
 
 if (image) {
   optimizedImage = await getImage({
@@ -78,8 +79,7 @@ function trimEndSlash(str: string) {
 }
 
 // put together the image URL
-const imageUrl =
-  trimEndSlash(Astro.site?.toString() || "") + (optimizedImage?.src || DEFAULT_IMAGE.src);
+const imageUrl = trimEndSlash(siteBase.toString()) + (optimizedImage?.src || DEFAULT_IMAGE.src);
 ---
 
 <SEO

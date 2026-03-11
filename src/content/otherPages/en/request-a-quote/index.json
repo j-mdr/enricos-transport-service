@@ -3,7 +3,7 @@
   "description": "Request a quotation",
   "mappingKey": "offerte-aanvragen",
   "template": "BaseLayout",
-  "image": "../quote-request/image.jpeg",
+  "image": "../request-a-quote/image.jpeg",
   "draft": false,
   "blocks": [
     {

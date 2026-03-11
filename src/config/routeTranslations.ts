@@ -15,6 +15,6 @@ export const routeTranslations = {
     "blog*": "blog/*",
     "categorieen*": "categories/*",
     "diensten*": "services/*",
-    "otherPages*": "*",
+    "otherPages*": "/*",
   },
 } as const;
