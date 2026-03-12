@@ -18,7 +18,7 @@ import Collections from "@components/KeystaticComponents/Collections";
 export default config({
   // works in local mode in dev, then cloud mode in prod
   storage:
-    process.env.NODE_ENV === "development"
+    import.meta.env.MODE === "development"
       ? { kind: "local" }
       : { kind: "github", repo: "j-mdr/enricos-transport-service" },
   ui: {
