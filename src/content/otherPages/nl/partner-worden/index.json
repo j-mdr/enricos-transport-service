@@ -7,10 +7,15 @@
   "draft": false,
   "blocks": [
     {
-      "discriminant": "introSection",
+      "discriminant": "heroBg",
       "value": {
-        "title": "Partner worden",
-        "introText": "intro tekst.."
+        "heroSet": "laten-we-samenwerken"
+      }
+    },
+    {
+      "discriminant": "featureCardsSmall",
+      "value": {
+        "featureSet": "waarom-samenwerken-highlight-met-ons"
       }
     },
     {

@@ -120,7 +120,7 @@ export default function BecomePartnerForm({ labels, turnstileSiteKey, locale }: 
           {labels.successMessage}
         </p>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex flex-col gap-4">
+        <form id="form" onSubmit={handleSubmit(onSubmit)} className="mt-4 flex flex-col gap-4">
           {/* Voornaam + Achternaam */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-1">

@@ -17,22 +17,19 @@ import Collections from "@components/KeystaticComponents/Collections";
 
 export default config({
   // works in local mode in dev, then cloud mode in prod
-  storage:
-    import.meta.env.MODE === "development"
-      ? { kind: "local" }
-      : { kind: "github", repo: "j-mdr/enricos-transport-service" },
+  storage: { kind: "local" },
   ui: {
     brand: { name: "Enrico's transportservice" },
     navigation: {
       Auteurs: ["authors"],
       Blog: ["blogEN", "blogNL"],
       "Pagina's": [
-        "deliveryAreasEN",
         "deliveryAreasNL",
-        "servicesEN",
+        "deliveryAreasEN",
         "servicesNL",
-        "otherPagesEN",
+        "servicesEN",
         "otherPagesNL",
+        "otherPagesEN",
       ],
       "Content sets": [
         "faqsNL",

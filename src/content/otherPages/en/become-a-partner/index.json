@@ -12,6 +12,18 @@
         "title": "Become a partner of us",
         "introText": "intro tekst..."
       }
+    },
+    {
+      "discriminant": "becomePartnerSection",
+      "value": {
+        "sectionSet": "home"
+      }
+    },
+    {
+      "discriminant": "heroBg",
+      "value": {
+        "heroSet": "let-s-work-together"
+      }
     }
   ]
 }
