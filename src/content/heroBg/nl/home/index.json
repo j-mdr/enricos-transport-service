@@ -5,6 +5,6 @@
   "ctaButton1Href": "/offerte-aanvragen",
   "ctaButton2Text": "sdfsdf",
   "ctaButton2Href": "sdfsdf",
-  "image": "../home/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-hero-nl.jpeg",
   "imageAlt": "Enrico Janssen bestelbus achteraanzicht zonsondergang"
 }

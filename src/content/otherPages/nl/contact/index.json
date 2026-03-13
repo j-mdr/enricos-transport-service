@@ -3,7 +3,7 @@
   "description": "Neem contact met ons op",
   "mappingKey": "contact",
   "template": "BaseLayout",
-  "image": "../contact/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-samenwerken.jpeg",
   "draft": false,
   "blocks": [
     {

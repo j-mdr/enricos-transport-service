@@ -3,7 +3,7 @@
   "description": "Enrico's transportservice",
   "mappingKey": "home",
   "template": "BaseLayout",
-  "image": "../home/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-home.jpeg",
   "draft": false,
   "blocks": [
     {

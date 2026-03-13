@@ -3,7 +3,7 @@
   "description": "Who are we?",
   "mappingKey": "over-ons",
   "template": "BaseLayout",
-  "image": "../about-us/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-offerte.jpeg",
   "draft": false,
   "blocks": [
     {

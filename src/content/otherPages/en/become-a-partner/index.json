@@ -3,7 +3,7 @@
   "description": "Become a partner of us",
   "mappingKey": "partner-worden",
   "template": "BaseLayout",
-  "image": "../become-a-partner/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-partner-nl.jpeg",
   "draft": false,
   "blocks": [
     {

@@ -3,7 +3,7 @@
   "description": "Over Enrico's transportservice",
   "mappingKey": "over-ons",
   "template": "BaseLayout",
-  "image": "../over-ons/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-over-ons.jpeg",
   "draft": false,
   "blocks": [
     {

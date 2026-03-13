@@ -2,7 +2,7 @@
   "title": "Wat wij voor u{highlight} kunnen betekenen",
   "services": [
     {
-      "image": "../home/services/0/image.jpeg",
+      "image": "../../../../assets/images/bestelbus-over-ons.jpeg",
       "imageAlt": "Enrico's transportservice bestelbus achteraanzicht zonsondergang",
       "title": "Reguliere transport",
       "description": "Een betrouwbare levering staat of valt met timing en zorgvuldigheid. Bij Enrico's Transportservice zorgen wij ervoor dat uw goederen exact op het afgesproken moment en in uitstekende staat worden afgeleverd. Dankzij onze doordachte planning en persoonlijke werkwijze weet u altijd waar u aan toe bent.",
@@ -10,7 +10,7 @@
       "ctaButtonHref": "/diensten/regulier-transport"
     },
     {
-      "image": "../home/services/1/image.jpeg",
+      "image": "../../../../assets/images/bestelbus-hero-nl.jpeg",
       "imageAlt": "Enrico's transportservice bestelbus laaddock distributiecentrum",
       "title": "Incidenteel transport",
       "description": "Niet elke transportbehoefte past binnen een vaste planning. Soms is er juist behoefte aan een eenmalige levering, een spoedtransport of het snel vervoeren van een pallet of essentiële materialen. In zulke situaties biedt Enrico's Transportservice een snelle en betrouwbare oplossing voor incidenteel transport.",

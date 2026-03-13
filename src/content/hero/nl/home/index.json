@@ -3,6 +3,6 @@
   "description": "Bij Enrico's Transportservice staan wij klaar om uw zending snel, veilig en efficiënt te vervoeren. Wij zorgen dat het op tijd en in perfecte staat aankomt.",
   "ctaButtonText": "Offerte aanvragen",
   "ctaButtonHref": "/offerte-aanvragen",
-  "image": "../home/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-hero-nl.jpeg",
   "imageAlt": "Enrico Janssen in bestelbus"
 }

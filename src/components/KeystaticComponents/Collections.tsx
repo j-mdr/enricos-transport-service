@@ -283,7 +283,8 @@ const Blog = (locale: (typeof locales)[number]) =>
       }),
       heroImage: fields.image({
         label: "Hero Image",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
         validation: { isRequired: true },
       }),
       categories: fields.array(fields.text({ label: "Category" }), {
@@ -365,7 +366,8 @@ const Authors = (locale: (typeof locales)[number] | "") =>
       }),
       avatar: fields.image({
         label: "Author avatar",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../assets/images/",
         validation: { isRequired: true },
       }),
       about: fields.text({
@@ -433,7 +435,8 @@ const Services = (locale: (typeof locales)[number]) =>
       }),
       image: fields.image({
         label: "Main Image",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
         validation: { isRequired: true },
       }),
       mappingKey: fields.text({
@@ -522,7 +525,8 @@ const DeliveryAreas = (locale: (typeof locales)[number]) =>
       }),
       image: fields.image({
         label: "Main Image",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
         validation: { isRequired: true },
       }),
       mappingKey: fields.text({
@@ -623,7 +627,8 @@ const OtherPages = (locale: (typeof locales)[number]) =>
       image: fields.image({
         label: "Main Image",
         description: "Optioneel. Alleen zichtbaar bij Service Layout.",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
       }),
       draft: fields.checkbox({
         label: "Draft",
@@ -694,7 +699,8 @@ const Hero = (locale: Locale) =>
       ctaButtonHref: fields.text({ label: "CTA knop URL" }),
       image: fields.image({
         label: "Afbeelding",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
         validation: { isRequired: true },
       }),
       imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
@@ -720,7 +726,8 @@ const HeroBg = (locale: Locale) =>
       ctaButton2Href: fields.text({ label: "CTA knop 2 URL (optioneel)" }),
       image: fields.image({
         label: "Achtergrond afbeelding",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
         validation: { isRequired: true },
       }),
       imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
@@ -882,7 +889,8 @@ const FeatureLightboxMarquee = (locale: Locale) =>
         fields.object({
           image: fields.image({
             label: "Afbeelding",
-            publicPath: "../",
+            directory: "src/assets/images/",
+            publicPath: "../../../../assets/images/",
             validation: { isRequired: false },
           }),
           alt: fields.text({ label: "Alt tekst" }),
@@ -908,7 +916,8 @@ const FeatureSideImage = (locale: Locale) =>
         fields.object({
           image: fields.image({
             label: "Afbeelding",
-            publicPath: "../",
+            directory: "src/assets/images/",
+            publicPath: "../../../../assets/images/",
             validation: { isRequired: false },
           }),
           imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
@@ -942,7 +951,8 @@ const FeatureToggleImage = (locale: Locale) =>
           title: fields.text({ label: "Titel", validation: { isRequired: true } }),
           image: fields.image({
             label: "Afbeelding",
-            publicPath: "../",
+            directory: "src/assets/images/",
+            publicPath: "../../../../assets/images/",
             validation: { isRequired: false },
           }),
           imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
@@ -993,7 +1003,8 @@ const ServicesSideImage = (locale: Locale) =>
         fields.object({
           image: fields.image({
             label: "Afbeelding",
-            publicPath: "../",
+            directory: "src/assets/images/",
+            publicPath: "../../../../assets/images/",
             validation: { isRequired: false },
           }),
           imageAlt: fields.text({ label: "Afbeelding alt tekst" }),
@@ -1021,7 +1032,8 @@ const RequestQuoteSectionData = (locale: Locale) =>
       title: fields.slug({ name: { label: "Titel" } }),
       image: fields.image({
         label: "Afbeelding",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
         validation: { isRequired: true },
       }),
       imageAlt: fields.text({ label: "Afbeelding alt tekst", validation: { isRequired: true } }),
@@ -1043,7 +1055,8 @@ const AwardsSection = (locale: Locale) =>
         fields.object({
           image: fields.image({
             label: "Award logo",
-            publicPath: "../",
+            directory: "src/assets/images/",
+            publicPath: "../../../../assets/images/",
             validation: { isRequired: false },
           }),
           alt: fields.text({ label: "Alt tekst", validation: { isRequired: true } }),
@@ -1083,7 +1096,8 @@ const TeamMemberCards = (locale: Locale) =>
         fields.object({
           image: fields.image({
             label: "Profielfoto (optioneel)",
-            publicPath: "../",
+            directory: "src/assets/images/",
+            publicPath: "../../../../assets/images/",
             validation: { isRequired: false },
           }),
           name: fields.text({ label: "Naam", validation: { isRequired: true } }),
@@ -1149,7 +1163,8 @@ const Testimonials = (locale: Locale) =>
           }),
           avatar: fields.image({
             label: "Profielfoto (optioneel)",
-            publicPath: "../",
+            directory: "src/assets/images/",
+            publicPath: "../../../../assets/images/",
             validation: { isRequired: false },
           }),
         }),
@@ -1239,7 +1254,8 @@ const BecomePartnerSection = (locale: Locale) =>
       title: fields.slug({ name: { label: "Titel" } }),
       image: fields.image({
         label: "Afbeelding",
-        publicPath: "../",
+        directory: "src/assets/images/",
+        publicPath: "../../../../assets/images/",
         validation: { isRequired: true },
       }),
       imageAlt: fields.text({ label: "Afbeelding alt tekst", validation: { isRequired: true } }),

@@ -3,7 +3,7 @@
   "description": "Vraag een offerte aan",
   "mappingKey": "offerte-aanvragen",
   "template": "BaseLayout",
-  "image": "../offerte-aanvragen/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-offerte.jpeg",
   "draft": false,
   "blocks": [
     {

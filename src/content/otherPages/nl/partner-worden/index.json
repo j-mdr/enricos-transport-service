@@ -3,7 +3,7 @@
   "description": "Word partner van ons",
   "mappingKey": "partner-worden",
   "template": "BaseLayout",
-  "image": "../partner-worden/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-hero-en.jpeg",
   "draft": false,
   "blocks": [
     {

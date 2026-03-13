@@ -3,6 +3,6 @@
   "description": "Immediate cost insight",
   "ctaButtonText": "Get quote",
   "ctaButtonHref": "/en/request-quote",
-  "image": "../home/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-hero-en.jpeg",
   "imageAlt": "Enrico Janssen sitting in a delivery van"
 }

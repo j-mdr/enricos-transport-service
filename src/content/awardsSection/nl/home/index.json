@@ -2,15 +2,15 @@
   "title": "Awards",
   "awards": [
     {
-      "image": "award-yelp.png",
+      "image": "../../../../assets/images/award-yelp.png",
       "alt": "Yelp award"
     },
     {
-      "image": "award-homeadvisor.png",
+      "image": "../../../../assets/images/award-homeadvisor.png",
       "alt": "HomeAdvisor award"
     },
     {
-      "image": "award-angieslist.png",
+      "image": "../../../../assets/images/award-angieslist.png",
       "alt": "Angie's List award"
     }
   ]

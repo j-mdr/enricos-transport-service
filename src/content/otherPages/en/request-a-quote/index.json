@@ -3,7 +3,7 @@
   "description": "Request a quotation",
   "mappingKey": "offerte-aanvragen",
   "template": "BaseLayout",
-  "image": "../request-a-quote/image.jpeg",
+  "image": "../../../../assets/images/bestelbus-offerte.jpeg",
   "draft": false,
   "blocks": [
     {
