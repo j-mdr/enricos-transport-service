@@ -1,4 +1,7 @@
 import { defineConfig, envField } from "astro/config";
+import { loadEnv } from "vite";
+
+const env = loadEnv(process.env.NODE_ENV ?? "production", process.cwd(), "");
 
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
@@ -6,7 +9,7 @@ import mdx from "@astrojs/mdx";
 import compress from "@playform/compress";
 import AutoImport from "astro-auto-import";
 import react from "@astrojs/react";
-import keystatic from "@keystatic/astro";
+import sanity from "@sanity/astro";
 import icon from "astro-icon";
 
 import cloudflare from "@astrojs/cloudflare";
@@ -64,7 +67,12 @@ export default defineConfig({
     mdx(),
     react(),
     icon(),
-    keystatic(),
+    sanity({
+      projectId: env.PUBLIC_SANITY_PROJECT_ID,
+      dataset: env.PUBLIC_SANITY_DATASET ?? "production",
+      studioBasePath: "/studio",
+      useCdn: false,
+    }),
     sitemap(),
     compress({
       HTML: true,

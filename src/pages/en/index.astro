@@ -1,28 +1,28 @@
 ---
 export const prerender = true;
-import { getEntry } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import { getPageBySlug } from "@lib/groq/page";
 
-const page = await getEntry("otherPages", "en/home");
+const page = await getPageBySlug("home-en", "en");
 if (!page) return Astro.redirect("/en/404");
 
-const { title, description, template, image } = page.data;
+const { title, description, layout, image, seo } = page;
 ---
 
 {
-  template === "BaseLayout" && (
-    <BaseLayout title={title} description={description}>
-      <BlockRenderer blocks={page.data.blocks ?? []} />
+  layout !== "narrow" && (
+    <BaseLayout title={seo?.title ?? title} description={seo?.description ?? description} type={"general"}>
+      <BlockRenderer blocks={page.blocks ?? []} />
     </BaseLayout>
   )
 }
 
 {
-  template === "ServiceLayoutCenter" && (
+  layout === "narrow" && (
     <ServiceLayoutCenter title={title} description={description} image={image}>
-      <BlockRenderer blocks={page.data.blocks ?? []} />
+      <BlockRenderer blocks={page.blocks ?? []} />
     </ServiceLayoutCenter>
   )
 }
