@@ -1,55 +1,37 @@
 ---
 export const prerender = true;
-import { type CollectionEntry, getCollection } from "astro:content";
-
-// layouts
 import BaseLayout from "@layouts/BaseLayout.astro";
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
-
-// components
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
-
-// utils
-import { filterCollectionByLanguage } from "@/utils/localeUtils";
-import { defaultLocale } from "@config/siteSettings.json";
+import { getAllPages } from "@lib/groq/page";
 
 export async function getStaticPaths() {
-  const otherPages: CollectionEntry<"otherPages">[] = await getCollection(
-    "otherPages",
-    ({ data }) => {
-      // filter out draft pages
-      return data.draft !== true;
-    },
-  );
+  const pages = await getAllPages("nl");
 
-  // get rid of pages from other languages and remove locale from slug
-  const filteredPages = filterCollectionByLanguage(otherPages, defaultLocale);
-
-  return filteredPages
-    .filter((page) => page.id !== "home")
-    .map((page) => ({
-      params: { page: page.id },
-      props: page,
+  return pages
+    .filter((page: { slug: string }) => page.slug !== "home-nl")
+    .map((page: { slug: string }) => ({
+      params: { page: page.slug },
+      props: { page },
     }));
 }
 
-type Props = CollectionEntry<"otherPages">;
-const page = Astro.props as Props;
-const { title, description, template, image } = page.data;
+const { page } = Astro.props;
+const { title, description, layout, image, seo } = page;
 ---
 
 {
-  template === "BaseLayout" && (
-    <BaseLayout title={title} description={description} type={"general"}>
-      <BlockRenderer blocks={page.data.blocks ?? []} />
+  layout !== "narrow" && (
+    <BaseLayout title={seo?.title ?? title} description={seo?.description ?? description} type={"general"}>
+      <BlockRenderer blocks={page.blocks ?? []} />
     </BaseLayout>
   )
 }
 
 {
-  template === "ServiceLayoutCenter" && (
+  layout === "narrow" && (
     <ServiceLayoutCenter title={title} description={description} image={image}>
-      <BlockRenderer blocks={page.data.blocks ?? []} />
+      <BlockRenderer blocks={page.blocks ?? []} />
     </ServiceLayoutCenter>
   )
 }

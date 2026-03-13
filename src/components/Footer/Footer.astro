@@ -8,8 +8,9 @@ import { getFooterData } from "@/utils/footer";
 import { getCompanyInfo } from "@/utils/companyInfo";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const { companyName, ctaButton } = await getFooterData(currLocale);
+const { ctaButton, columns } = await getFooterData(currLocale);
 const companyInfo = await getCompanyInfo(currLocale);
+const companyName = companyInfo?.name ?? "Enrico's Transportservice";
 const today = new Date();
 ---
 
@@ -33,27 +34,31 @@ const today = new Date();
     </div>
 
     <div class="flex items-center md:justify-end">
+      <!-- Link kolommen -->
+      {columns.length > 0 && (
+        <div class="flex gap-8">
+          {columns.map((col: { title: string; links: { text: string; href: string }[] }) => (
+            <div class="flex flex-col gap-2">
+              <p class="font-semibold">{col.title}</p>
+              {col.links.map((link) => (
+                <a href={link.href} class="text-sm opacity-80 hover:opacity-100">{link.text}</a>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
       <!-- Socials -->
-      <div class="flex gap-2">
-        {
-          companyInfo?.facebookUrl && (
-            <SocialIcon href={companyInfo.facebookUrl} icon="tabler/facebook" social="Facebook" />
-          )
-        }
-        {
-          companyInfo?.instagramUrl && (
-            <SocialIcon
-              href={companyInfo.instagramUrl}
-              icon="tabler/instagram"
-              social="Instagram"
-            />
-          )
-        }
-        {
-          companyInfo?.linkedinUrl && (
-            <SocialIcon href={companyInfo.linkedinUrl} icon="tabler/linkedin" social="LinkedIn" />
-          )
-        }
+      <div class="flex gap-2 ml-8">
+        {companyInfo?.facebookUrl && (
+          <SocialIcon href={companyInfo.facebookUrl} icon="tabler/facebook" social="Facebook" />
+        )}
+        {companyInfo?.instagramUrl && (
+          <SocialIcon href={companyInfo.instagramUrl} icon="tabler/instagram" social="Instagram" />
+        )}
+        {companyInfo?.linkedinUrl && (
+          <SocialIcon href={companyInfo.linkedinUrl} icon="tabler/linkedin" social="LinkedIn" />
+        )}
       </div>
     </div>
   </div>

@@ -1,18 +1,13 @@
 ---
 export const prerender = true;
-// layout
 import BaseLayout from "@layouts/BaseLayout.astro";
-
-// components
 import PostCardFull from "@components/PostCard/PostCardFull.astro";
 import CategoryCloud from "@components/CategoryCloud/CategoryCloud.astro";
-
-// utils
-import { getAllPosts } from "@/utils/blogUtils";
+import { getAllBlogPosts } from "@lib/groq/blogPost";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const posts = await getAllPosts(currLocale);
+const posts = await getAllBlogPosts(currLocale);
 ---
 
 <BaseLayout
@@ -28,7 +23,7 @@ const posts = await getAllPosts(currLocale);
     </div>
 
     <div class="mt-20 grid gap-4 gap-y-12 md:mt-28">
-      {posts.map((post) => <PostCardFull post={post} showDescription={true} />)}
+      {posts.map((post: any) => <PostCardFull post={post} showDescription={true} />)}
     </div>
   </section>
 </BaseLayout>

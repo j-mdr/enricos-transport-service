@@ -1,83 +1,22 @@
 ---
 export const prerender = true;
-import { type CollectionEntry, getCollection, render } from "astro:content";
-
-// layouts
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
-
-// components
-import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
-import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
-import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
-import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
-import CtaCardCenter2Section from "@components/Cta/CtaCardCenter2Section.astro";
-import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
-import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
-import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMarqueeSection.astro";
-import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
-import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
-import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
-import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
-import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
-import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsColumnsSection.astro";
-import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
-import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astro";
-import IntroSection from "@components/Content/IntroSection.astro";
-import AwardsSection from "@components/Awards/AwardsSection.astro";
-import BecomePartnerSection from "@components/Contact/BecomePartnerSection.astro";
-
-// utils
-import { filterCollectionByLanguage } from "@/utils/localeUtils";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import { getAllDeliveryAreas } from "@lib/groq/deliveryArea";
 
 export async function getStaticPaths() {
-  const gebieden = await getCollection("deliveryAreas", ({ data }) => {
-    // filter out draft entries
-    return data.draft !== true;
-  });
+  const areas = await getAllDeliveryAreas("en");
 
-  // get rid of pages from other languages and remove locale from slug
-  const filteredGebieden = filterCollectionByLanguage(gebieden, "en");
-
-  return filteredGebieden.map((post) => ({
-    params: { slug: post.id },
-    props: post,
+  return areas.map((area: { slug: string }) => ({
+    params: { slug: area.slug },
+    props: { area },
   }));
 }
-type Props = CollectionEntry<"deliveryAreas">;
 
-const gebied = Astro.props as Props;
-const { Content } = await render(gebied);
-const { template } = gebied.data;
+const { area } = Astro.props;
+const { title, description, image, seo, content } = area;
 ---
 
-{
-  template === "ServiceLayoutCenter" && (
-    <ServiceLayoutCenter {...gebied.data}>
-      <Content
-        components={{
-          a: ExternalLink,
-          FaqSection: FaqAccordionsSection,
-          FaqCardsSection: FaqCardsSection,
-          CtaBgImageSection: CtaBgImageSection,
-          CtaCardCenterSection: CtaCardCenterSection,
-          CtaCardCenter2Section: CtaCardCenter2Section,
-          CtaCardsSection: CtaCardsSection,
-          FeatureCardsSmallSection: FeatureCardsSmallSection,
-          FeatureLightboxMarqueeSection: FeatureLightboxMarqueeSection,
-          FeatureGalleryMarqueeSection: FeatureGalleryMarqueeSection,
-          FeatureSideImageSection: FeatureSideImageSection,
-          FeatureToggleImageSection: FeatureToggleImageSection,
-          ServicesIconSection: ServicesIconSection,
-          ServicesSideImageSection: ServicesSideImageSection,
-          TestimonialsColumnsSection: TestimonialsColumnsSection,
-          TestimonialsSwiperSection: TestimonialsSwiperSection,
-          TeamMemberCardsSection: TeamMemberCardsSection,
-          IntroSection: IntroSection,
-          AwardsSection: AwardsSection,
-          BecomePartnerSectionBlock: BecomePartnerSection,
-        }}
-      />
-    </ServiceLayoutCenter>
-  )
-}
+<ServiceLayoutCenter title={seo?.title ?? title} description={seo?.description ?? description} image={image}>
+  <BlockRenderer blocks={content ?? []} />
+</ServiceLayoutCenter>

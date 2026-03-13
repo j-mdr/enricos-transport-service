@@ -1,24 +1,20 @@
-import { createReader } from "@keystatic/core/reader";
 import type { Locale } from "@config/siteSettings.json";
-import keystaticConfig from "../../keystatic.config";
-import { getCompanyInfo } from "@utils/companyInfo";
-
-const reader = createReader(process.cwd(), keystaticConfig);
+import { sanityClient } from "@lib/sanityClient";
 
 export async function getFooterData(locale: Locale) {
-  const data = await (locale === "nl"
-    ? reader.singletons.footerNL.read()
-    : reader.singletons.footerEN.read());
-
-  const companyInfo = await getCompanyInfo(locale);
-
-  const companyName = data?.companyName?.trim() || companyInfo?.name || "Enrico's Transportservice";
+  const data = await sanityClient.fetch(
+    `*[_type == "footer" && language == $locale][0]{
+      ctaButton { link { text, href } },
+      columns[] { title, links[] { text, href } }
+    }`,
+    { locale },
+  );
 
   return {
-    companyName,
     ctaButton: {
-      text: data?.ctaButtonText ?? "",
-      href: data?.ctaButtonHref ?? "",
+      text: data?.ctaButton?.link?.text ?? "",
+      href: data?.ctaButton?.link?.href ?? "",
     },
+    columns: data?.columns ?? [],
   };
 }

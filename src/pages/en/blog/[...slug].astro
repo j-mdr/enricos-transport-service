@@ -1,72 +1,21 @@
 ---
 export const prerender = true;
-import { type CollectionEntry, render } from "astro:content";
-
-// layout
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
-
-// components
-import ExternalLink from "@components/MarkdownComponents/ExternalLink.astro";
-import FaqAccordionsSection from "@components/Faq/FaqAccordionsSection.astro";
-import FaqCardsSection from "@components/Faq/FaqCardsSection.astro";
-import CtaBgImageSection from "@components/Cta/CtaBgImageSection.astro";
-import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
-import CtaCardCenter2Section from "@components/Cta/CtaCardCenter2Section.astro";
-import CtaCardsSection from "@components/Cta/CtaCardsSection.astro";
-import FeatureCardsSmallSection from "@components/Feature/FeatureCardsSmallSection.astro";
-import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMarqueeSection.astro";
-import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
-import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
-import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
-import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
-import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
-import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsColumnsSection.astro";
-import TestimonialsSwiperSection from "@components/Testimonials/TestimonialsSwiperSection.astro";
-import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astro";
-import IntroSection from "@components/Content/IntroSection.astro";
-import AwardsSection from "@components/Awards/AwardsSection.astro";
-import BecomePartnerSection from "@components/Contact/BecomePartnerSection.astro";
-
-// utils
-import { getAllPosts } from "@/utils/blogUtils";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import { getAllBlogPosts } from "@lib/groq/blogPost";
 
 export async function getStaticPaths() {
-  const posts = await getAllPosts("en");
+  const posts = await getAllBlogPosts("en");
 
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: post,
+  return posts.map((post: { slug: string }) => ({
+    params: { slug: post.slug },
+    props: { post },
   }));
 }
-type Props = CollectionEntry<"blog">;
 
-const post = Astro.props as Props;
-const { Content, headings } = await render(post);
+const { post } = Astro.props;
 ---
 
 <BlogLayout post={post}>
-  <Content
-    components={{
-      a: ExternalLink,
-      FaqSection: FaqAccordionsSection,
-      FaqCardsSection: FaqCardsSection,
-      CtaBgImageSection: CtaBgImageSection,
-      CtaCardCenterSection: CtaCardCenterSection,
-      CtaCardCenter2Section: CtaCardCenter2Section,
-      CtaCardsSection: CtaCardsSection,
-      FeatureCardsSmallSection: FeatureCardsSmallSection,
-      FeatureLightboxMarqueeSection: FeatureLightboxMarqueeSection,
-      FeatureGalleryMarqueeSection: FeatureGalleryMarqueeSection,
-      FeatureSideImageSection: FeatureSideImageSection,
-      FeatureToggleImageSection: FeatureToggleImageSection,
-      ServicesIconSection: ServicesIconSection,
-      ServicesSideImageSection: ServicesSideImageSection,
-      TestimonialsColumnsSection: TestimonialsColumnsSection,
-      TestimonialsSwiperSection: TestimonialsSwiperSection,
-      TeamMemberCardsSection: TeamMemberCardsSection,
-      IntroSection: IntroSection,
-      AwardsSection: AwardsSection,
-      BecomePartnerSectionBlock: BecomePartnerSection,
-    }}
-  />
+  <BlockRenderer blocks={post.content ?? []} />
 </BlogLayout>
