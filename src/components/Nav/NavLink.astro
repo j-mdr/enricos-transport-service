@@ -1,5 +1,4 @@
 ---
-import { useTranslation } from "@/utils/translationUtils";
 import { Icon } from "astro-icon/components";
 
 // data
@@ -26,7 +25,6 @@ interface Props {
 const { navItem, class: className, noIcon = false } = Astro.props as Props;
 const { text, link, newTab = false, icon } = navItem;
 
-const { route } = await useTranslation(Astro.url);
 
 const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, navItem.link);
 ---
