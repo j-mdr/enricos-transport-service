@@ -35,7 +35,27 @@ export const page = defineType({
       title: "Slug",
       type: "slug",
       group: "meta",
-      options: { source: "title" },
+      options: {
+        source: (doc) => {
+          const d = doc as unknown as { title?: string; parent?: { _ref?: string } };
+          return [d.title, d.parent?._ref].filter(Boolean).join("__");
+        },
+        slugify: async (input, _schemaType, context) => {
+          const title = input.split("__")[0];
+          const leaf = title.toLowerCase().replace(/\s+/g, "-");
+
+          const doc = context.parent as { parent?: { _ref?: string } } | undefined;
+          if (doc?.parent?._ref) {
+            const client = context.getClient({ apiVersion: "2024-01-01" });
+            const parentSlug: string | null = await client.fetch(`*[_id == $id][0].slug.current`, {
+              id: doc.parent._ref,
+            });
+            if (parentSlug) return `${parentSlug}/${leaf}`;
+          }
+
+          return leaf;
+        },
+      },
       components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
     }),
@@ -101,6 +121,20 @@ export const page = defineType({
       ],
     }),
     defineField({
+      name: "parent",
+      title: "Bovenliggende pagina",
+      type: "reference",
+      to: [{ type: "page" }],
+      group: "meta",
+      description: "Optioneel. Geeft de URL-structuur: parent-slug/deze-slug",
+      options: {
+        filter: (({ document }: { document: { language?: string } }) => {
+          if (!document.language) return {};
+          return { filter: "language == $language", params: { language: document.language } };
+        }) as any,
+      },
+    }),
+    defineField({
       name: "nav",
       title: "Navigatie",
       type: "reference",
@@ -124,8 +158,11 @@ export const page = defineType({
   preview: {
     select: {
       title: "title",
-      subtitle: "layout",
+      slug: "slug.current",
       media: "image.asset",
+    },
+    prepare({ title, slug }: { title: string; slug: string }) {
+      return { title, subtitle: slug };
     },
   },
 });

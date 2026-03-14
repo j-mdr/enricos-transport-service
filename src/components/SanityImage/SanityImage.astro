@@ -37,7 +37,12 @@ const SIZES_PRESETS: Record<SizesType, string> = {
 };
 
 const sizes =
-  sizesProp ?? (sizesType ? SIZES_PRESETS[sizesType] : width ? `(min-width: ${width}px) ${width}px, 100vw` : "100vw");
+  sizesProp ??
+  (sizesType
+    ? SIZES_PRESETS[sizesType]
+    : width
+      ? `(min-width: ${width}px) ${width}px, 100vw`
+      : "100vw");
 
 const height =
   heightProp ?? (aspectRatio && width ? Math.round(width / ASPECT_RATIOS[aspectRatio]) : undefined);

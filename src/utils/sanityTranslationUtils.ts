@@ -3,11 +3,9 @@ type TranslationEntry = {
   value?: { language: string; slug: string } | null;
 };
 
-type DocType = "service" | "deliveryArea" | "blogPost" | "page";
+type DocType = "blogPost" | "page";
 
 const urlPrefixes: Record<DocType, Record<string, string>> = {
-  service: { nl: "/diensten/", en: "/en/services/" },
-  deliveryArea: { nl: "/bezorggebieden/", en: "/en/delivery-areas/" },
   blogPost: { nl: "/blog/", en: "/en/blog/" },
   page: { nl: "/", en: "/en/" },
 };

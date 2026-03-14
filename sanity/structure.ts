@@ -5,10 +5,8 @@ const singletonTypes = ["settings"];
 
 // Document types die per taal bestaan (via @sanity/document-internationalization)
 const pageTypes = [
-  { type: "page", titleNL: "Landingspagina's", titleEN: "Landing pages" },
+  { type: "page", titleNL: "Pagina's (hiërarchisch)", titleEN: "Pages (hierarchical)" },
   { type: "blogPost", titleNL: "Blog", titleEN: "Blog" },
-  { type: "service", titleNL: "Diensten", titleEN: "Services" },
-  { type: "deliveryArea", titleNL: "Bezorggebieden", titleEN: "Delivery Areas" },
 ];
 
 const otherTypes = [
@@ -27,7 +25,8 @@ function docList(S: Parameters<StructureResolver>[0], type: string, title: strin
         .title(title)
         .schemaType(type)
         .filter(`_type == $type && language == $lang`)
-        .params({ type, lang }),
+        .params({ type, lang })
+        .defaultOrdering([{ field: "slug.current", direction: "asc" }]),
     );
 }
 
