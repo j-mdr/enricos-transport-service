@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 
 // Flexibele pagina met block builder.
 // De blocks array wordt uitgebreid met section types zodra die gedefinieerd zijn.
@@ -35,6 +36,7 @@ export const page = defineType({
       type: "slug",
       group: "meta",
       options: { source: "title" },
+      components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

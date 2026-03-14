@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 
 export const deliveryArea = defineType({
   name: "deliveryArea",
@@ -24,6 +25,7 @@ export const deliveryArea = defineType({
       type: "slug",
       group: "meta",
       options: { source: "title" },
+      components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

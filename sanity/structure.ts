@@ -4,16 +4,32 @@ import type { StructureResolver } from "sanity/structure";
 const singletonTypes = ["settings"];
 
 // Document types die per taal bestaan (via @sanity/document-internationalization)
-const i18nTypes = [
-  { type: "page", titleNL: "Pagina's", titleEN: "Pages" },
+const pageTypes = [
+  { type: "page", titleNL: "Landingspagina's", titleEN: "Landing pages" },
   { type: "blogPost", titleNL: "Blog", titleEN: "Blog" },
   { type: "service", titleNL: "Diensten", titleEN: "Services" },
   { type: "deliveryArea", titleNL: "Bezorggebieden", titleEN: "Delivery Areas" },
+];
+
+const otherTypes = [
   { type: "person", titleNL: "Personen", titleEN: "Persons" },
   { type: "nav", titleNL: "Navigatie", titleEN: "Navigation" },
   { type: "footer", titleNL: "Footer", titleEN: "Footer" },
   { type: "form", titleNL: "Formulieren", titleEN: "Forms" },
 ];
+
+function docList(S: Parameters<StructureResolver>[0], type: string, title: string, lang: string) {
+  return S.listItem()
+    .title(title)
+    .schemaType(type)
+    .child(
+      S.documentList()
+        .title(title)
+        .schemaType(type)
+        .filter(`_type == $type && language == $lang`)
+        .params({ type, lang }),
+    );
+}
 
 function langGroup(S: Parameters<StructureResolver>[0], lang: "nl" | "en") {
   const isNL = lang === "nl";
@@ -22,20 +38,15 @@ function langGroup(S: Parameters<StructureResolver>[0], lang: "nl" | "en") {
     .child(
       S.list()
         .title(isNL ? "Nederlands" : "English")
-        .items(
-          i18nTypes.map(({ type, titleNL, titleEN }) =>
-            S.listItem()
-              .title(isNL ? titleNL : titleEN)
-              .schemaType(type)
-              .child(
-                S.documentList()
-                  .title(isNL ? titleNL : titleEN)
-                  .schemaType(type)
-                  .filter(`_type == $type && language == $lang`)
-                  .params({ type, lang }),
-              ),
+        .items([
+          ...pageTypes.map(({ type, titleNL, titleEN }) =>
+            docList(S, type, isNL ? titleNL : titleEN, lang),
           ),
-        ),
+          S.divider(),
+          ...otherTypes.map(({ type, titleNL, titleEN }) =>
+            docList(S, type, isNL ? titleNL : titleEN, lang),
+          ),
+        ]),
     );
 }
 
