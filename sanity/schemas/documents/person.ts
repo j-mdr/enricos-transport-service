@@ -13,6 +13,16 @@ export const person = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: "name",
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-"),
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "personTitle",
       title: "Functie",
       type: "string",

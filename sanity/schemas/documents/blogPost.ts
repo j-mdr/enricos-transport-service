@@ -68,7 +68,13 @@ export const blogPost = defineType({
       title: "Categorieën",
       type: "array",
       group: "meta",
-      of: [{ type: "string" }],
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+      options: {
+        filter: ({ document }: { document: { language?: string } }) =>
+          document.language
+            ? { filter: "language == $lang", params: { lang: document.language } }
+            : {},
+      },
     }),
     defineField({
       name: "content",

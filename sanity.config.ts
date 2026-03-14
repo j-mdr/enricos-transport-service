@@ -25,7 +25,7 @@ export default defineConfig({
         { id: "nl", title: "Nederlands" },
         { id: "en", title: "English" },
       ],
-      schemaTypes: ["blogPost", "page", "nav", "footer", "form", "person"],
+      schemaTypes: ["blogPost", "page", "nav", "footer", "form", "person", "category"],
     }),
   ],
   schema: {
@@ -35,7 +35,7 @@ export default defineConfig({
     newDocumentOptions: (prev) =>
       prev.filter(
         (option) =>
-          !["blogPost", "page", "nav", "footer", "form", "person"].includes(option.templateId),
+          !["blogPost", "page", "nav", "footer", "form", "person", "category"].includes(option.templateId),
       ),
     actions: (prev, { schemaType }) => {
       if (schemaType !== "page") return prev;
