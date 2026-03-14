@@ -5,7 +5,6 @@ import { defaultLocale, type Locale, locales } from "@/config/siteSettings.json"
 import { routeTranslations } from "@config/routeTranslations.ts";
 import { collectionTranslations } from "@config/collectionTranslations.ts";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { useLabels } from "@utils/labels.ts";
 
 export function useRouteTranslation(locale: Locale) {
   return function r(pathname: string) {
@@ -17,7 +16,6 @@ export async function useTranslation(url: URL) {
   const locale = getLocaleFromUrl(url);
 
   return {
-    text: await useLabels(locale),
     route: useRouteTranslation(locale),
   };
 }

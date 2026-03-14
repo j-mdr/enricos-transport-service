@@ -11,13 +11,14 @@
 import { Icon } from "astro-icon/components";
 import Button from "@components/Button/Button.astro";
 import type { ServiceIconCard } from "@config/configDataTypes.ts";
-import { useTranslation } from "@utils/translationUtils.ts";
+import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 
 type Props = ServiceIconCard & {
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
 };
 
-const { text } = await useTranslation(Astro.url);
+const currLocale = getLocaleFromUrl(Astro.url);
+const aboutText = currLocale === "en" ? "about" : "over";
 
 const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 ---
@@ -48,7 +49,7 @@ const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
     <div class="mt-4 flex justify-center">
       <Button variant="outline" arrow="right">
         {ctaButton.text}
-        <span class="sr-only">{text("about")} {title}</span>
+        <span class="sr-only">{aboutText} {title}</span>
       </Button>
     </div>
   </a>

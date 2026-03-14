@@ -1,17 +1,16 @@
 ---
-import { useLabels } from "@/utils/labels";
 import { getCompanyInfo } from "@/utils/companyInfo";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { Icon } from "astro-icon/components";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const text = await useLabels(currLocale);
+const contactInformation = currLocale === "en" ? "Location & Contact" : "Contactgegevens";
 const companyInfo = await getCompanyInfo(currLocale);
 ---
 
 <div>
   <!-- contact info pulled from companyInfo -->
-  <h3 class="mt-4 mb-2 text-lg font-medium">{text("contactInformation")}</h3>
+  <h3 class="mt-4 mb-2 text-lg font-medium">{contactInformation}</h3>
 
   <p>
     <span class="inline-flex items-start gap-1">

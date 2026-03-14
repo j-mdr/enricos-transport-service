@@ -4,8 +4,6 @@ import BaseLayout from "./BaseLayout.astro";
 import Button from "@components/Button/Button.astro";
 import { formatDate, humanize, slugify } from "@/utils/textUtils";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { useLabels } from "@/utils/labels";
-
 interface SanityAuthor {
   name: string;
   avatar?: { asset?: { url: string }; alt?: string };
@@ -31,7 +29,7 @@ const { post, alternatePaths } = Astro.props as Props;
 const { title, description, authors, categories, pubDate, heroImage, nav, footer } = post;
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = await useLabels(currLocale);
+const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar alle posts";
 ---
 
 <BaseLayout
@@ -131,7 +129,7 @@ const t = await useLabels(currLocale);
               arrow="left"
               class="py-2"
             >
-              {t("backToAllPosts")}
+              {backToAllPosts}
             </Button>
           </div>
         </div>

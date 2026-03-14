@@ -10,7 +10,7 @@ export const service = defineType({
     { name: "seo", title: "SEO" },
   ],
   fields: [
-    defineField({ name: "language", type: "string", readOnly: true, hidden: true }),
+    defineField({ name: "language", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

@@ -6,6 +6,5 @@ export { testimonialCard } from "./testimonialCard";
 export { featureCardSmall } from "./featureCardSmall";
 export { featureCardSideImage } from "./featureCardSideImage";
 export { featureCardToggle } from "./featureCardToggle";
-export { profileCard } from "./profileCard";
 export { serviceCardIcon } from "./serviceCardIcon";
 export { serviceCardSideImage } from "./serviceCardSideImage";

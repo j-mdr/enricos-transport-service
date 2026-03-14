@@ -1,12 +1,16 @@
 ---
-import { urlFor, type SanityImageObject } from "@lib/sanityImage";
+import { urlFor, ASPECT_RATIOS, type SanityImageObject, type AspectRatio } from "@lib/sanityImage";
+
+type SizesType = "background" | "half" | "card" | "avatar";
 
 interface Props {
   image: SanityImageObject | null | undefined;
   width?: number;
   height?: number;
+  aspectRatio?: AspectRatio;
   quality?: number;
   sizes?: string;
+  sizesType?: SizesType;
   loading?: "lazy" | "eager";
   class?: string;
   [key: string]: any;
@@ -15,54 +19,175 @@ interface Props {
 const {
   image,
   width,
-  height,
+  height: heightProp,
+  aspectRatio,
   quality = 80,
-  sizes,
+  sizes: sizesProp,
+  sizesType,
   loading = "lazy",
   class: className,
   ...rest
 } = Astro.props;
 
+const SIZES_PRESETS: Record<SizesType, string> = {
+  background: "100vw",
+  half: "(min-width: 1024px) 50vw, 100vw",
+  card: "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
+  avatar: width ? `${width}px` : "10vw",
+};
+
+const sizes =
+  sizesProp ?? (sizesType ? SIZES_PRESETS[sizesType] : width ? `(min-width: ${width}px) ${width}px, 100vw` : "100vw");
+
+const height =
+  heightProp ?? (aspectRatio && width ? Math.round(width / ASPECT_RATIOS[aspectRatio]) : undefined);
+
 if (!image?.asset) return;
 
 const hasRef = image.asset._ref || image.asset._id;
 
-// Build main src
-let src: string;
-if (hasRef) {
-  let builder = urlFor(image).auto("format").quality(quality);
-  if (width) builder = builder.width(width);
-  if (height) builder = builder.height(height);
-  src = builder.url();
-} else {
-  src = image.asset.url ?? "";
-}
-
-// Build srcset for responsive images (only when we have a ref and a width)
-let srcset: string | undefined;
-if (hasRef && width) {
-  const widths = [width, width * 2].filter((w) => w <= 3000);
-  srcset = widths
-    .map((w) => {
-      let b = urlFor(image).auto("format").quality(quality).width(w);
-      if (height) b = b.height(Math.round((height / width) * w));
-      return `${b.url()} ${w}w`;
-    })
-    .join(", ");
-}
+const isSvg = hasRef
+  ? (image.asset._ref || image.asset._id || "").endsWith("-svg")
+  : (image.asset.url ?? "").toLowerCase().endsWith(".svg");
 
 const alt = image.alt ?? "";
+
+let srcFallback: string | undefined;
+let srcsetWebp: string | undefined;
+let srcsetJpeg: string | undefined;
+let srcBlur: string | undefined;
+
+if (hasRef) {
+  // Build fallback JPEG src (skip format conversion for SVG)
+  if (isSvg) {
+    srcFallback = urlFor(image).url();
+  } else {
+    let builder = urlFor(image).format("jpg").quality(quality);
+    if (width) builder = builder.width(width);
+    if (height) builder = builder.height(height);
+    srcFallback = builder.url();
+
+    // Build srcsets for WebP and JPEG
+    if (width) {
+      const widths = [width, width * 2].filter((w) => w <= 3000);
+      srcsetWebp = widths
+        .map((w) => {
+          let b = urlFor(image).format("webp").quality(quality).width(w);
+          if (height) b = b.height(Math.round((height / width) * w));
+          return `${b.url()} ${w}w`;
+        })
+        .join(", ");
+      srcsetJpeg = widths
+        .map((w) => {
+          let b = urlFor(image).format("jpg").quality(quality).width(w);
+          if (height) b = b.height(Math.round((height / width) * w));
+          return `${b.url()} ${w}w`;
+        })
+        .join(", ");
+
+      // Tiny blurred placeholder for blur-up effect
+      srcBlur = urlFor(image).width(20).blur(50).format("jpg").quality(30).url();
+    }
+  }
+} else {
+  srcFallback = image.asset.url ?? "";
+}
 ---
 
-<img
-  src={src}
-  srcset={srcset}
-  sizes={sizes}
-  alt={alt}
-  width={width}
-  height={height}
-  loading={loading}
-  class={className}
-  decoding="async"
-  {...rest}
-/>
+{
+  isSvg ? (
+    <img
+      src={srcFallback}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+      class={className}
+      {...rest}
+    />
+  ) : srcBlur ? (
+    <div class="ets-blur-wrap" style={`--blur-src: url('${srcBlur}')`}>
+      <picture>
+        {srcsetWebp && <source type="image/webp" srcset={srcsetWebp} sizes={sizes} />}
+        {srcsetJpeg && <source type="image/jpeg" srcset={srcsetJpeg} sizes={sizes} />}
+        <img
+          src={srcFallback}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={loading}
+          decoding="async"
+          class={className}
+          onload="this.closest('.ets-blur-wrap')?.classList.add('ets-blur--loaded')"
+          {...rest}
+        />
+      </picture>
+    </div>
+  ) : hasRef ? (
+    <picture>
+      {srcsetWebp && <source type="image/webp" srcset={srcsetWebp} sizes={sizes} />}
+      {srcsetJpeg && <source type="image/jpeg" srcset={srcsetJpeg} sizes={sizes} />}
+      <img
+        src={srcFallback}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding="async"
+        class={className}
+        {...rest}
+      />
+    </picture>
+  ) : (
+    <img
+      src={srcFallback}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+      class={className}
+      {...rest}
+    />
+  )
+}
+
+<style>
+  .ets-blur-wrap {
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Blurred placeholder via ::before */
+  .ets-blur-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -5%; /* overscale to hide blur edges */
+    background-image: var(--blur-src);
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  /* Fade out blur once loaded */
+  .ets-blur--loaded::before {
+    opacity: 0;
+  }
+
+  /* Img starts invisible, fades in on load */
+  .ets-blur-wrap :global(img) {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .ets-blur--loaded :global(img) {
+    opacity: 1;
+  }
+</style>

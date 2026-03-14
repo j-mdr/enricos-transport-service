@@ -10,7 +10,7 @@ export const blogPost = defineType({
     { name: "seo", title: "SEO" },
   ],
   fields: [
-    defineField({ name: "language", type: "string", readOnly: true, hidden: true }),
+    defineField({ name: "language", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",
@@ -52,7 +52,7 @@ export const blogPost = defineType({
       title: "Auteurs",
       type: "array",
       group: "meta",
-      of: [{ type: "reference", to: [{ type: "author" }] }],
+      of: [{ type: "reference", to: [{ type: "person" }] }],
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({

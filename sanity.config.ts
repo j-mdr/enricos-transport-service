@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { documentInternationalization } from "@sanity/document-internationalization";
+import { nlNLLocale } from "@sanity/locale-nl-nl";
 
 import { schemaTypes } from "./sanity/schemas";
 import { structure } from "./sanity/structure";
@@ -15,6 +16,7 @@ export default defineConfig({
   projectId,
   dataset,
   plugins: [
+    nlNLLocale(),
     structureTool({ structure }),
     visionTool(),
     documentInternationalization({
@@ -22,7 +24,16 @@ export default defineConfig({
         { id: "nl", title: "Nederlands" },
         { id: "en", title: "English" },
       ],
-      schemaTypes: ["blogPost", "service", "deliveryArea", "page", "nav", "footer", "form"],
+      schemaTypes: [
+        "blogPost",
+        "service",
+        "deliveryArea",
+        "page",
+        "nav",
+        "footer",
+        "form",
+        "person",
+      ],
     }),
   ],
   schema: {
@@ -32,9 +43,16 @@ export default defineConfig({
     newDocumentOptions: (prev) =>
       prev.filter(
         (option) =>
-          !["blogPost", "service", "deliveryArea", "page", "nav", "footer", "form"].includes(
-            option.templateId,
-          ),
+          ![
+            "blogPost",
+            "service",
+            "deliveryArea",
+            "page",
+            "nav",
+            "footer",
+            "form",
+            "person",
+          ].includes(option.templateId),
       ),
   },
 });

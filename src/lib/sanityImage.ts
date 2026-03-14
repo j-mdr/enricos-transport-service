@@ -1,6 +1,15 @@
 import imageUrlBuilder from "@sanity/image-url";
 import { sanityClient } from "@lib/sanityClient";
 
+export const ASPECT_RATIOS = {
+  vierkant: 1,
+  landschap: 16 / 9,
+  klassiek: 4 / 3,
+  portret: 3 / 4,
+} as const;
+
+export type AspectRatio = keyof typeof ASPECT_RATIOS;
+
 const builder = imageUrlBuilder(sanityClient);
 
 export interface SanityImageObject {

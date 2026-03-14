@@ -1,8 +1,43 @@
 import type { StructureResolver } from "sanity/structure";
 
 // Singletons hebben een vaste _id en mogen niet vermenigvuldigd worden.
-const singletonIds = ["settings-nl", "settings-en"];
 const singletonTypes = ["settings"];
+
+// Document types die per taal bestaan (via @sanity/document-internationalization)
+const i18nTypes = [
+  { type: "page", titleNL: "Pagina's", titleEN: "Pages" },
+  { type: "blogPost", titleNL: "Blog", titleEN: "Blog" },
+  { type: "service", titleNL: "Diensten", titleEN: "Services" },
+  { type: "deliveryArea", titleNL: "Bezorggebieden", titleEN: "Delivery Areas" },
+  { type: "person", titleNL: "Personen", titleEN: "Persons" },
+  { type: "nav", titleNL: "Navigatie", titleEN: "Navigation" },
+  { type: "footer", titleNL: "Footer", titleEN: "Footer" },
+  { type: "form", titleNL: "Formulieren", titleEN: "Forms" },
+];
+
+function langGroup(S: Parameters<StructureResolver>[0], lang: "nl" | "en") {
+  const isNL = lang === "nl";
+  return S.listItem()
+    .title(isNL ? "🇳🇱 Nederlands" : "🇬🇧 English")
+    .child(
+      S.list()
+        .title(isNL ? "Nederlands" : "English")
+        .items(
+          i18nTypes.map(({ type, titleNL, titleEN }) =>
+            S.listItem()
+              .title(isNL ? titleNL : titleEN)
+              .schemaType(type)
+              .child(
+                S.documentList()
+                  .title(isNL ? titleNL : titleEN)
+                  .schemaType(type)
+                  .filter(`_type == $type && language == $lang`)
+                  .params({ type, lang }),
+              ),
+          ),
+        ),
+    );
+}
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -28,8 +63,7 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // Reguliere document types (zonder singletons)
-      ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !singletonTypes.includes(item.getId()!),
-      ),
+      // Taalgroepen
+      langGroup(S, "nl"),
+      langGroup(S, "en"),
     ]);

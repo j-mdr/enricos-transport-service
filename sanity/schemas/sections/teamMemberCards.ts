@@ -16,7 +16,7 @@ export const teamMemberCards = defineType({
       name: "teamMembers",
       title: "Teamleden",
       type: "array",
-      of: [{ type: "profileCard" }],
+      of: [{ type: "reference", to: [{ type: "person" }] }],
       validation: (Rule) => Rule.required().min(1),
     }),
   ],

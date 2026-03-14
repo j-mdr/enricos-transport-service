@@ -8,12 +8,11 @@ import {
   featureCardSmall,
   featureCardSideImage,
   featureCardToggle,
-  profileCard,
   serviceCardIcon,
   serviceCardSideImage,
 } from "./molecules";
 import { settings } from "./singletons";
-import { nav, footer, form, author, blogPost, service, deliveryArea, page } from "./documents";
+import { nav, footer, form, person, blogPost, service, deliveryArea, page } from "./documents";
 import {
   heroBgImage,
   heroSideImage,
@@ -57,7 +56,6 @@ export const schemaTypes = [
   featureCardSmall,
   featureCardSideImage,
   featureCardToggle,
-  profileCard,
   serviceCardIcon,
   serviceCardSideImage,
   // Singletons
@@ -66,7 +64,7 @@ export const schemaTypes = [
   nav,
   footer,
   form,
-  author,
+  person,
   blogPost,
   service,
   deliveryArea,

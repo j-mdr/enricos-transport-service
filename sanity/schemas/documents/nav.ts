@@ -8,7 +8,7 @@ export const nav = defineType({
   title: "Navigatie",
   type: "document",
   fields: [
-    defineField({ name: "language", type: "string", readOnly: true, hidden: true }),
+    defineField({ name: "language", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "logo",
       title: "Logo",

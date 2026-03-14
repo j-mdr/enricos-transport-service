@@ -15,7 +15,13 @@ const pageFields = `
   ${translationsFragment},
   ${navFragment},
   ${footerFragment},
-  blocks[] { _type, ... }
+  blocks[] {
+    _type,
+    ...,
+    _type == "teamMemberCards" => {
+      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }
+    }
+  }
 `;
 
 export async function getPageBySlug(slug: string, locale: Locale) {

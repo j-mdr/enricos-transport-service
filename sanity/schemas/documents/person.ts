@@ -1,10 +1,11 @@
 import { defineType, defineField } from "sanity";
 
-export const profileCard = defineType({
-  name: "profileCard",
-  title: "Profiel kaart",
-  type: "object",
+export const person = defineType({
+  name: "person",
+  title: "Persoon",
+  type: "document",
   fields: [
+    defineField({ name: "language", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "name",
       title: "Naam",
@@ -18,22 +19,28 @@ export const profileCard = defineType({
       description: "Bijv. 'Oprichter' of 'Chauffeur'",
     }),
     defineField({
+      name: "avatar",
+      title: "Profielfoto",
+      type: "imageWithAlt",
+    }),
+    defineField({
       name: "bio",
       title: "Bio",
       type: "text",
-      rows: 4,
+      rows: 3,
     }),
     defineField({
-      name: "image",
-      title: "Profielfoto",
-      type: "imageWithAlt",
+      name: "authorLink",
+      title: "Persoonlijke link",
+      type: "url",
+      description: "Bijv. LinkedIn of persoonlijke website",
     }),
   ],
   preview: {
     select: {
       title: "name",
       subtitle: "personTitle",
-      media: "image.asset",
+      media: "avatar.asset",
     },
   },
 });
