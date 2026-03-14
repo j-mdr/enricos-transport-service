@@ -9,7 +9,6 @@ import MobileLanguageSelect from "@components/LanguageSelect/MobileLanguageSelec
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import { getNavData } from "@/utils/navUtils";
 import { locales } from "@config/siteSettings.json";
 
@@ -82,11 +81,11 @@ const data = await getNavData(currLocale);
       </nav>
       <div class="mx-1 mt-2 w-full px-4">
         <Button
-          variant="primary"
+          variant={(data.ctaButton.variant as any) ?? "primary"}
           class="w-full"
-          href={getLocalizedRoute(currLocale, data.ctaButton.href)}
+          link={data.ctaButton.link}
         >
-          {data.ctaButton.text}
+          {data.ctaButton.link?.text}
         </Button>
       </div>
 

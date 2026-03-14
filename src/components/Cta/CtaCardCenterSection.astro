@@ -4,25 +4,20 @@
  * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import { Icon } from "astro-icon/components";
-import Button from "@components/Button/Button.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute } from "@/utils/translationUtils";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
+import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 interface Props {
   title?: string;
   description?: string;
-  ctaButton?: { link?: { text?: string; href?: string } };
+  ctaButton?: SanityCtaButtonObject;
   [key: string]: any;
 }
 
 const { title = "", description, ctaButton } = Astro.props;
 
 if (!title) return;
-
-const btnText = ctaButton?.link?.text ?? "";
-const btnHref = ctaButton?.link?.href ?? "";
-const currLocale = getLocaleFromUrl(Astro.url);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -72,19 +67,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
               {trailingText ?? null}
             </h2>
             {description && <p class="description mt-6">{description}</p>}
-            {
-              btnText && (
-                <div class="mt-10 flex justify-center">
-                  <Button
-                    variant="primary"
-                    href={getLocalizedRoute(currLocale, btnHref)}
-                    arrow="right"
-                  >
-                    {btnText}
-                  </Button>
-                </div>
-              )
-            }
+            <div class="mt-10 flex justify-center">
+              <SanityCtaButton ctaButton={ctaButton} arrow="right" />
+            </div>
           </div>
         </div>
       </div>

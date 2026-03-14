@@ -4,7 +4,8 @@
  * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import { Icon } from "astro-icon/components";
-import Button from "@components/Button/Button.astro";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
+import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { SanityImageObject } from "@lib/sanityImage";
@@ -12,8 +13,8 @@ import type { SanityImageObject } from "@lib/sanityImage";
 interface Props {
   title?: string;
   description?: string;
-  ctaButton1?: { link?: { text?: string; href?: string } };
-  ctaButton2?: { link?: { text?: string; href?: string } };
+  ctaButton1?: SanityCtaButtonObject;
+  ctaButton2?: SanityCtaButtonObject;
   image?: SanityImageObject | null;
   [key: string]: any;
 }
@@ -21,11 +22,6 @@ interface Props {
 const { title = "", description, ctaButton1, ctaButton2, image } = Astro.props;
 
 if (!title) return;
-
-const btn1Text = ctaButton1?.link?.text ?? "";
-const btn1Href = ctaButton1?.link?.href ?? "#";
-const btn2Text = ctaButton2?.link?.text ?? "";
-const btn2Href = ctaButton2?.link?.href ?? "#";
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -86,18 +82,10 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         )
       }
       {
-        (btn1Text || btn2Text) && (
+        (ctaButton1?.link || ctaButton2?.link) && (
           <div class="mt-6 flex flex-wrap gap-4">
-            {btn1Text && (
-              <Button variant="primary" href={btn1Href} data-mos="fade-up" data-mos-delay=".9">
-                {btn1Text}
-              </Button>
-            )}
-            {btn2Text && (
-              <Button variant="outline" href={btn2Href} data-mos="fade-up" data-mos-delay="1.1">
-                {btn2Text}
-              </Button>
-            )}
+            <SanityCtaButton ctaButton={ctaButton1} data-mos="fade-up" data-mos-delay=".9" />
+            <SanityCtaButton ctaButton={ctaButton2} data-mos="fade-up" data-mos-delay="1.1" />
           </div>
         )
       }

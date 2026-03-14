@@ -25,7 +25,7 @@ export const nav = defineType({
       name: "navItems",
       title: "Navigatie items",
       type: "array",
-      of: [{ type: "navItem" }],
+      of: [{ type: "link" }, { type: "navItemDropdown" }],
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({

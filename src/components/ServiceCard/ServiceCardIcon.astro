@@ -10,12 +10,18 @@
 
 import { Icon } from "astro-icon/components";
 import Button from "@components/Button/Button.astro";
-import type { ServiceIconCard } from "@config/configDataTypes.ts";
+import SanityLink from "@components/SanityLink/SanityLink.astro";
+import type { SanityLinkObject } from "@components/SanityLink/SanityLink.astro";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 
-type Props = ServiceIconCard & {
+interface Props {
+  icon: string;
+  title: string;
+  description?: string;
+  ctaButton?: { link?: SanityLinkObject | null; variant?: string; size?: string };
   idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
-};
+  [key: string]: any;
+}
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const aboutText = currLocale === "en" ? "about" : "over";
@@ -24,9 +30,8 @@ const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
 ---
 
 <div {...rest} class="h-full">
-  `
-  <a
-    href={ctaButton.href}
+  <SanityLink
+    link={ctaButton?.link ?? {}}
     class="group bg-base-50 flex h-full flex-col justify-between overflow-hidden rounded-xl px-4 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
   >
     <div>
@@ -48,9 +53,9 @@ const { icon, title, ctaButton, description, idx, ...rest } = Astro.props;
     </div>
     <div class="mt-4 flex justify-center">
       <Button variant="outline" arrow="right">
-        {ctaButton.text}
+        {ctaButton.link?.text}
         <span class="sr-only">{aboutText} {title}</span>
       </Button>
     </div>
-  </a>
+  </SanityLink>
 </div>

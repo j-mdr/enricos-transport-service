@@ -1,0 +1,38 @@
+---
+import Button from "@components/Button/Button.astro";
+import type { SanityLinkObject } from "@components/SanityLink/SanityLink.astro";
+import type { HTMLAttributes } from "astro/types";
+
+export interface SanityCtaButtonObject {
+  link?: SanityLinkObject | null;
+  variant?: "default" | "primary" | "secondary" | "outline" | "ghost" | string;
+  size?: "sm" | "md" | "lg" | string;
+}
+
+interface Props extends HTMLAttributes<"a"> {
+  ctaButton?: SanityCtaButtonObject | null;
+  arrow?: "left" | "right" | "none";
+  class?: string;
+}
+
+const { ctaButton, arrow, class: className, ...rest } = Astro.props;
+
+if (!ctaButton?.link) return;
+
+const sizeClass =
+  ctaButton.size === "sm"
+    ? "text-sm px-3 py-1.5"
+    : ctaButton.size === "lg"
+      ? "text-lg px-6 py-3"
+      : "";
+---
+
+<Button
+  variant={(ctaButton.variant as any) ?? "primary"}
+  link={ctaButton.link}
+  arrow={arrow}
+  class:list={[sizeClass, className]}
+  {...rest}
+>
+  {ctaButton.link.text}
+</Button>

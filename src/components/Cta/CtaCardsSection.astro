@@ -4,15 +4,14 @@
  * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import FeatureCard from "@components/FeatureCard/FeatureCardMedium.astro";
-import Button from "@components/Button/Button.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute } from "@/utils/translationUtils";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
+import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 interface Props {
   title?: string;
   description?: string;
-  ctaButton?: { link?: { text?: string; href?: string } };
+  ctaButton?: SanityCtaButtonObject;
   cards?: { icon?: string; title: string; text: string }[];
   [key: string]: any;
 }
@@ -20,10 +19,6 @@ interface Props {
 const { title = "", description, ctaButton, cards = [] } = Astro.props;
 
 if (!title) return;
-
-const btnText = ctaButton?.link?.text ?? "";
-const btnHref = ctaButton?.link?.href ?? "";
-const currLocale = getLocaleFromUrl(Astro.url);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -38,20 +33,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         {trailingText ?? null}
       </h2>
       {description && <p class="description mt-6">{description}</p>}
-      {
-        btnText && (
-          <div class="flex">
-            <Button
-              variant="primary"
-              href={getLocalizedRoute(currLocale, btnHref)}
-              class="mt-6"
-              arrow="right"
-            >
-              {btnText}
-            </Button>
-          </div>
-        )
-      }
+      <div class="flex">
+        <SanityCtaButton ctaButton={ctaButton} class="mt-6" arrow="right" />
+      </div>
     </div>
     {
       cards.length > 0 && (

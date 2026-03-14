@@ -9,6 +9,8 @@ export const settings = defineType({
   title: "Instellingen",
   type: "document",
   groups: [
+    { name: "nav", title: "Navigatie" },
+    { name: "footer", title: "Footer" },
     { name: "bedrijf", title: "Bedrijf" },
     { name: "contact", title: "Contact" },
     { name: "adres", title: "Adres" },
@@ -16,6 +18,19 @@ export const settings = defineType({
     { name: "seo", title: "SEO" },
   ],
   fields: [
+    defineField({
+      name: "nav",
+      title: "Navigatie",
+      type: "navObject",
+      group: "nav",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "footer",
+      title: "Footer",
+      type: "footerObject",
+      group: "footer",
+    }),
     defineField({
       name: "name",
       title: "Bedrijfsnaam",

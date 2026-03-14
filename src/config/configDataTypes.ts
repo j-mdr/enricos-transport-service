@@ -5,10 +5,13 @@ export type LocalizedData<T> = {
 
 // --------------------------------------------------------
 // cta
+import type { SanityLinkObject } from "@components/SanityLink/SanityLink.astro";
+
 export interface CtaButton {
   ctaButton: {
-    text: string;
-    href: string;
+    link: SanityLinkObject;
+    variant?: string;
+    size?: string;
   };
 }
 

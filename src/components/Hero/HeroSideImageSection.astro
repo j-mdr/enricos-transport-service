@@ -8,11 +8,12 @@ import Button from "@components/Button/Button.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { SanityImageObject } from "@lib/sanityImage";
+import type { SanityLinkObject } from "@components/SanityLink/SanityLink.astro";
 
 interface Props {
   title?: string;
   description?: string;
-  ctaButton?: { link?: { text?: string; href?: string } };
+  ctaButton?: { link?: SanityLinkObject; variant?: string };
   image?: SanityImageObject | null;
   [key: string]: any;
 }
@@ -21,11 +22,9 @@ const { title = "", description, ctaButton, image } = Astro.props;
 
 if (!title) return;
 
-const btnText = ctaButton?.link?.text ?? "";
-const btnHref = ctaButton?.link?.href ?? "#";
-
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
+console.log('ctaButton', JSON.stringify(ctaButton, null, 2));
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-[60svh] w-full overflow-clip pb-10">
@@ -92,10 +91,15 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         )
       }
       {
-        btnText && (
+        ctaButton?.link && (
           <div class="mt-6 flex gap-4">
-            <Button variant="primary" href={btnHref} data-mos="fade-up" data-mos-delay=".9">
-              {btnText}
+            <Button
+              variant={(ctaButton.variant as any) ?? "primary"}
+              link={ctaButton.link}
+              data-mos="fade-up"
+              data-mos-delay=".9"
+            >
+              {ctaButton.link.text}
             </Button>
           </div>
         )
@@ -107,7 +111,6 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         <div class="mx-auto max-w-lg md:max-w-full">
           <SanityImage
             image={image}
-            width={600}
             aspectRatio="klassiek"
             sizesType="half"
             loading="eager"

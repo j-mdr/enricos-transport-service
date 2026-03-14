@@ -2,15 +2,23 @@
 import type { HTMLAttributes } from "astro/types";
 import { getLocaleFromUrl } from "@utils/localeUtils";
 
-export interface SanityLinkObject {
-  text?: string;
-  linkType?: "external" | "internal";
+export interface SanityExternalLink {
+  _type: "externalLink";
   href?: string;
   openInNewTab?: boolean;
+}
+
+export interface SanityInternalLink {
+  _type: "internalLink";
   reference?: {
     _type: string;
     slug?: { current: string };
   };
+}
+
+export interface SanityLinkObject {
+  text?: string;
+  destination?: [SanityExternalLink | SanityInternalLink];
 }
 
 interface Props extends HTMLAttributes<"a"> {
@@ -23,17 +31,20 @@ const { link, class: className, ...rest } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const prefix = locale === "nl" ? "" : `/${locale}`;
 
-function resolveHref(link: SanityLinkObject): string {
-  if (link.linkType === "internal") {
-    const slug = link.reference?.slug?.current ?? "";
-    if (link.reference?._type === "blogPost") return `${prefix}/blog/${slug}`;
+const dest = link.destination?.[0];
+
+function resolveHref(): string {
+  if (!dest) return "/";
+  if (dest._type === "internalLink") {
+    const slug = dest.reference?.slug?.current ?? "";
+    if (dest.reference?._type === "blogPost") return `${prefix}/blog/${slug}`;
     return `${prefix}/${slug}`;
   }
-  return link.href ?? "/";
+  return dest.href ?? "/";
 }
 
-const href = resolveHref(link);
-const newTab = link.openInNewTab ?? false;
+const href = resolveHref();
+const newTab = dest?._type === "externalLink" ? (dest.openInNewTab ?? false) : false;
 ---
 
 <a

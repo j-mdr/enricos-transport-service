@@ -2,44 +2,50 @@ import type { Locale } from "@config/siteSettings.json";
 import type { NavData, NavItem } from "@config/configDataTypes";
 import { getNavData as fetchNavData } from "@lib/groq/nav";
 
-function resolveLink(link: any, locale: string = "nl"): string {
-  if (!link) return "/";
-  if (link.linkType === "internal") {
-    const slug = link.reference?.slug?.current ?? "";
-    const type = link.reference?._type;
+function resolveLink(item: any, locale: string = "nl"): string {
+  const dest = item?.destination?.[0];
+  if (!dest) return "/";
+  if (dest._type === "internalLink") {
+    const slug = dest.reference?.slug?.current ?? "";
+    const type = dest.reference?._type;
     const prefix = locale === "nl" ? "" : `/${locale}`;
     if (type === "blogPost") return `${prefix}/blog/${slug}`;
     return `${prefix}/${slug}`;
   }
-  return link.href ?? "/";
+  return dest.href ?? "/";
+}
+
+function isNewTab(item: any): boolean {
+  return item?.destination?.[0]?.openInNewTab ?? false;
 }
 
 export function mapNavData(data: any, locale: string = "nl"): NavData {
   if (!data) return { ctaButton: { text: "", href: "" }, navItems: [] };
 
   const navItems: NavItem[] = (data.navItems ?? []).map((item: any) => {
-    if (item.hasDropdown && item.dropdown?.length > 0) {
+    if (item._type === "navItemDropdown") {
       return {
-        text: item.text,
-        dropdown: item.dropdown.map((d: any) => ({
+        text: item.label,
+        dropdown: (item.dropdown ?? []).map((d: any) => ({
           text: d.text,
           link: resolveLink(d, locale),
-          newTab: d.openInNewTab ?? false,
+          newTab: isNewTab(d),
         })),
       };
     }
     return {
       text: item.text,
-      link: resolveLink(item.link, locale),
-      newTab: item.link?.openInNewTab ?? false,
+      link: resolveLink(item, locale),
+      newTab: isNewTab(item),
     };
   });
 
   return {
     logo: data.logo ?? null,
     ctaButton: {
-      text: data.ctaButton?.link?.text ?? "",
-      href: data.ctaButton?.link?.href ?? "",
+      link: data.ctaButton?.link ?? null,
+      variant: data.ctaButton?.variant ?? "primary",
+      size: data.ctaButton?.size ?? "md",
     },
     navItems,
   } as NavData & { logo: any };

@@ -36,7 +36,8 @@ export const page = defineType({
       type: "reference",
       to: [{ type: "page" }],
       group: "meta",
-      description: "Optioneel. Geeft de URL-structuur: parent-slug/deze-slug",
+      description:
+        "Selecteer een bovenliggende pagina. Dit zorgt ervoor dat het pad van de url de slug van de bovenliggende pagina bevat (bijv. /diensten/regulier-transport).",
       options: {
         filter: (({ document }: { document: { _id?: string; language?: string } }) => {
           const id = document._id?.replace(/^drafts\./, "");
@@ -122,21 +123,6 @@ export const page = defineType({
         { type: "becomePartnerSection" },
         { type: "richText" },
       ],
-    }),
-
-    defineField({
-      name: "nav",
-      title: "Navigatie",
-      type: "reference",
-      to: [{ type: "nav" }],
-      group: "meta",
-    }),
-    defineField({
-      name: "footer",
-      title: "Footer",
-      type: "reference",
-      to: [{ type: "footer" }],
-      group: "meta",
     }),
     defineField({
       name: "seo",

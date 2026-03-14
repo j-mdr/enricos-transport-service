@@ -36,61 +36,11 @@ export const portableText = defineType({
             title: "Link",
             fields: [
               {
-                name: "linkType",
-                title: "Type",
-                type: "string",
-                options: {
-                  list: [
-                    { title: "Extern", value: "external" },
-                    { title: "Intern", value: "internal" },
-                  ],
-                  layout: "radio",
-                },
-                initialValue: "external",
-              },
-              {
-                name: "href",
-                title: "URL",
-                type: "string",
-                description: "Bijv. https://example.com",
-                hidden: ({ parent }: { parent?: { linkType?: string } }) =>
-                  parent?.linkType === "internal",
-                validation: (Rule) =>
-                  Rule.custom((value, ctx) => {
-                    if (
-                      (ctx.parent as { linkType?: string })?.linkType !==
-                        "internal" &&
-                      !value
-                    )
-                      return "Verplicht voor externe links";
-                    return true;
-                  }),
-              },
-              {
-                name: "reference",
-                title: "Pagina of blogpost",
-                type: "reference",
-                to: [{ type: "page" }, { type: "blogPost" }],
-                hidden: ({ parent }: { parent?: { linkType?: string } }) =>
-                  parent?.linkType !== "internal",
-                validation: (Rule) =>
-                  Rule.custom((value, ctx) => {
-                    if (
-                      (ctx.parent as { linkType?: string })?.linkType ===
-                        "internal" &&
-                      !value
-                    )
-                      return "Verplicht voor interne links";
-                    return true;
-                  }),
-              },
-              {
-                name: "openInNewTab",
-                title: "Openen in nieuw tabblad",
-                type: "boolean",
-                initialValue: false,
-                hidden: ({ parent }: { parent?: { linkType?: string } }) =>
-                  parent?.linkType === "internal",
+                name: "destination",
+                title: "Bestemming",
+                type: "array",
+                of: [{ type: "externalLink" }, { type: "internalLink" }],
+                validation: (Rule: import("sanity").ArrayRule) => Rule.required().min(1).max(1),
               },
             ],
           },

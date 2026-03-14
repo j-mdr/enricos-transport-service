@@ -1,7 +1,9 @@
-import { link, imageWithAlt, seoMeta, portableText } from "./atoms";
+import { link, externalLink, internalLink, imageWithAlt, seoMeta, portableText } from "./atoms";
 import {
   ctaButton,
-  navItem,
+  navItemDropdown,
+  navObject,
+  footerObject,
   faqItem,
   formField,
   testimonialCard,
@@ -12,7 +14,7 @@ import {
   serviceCardSideImage,
 } from "./molecules";
 import { settings } from "./singletons";
-import { nav, footer, form, person, blogPost, page, category } from "./documents";
+import { form, person, blogPost, page, category } from "./documents";
 import {
   heroBgImage,
   heroSideImage,
@@ -44,12 +46,16 @@ import {
 export const schemaTypes = [
   // Atoms
   link,
+  externalLink,
+  internalLink,
   imageWithAlt,
   seoMeta,
   portableText,
   // Molecules
   ctaButton,
-  navItem,
+  navItemDropdown,
+  navObject,
+  footerObject,
   faqItem,
   formField,
   testimonialCard,
@@ -61,8 +67,6 @@ export const schemaTypes = [
   // Singletons
   settings,
   // Documents
-  nav,
-  footer,
   form,
   person,
   blogPost,

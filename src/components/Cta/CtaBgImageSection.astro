@@ -5,10 +5,9 @@
  */
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
-import Button from "@components/Button/Button.astro";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
+import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { SanityImageObject } from "@lib/sanityImage";
 
@@ -17,7 +16,7 @@ import staticImage from "@images/enricos-transportservice-bestelbus-achteraanzic
 interface Props {
   title?: string;
   description?: string;
-  ctaButton?: { link?: { text?: string; href?: string } };
+  ctaButton?: SanityCtaButtonObject;
   image?: SanityImageObject | null;
   [key: string]: any;
 }
@@ -25,10 +24,6 @@ interface Props {
 const { title = "", description, ctaButton, image } = Astro.props;
 
 if (!title) return;
-
-const btnText = ctaButton?.link?.text ?? "";
-const btnHref = ctaButton?.link?.href ?? "";
-const currLocale = getLocaleFromUrl(Astro.url);
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -96,19 +91,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
               {trailingText ?? null}
             </h2>
             {description && <p class="description mt-6">{description}</p>}
-            {
-              btnText && (
-                <div class="text-base-900 mt-10 flex">
-                  <Button
-                    variant="primary"
-                    href={getLocalizedRoute(currLocale, btnHref)}
-                    arrow="right"
-                  >
-                    {btnText}
-                  </Button>
-                </div>
-              )
-            }
+            <div class="text-base-900 mt-10 flex">
+              <SanityCtaButton ctaButton={ctaButton} arrow="right" />
+            </div>
           </div>
         </div>
       </div>

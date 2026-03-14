@@ -45,7 +45,7 @@ export const ctaButton = defineType({
   preview: {
     select: {
       title: "link.text",
-      subtitle: "link.href",
+      subtitle: "link.destination.0.href",
     },
   },
 });

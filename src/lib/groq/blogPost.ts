@@ -1,31 +1,6 @@
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteSettings.json";
-
-const linkFragment = `{
-  text,
-  "href": select(
-    linkType == "internal" =>
-      "/" + select($locale == "en" => "en/", "") + reference->slug.current,
-    href
-  ),
-  openInNewTab
-}`;
-
-const navFragment = `nav->{ logo { asset, alt, hotspot, crop }, ctaButton { link ${linkFragment} }, navItems[] { text, href, dropdown[] ${linkFragment} } }`;
-const footerFragment = `footer->{ logo { asset, alt, hotspot, crop }, ctaButton { link ${linkFragment} }, columns[] { title, links[] ${linkFragment} } }`;
-
-const alternatePathsFragment = `
-  "alternatePaths": {
-    "nl": coalesce(
-      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,
-      "/"
-    ),
-    "en": coalesce(
-      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,
-      "/en/"
-    )
-  }
-`;
+import { alternatePathsFragment } from "./fragments";
 
 const blogPostFields = `
   title,
@@ -36,9 +11,7 @@ const blogPostFields = `
   authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },
   categories,
   content,
-  ${alternatePathsFragment},
-  ${navFragment},
-  ${footerFragment}
+  ${alternatePathsFragment}
 `;
 
 export async function getBlogPostBySlug(slug: string, locale: Locale) {

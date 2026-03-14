@@ -4,7 +4,8 @@
  */
 import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import Button from "@components/Button/Button.astro";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
+import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { SanityImageObject } from "@lib/sanityImage";
 
@@ -15,15 +16,12 @@ interface Props {
   title: string;
   description?: string;
   image?: SanityImageObject | null;
-  ctaButton?: { link?: { text?: string; href?: string } };
+  ctaButton?: SanityCtaButtonObject;
   imageSide: "left" | "right";
   idx: number;
 }
 
 const { image, ctaButton, description, title, idx, imageSide } = Astro.props;
-
-const btnText = ctaButton?.link?.text ?? "";
-const btnHref = ctaButton?.link?.href ?? "#";
 ---
 
 <div class="mx-auto grid gap-8 rounded-xl md:grid-cols-2 md:gap-12 lg:gap-20">
@@ -31,18 +29,9 @@ const btnHref = ctaButton?.link?.href ?? "#";
   <div class={`${imageSide === "left" ? "md:order-last" : ""} col-span-1`}>
     <h2 class="h2 mt-6">{title}</h2>
     {description && <p class="mt-4 opacity-80">{description}</p>}
-    {
-      btnText && (
-        <div class="z-20 mt-4 flex">
-          <Button variant="ghost" href={btnHref} arrow="right">
-            {btnText}
-            <span class="sr-only">
-              {aboutText} {title}
-            </span>
-          </Button>
-        </div>
-      )
-    }
+    <div class="z-20 mt-4 flex">
+      <SanityCtaButton ctaButton={ctaButton} arrow="right" />
+    </div>
   </div>
 
   <!-- image -->

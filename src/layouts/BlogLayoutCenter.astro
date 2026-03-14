@@ -18,28 +18,19 @@ interface Props {
     pubDate?: string;
     authors?: SanityAuthor[];
     categories?: string[];
-    nav?: any;
-    footer?: any;
     translations?: any[];
   };
   alternatePaths?: Partial<Record<string, string>>;
 }
 
 const { post, alternatePaths } = Astro.props as Props;
-const { title, description, authors, categories, pubDate, heroImage, nav, footer } = post;
+const { title, description, authors, categories, pubDate, heroImage } = post;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar alle posts";
 ---
 
-<BaseLayout
-  type="general"
-  title={title}
-  description={description}
-  navData={nav}
-  footerData={footer}
-  alternatePaths={alternatePaths}
->
+<BaseLayout type="general" title={title} description={description} alternatePaths={alternatePaths}>
   <article class="site-container pt-36 md:pt-44">
     <div class="flex w-full flex-col items-center">
       <div class="mx-auto flex w-full max-w-[800px]">

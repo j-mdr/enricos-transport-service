@@ -15,28 +15,13 @@ interface Props {
   title: string;
   description: string;
   image?: any;
-  navData?: any;
-  footerData?: any;
   alternatePaths?: Partial<Record<string, string>>;
 }
 
-const {
-  title,
-  description,
-  image = undefined,
-  navData,
-  footerData,
-  alternatePaths,
-} = Astro.props as Props;
+const { title, description, image = undefined, alternatePaths } = Astro.props as Props;
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  navData={navData}
-  footerData={footerData}
-  alternatePaths={alternatePaths}
->
+<BaseLayout title={title} description={description} alternatePaths={alternatePaths}>
   <!-- service heading -->
   <section class="site-container flex w-full flex-col items-center pt-24 md:pt-36">
     <div class="bg-base-200/50 w-full rounded-xl py-20 text-center md:py-32">

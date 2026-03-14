@@ -1,6 +1,8 @@
 export { ctaButton } from "./ctaButton";
 export { formField } from "./formField";
-export { navItem } from "./navItem";
+export { navItemDropdown } from "./navItemDropdown";
+export { navObject } from "./navObject";
+export { footerObject } from "./footerObject";
 export { faqItem } from "./faqItem";
 export { testimonialCard } from "./testimonialCard";
 export { featureCardSmall } from "./featureCardSmall";

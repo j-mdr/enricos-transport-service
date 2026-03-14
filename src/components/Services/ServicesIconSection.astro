@@ -6,13 +6,15 @@
 import ServiceCardIcon from "@components/ServiceCard/ServiceCardIcon.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
+import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
+
 interface Props {
   title?: string;
   services?: {
     icon?: string;
     title: string;
     description?: string;
-    ctaButton?: { link?: { text?: string; href?: string } };
+    ctaButton?: SanityCtaButtonObject;
   }[];
   [key: string]: any;
 }
@@ -41,10 +43,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
             title={service.title}
             description={service.description}
             icon={service.icon}
-            ctaButton={{
-              href: service.ctaButton?.link?.href ?? "#",
-              text: service.ctaButton?.link?.text ?? "",
-            }}
+            ctaButton={service.ctaButton}
             idx={idx}
             data-mos="fade-up"
             data-mos-delay={0.15 * idx}

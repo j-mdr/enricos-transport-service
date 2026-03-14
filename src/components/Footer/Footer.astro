@@ -7,22 +7,11 @@ import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getFooterData } from "@/utils/footer";
 import { getCompanyInfo } from "@/utils/companyInfo";
 
-interface Props {
-  footerData?: any;
-}
-
-const { footerData } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-
-const resolved = footerData ?? (await getFooterData(currLocale));
+const resolved = await getFooterData(currLocale);
 const logo = resolved?.logo ?? null;
-const { ctaButton, columns } = {
-  ctaButton: {
-    text: resolved?.ctaButton?.link?.text ?? resolved?.ctaButton?.text ?? "",
-    href: resolved?.ctaButton?.link?.href ?? resolved?.ctaButton?.href ?? "",
-  },
-  columns: resolved?.columns ?? [],
-};
+const ctaButton = resolved?.ctaButton;
+const columns = resolved?.columns ?? [];
 const companyInfo = await getCompanyInfo(currLocale);
 const companyName = companyInfo?.name ?? "Enrico's Transportservice";
 const today = new Date();
@@ -34,7 +23,9 @@ const today = new Date();
       <div class="mt-6 flex flex-col items-start gap-4">
         <SiteLogo logo={logo} />
         <div class="">
-          <Button variant="primary" href={ctaButton.href}>{ctaButton.text}</Button>
+          <Button variant={(ctaButton?.variant as any) ?? "primary"} link={ctaButton?.link}>
+            {ctaButton?.link?.text}
+          </Button>
         </div>
         <div class="hidden text-sm opacity-80 md:block">
           &copy; {today.getFullYear()}
@@ -55,8 +46,13 @@ const today = new Date();
             {columns.map((col: { title: string; links: { text: string; href: string }[] }) => (
               <div class="flex flex-col gap-2">
                 <p class="font-semibold">{col.title}</p>
-                {col.links.map((link) => (
-                  <a href={link.href} class="text-sm opacity-80 hover:opacity-100">
+                {col.links.map((link: { text: string; href: string; newTab?: boolean }) => (
+                  <a
+                    href={link.href}
+                    class="text-sm opacity-80 hover:opacity-100"
+                    target={link.newTab ? "_blank" : undefined}
+                    rel={link.newTab ? "noopener noreferrer" : undefined}
+                  >
                     {link.text}
                   </a>
                 ))}
