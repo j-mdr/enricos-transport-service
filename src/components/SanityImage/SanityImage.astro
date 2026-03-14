@@ -12,6 +12,7 @@ interface Props {
   sizes?: string;
   sizesType?: SizesType;
   loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
   class?: string;
   [key: string]: any;
 }
@@ -25,9 +26,18 @@ const {
   sizes: sizesProp,
   sizesType,
   loading = "lazy",
+  fetchpriority: fetchpriorityProp,
   class: className,
   ...rest
 } = Astro.props;
+
+// Srcset widths per sizesType — covers all viewports up to retina
+const SRCSET_WIDTHS: Record<SizesType, number[]> = {
+  background: [640, 960, 1280, 1920, 2560, 3200],
+  half: [400, 640, 800, 1000, 1280, 1600, 2000],
+  card: [320, 480, 640, 800, 1000, 1200],
+  avatar: [], // handled via explicit width + width*2
+};
 
 const SIZES_PRESETS: Record<SizesType, string> = {
   background: "100vw",
@@ -44,12 +54,24 @@ const sizes =
       ? `(min-width: ${width}px) ${width}px, 100vw`
       : "100vw");
 
+// Determine srcset widths to generate
+const srcsetWidths: number[] =
+  sizesType && sizesType !== "avatar"
+    ? SRCSET_WIDTHS[sizesType]
+    : width
+      ? [width, Math.min(width * 2, 3200)]
+      : [640, 1280, 1920];
+
+// Derived height for <img> width/height attributes (prevents CLS)
 const height =
   heightProp ?? (aspectRatio && width ? Math.round(width / ASPECT_RATIOS[aspectRatio]) : undefined);
 
+// fetchpriority: default to "high" for eager (LCP) images
+const fetchpriority = fetchpriorityProp ?? (loading === "eager" ? "high" : undefined);
+
 if (!image?.asset) return;
 
-const hasRef = image.asset._ref || image.asset._id;
+const hasRef = !!(image.asset._ref || image.asset._id);
 
 const isSvg = hasRef
   ? (image.asset._ref || image.asset._id || "").endsWith("-svg")
@@ -57,42 +79,35 @@ const isSvg = hasRef
 
 const alt = image.alt ?? "";
 
+// Build srcset for a given format, applying aspect ratio per entry
+function buildSrcset(format: "webp" | "jpg"): string {
+  return srcsetWidths
+    .map((w) => {
+      let b = urlFor(image!).format(format).quality(quality).width(w);
+      if (aspectRatio) {
+        b = b.height(Math.round(w / ASPECT_RATIOS[aspectRatio]));
+      } else if (height && width) {
+        b = b.height(Math.round((height / width) * w));
+      }
+      return `${b.url()} ${w}w`;
+    })
+    .join(", ");
+}
+
 let srcFallback: string | undefined;
 let srcsetWebp: string | undefined;
 let srcsetJpeg: string | undefined;
-let srcBlur: string | undefined;
 
 if (hasRef) {
-  // Build fallback JPEG src (skip format conversion for SVG)
   if (isSvg) {
     srcFallback = urlFor(image).url();
   } else {
-    let builder = urlFor(image).format("jpg").quality(quality);
-    if (width) builder = builder.width(width);
-    if (height) builder = builder.height(height);
-    srcFallback = builder.url();
-
-    // Build srcsets for WebP and JPEG
-    if (width) {
-      const widths = [width, width * 2].filter((w) => w <= 3000);
-      srcsetWebp = widths
-        .map((w) => {
-          let b = urlFor(image).format("webp").quality(quality).width(w);
-          if (height) b = b.height(Math.round((height / width) * w));
-          return `${b.url()} ${w}w`;
-        })
-        .join(", ");
-      srcsetJpeg = widths
-        .map((w) => {
-          let b = urlFor(image).format("jpg").quality(quality).width(w);
-          if (height) b = b.height(Math.round((height / width) * w));
-          return `${b.url()} ${w}w`;
-        })
-        .join(", ");
-
-      // Tiny blurred placeholder for blur-up effect
-      srcBlur = urlFor(image).width(20).blur(50).format("jpg").quality(30).url();
-    }
+    let b = urlFor(image).format("jpg").quality(quality);
+    if (width) b = b.width(width);
+    if (height) b = b.height(height);
+    srcFallback = b.url();
+    srcsetWebp = buildSrcset("webp");
+    srcsetJpeg = buildSrcset("jpg");
   }
 } else {
   srcFallback = image.asset.url ?? "";
@@ -107,38 +122,22 @@ if (hasRef) {
       width={width}
       height={height}
       loading={loading}
+      fetchpriority={fetchpriority}
       decoding="async"
       class={className}
       {...rest}
     />
-  ) : srcBlur ? (
-    <div class="ets-blur-wrap" style={`--blur-src: url('${srcBlur}')`}>
-      <picture>
-        {srcsetWebp && <source type="image/webp" srcset={srcsetWebp} sizes={sizes} />}
-        {srcsetJpeg && <source type="image/jpeg" srcset={srcsetJpeg} sizes={sizes} />}
-        <img
-          src={srcFallback}
-          alt={alt}
-          width={width}
-          height={height}
-          loading={loading}
-          decoding="async"
-          class={className}
-          onload="this.closest('.ets-blur-wrap')?.classList.add('ets-blur--loaded')"
-          {...rest}
-        />
-      </picture>
-    </div>
-  ) : hasRef ? (
+  ) : srcsetWebp ? (
     <picture>
-      {srcsetWebp && <source type="image/webp" srcset={srcsetWebp} sizes={sizes} />}
-      {srcsetJpeg && <source type="image/jpeg" srcset={srcsetJpeg} sizes={sizes} />}
+      <source type="image/webp" srcset={srcsetWebp} {sizes} />
+      <source type="image/jpeg" srcset={srcsetJpeg} {sizes} />
       <img
         src={srcFallback}
         alt={alt}
         width={width}
         height={height}
         loading={loading}
+        fetchpriority={fetchpriority}
         decoding="async"
         class={className}
         {...rest}
@@ -151,48 +150,10 @@ if (hasRef) {
       width={width}
       height={height}
       loading={loading}
+      fetchpriority={fetchpriority}
       decoding="async"
       class={className}
       {...rest}
     />
   )
 }
-
-<style>
-  .ets-blur-wrap {
-    display: block;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Blurred placeholder via ::before */
-  .ets-blur-wrap::before {
-    content: "";
-    position: absolute;
-    inset: -5%; /* overscale to hide blur edges */
-    background-image: var(--blur-src);
-    background-size: cover;
-    background-position: center;
-    filter: blur(20px);
-    z-index: 1;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-  }
-
-  /* Fade out blur once loaded */
-  .ets-blur--loaded::before {
-    opacity: 0;
-  }
-
-  /* Img starts invisible, fades in on load */
-  .ets-blur-wrap :global(img) {
-    position: relative;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .ets-blur--loaded :global(img) {
-    opacity: 1;
-  }
-</style>

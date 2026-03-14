@@ -1,4 +1,11 @@
 import { defineType, defineField } from "sanity";
+import { ASPECT_RATIO_DEFS } from "../../lib/aspectRatios";
+
+const cropPresets = Object.entries(ASPECT_RATIO_DEFS).map(([key, { ratio, label }]) => ({
+  name: key,
+  title: label,
+  aspectRatio: ratio,
+}));
 
 export const imageWithAlt = defineType({
   name: "imageWithAlt",
@@ -6,14 +13,7 @@ export const imageWithAlt = defineType({
   type: "image",
   options: {
     hotspot: true,
-    crop: {
-      presets: [
-        { name: "1:1", title: "Vierkant", aspectRatio: 1 },
-        { name: "16:9", title: "Landschap", aspectRatio: 16 / 9 },
-        { name: "4:3", title: "Klassiek", aspectRatio: 4 / 3 },
-        { name: "3:4", title: "Portret", aspectRatio: 3 / 4 },
-      ],
-    },
+    crop: { presets: cropPresets },
   },
   fields: [
     defineField({
