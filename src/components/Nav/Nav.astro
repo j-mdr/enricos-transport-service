@@ -21,7 +21,7 @@ interface Props {
 
 const { navData, alternatePaths } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const data: NavData = navData ? mapNavData(navData) : await getNavData(currLocale);
+const data: NavData = navData ? mapNavData(navData, currLocale) : await getNavData(currLocale);
 ---
 
 <div

@@ -1,62 +1,71 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { Icon } from "astro-icon/components";
+import SanityLink, { type SanityLinkObject } from "@components/SanityLink/SanityLink.astro";
 
 /**
  *  * Notes:
- *  if this is to be a link (<a>), pass an "href" prop
+ *  if this is to be a link (<a>), pass an "href" prop or a "link" (SanityLinkObject) prop
  *  if this is to be a button (<button>), pass a "type" prop
  *  you can pass the arrow prop with "left" or "right" to add an arrow to any button variant
  */
 interface Props extends HTMLAttributes<"button">, Omit<HTMLAttributes<"a">, "type"> {
   variant?: "primary" | "secondary" | "outline" | "ghost";
   arrow?: "left" | "right" | "none";
+  link?: SanityLinkObject;
 }
 
-const { variant = "primary", arrow = "none", class: className, ...rest } = Astro.props;
+const { variant = "primary", arrow = "none", class: className, link, ...rest } = Astro.props;
+
+const classes = [
+  className,
+  "button group",
+  variant === "primary" && "button--primary",
+  variant === "secondary" && "button--secondary",
+  variant === "outline" && "button--outline",
+  variant === "ghost" && "button--ghost",
+];
 
 let Component = "button";
-if (Astro.props.href) {
-  Component = "a";
-}
+if (link || Astro.props.href) Component = "a";
 ---
 
-<Component
-  class:list={[
-    className,
-    `button group`,
-    {
-      "button--primary": variant === "primary",
-    },
-    {
-      "button--secondary": variant === "secondary",
-    },
-    {
-      "button--outline": variant === "outline",
-    },
-    {
-      "button--ghost": variant === "ghost",
-    },
-  ]}
-  {...rest}
->
-  {
-    arrow === "left" && (
-      <Icon
-        name="tabler/arrow-narrow-left"
-        class="mr-1 h-[1.4em] w-[1.4em] transition-transform group-hover:-translate-x-1"
-        aria-hidden="true"
-      />
-    )
-  }
-  <slot />
-  {
-    arrow === "right" && (
-      <Icon
-        name="tabler/arrow-narrow-right"
-        class="ml-1 h-[1.4em] w-[1.4em] transition-transform group-hover:translate-x-1"
-        aria-hidden="true"
-      />
-    )
-  }
-</Component>
+{
+  link ? (
+    <SanityLink link={link} class:list={classes} {...rest}>
+      {arrow === "left" && (
+        <Icon
+          name="tabler/arrow-narrow-left"
+          class="mr-1 h-[1.4em] w-[1.4em] transition-transform group-hover:-translate-x-1"
+          aria-hidden="true"
+        />
+      )}
+      <slot />
+      {arrow === "right" && (
+        <Icon
+          name="tabler/arrow-narrow-right"
+          class="ml-1 h-[1.4em] w-[1.4em] transition-transform group-hover:translate-x-1"
+          aria-hidden="true"
+        />
+      )}
+    </SanityLink>
+  ) : (
+    <Component class:list={classes} {...rest}>
+      {arrow === "left" && (
+        <Icon
+          name="tabler/arrow-narrow-left"
+          class="mr-1 h-[1.4em] w-[1.4em] transition-transform group-hover:-translate-x-1"
+          aria-hidden="true"
+        />
+      )}
+      <slot />
+      {arrow === "right" && (
+        <Icon
+          name="tabler/arrow-narrow-right"
+          class="ml-1 h-[1.4em] w-[1.4em] transition-transform group-hover:translate-x-1"
+          aria-hidden="true"
+        />
+      )}
+    </Component>
+  )
+}

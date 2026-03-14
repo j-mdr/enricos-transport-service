@@ -26,7 +26,7 @@ function docList(S: Parameters<StructureResolver>[0], type: string, title: strin
         .schemaType(type)
         .filter(`_type == $type && language == $lang`)
         .params({ type, lang })
-        .defaultOrdering([{ field: "slug.current", direction: "asc" }]),
+        .defaultOrdering([{ field: "title", direction: "asc" }]),
     );
 }
 

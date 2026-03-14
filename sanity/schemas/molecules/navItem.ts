@@ -16,22 +16,29 @@ export const navItem = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "href",
-      title: "URL",
-      type: "string",
-      description: "Leeg laten als dit item een dropdown heeft",
+      name: "hasDropdown",
+      title: "Heeft dropdown",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
+      name: "link",
+      title: "Link",
+      type: "link",
+      hidden: ({ parent }) => parent?.hasDropdown === true,
     }),
     defineField({
       name: "dropdown",
       title: "Dropdown links",
       type: "array",
       of: [{ type: "link" }],
+      hidden: ({ parent }) => parent?.hasDropdown !== true,
     }),
   ],
   preview: {
     select: {
       title: "text",
-      subtitle: "href",
+      subtitle: "link.href",
     },
     prepare({ title, subtitle }) {
       return {
