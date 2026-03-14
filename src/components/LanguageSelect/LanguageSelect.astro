@@ -8,7 +8,6 @@ import { Icon } from "astro-icon/components";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocalizedPathname } from "@/utils/translationUtils";
 
 // config
 import { locales, languageSwitcherMap } from "@config/siteSettings.json";
@@ -25,12 +24,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
 
 // Precompute the localized paths for each locale (since getLocalizedPathname is async)
 const localizedPaths = Object.fromEntries(
-  await Promise.all(
-    locales.map(async (lang) => [
-      lang,
-      alternatePaths?.[lang] ?? (await getLocalizedPathname(lang, Astro.url)),
-    ]),
-  ),
+  await Promise.all(locales.map(async (lang) => [lang, alternatePaths?.[lang] || "/"])),
 );
 ---
 

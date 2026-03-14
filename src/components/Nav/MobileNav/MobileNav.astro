@@ -13,6 +13,12 @@ import { getLocalizedRoute } from "@/utils/translationUtils";
 import { getNavData } from "@/utils/navUtils";
 import { locales } from "@config/siteSettings.json";
 
+interface Props {
+  alternatePaths?: Partial<Record<string, string>>;
+}
+
+const { alternatePaths } = Astro.props;
+
 // data
 const currLocale = getLocaleFromUrl(Astro.url);
 const data = await getNavData(currLocale);
@@ -89,7 +95,7 @@ const data = await getNavData(currLocale);
         {
           locales.length > 1 && (
             <div class="flex justify-end">
-              <MobileLanguageSelect />
+              <MobileLanguageSelect alternatePaths={alternatePaths} />
             </div>
           )
         }

@@ -58,6 +58,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
       authors={authorsData ? authorsData : undefined}
       postFrontmatter={postFrontmatter ? postFrontmatter : undefined}
       noindex={noindex}
+      alternatePaths={alternatePaths}
     />
   </head>
   <body id="body" class={`${siteSettings.useAnimations === true ? "use-animations" : ""}`}>

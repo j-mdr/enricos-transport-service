@@ -18,6 +18,7 @@ interface BaseProps {
   title: string;
   description: string;
   noindex?: boolean;
+  alternatePaths?: Partial<Record<string, string>>;
 }
 
 interface GenProps extends BaseProps {
@@ -32,7 +33,14 @@ interface BlogProps extends BaseProps {
   postFrontmatter: CollectionEntry<"blog">["data"];
 }
 
-const { type, title, description, image, noindex = false } = Astro.props as GenProps | BlogProps;
+const {
+  type,
+  title,
+  description,
+  image,
+  noindex = false,
+  alternatePaths,
+} = Astro.props as GenProps | BlogProps;
 
 let optimizedImage;
 let jsonLD;
@@ -117,7 +125,7 @@ const imageUrl = trimEndSlash(siteBase.toString()) + (optimizedImage?.src || DEF
 />
 
 <!-- hreflang attributes -->
-<HrefLang />
+<HrefLang alternatePaths={alternatePaths} />
 
 <!-- JSON LD -->
 <Fragment set:html={jsonLD} />

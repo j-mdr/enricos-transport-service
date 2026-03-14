@@ -79,7 +79,7 @@ const data: NavData = navData ? mapNavData(navData) : await getNavData(currLocal
 
           <!-- mobile nav menu, only load on small screens where it is visible -->
           <div class="md:hidden">
-            <MobileNav />
+            <MobileNav alternatePaths={alternatePaths} />
           </div>
         </div>
       </header>
