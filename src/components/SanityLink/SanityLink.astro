@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getLocaleFromUrl } from "@utils/localeUtils";
+
+export interface SanityLinkObject {
+  text?: string;
+  linkType?: "external" | "internal";
+  href?: string;
+  openInNewTab?: boolean;
+  reference?: {
+    _type: string;
+    slug?: { current: string };
+  };
+}
+
+interface Props extends HTMLAttributes<"a"> {
+  link: SanityLinkObject;
+  class?: string;
+}
+
+const { link, class: className, ...rest } = Astro.props;
+
+const locale = getLocaleFromUrl(Astro.url);
+const prefix = locale === "nl" ? "" : `/${locale}`;
+
+function resolveHref(link: SanityLinkObject): string {
+  if (link.linkType === "internal") {
+    const slug = link.reference?.slug?.current ?? "";
+    if (link.reference?._type === "blogPost") return `${prefix}/blog/${slug}`;
+    return `${prefix}/${slug}`;
+  }
+  return link.href ?? "/";
+}
+
+const href = resolveHref(link);
+const newTab = link.openInNewTab ?? false;
+---
+
+<a
+  href={href}
+  class={className}
+  target={newTab ? "_blank" : undefined}
+  rel={newTab ? "noopener noreferrer" : undefined}
+  {...rest}
+>
+  <slot>{link.text}</slot>
+</a>
