@@ -38,9 +38,13 @@ export const page = defineType({
       group: "meta",
       description: "Optioneel. Geeft de URL-structuur: parent-slug/deze-slug",
       options: {
-        filter: (({ document }: { document: { language?: string } }) => {
-          if (!document.language) return {};
-          return { filter: "language == $language", params: { language: document.language } };
+        filter: (({ document }: { document: { _id?: string; language?: string } }) => {
+          const id = document._id?.replace(/^drafts\./, "");
+          if (!document.language) return id ? { filter: "_id != $id", params: { id } } : {};
+          return {
+            filter: "language == $language && _id != $id",
+            params: { language: document.language, id: id ?? "" },
+          };
         }) as any,
       },
     }),
