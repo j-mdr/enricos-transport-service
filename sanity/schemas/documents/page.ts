@@ -78,21 +78,6 @@ export const page = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "layout",
-      title: "Layout",
-      type: "string",
-      group: "meta",
-      options: {
-        list: [
-          { title: "Wide", value: "wide" },
-          { title: "Narrow", value: "narrow" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "wide",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "description",
       title: "Beschrijving",
       type: "text",
