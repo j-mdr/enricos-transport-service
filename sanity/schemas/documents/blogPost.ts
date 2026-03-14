@@ -24,7 +24,13 @@ export const blogPost = defineType({
       title: "Slug",
       type: "slug",
       group: "meta",
-      options: { source: "title" },
+      options: {
+        source: (doc) => {
+          const d = doc as unknown as { title?: string };
+          return d.title ?? "";
+        },
+        slugify: (input) => "blog/" + input.toLowerCase().replace(/\s+/g, "-"),
+      },
       components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
     }),

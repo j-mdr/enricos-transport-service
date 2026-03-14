@@ -3,21 +3,18 @@ export const prerender = true;
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getAllBlogPosts } from "@lib/groq/blogPost";
-import { buildAlternatePaths } from "@utils/sanityTranslationUtils";
-
 export async function getStaticPaths() {
   const posts = await getAllBlogPosts("nl");
 
   return posts.map((post: { slug: string }) => ({
-    params: { slug: post.slug },
+    params: { slug: post.slug.replace(/^blog\//, "") },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const alternatePaths = buildAlternatePaths(post.translations, "blogPost");
 ---
 
-<BlogLayout post={post} alternatePaths={alternatePaths}>
+<BlogLayout post={post} alternatePaths={post.alternatePaths}>
   <BlockRenderer blocks={post.content ?? []} />
 </BlogLayout>

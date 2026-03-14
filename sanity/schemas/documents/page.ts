@@ -31,6 +31,20 @@ export const page = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "parent",
+      title: "Bovenliggende pagina",
+      type: "reference",
+      to: [{ type: "page" }],
+      group: "meta",
+      description: "Optioneel. Geeft de URL-structuur: parent-slug/deze-slug",
+      options: {
+        filter: (({ document }: { document: { language?: string } }) => {
+          if (!document.language) return {};
+          return { filter: "language == $language", params: { language: document.language } };
+        }) as any,
+      },
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -120,20 +134,7 @@ export const page = defineType({
         { type: "richText" },
       ],
     }),
-    defineField({
-      name: "parent",
-      title: "Bovenliggende pagina",
-      type: "reference",
-      to: [{ type: "page" }],
-      group: "meta",
-      description: "Optioneel. Geeft de URL-structuur: parent-slug/deze-slug",
-      options: {
-        filter: (({ document }: { document: { language?: string } }) => {
-          if (!document.language) return {};
-          return { filter: "language == $language", params: { language: document.language } };
-        }) as any,
-      },
-    }),
+
     defineField({
       name: "nav",
       title: "Navigatie",

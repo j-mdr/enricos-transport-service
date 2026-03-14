@@ -1,10 +1,31 @@
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteSettings.json";
 
-const navFragment = `nav->{ logo { asset, alt, hotspot, crop }, ctaButton { link { text, href } }, navItems[] { text, href, dropdown[] { text, href } } }`;
-const footerFragment = `footer->{ logo { asset, alt, hotspot, crop }, ctaButton { link { text, href } }, columns[] { title, links[] { text, href } } }`;
+const linkFragment = `{
+  text,
+  "href": select(
+    linkType == "internal" =>
+      "/" + select($locale == "en" => "en/", "") + reference->slug.current,
+    href
+  ),
+  openInNewTab
+}`;
 
-const translationsFragment = `"translations": *[_type == "translation.metadata" && references(^._id)][0].translations[]{ _key, value->{ language, "slug": slug.current } }`;
+const navFragment = `nav->{ logo { asset, alt, hotspot, crop }, ctaButton { link ${linkFragment} }, navItems[] { text, href, dropdown[] ${linkFragment} } }`;
+const footerFragment = `footer->{ logo { asset, alt, hotspot, crop }, ctaButton { link ${linkFragment} }, columns[] { title, links[] ${linkFragment} } }`;
+
+const alternatePathsFragment = `
+  "alternatePaths": {
+    "nl": coalesce(
+      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,
+      "/"
+    ),
+    "en": coalesce(
+      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,
+      "/en/"
+    )
+  }
+`;
 
 const blogPostFields = `
   title,
@@ -15,7 +36,7 @@ const blogPostFields = `
   authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },
   categories,
   content,
-  ${translationsFragment},
+  ${alternatePathsFragment},
   ${navFragment},
   ${footerFragment}
 `;
