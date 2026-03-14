@@ -1,54 +1,70 @@
 ---
 /**
- * * These are alternating side cards with titles, text, and images
- * Recommend using 2 or 3 cards in a row
+ * * Alternating side cards with titles, text, and images
  */
-
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { useLabels } from "@/utils/labels";
+import Button from "@components/Button/Button.astro";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import type { SanityImageObject } from "@lib/sanityImage";
+
 const currLocale = getLocaleFromUrl(Astro.url);
 const aboutText = (await useLabels(currLocale))("about").toLowerCase();
-import Button from "@components/Button/Button.astro";
-import type { ServiceCard } from "@config/configDataTypes.ts";
 
-type Props = ServiceCard & {
+interface Props {
+  title: string;
+  description?: string;
+  image?: SanityImageObject | null;
+  ctaButton?: { link?: { text?: string; href?: string } };
   imageSide: "left" | "right";
-  idx: number; // determines which "stellar/blob" icon svg to use. There are 4 options (0-3)
-};
+  idx: number;
+}
 
-const { image, ctaButton, description, title, idx, imageSide } = Astro.props as Props;
+const { image, ctaButton, description, title, idx, imageSide } = Astro.props;
+
+const btnText = ctaButton?.link?.text ?? "";
+const btnHref = ctaButton?.link?.href ?? "#";
 ---
 
 <div class="mx-auto grid gap-8 rounded-xl md:grid-cols-2 md:gap-12 lg:gap-20">
   <!-- text -->
-  <div class=`${imageSide === "left" ? "md:order-last": ""} col-span-1`>
+  <div class={`${imageSide === "left" ? "md:order-last" : ""} col-span-1`}>
     <h2 class="h2 mt-6">{title}</h2>
-    <p class="mt-4 opacity-80">{description}</p>
-    <div class="z-20 mt-4 flex">
-      <Button variant="ghost" href={ctaButton.href} arrow="right">
-        {ctaButton.text}
-        <span class="sr-only">{aboutText} {title}</span>
-      </Button>
-    </div>
+    {description && <p class="mt-4 opacity-80">{description}</p>}
+    {
+      btnText && (
+        <div class="z-20 mt-4 flex">
+          <Button variant="ghost" href={btnHref} arrow="right">
+            {btnText}
+            <span class="sr-only">
+              {aboutText} {title}
+            </span>
+          </Button>
+        </div>
+      )
+    }
   </div>
 
   <!-- image -->
-  <div class="relative mx-auto max-w-4xl">
-    <!-- background blob -->
-    <div class="absolute top-0 left-0 -z-10 h-full w-full">
-      <Icon
-        name={`stellar/blob-${idx % 4}`}
-        class="text-primary-100 absolute top-0 left-0 h-auto w-[220%] -translate-x-1/4 -translate-y-[21%] md:-translate-x-1/3"
-        aria-hidden="true"
-      />
-    </div>
-    <Image
-      class="relative rounded-xl border border-transparent object-cover"
-      src={image.src}
-      alt={image.alt}
-      height={700}
-    />
-  </div>
+  {
+    image?.asset && (
+      <div class="relative mx-auto max-w-4xl">
+        <div class="absolute top-0 left-0 -z-10 h-full w-full">
+          <Icon
+            name={`stellar/blob-${idx % 4}`}
+            class="text-primary-100 absolute top-0 left-0 h-auto w-[220%] -translate-x-1/4 -translate-y-[21%] md:-translate-x-1/3"
+            aria-hidden="true"
+          />
+        </div>
+        <SanityImage
+          image={image}
+          width={700}
+          height={700}
+          loading="lazy"
+          class="relative rounded-xl border border-transparent object-cover"
+        />
+      </div>
+    )
+  }
 </div>

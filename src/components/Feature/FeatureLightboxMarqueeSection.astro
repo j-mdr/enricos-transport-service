@@ -1,37 +1,28 @@
 ---
 /**
- * * Three row image marquee
- * JS allows the animation to pause while you hover over it.
- * Images feature a lightbox effect when clicked, expanding to the center of the screen.
+ * * Three row image marquee with lightbox effect
+ * Title from Sanity, images from static data
  */
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { getCollection } from "astro:content";
 import { featureLightboxMarqueeData } from "./featureLightboxMarqueeData";
 import { createMarqueeRows } from "@utils/imageUtils.ts";
 
 interface Props {
-  featureSet?: string;
+  title?: string;
+  [key: string]: any;
 }
 
-const { featureSet = "home" } = Astro.props;
+const { title: propTitle } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
 
-const entries = await getCollection("featureLightboxMarquee");
-const entry = entries.find((e) => e.id === `${currLocale}/${featureSet}`);
-
-// Fall back to static data if no CMS entry found or images array is empty
-const cmsHasImages = entry && entry.data.images && entry.data.images.length > 0;
-
-// Use static data as fallback for images since CMS images are strings not ImageMetadata
 const staticData = featureLightboxMarqueeData[currLocale];
-const title = entry ? entry.data.title : staticData.title;
+const title = propTitle ?? staticData.title;
 const images = staticData.images;
 
 if (!images || images.length === 0) return;
 
-// change these images to whatever you want!
 const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = createMarqueeRows(images);
 ---
 
@@ -177,18 +168,16 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
 
   <!-- Lightbox overlay -->
   <div id="lightbox-overlay" class="fixed inset-0 z-50 hidden items-center justify-center">
-    <!-- Semitransparent background -->
     <div
       id="lightbox-backdrop"
       class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300"
     >
     </div>
-
     <div id="lightbox-container" class="relative z-10 transition-all duration-500 ease-out">
       <img
         id="lightbox-image"
         src=""
-        alt="Enlarged gallery "
+        alt="Enlarged gallery"
         class="h-full w-full rounded-lg object-cover shadow-2xl transition-all duration-300"
       />
       <button
@@ -211,44 +200,33 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
     const marqueeBottom = document.querySelector(".marquee-bottom");
     const marqueeWrapper = document.querySelector(".marquee-wrapper");
 
-    // add the clauss "pause" when the mouse enters the marquee
     marqueeTop?.addEventListener("mouseover", () => {
       if (marqueeWrapper?.classList.contains("lightbox-active")) return;
-      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.add("pause");
-      });
+      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => el.classList.add("pause"));
     });
     marqueeMiddle?.addEventListener("mouseover", () => {
       if (marqueeWrapper?.classList.contains("lightbox-active")) return;
-      marqueeMiddle.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.add("pause");
-      });
+      marqueeMiddle.querySelectorAll(".animate-marquee").forEach((el) => el.classList.add("pause"));
     });
     marqueeBottom?.addEventListener("mouseover", () => {
       if (marqueeWrapper?.classList.contains("lightbox-active")) return;
-      marqueeBottom.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.add("pause");
-      });
+      marqueeBottom.querySelectorAll(".animate-marquee").forEach((el) => el.classList.add("pause"));
     });
-
-    // remove the class "pause" when the mouse leaves the marquee
     marqueeTop?.addEventListener("mouseout", () => {
       if (marqueeWrapper?.classList.contains("lightbox-active")) return;
-      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.remove("pause");
-      });
+      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => el.classList.remove("pause"));
     });
     marqueeMiddle?.addEventListener("mouseout", () => {
       if (marqueeWrapper?.classList.contains("lightbox-active")) return;
-      marqueeMiddle.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.remove("pause");
-      });
+      marqueeMiddle
+        .querySelectorAll(".animate-marquee")
+        .forEach((el) => el.classList.remove("pause"));
     });
     marqueeBottom?.addEventListener("mouseout", () => {
       if (marqueeWrapper?.classList.contains("lightbox-active")) return;
-      marqueeBottom.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.remove("pause");
-      });
+      marqueeBottom
+        .querySelectorAll(".animate-marquee")
+        .forEach((el) => el.classList.remove("pause"));
     });
   };
 
@@ -261,91 +239,53 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
     const closeButton = document.getElementById("close-lightbox");
     const marqueeWrapper = document.querySelector(".marquee-wrapper");
 
-    // Store the original position and dimensions of the clicked image
     let originalRect: DOMRect | null = null;
     let activeElement: HTMLImageElement | null = null;
     let lightboxActive = false;
 
-    // Function to pause all marquee animations
     const pauseAllMarquees = () => {
-      document.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.add("pause");
-      });
+      document.querySelectorAll(".animate-marquee").forEach((el) => el.classList.add("pause"));
     };
-
-    // Function to resume all marquee animations
     const resumeAllMarquees = () => {
-      // Only resume if lightbox is not active
       if (!lightboxActive) {
-        document.querySelectorAll(".animate-marquee").forEach((el) => {
-          el.classList.remove("pause");
-        });
+        document.querySelectorAll(".animate-marquee").forEach((el) => el.classList.remove("pause"));
       }
     };
 
-    // Open lightbox with animation
     const openLightbox = (e) => {
-      activeElement = e.currentTarget as HTMLImageElement; // Type assertion for clarity
+      activeElement = e.currentTarget as HTMLImageElement;
       originalRect = activeElement.getBoundingClientRect();
-
-      // Set lightbox active state
       lightboxActive = true;
       marqueeWrapper?.classList.add("lightbox-active");
-
-      // Set initial image source
       lightboxImage.src = activeElement.src;
-
-      // Position and size the container to match the clicked image
       setInitialContainerPosition();
-
-      // Display the lightbox
       lightboxOverlay?.classList.replace("hidden", "flex");
-
-      // Pause all marquee animations
       pauseAllMarquees();
 
-      // First, load image and get its natural dimensions
       const img = new Image();
       img.onload = () => {
         const imgRatio = img.naturalWidth / img.naturalHeight;
-
-        // Calculate target dimensions based on viewport and image ratio
         const maxWidth = Math.min(window.innerWidth * 0.9, img.naturalWidth);
         const maxHeight = Math.min(window.innerHeight * 0.9, img.naturalHeight);
-
         let targetWidth, targetHeight;
-
         if (maxWidth / imgRatio <= maxHeight) {
-          // Width constrained
           targetWidth = maxWidth;
           targetHeight = maxWidth / imgRatio;
         } else {
-          // Height constrained
           targetHeight = maxHeight;
           targetWidth = maxHeight * imgRatio;
         }
-
-        // Calculate center position
         const targetTop = (window.innerHeight - targetHeight) / 2;
         const targetLeft = (window.innerWidth - targetWidth) / 2;
-
-        // Animate to centered position and fade in overlay
         animateToCenter(targetTop, targetLeft, targetWidth, targetHeight);
       };
-
-      // Make sure we have a valid src
       img.src = activeElement.src;
     };
 
-    // Set initial container position matching the clicked image
     const setInitialContainerPosition = () => {
       if (!lightboxContainer || !originalRect || !lightboxImage || !activeElement) return;
-
-      // Reset lightbox styles
       lightboxImage.classList.remove("object-contain");
       lightboxImage.classList.add("object-cover");
-
-      // Set initial position and dimensions
       Object.assign(lightboxContainer.style, {
         position: "fixed",
         top: `${originalRect.top}px`,
@@ -357,7 +297,6 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
       });
     };
 
-    // Animate container to center with specified dimensions
     const animateToCenter = async (top, left, width, height) => {
       if (
         !lightboxOverlay ||
@@ -367,14 +306,8 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         !originalRect
       )
         return;
-
-      // Set overlay opacity
       lightboxBackdrop.style.opacity = "1";
-
-      // Hide the original image
       activeElement.style.opacity = "0";
-
-      // Explicitly define FROM and TO positions to prevent Motion from inferring wrong start values
       await animate(
         lightboxContainer,
         {
@@ -385,13 +318,10 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         },
         { duration: 0.4, ease: "easeInOut" },
       ).finished;
-
-      // Switch to contain for proper viewing
       lightboxImage.classList.remove("object-cover");
       lightboxImage.classList.add("object-contain");
     };
 
-    // Close lightbox with animation
     const closeLightbox = async () => {
       if (
         !activeElement ||
@@ -401,24 +331,12 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         !lightboxOverlay
       )
         return;
-
-      // Switch back to cover for the animation
       lightboxImage.classList.remove("object-contain");
       lightboxImage.classList.add("object-cover");
-
-      // Get the latest position of the active element (might have moved if marquee was paused)
       const updatedRect = activeElement.getBoundingClientRect();
-
-      // Start hiding the backdrop with a transition
       lightboxBackdrop.style.opacity = "0";
-
-      // Keep a reference to activeElement since it will be nullified
       const imageToShow = activeElement;
-
-      // Ensure we're properly positioned before starting
       lightboxContainer.style.zIndex = "100";
-
-      // Animate back to original position
       await animate(
         lightboxContainer,
         {
@@ -429,65 +347,32 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         },
         { duration: 0.4, ease: "easeInOut" },
       ).finished;
-
-      // Add a small delay before hiding the lightbox
       setTimeout(() => {
-        // Show the original image again before hiding the lightbox
         imageToShow.style.opacity = "1";
-
-        // Hide the lightbox
         lightboxOverlay?.classList.replace("flex", "hidden");
-
-        // Reset styles
         lightboxContainer.removeAttribute("style");
-
-        // Reset variables
         activeElement = null;
         originalRect = null;
-
-        // Reset lightbox active state
         lightboxActive = false;
         marqueeWrapper?.classList.remove("lightbox-active");
-
-        // Resume marquee animations
         resumeAllMarquees();
-      }, 410); // Delay longer than animation duration - this seems to be a bug that I need to do this.
+      }, 410);
     };
 
-    // Add click event listeners to all gallery images
-    galleryImages.forEach((image) => {
-      image.addEventListener("click", openLightbox);
-    });
-
-    // Close lightbox when close button is clicked
+    galleryImages.forEach((image) => image.addEventListener("click", openLightbox));
     closeButton?.addEventListener("click", closeLightbox);
-
-    // Close lightbox when clicking outside the image
     lightboxOverlay?.addEventListener("click", (e) => {
-      // Check if the click was on the overlay or the backdrop
-      if (e.target === lightboxOverlay || e.target === lightboxBackdrop) {
-        closeLightbox();
-      }
+      if (e.target === lightboxOverlay || e.target === lightboxBackdrop) closeLightbox();
     });
-
-    // Add additional click handler directly on the backdrop
-    lightboxBackdrop?.addEventListener("click", () => {
-      closeLightbox();
-    });
-
-    // Add keyboard support for closing with Escape key
+    lightboxBackdrop?.addEventListener("click", () => closeLightbox());
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lightboxOverlay && !lightboxOverlay.classList.contains("hidden")) {
+      if (e.key === "Escape" && lightboxOverlay && !lightboxOverlay.classList.contains("hidden"))
         closeLightbox();
-      }
     });
   };
 
-  // runs on initial page load
   setupMarquee();
   setupLightbox();
-
-  // runs on view transitions navigation
   document.addEventListener("astro:after-swap", () => {
     setupMarquee();
     setupLightbox();

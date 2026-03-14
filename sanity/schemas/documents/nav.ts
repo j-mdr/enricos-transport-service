@@ -10,6 +10,11 @@ export const nav = defineType({
   fields: [
     defineField({ name: "language", type: "string", readOnly: true, hidden: true }),
     defineField({
+      name: "logo",
+      title: "Logo",
+      type: "imageWithAlt",
+    }),
+    defineField({
       name: "title",
       title: "Naam",
       type: "string",

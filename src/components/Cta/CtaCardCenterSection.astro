@@ -1,9 +1,8 @@
 ---
 /**
  * * CTA card with centered text and corner blobs
- * Data is managed via Keystatic CMS (ctaCard collection)
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Button from "@components/Button/Button.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
@@ -11,17 +10,20 @@ import { getLocalizedRoute } from "@/utils/translationUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 interface Props {
-  ctaSet?: string;
+  title?: string;
+  description?: string;
+  ctaButton?: { link?: { text?: string; href?: string } };
+  [key: string]: any;
 }
 
-const { ctaSet = "home" } = Astro.props;
+const { title = "", description, ctaButton } = Astro.props;
+
+if (!title) return;
+
+const btnText = ctaButton?.link?.text ?? "";
+const btnHref = ctaButton?.link?.href ?? "";
 const currLocale = getLocaleFromUrl(Astro.url);
 
-const ctaEntries = await getCollection("ctaCard");
-const entry = ctaEntries.find((e) => e.id === `${currLocale}/${ctaSet}`);
-if (!entry) return;
-
-const { title, description, ctaButtonText, ctaButtonHref } = entry.data;
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
@@ -35,14 +37,12 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         class="text-primary-200/50 absolute top-0 left-0 -z-10 h-[200%] w-[150%] -translate-x-[50%] rotate-12"
         aria-hidden="true"
       />
-
       <!-- top left blob -->
       <Icon
         name="stellar/blob-2"
         class="text-primary-400/50 absolute top-0 left-0 -z-10 h-[200%] w-[150%] -translate-x-[50%] -translate-y-[50%] rotate-12"
         aria-hidden="true"
       />
-
       <!-- bottom right blob -->
       <Icon
         name="stellar/blob-2"
@@ -50,7 +50,6 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         aria-hidden="true"
       />
 
-      <!-- center card -->
       <div class="relative z-10 p-1">
         <div class="rounded-xl px-4 py-20 text-center">
           <div class="mx-auto max-w-2xl">
@@ -72,18 +71,20 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
               }
               {trailingText ?? null}
             </h2>
-            <p class="description mt-6">
-              {description}
-            </p>
-            <div class="mt-10 flex justify-center">
-              <Button
-                variant="primary"
-                href={getLocalizedRoute(currLocale, ctaButtonHref)}
-                arrow="right"
-              >
-                {ctaButtonText}
-              </Button>
-            </div>
+            {description && <p class="description mt-6">{description}</p>}
+            {
+              btnText && (
+                <div class="mt-10 flex justify-center">
+                  <Button
+                    variant="primary"
+                    href={getLocalizedRoute(currLocale, btnHref)}
+                    arrow="right"
+                  >
+                    {btnText}
+                  </Button>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

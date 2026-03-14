@@ -22,15 +22,7 @@ export default defineConfig({
         { id: "nl", title: "Nederlands" },
         { id: "en", title: "English" },
       ],
-      schemaTypes: [
-        "blogPost",
-        "service",
-        "deliveryArea",
-        "page",
-        "nav",
-        "footer",
-        "form",
-      ],
+      schemaTypes: ["blogPost", "service", "deliveryArea", "page", "nav", "footer", "form"],
     }),
   ],
   schema: {
@@ -40,15 +32,9 @@ export default defineConfig({
     newDocumentOptions: (prev) =>
       prev.filter(
         (option) =>
-          ![
-            "blogPost",
-            "service",
-            "deliveryArea",
-            "page",
-            "nav",
-            "footer",
-            "form",
-          ].includes(option.templateId),
+          !["blogPost", "service", "deliveryArea", "page", "nav", "footer", "form"].includes(
+            option.templateId,
+          ),
       ),
   },
 });

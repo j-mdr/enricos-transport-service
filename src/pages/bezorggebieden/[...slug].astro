@@ -3,6 +3,7 @@ export const prerender = true;
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getAllDeliveryAreas } from "@lib/groq/deliveryArea";
+import { buildAlternatePaths } from "@utils/sanityTranslationUtils";
 
 export async function getStaticPaths() {
   const areas = await getAllDeliveryAreas("nl");
@@ -14,9 +15,17 @@ export async function getStaticPaths() {
 }
 
 const { area } = Astro.props;
-const { title, description, image, seo, content } = area;
+const { title, description, image, seo, content, nav, footer, translations } = area;
+const alternatePaths = buildAlternatePaths(translations, "deliveryArea");
 ---
 
-<ServiceLayoutCenter title={seo?.title ?? title} description={seo?.description ?? description} image={image}>
+<ServiceLayoutCenter
+  title={seo?.title ?? title}
+  description={seo?.description ?? description}
+  image={image}
+  navData={nav}
+  footerData={footer}
+  alternatePaths={alternatePaths}
+>
   <BlockRenderer blocks={content ?? []} />
 </ServiceLayoutCenter>

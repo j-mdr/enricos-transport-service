@@ -4,6 +4,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getAllPages } from "@lib/groq/page";
+import { buildAlternatePaths } from "@utils/sanityTranslationUtils";
 
 export async function getStaticPaths() {
   const pages = await getAllPages("en");
@@ -17,12 +18,20 @@ export async function getStaticPaths() {
 }
 
 const { page } = Astro.props;
-const { title, description, layout, image, seo } = page;
+const { title, description, layout, image, seo, nav, footer, translations } = page;
+const alternatePaths = buildAlternatePaths(translations, "page");
 ---
 
 {
   layout !== "narrow" && (
-    <BaseLayout title={seo?.title ?? title} description={seo?.description ?? description} type={"general"}>
+    <BaseLayout
+      title={seo?.title ?? title}
+      description={seo?.description ?? description}
+      type={"general"}
+      navData={nav}
+      footerData={footer}
+      alternatePaths={alternatePaths}
+    >
       <BlockRenderer blocks={page.blocks ?? []} />
     </BaseLayout>
   )
@@ -30,7 +39,14 @@ const { title, description, layout, image, seo } = page;
 
 {
   layout === "narrow" && (
-    <ServiceLayoutCenter title={title} description={description} image={image}>
+    <ServiceLayoutCenter
+      title={title}
+      description={description}
+      image={image}
+      navData={nav}
+      footerData={footer}
+      alternatePaths={alternatePaths}
+    >
       <BlockRenderer blocks={page.blocks ?? []} />
     </ServiceLayoutCenter>
   )

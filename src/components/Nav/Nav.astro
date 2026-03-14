@@ -10,12 +10,18 @@ import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getNavData } from "@/utils/navUtils";
+import { getNavData, mapNavData } from "@/utils/navUtils";
 import { locales } from "@config/siteSettings.json";
+import type { NavData } from "@config/configDataTypes";
 
-// data
+interface Props {
+  navData?: any;
+  alternatePaths?: Partial<Record<string, string>>;
+}
+
+const { navData, alternatePaths } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const data = await getNavData(currLocale);
+const data: NavData = navData ? mapNavData(navData) : await getNavData(currLocale);
 ---
 
 <div
@@ -28,7 +34,7 @@ const data = await getNavData(currLocale);
       <header class="relative flex w-full items-center gap-2">
         <!-- home button / image -->
         <div class="flex flex-auto justify-start">
-          <SiteLogo />
+          <SiteLogo logo={data.logo ?? null} />
         </div>
 
         <div class="flex flex-auto justify-center">
@@ -65,7 +71,11 @@ const data = await getNavData(currLocale);
             {data.ctaButton.text}
           </Button>
 
-          {locales.length > 1 && <LanguageSelect class="ml-2 hidden md:flex" />}
+          {
+            locales.length > 1 && (
+              <LanguageSelect class="ml-2 hidden md:flex" alternatePaths={alternatePaths} />
+            )
+          }
 
           <!-- mobile nav menu, only load on small screens where it is visible -->
           <div class="md:hidden">

@@ -2,12 +2,8 @@ import type { Locale } from "@config/siteSettings.json";
 import type { NavData, NavItem } from "@config/configDataTypes";
 import { getNavData as fetchNavData } from "@lib/groq/nav";
 
-export async function getNavData(locale: Locale): Promise<NavData> {
-  const data = await fetchNavData(locale);
-
-  if (!data) {
-    return { ctaButton: { text: "", href: "" }, navItems: [] };
-  }
+export function mapNavData(data: any): NavData {
+  if (!data) return { ctaButton: { text: "", href: "" }, navItems: [] };
 
   const navItems: NavItem[] = (data.navItems ?? []).map((item: any) => {
     if (item.dropdown && item.dropdown.length > 0) {
@@ -20,10 +16,16 @@ export async function getNavData(locale: Locale): Promise<NavData> {
   });
 
   return {
+    logo: data.logo ?? null,
     ctaButton: {
       text: data.ctaButton?.link?.text ?? "",
       href: data.ctaButton?.link?.href ?? "",
     },
     navItems,
-  };
+  } as NavData & { logo: any };
+}
+
+export async function getNavData(locale: Locale): Promise<NavData> {
+  const data = await fetchNavData(locale);
+  return mapNavData(data);
 }

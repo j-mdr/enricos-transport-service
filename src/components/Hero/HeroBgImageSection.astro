@@ -1,51 +1,51 @@
 ---
 /**
- * * HeroCenteredSection with background image
+ * * HeroBgImageSection with background image
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
 import Button from "@components/Button/Button.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { SanityImageObject } from "@lib/sanityImage";
 
 interface Props {
-  heroSet?: string;
+  title?: string;
+  description?: string;
+  ctaButton1?: { link?: { text?: string; href?: string } };
+  ctaButton2?: { link?: { text?: string; href?: string } };
+  image?: SanityImageObject | null;
+  [key: string]: any;
 }
 
-const { heroSet = "home" } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { title = "", description, ctaButton1, ctaButton2, image } = Astro.props;
 
-const heroBgEntries = await getCollection("heroBg");
-const entry = heroBgEntries.find((e) => e.id === `${locale}/${heroSet}`);
-if (!entry) return;
+if (!title) return;
 
-const {
-  title,
-  description,
-  ctaButton1Text,
-  ctaButton1Href,
-  ctaButton2Text,
-  ctaButton2Href,
-  image,
-  imageAlt,
-} = entry.data;
+const btn1Text = ctaButton1?.link?.text ?? "";
+const btn1Href = ctaButton1?.link?.href ?? "#";
+const btn2Text = ctaButton2?.link?.text ?? "";
+const btn2Href = ctaButton2?.link?.href ?? "#";
+
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
 
 <section id="hero" class="relative mb-14 flex min-h-svh w-full md:pb-22">
   <!-- background image -->
-  <div class="absolute -z-20 h-full w-full overflow-hidden">
-    <Image
-      src={image}
-      class="h-full w-full object-cover"
-      alt={imageAlt}
-      aria-hidden="true"
-      loading="eager"
-      height={2000}
-    />
-  </div>
+  {
+    image?.asset && (
+      <div class="absolute -z-20 h-full w-full overflow-hidden">
+        <SanityImage
+          image={image}
+          width={2000}
+          height={1500}
+          loading="eager"
+          class="h-full w-full object-cover"
+        />
+      </div>
+    )
+  }
 
   <!-- gradient filter so text has even light bg -->
   <div
@@ -84,18 +84,22 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
           </p>
         )
       }
-      <div class="mt-6 flex flex-wrap gap-4">
-        <Button variant="primary" href={ctaButton1Href} data-mos="fade-up" data-mos-delay=".9">
-          {ctaButton1Text}
-        </Button>
-        {
-          ctaButton2Text && ctaButton2Href && (
-            <Button variant="outline" href={ctaButton2Href} data-mos="fade-up" data-mos-delay="1.1">
-              {ctaButton2Text}
-            </Button>
-          )
-        }
-      </div>
+      {
+        (btn1Text || btn2Text) && (
+          <div class="mt-6 flex flex-wrap gap-4">
+            {btn1Text && (
+              <Button variant="primary" href={btn1Href} data-mos="fade-up" data-mos-delay=".9">
+                {btn1Text}
+              </Button>
+            )}
+            {btn2Text && (
+              <Button variant="outline" href={btn2Href} data-mos="fade-up" data-mos-delay="1.1">
+                {btn2Text}
+              </Button>
+            )}
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

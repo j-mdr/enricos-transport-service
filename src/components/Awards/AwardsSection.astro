@@ -1,51 +1,62 @@
 ---
 /**
- * * AwardsSection section, useful for local businesses that have won awards (for social proof)
+ * * Awards section for social proof
+ * Data is passed as props from Sanity block builder via BlockRenderer
+ * Falls back to static award images when no Sanity data provided
  */
-
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import type { ImageMetadata } from "astro";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import type { SanityImageObject } from "@lib/sanityImage";
 
 import award1 from "@images/awards/award-yelp.png";
 import award2 from "@images/awards/award-homeadvisor.png";
 import award3 from "@images/awards/award-angieslist.png";
 
 interface Props {
-  awardsSet?: string;
+  awards?: (SanityImageObject & { alt?: string })[];
+  [key: string]: any;
 }
 
-const { awardsSet } = Astro.props;
-const currLocale = getLocaleFromUrl(Astro.url);
+const { awards } = Astro.props;
 
-// Load from collection when awardsSet is provided, fallback to static images
-const entries = awardsSet !== undefined ? await getCollection("awardsSection") : [];
-const collectionEntry =
-  awardsSet !== undefined
-    ? (entries.find((e) => e.id === `${currLocale}/${awardsSet}`) ?? null)
-    : null;
-
-if (awardsSet !== undefined && !collectionEntry) return;
-
-const awards: { src: ImageMetadata; alt: string }[] = collectionEntry
-  ? collectionEntry.data.awards
-      .filter((a) => a.image)
-      .map((a) => ({ src: a.image as ImageMetadata, alt: a.alt }))
-  : [
-      { src: award1, alt: "yelp award" },
-      { src: award2, alt: "home advisor award" },
-      { src: award3, alt: "angies list award" },
-    ];
+const hasSanityAwards = awards && awards.length > 0 && awards.some((a) => a?.asset);
 ---
 
 <section id="awards" class="my-10 w-full">
   <div class="site-container flex justify-center">
     <div class="flex flex-wrap gap-12 md:col-span-2">
       {
-        awards.map((award) => (
-          <Image src={award.src} alt={award.alt} loading="lazy" height={200} class="h-20 w-auto" />
-        ))
+        hasSanityAwards ? (
+          awards!
+            .filter((a) => a?.asset)
+            .map((award) => (
+              <SanityImage
+                image={award}
+                width={200}
+                height={80}
+                loading="lazy"
+                class="h-20 w-auto"
+              />
+            ))
+        ) : (
+          <>
+            <Image src={award1} alt="Yelp award" loading="lazy" height={200} class="h-20 w-auto" />
+            <Image
+              src={award2}
+              alt="Home Advisor award"
+              loading="lazy"
+              height={200}
+              class="h-20 w-auto"
+            />
+            <Image
+              src={award3}
+              alt="Angie's List award"
+              loading="lazy"
+              height={200}
+              class="h-20 w-auto"
+            />
+          </>
+        )
       }
     </div>
   </div>

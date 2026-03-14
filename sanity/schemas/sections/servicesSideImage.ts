@@ -5,8 +5,23 @@ export const servicesSideImage = defineType({
   title: "ServicesSideImageSection",
   type: "object",
   fields: [
-    defineField({ name: "title", title: "Titel", type: "string", description: "Gebruik {highlight} om een woord te markeren", validation: (Rule) => Rule.required() }),
-    defineField({ name: "services", title: "Services", type: "array", of: [{ type: "serviceCardSideImage" }], validation: (Rule) => Rule.required().min(1) }),
+    defineField({
+      name: "title",
+      title: "Titel",
+      type: "string",
+      description: "Gebruik {highlight} om een woord te markeren",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "services",
+      title: "Services",
+      type: "array",
+      of: [{ type: "serviceCardSideImage" }],
+      validation: (Rule) => Rule.required().min(1),
+    }),
   ],
-  preview: { select: { title: "title" }, prepare: ({ title }) => ({ title, subtitle: "ServicesSideImageSection" }) },
+  preview: {
+    select: { title: "title" },
+    prepare: ({ title }) => ({ title, subtitle: "ServicesSideImageSection" }),
+  },
 });

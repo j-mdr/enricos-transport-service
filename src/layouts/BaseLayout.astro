@@ -25,7 +25,10 @@ interface Props {
   image?: ImageMetadata;
   authorsData?: CollectionEntry<"authors">[];
   postFrontmatter?: CollectionEntry<"blog">["data"];
-  noindex?: boolean; // you need to opt-in to no indexing, as it hides the page from search engines
+  noindex?: boolean;
+  navData?: any;
+  footerData?: any;
+  alternatePaths?: Partial<Record<string, string>>;
 }
 
 const {
@@ -36,6 +39,9 @@ const {
   authorsData,
   postFrontmatter,
   noindex = false,
+  navData,
+  footerData,
+  alternatePaths,
 } = Astro.props as Props;
 
 const currLocale = getLocaleFromUrl(Astro.url);
@@ -58,12 +64,12 @@ const currLocale = getLocaleFromUrl(Astro.url);
     <!-- put cookie consent first so it is seen first by screen readers -->
     <!-- <CookieConsent /> -->
     <div class="min-h-lvh overflow-hidden">
-      <Nav />
+      <Nav navData={navData} alternatePaths={alternatePaths} />
       <main>
         <slot />
       </main>
     </div>
-    <Footer />
+    <Footer footerData={footerData} />
 
     <!-- Scroll animations -->
     <script>

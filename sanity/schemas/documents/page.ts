@@ -13,7 +13,7 @@ export const page = defineType({
     { name: "seo", title: "SEO" },
   ],
   fields: [
-    defineField({ name: "language", title: 'Taal', type: "string", readOnly: true, hidden: false }),
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",
@@ -89,6 +89,20 @@ export const page = defineType({
         { type: "becomePartnerSection" },
         { type: "richText" },
       ],
+    }),
+    defineField({
+      name: "nav",
+      title: "Navigatie",
+      type: "reference",
+      to: [{ type: "nav" }],
+      group: "meta",
+    }),
+    defineField({
+      name: "footer",
+      title: "Footer",
+      type: "reference",
+      to: [{ type: "footer" }],
+      group: "meta",
     }),
     defineField({
       name: "seo",

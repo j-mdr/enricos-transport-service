@@ -6,7 +6,16 @@ export const awardsSection = defineType({
   type: "object",
   fields: [
     defineField({ name: "title", title: "Titel", type: "string" }),
-    defineField({ name: "awards", title: "Awards", type: "array", of: [{ type: "imageWithAlt" }], validation: (Rule) => Rule.required().min(1) }),
+    defineField({
+      name: "awards",
+      title: "Awards",
+      type: "array",
+      of: [{ type: "imageWithAlt" }],
+      validation: (Rule) => Rule.required().min(1),
+    }),
   ],
-  preview: { select: { title: "title" }, prepare: ({ title }) => ({ title, subtitle: "AwardsSection" }) },
+  preview: {
+    select: { title: "title" },
+    prepare: ({ title }) => ({ title, subtitle: "AwardsSection" }),
+  },
 });

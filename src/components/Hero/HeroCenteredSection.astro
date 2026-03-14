@@ -1,26 +1,29 @@
 ---
 /**
  * * HeroCenteredSection with background blobs
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Button from "@components/Button/Button.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 interface Props {
-  heroSet?: string;
+  title?: string;
+  description?: string;
+  ctaButton1?: { link?: { text?: string; href?: string } };
+  ctaButton2?: { link?: { text?: string; href?: string } };
+  [key: string]: any;
 }
 
-const { heroSet = "home" } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { title = "", description, ctaButton1, ctaButton2 } = Astro.props;
 
-const heroCenteredEntries = await getCollection("heroCentered");
-const entry = heroCenteredEntries.find((e) => e.id === `${locale}/${heroSet}`);
-if (!entry) return;
+if (!title) return;
 
-const { title, description, ctaButton1Text, ctaButton1Href, ctaButton2Text, ctaButton2Href } =
-  entry.data;
+const btn1Text = ctaButton1?.link?.text ?? "";
+const btn1Href = ctaButton1?.link?.href ?? "#";
+const btn2Text = ctaButton2?.link?.text ?? "";
+const btn2Href = ctaButton2?.link?.href ?? "#";
+
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
@@ -32,14 +35,12 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     class="text-primary-200/50 absolute top-0 left-0 -z-10 h-[200%] w-[150%] -translate-x-[50%] rotate-12"
     aria-hidden="true"
   />
-
   <!-- top left blob -->
   <Icon
     name="stellar/blob-2"
     class="text-primary-400/50 absolute top-0 left-0 -z-10 h-[200%] w-[150%] -translate-x-[50%] -translate-y-[50%] rotate-12"
     aria-hidden="true"
   />
-
   <!-- bottom right blob -->
   <Icon
     name="stellar/blob-2"
@@ -78,18 +79,22 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
           </p>
         )
       }
-      <div class="mt-6 flex flex-wrap justify-center gap-4">
-        <Button variant="primary" href={ctaButton1Href} data-mos="fade-up" data-mos-delay=".9">
-          {ctaButton1Text}
-        </Button>
-        {
-          ctaButton2Text && ctaButton2Href && (
-            <Button variant="outline" href={ctaButton2Href} data-mos="fade-up" data-mos-delay="1.1">
-              {ctaButton2Text}
-            </Button>
-          )
-        }
-      </div>
+      {
+        (btn1Text || btn2Text) && (
+          <div class="mt-6 flex flex-wrap justify-center gap-4">
+            {btn1Text && (
+              <Button variant="primary" href={btn1Href} data-mos="fade-up" data-mos-delay=".9">
+                {btn1Text}
+              </Button>
+            )}
+            {btn2Text && (
+              <Button variant="outline" href={btn2Href} data-mos="fade-up" data-mos-delay="1.1">
+                {btn2Text}
+              </Button>
+            )}
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

@@ -1,34 +1,30 @@
 ---
 /**
  * * CTA with title, text, button, and cards on the side
- * Data is managed via Keystatic CMS (ctaCards collection)
- *
- * ! If you get an error for an icon like "Error: Not Found: "calendar-check" in pack "tabler",
- * ! You can copy the actual SVG into src/icons and name it however and use similar to below
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-import { getCollection } from "astro:content";
+import FeatureCard from "@components/FeatureCard/FeatureCardMedium.astro";
+import Button from "@components/Button/Button.astro";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getLocalizedRoute } from "@/utils/translationUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
-// components
-import FeatureCard from "@components/FeatureCard/FeatureCardMedium.astro";
-import Button from "@components/Button/Button.astro";
-
-// utils
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-
 interface Props {
-  ctaSet?: string;
+  title?: string;
+  description?: string;
+  ctaButton?: { link?: { text?: string; href?: string } };
+  cards?: { icon?: string; title: string; text: string }[];
+  [key: string]: any;
 }
 
-const { ctaSet = "home" } = Astro.props;
+const { title = "", description, ctaButton, cards = [] } = Astro.props;
+
+if (!title) return;
+
+const btnText = ctaButton?.link?.text ?? "";
+const btnHref = ctaButton?.link?.href ?? "";
 const currLocale = getLocaleFromUrl(Astro.url);
 
-const ctaEntries = await getCollection("ctaCards");
-const entry = ctaEntries.find((e) => e.id === `${currLocale}/${ctaSet}`);
-if (!entry) return;
-
-const { title, description, ctaButtonText, ctaButtonHref, cards } = entry.data;
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
@@ -41,22 +37,30 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         {hasHighlightedWord && <span class="relative whitespace-nowrap">{highlightedWord}</span>}
         {trailingText ?? null}
       </h2>
-      <p class="description mt-6">
-        {description}
-      </p>
-      <div class="flex">
-        <Button
-          variant="primary"
-          href={getLocalizedRoute(currLocale, ctaButtonHref)}
-          class="mt-6"
-          arrow="right"
-        >
-          {ctaButtonText}
-        </Button>
-      </div>
+      {description && <p class="description mt-6">{description}</p>}
+      {
+        btnText && (
+          <div class="flex">
+            <Button
+              variant="primary"
+              href={getLocalizedRoute(currLocale, btnHref)}
+              class="mt-6"
+              arrow="right"
+            >
+              {btnText}
+            </Button>
+          </div>
+        )
+      }
     </div>
-    <div class="mx-auto flex max-w-lg flex-col gap-8">
-      {cards.map((card) => <FeatureCard title={card.title} text={card.text} icon={card.icon} />)}
-    </div>
+    {
+      cards.length > 0 && (
+        <div class="mx-auto flex max-w-lg flex-col gap-8">
+          {cards.map((card) => (
+            <FeatureCard title={card.title} text={card.text} icon={card.icon} />
+          ))}
+        </div>
+      )
+    }
   </div>
 </section>

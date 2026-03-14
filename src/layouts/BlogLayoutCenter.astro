@@ -20,81 +20,100 @@ interface Props {
     pubDate?: string;
     authors?: SanityAuthor[];
     categories?: string[];
+    nav?: any;
+    footer?: any;
+    translations?: any[];
   };
+  alternatePaths?: Partial<Record<string, string>>;
 }
 
-const { post } = Astro.props as Props;
-const { title, description, authors, categories, pubDate, heroImage } = post;
+const { post, alternatePaths } = Astro.props as Props;
+const { title, description, authors, categories, pubDate, heroImage, nav, footer } = post;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const t = await useLabels(currLocale);
 ---
 
-<BaseLayout type="general" title={title} description={description}>
+<BaseLayout
+  type="general"
+  title={title}
+  description={description}
+  navData={nav}
+  footerData={footer}
+  alternatePaths={alternatePaths}
+>
   <article class="site-container pt-36 md:pt-44">
     <div class="flex w-full flex-col items-center">
       <div class="mx-auto flex w-full max-w-[800px]">
         <div class="mx-auto text-center">
           <!-- Categories -->
-          {categories && (
-            <div class="flex justify-center gap-4">
-              {categories.map((category) => (
-                <a
-                  href={getLocalizedRoute(currLocale, `/categories/${slugify(category)}/`)}
-                  class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
-                >
-                  {humanize(category)}
-                </a>
-              ))}
-            </div>
-          )}
+          {
+            categories && (
+              <div class="flex justify-center gap-4">
+                {categories.map((category) => (
+                  <a
+                    href={getLocalizedRoute(currLocale, `/categories/${slugify(category)}/`)}
+                    class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
+                  >
+                    {humanize(category)}
+                  </a>
+                ))}
+              </div>
+            )
+          }
 
           <!-- title -->
           <h1 class="h1 mt-8">{title}</h1>
 
           <div class="mt-6 flex w-full flex-wrap justify-center gap-4">
             <!-- author info -->
-            {authors?.map((author) => (
-              <div class="mb-auto flex">
-                {author.avatar?.asset?.url && (
-                  <figure>
-                    <img
-                      src={author.avatar.asset.url}
-                      alt={author.avatar.alt ?? `${author.name} avatar`}
-                      width={28}
-                      height={28}
-                      class="h-7 w-7 rounded-full object-cover"
-                    />
-                  </figure>
-                )}
-                <div class="my-auto ml-2 opacity-80">{author.name}</div>
-              </div>
-            ))}
+            {
+              authors?.map((author) => (
+                <div class="mb-auto flex">
+                  {author.avatar?.asset?.url && (
+                    <figure>
+                      <img
+                        src={author.avatar.asset.url}
+                        alt={author.avatar.alt ?? `${author.name} avatar`}
+                        width={28}
+                        height={28}
+                        class="h-7 w-7 rounded-full object-cover"
+                      />
+                    </figure>
+                  )}
+                  <div class="my-auto ml-2 opacity-80">{author.name}</div>
+                </div>
+              ))
+            }
 
             {authors && authors.length > 0 && pubDate && <span>&bull;</span>}
 
             <!-- Date -->
-            {pubDate && (
-              <time class="my-auto h-full opacity-80" datetime={pubDate}>
-                {formatDate(new Date(pubDate), currLocale)}
-              </time>
-            )}
+            {
+              pubDate && (
+                <time class="my-auto h-full opacity-80" datetime={pubDate}>
+                  {formatDate(new Date(pubDate), currLocale)}
+                </time>
+              )
+            }
           </div>
         </div>
       </div>
 
       <!-- blog post main image -->
-      {heroImage?.asset?.url && (
-        <div class="mt-6 max-w-[1000px] overflow-hidden">
-          <img
-            src={heroImage.asset.url}
-            alt={heroImage.alt ?? `Cover for ${title}`}
-            width={2000}
-            class="max-h-[70vh] rounded-xl object-cover"
-            loading="eager"
-          />
-        </div>
-      )}
+      {
+        heroImage?.asset?.url && (
+          <div class="mt-6 max-w-[1000px] overflow-hidden">
+            <img
+              src={heroImage.asset.url}
+              alt={heroImage.alt ?? `Cover for ${title}`}
+              width={2000}
+              class="max-h-[70vh] rounded-xl object-cover"
+              loading="eager"
+            />
+          </div>
+        )
+      }
     </div>
 
     <!-- article content -->

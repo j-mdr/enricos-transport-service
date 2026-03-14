@@ -7,8 +7,22 @@ import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getFooterData } from "@/utils/footer";
 import { getCompanyInfo } from "@/utils/companyInfo";
 
+interface Props {
+  footerData?: any;
+}
+
+const { footerData } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
-const { ctaButton, columns } = await getFooterData(currLocale);
+
+const resolved = footerData ?? (await getFooterData(currLocale));
+const logo = resolved?.logo ?? null;
+const { ctaButton, columns } = {
+  ctaButton: {
+    text: resolved?.ctaButton?.link?.text ?? resolved?.ctaButton?.text ?? "",
+    href: resolved?.ctaButton?.link?.href ?? resolved?.ctaButton?.href ?? "",
+  },
+  columns: resolved?.columns ?? [],
+};
 const companyInfo = await getCompanyInfo(currLocale);
 const companyName = companyInfo?.name ?? "Enrico's Transportservice";
 const today = new Date();
@@ -18,7 +32,7 @@ const today = new Date();
   <div class="grid w-full justify-between gap-4 md:grid-cols-2">
     <div class="grid gap-4 sm:grid-cols-2">
       <div class="mt-6 flex flex-col items-start gap-4">
-        <SiteLogo />
+        <SiteLogo logo={logo} />
         <div class="">
           <Button variant="primary" href={ctaButton.href}>{ctaButton.text}</Button>
         </div>
@@ -35,30 +49,44 @@ const today = new Date();
 
     <div class="flex items-center md:justify-end">
       <!-- Link kolommen -->
-      {columns.length > 0 && (
-        <div class="flex gap-8">
-          {columns.map((col: { title: string; links: { text: string; href: string }[] }) => (
-            <div class="flex flex-col gap-2">
-              <p class="font-semibold">{col.title}</p>
-              {col.links.map((link) => (
-                <a href={link.href} class="text-sm opacity-80 hover:opacity-100">{link.text}</a>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
+      {
+        columns.length > 0 && (
+          <div class="flex gap-8">
+            {columns.map((col: { title: string; links: { text: string; href: string }[] }) => (
+              <div class="flex flex-col gap-2">
+                <p class="font-semibold">{col.title}</p>
+                {col.links.map((link) => (
+                  <a href={link.href} class="text-sm opacity-80 hover:opacity-100">
+                    {link.text}
+                  </a>
+                ))}
+              </div>
+            ))}
+          </div>
+        )
+      }
 
       <!-- Socials -->
-      <div class="flex gap-2 ml-8">
-        {companyInfo?.facebookUrl && (
-          <SocialIcon href={companyInfo.facebookUrl} icon="tabler/facebook" social="Facebook" />
-        )}
-        {companyInfo?.instagramUrl && (
-          <SocialIcon href={companyInfo.instagramUrl} icon="tabler/instagram" social="Instagram" />
-        )}
-        {companyInfo?.linkedinUrl && (
-          <SocialIcon href={companyInfo.linkedinUrl} icon="tabler/linkedin" social="LinkedIn" />
-        )}
+      <div class="ml-8 flex gap-2">
+        {
+          companyInfo?.facebookUrl && (
+            <SocialIcon href={companyInfo.facebookUrl} icon="tabler/facebook" social="Facebook" />
+          )
+        }
+        {
+          companyInfo?.instagramUrl && (
+            <SocialIcon
+              href={companyInfo.instagramUrl}
+              icon="tabler/instagram"
+              social="Instagram"
+            />
+          )
+        }
+        {
+          companyInfo?.linkedinUrl && (
+            <SocialIcon href={companyInfo.linkedinUrl} icon="tabler/linkedin" social="LinkedIn" />
+          )
+        }
       </div>
     </div>
   </div>

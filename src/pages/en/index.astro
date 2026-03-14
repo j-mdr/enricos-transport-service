@@ -8,12 +8,18 @@ import { getPageBySlug } from "@lib/groq/page";
 const page = await getPageBySlug("home-en", "en");
 if (!page) return Astro.redirect("/en/404");
 
-const { title, description, layout, image, seo } = page;
+const { title, description, layout, image, seo, nav, footer } = page;
 ---
 
 {
   layout !== "narrow" && (
-    <BaseLayout title={seo?.title ?? title} description={seo?.description ?? description} type={"general"}>
+    <BaseLayout
+      title={seo?.title ?? title}
+      description={seo?.description ?? description}
+      type={"general"}
+      navData={nav}
+      footerData={footer}
+    >
       <BlockRenderer blocks={page.blocks ?? []} />
     </BaseLayout>
   )
@@ -21,7 +27,13 @@ const { title, description, layout, image, seo } = page;
 
 {
   layout === "narrow" && (
-    <ServiceLayoutCenter title={title} description={description} image={image}>
+    <ServiceLayoutCenter
+      title={title}
+      description={description}
+      image={image}
+      navData={nav}
+      footerData={footer}
+    >
       <BlockRenderer blocks={page.blocks ?? []} />
     </ServiceLayoutCenter>
   )

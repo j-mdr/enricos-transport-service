@@ -1,47 +1,43 @@
 ---
 /**
- * * These are alternating side cards with titles, text, and images
- * Recommend using 2 or 3 cards in a row
+ * * Alternating side cards with titles, text, and images
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-import { Icon } from "astro-icon/components";
 import FeatureCard from "@components/FeatureCard/FeatureCardSideImage.astro";
-import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { getCollection } from "astro:content";
+import type { SanityImageObject } from "@lib/sanityImage";
 
 interface Props {
-  featureSet?: string;
+  sectionTitle?: string;
+  items?: {
+    title: string;
+    image?: SanityImageObject | null;
+    checkItems?: string[];
+    link?: { text?: string; href?: string };
+  }[];
+  [key: string]: any;
 }
 
-const { featureSet = "home" } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { sectionTitle, items = [] } = Astro.props;
 
-const entries = await getCollection("featureSideImage");
-const entry = entries.find((e) => e.id === `${locale}/${featureSet}`);
-
-// Component renders nothing if no entry found or items empty
-if (!entry || !entry.data.items.length) return;
-
-const { sectionTitle, items } = entry.data;
+if (!sectionTitle || !items.length) return;
 ---
 
 <section id="feature-side-image" class="my-12 overflow-hidden py-12">
   <div class="site-container">
     <div class="mx-auto flex max-w-2xl justify-center text-center">
-      <h2 class="h2 text-center">
-        {sectionTitle}
-      </h2>
+      <h2 class="h2 text-center">{sectionTitle}</h2>
     </div>
     <div class="mt-10 flex flex-col gap-16 md:mt-16 md:gap-24">
       {
         items
-          .filter((item) => item.image)
+          .filter((item) => item.image?.asset)
           .map((item, idx) => (
             <FeatureCard
               title={item.title}
-              items={item.checkItems}
-              image={item.image!}
+              items={item.checkItems ?? []}
+              image={item.image}
               imageSide={idx % 2 === 0 ? "right" : "left"}
-              href={item.href ?? "#"}
+              href={item.link?.href}
               idx={idx}
             />
           ))

@@ -5,7 +5,12 @@ export const becomePartnerSection = defineType({
   title: "BecomePartnerSection",
   type: "object",
   fields: [
-    defineField({ name: "title", title: "Titel", type: "string", validation: (Rule) => Rule.required() }),
+    defineField({
+      name: "title",
+      title: "Titel",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({ name: "image", title: "Afbeelding", type: "imageWithAlt" }),
     defineField({
       name: "form",
@@ -14,5 +19,8 @@ export const becomePartnerSection = defineType({
       to: [{ type: "form" }],
     }),
   ],
-  preview: { select: { title: "title" }, prepare: ({ title }) => ({ title, subtitle: "BecomePartnerSection" }) },
+  preview: {
+    select: { title: "title" },
+    prepare: ({ title }) => ({ title, subtitle: "BecomePartnerSection" }),
+  },
 });

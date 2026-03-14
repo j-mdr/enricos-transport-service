@@ -47,6 +47,20 @@ export const deliveryArea = defineType({
       group: "content",
     }),
     defineField({
+      name: "nav",
+      title: "Navigatie",
+      type: "reference",
+      to: [{ type: "nav" }],
+      group: "meta",
+    }),
+    defineField({
+      name: "footer",
+      title: "Footer",
+      type: "reference",
+      to: [{ type: "footer" }],
+      group: "meta",
+    }),
+    defineField({
       name: "seo",
       title: "SEO",
       type: "seoMeta",

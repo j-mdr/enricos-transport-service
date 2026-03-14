@@ -1,49 +1,25 @@
 ---
 /**
- * * These are larger cards with icons, titles, and text
- * Recommend using minimum 3 cards in a row, although this should work for any number of cards
- * These smaller cards work great if there are a large amount of services to advertise
- *
- * ! If you can an error for an icon like "Error: Not Found: "calendar-check" in pack "tabler",
- * ! You can copy to actual SVG into src/icons, name it whatever, and use similar to below example "tabler/calendar-check"
+ * * Service cards with icons, titles, and text
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-
-import { getCollection } from "astro:content";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { ServicesIconSectionData } from "@config/configDataTypes.ts";
-import { servicesIconData } from "./servicesIconData";
-
-// components
 import ServiceCardIcon from "@components/ServiceCard/ServiceCardIcon.astro";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
-interface Props extends Partial<ServicesIconSectionData> {
-  servicesSet?: string;
+interface Props {
+  title?: string;
+  services?: {
+    icon?: string;
+    title: string;
+    description?: string;
+    ctaButton?: { link?: { text?: string; href?: string } };
+  }[];
+  [key: string]: any;
 }
 
-const { title: propTitle, services: propServices, servicesSet } = Astro.props;
-const currLocale = getLocaleFromUrl(Astro.url);
-const staticData = servicesIconData[currLocale];
+const { title = "", services = [] } = Astro.props;
 
-// Load from collection when servicesSet is provided, fallback to static data
-const entries = servicesSet !== undefined ? await getCollection("servicesIcon") : [];
-const collectionEntry =
-  servicesSet !== undefined
-    ? (entries.find((e) => e.id === `${currLocale}/${servicesSet}`) ?? null)
-    : null;
-
-if (servicesSet !== undefined && !collectionEntry) return;
-
-const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? staticData.title);
-
-const services = collectionEntry
-  ? collectionEntry.data.services.map((s) => ({
-      icon: s.icon,
-      title: s.title,
-      description: s.description,
-      ctaButton: { href: s.ctaButtonHref, text: s.ctaButtonText },
-    }))
-  : (propServices ?? staticData.services);
+if (!title || !services.length) return;
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -60,12 +36,15 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     </div>
     <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3" id="services-icon-cards">
       {
-        services.map((feature, idx) => (
+        services.map((service, idx) => (
           <ServiceCardIcon
-            title={feature.title}
-            description={feature.description}
-            icon={feature.icon}
-            ctaButton={feature.ctaButton}
+            title={service.title}
+            description={service.description}
+            icon={service.icon}
+            ctaButton={{
+              href: service.ctaButton?.link?.href ?? "#",
+              text: service.ctaButton?.link?.text ?? "",
+            }}
             idx={idx}
             data-mos="fade-up"
             data-mos-delay={0.15 * idx}

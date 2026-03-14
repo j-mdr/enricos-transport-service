@@ -1,28 +1,29 @@
 ---
 /**
- * * HeroCenteredSection with background blobs and side image
- *
+ * * HeroSideImageSection with background blobs and side image
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
 import Button from "@components/Button/Button.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { SanityImageObject } from "@lib/sanityImage";
 
 interface Props {
-  heroSet?: string;
+  title?: string;
+  description?: string;
+  ctaButton?: { link?: { text?: string; href?: string } };
+  image?: SanityImageObject | null;
+  [key: string]: any;
 }
 
-const { heroSet = "home" } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { title = "", description, ctaButton, image } = Astro.props;
 
-const heroEntries = await getCollection("hero");
-// Astro glob loader ID format: "{locale}/{slug}" (no /index suffix)
-const entry = heroEntries.find((e) => e.id === `${locale}/${heroSet}`);
-if (!entry) return;
+if (!title) return;
 
-const { title, description, ctaButtonText, ctaButtonHref, image, imageAlt } = entry.data;
+const btnText = ctaButton?.link?.text ?? "";
+const btnHref = ctaButton?.link?.href ?? "#";
+
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
@@ -60,7 +61,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   <div
     class="site-container mr-auto grid items-start gap-8 pt-36 pb-6 md:grid-cols-2 md:pt-44 md:pb-20"
   >
-    <!-- HeroCenteredSection text -->
+    <!-- Hero text -->
     <div class="mx-auto max-w-[450px] md:ml-0">
       <h1
         class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight"
@@ -83,52 +84,38 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         }
         {trailingText ?? null}
       </h1>
-      <p class="description mt-6" data-mos="fade-up">
-        {description}
-      </p>
-      <div class="mt-6 flex gap-4">
-        <Button variant="primary" href={ctaButtonHref} data-mos="fade-up" data-mos-delay=".9">
-          {ctaButtonText}
-        </Button>
-      </div>
-
-      <!-- awards example, uncomment to see -->
-      <!-- <div class="mt-10 flex flex-wrap gap-6 md:col-span-2">
-        <Image
-          src={award1}
-          alt="yelp award"
-          loading="lazy"
-          height={100}
-          class="h-10 w-auto"
-        />
-        <Image
-          src={award2}
-          alt="home advisor award"
-          loading="lazy"
-          height={100}
-          class="h-10 w-auto"
-        />
-        <Image
-          src={award3}
-          alt="angies list award"
-          loading="lazy"
-          height={100}
-          class="h-10 w-auto"
-        />
-      </div> -->
+      {
+        description && (
+          <p class="description mt-6" data-mos="fade-up">
+            {description}
+          </p>
+        )
+      }
+      {
+        btnText && (
+          <div class="mt-6 flex gap-4">
+            <Button variant="primary" href={btnHref} data-mos="fade-up" data-mos-delay=".9">
+              {btnText}
+            </Button>
+          </div>
+        )
+      }
     </div>
     <!-- hero image -->
-    <div class="mx-auto max-w-lg md:max-w-full">
-      <Image
-        src={image}
-        class="rounded-xl"
-        alt={imageAlt}
-        loading="eager"
-        width={600}
-        densities={[1.5, 2]}
-        data-mos="fade-in"
-        data-mos-delay=".2"
-      />
-    </div>
+    {
+      image?.asset && (
+        <div class="mx-auto max-w-lg md:max-w-full">
+          <SanityImage
+            image={image}
+            width={600}
+            height={500}
+            loading="eager"
+            class="rounded-xl"
+            data-mos="fade-in"
+            data-mos-delay=".2"
+          />
+        </div>
+      )
+    }
   </div>
 </section>

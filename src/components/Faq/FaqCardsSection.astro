@@ -1,29 +1,21 @@
 ---
 /**
  * * FAQ section columns (not accordions)
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
-
-// components
 import FaqCard from "./FaqCard.astro";
-
-// utils
-import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 
 interface Props {
-  faqSet: string; // slug, e.g. "algemeen" or "general"
+  title?: string;
+  faqs?: { question: string; answer: string }[];
+  [key: string]: any;
 }
 
-const { faqSet } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { title = "", faqs = [] } = Astro.props;
 
-const faqEntries = await getCollection("faqs");
-const entry = faqEntries.find((e) => e.id === `${locale}/${faqSet}`);
-if (!entry) return;
-
-const { title, faqs } = entry.data;
+if (!title || !faqs.length) return;
 
 const mid = Math.ceil(faqs.length / 2);
 const faqCols = [faqs.slice(0, mid), faqs.slice(mid)];

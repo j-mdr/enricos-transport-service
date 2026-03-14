@@ -47,7 +47,8 @@ export const formField = defineType({
       name: "placeholder",
       title: "Placeholder tekst",
       type: "string",
-      hidden: ({ parent }) => parent?.type === "checkbox" || parent?.type === "date" || parent?.type === "file",
+      hidden: ({ parent }) =>
+        parent?.type === "checkbox" || parent?.type === "date" || parent?.type === "file",
     }),
     defineField({
       name: "required",
@@ -65,8 +66,18 @@ export const formField = defineType({
           type: "object",
           name: "selectOption",
           fields: [
-            defineField({ name: "label", title: "Label (zichtbaar)", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "value", title: "Waarde (intern)", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "label",
+              title: "Label (zichtbaar)",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "value",
+              title: "Waarde (intern)",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
           ],
           preview: { select: { title: "label", subtitle: "value" } },
         }),

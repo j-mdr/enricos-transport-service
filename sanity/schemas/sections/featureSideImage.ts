@@ -5,8 +5,22 @@ export const featureSideImage = defineType({
   title: "FeatureSideImageSection",
   type: "object",
   fields: [
-    defineField({ name: "sectionTitle", title: "Sectie titel", type: "string", validation: (Rule) => Rule.required() }),
-    defineField({ name: "items", title: "Items", type: "array", of: [{ type: "featureCardSideImage" }], validation: (Rule) => Rule.required().min(1) }),
+    defineField({
+      name: "sectionTitle",
+      title: "Sectie titel",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "items",
+      title: "Items",
+      type: "array",
+      of: [{ type: "featureCardSideImage" }],
+      validation: (Rule) => Rule.required().min(1),
+    }),
   ],
-  preview: { select: { title: "sectionTitle" }, prepare: ({ title }) => ({ title, subtitle: "FeatureSideImageSection" }) },
+  preview: {
+    select: { title: "sectionTitle" },
+    prepare: ({ title }) => ({ title, subtitle: "FeatureSideImageSection" }),
+  },
 });

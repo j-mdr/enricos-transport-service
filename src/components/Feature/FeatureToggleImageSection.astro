@@ -1,30 +1,25 @@
 ---
 /**
- * * This is a toggleable image section. Selection text is on left and image is on right
- * Recommend using 3 toggle sections
- *
- * ! If you can an error for an icon like "Error: Not Found: "calendar-check" in pack "tabler",
- * ! You can copy to actual SVG into src/icons and name it however and use similar to below
+ * * Toggleable image section — text on left, image on right
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
-import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { getCollection } from "astro:content";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import type { SanityImageObject } from "@lib/sanityImage";
 
 interface Props {
-  featureSet?: string;
+  sectionTitle?: string;
+  sections?: {
+    icon?: string;
+    title: string;
+    image?: SanityImageObject | null;
+  }[];
+  [key: string]: any;
 }
 
-const { featureSet = "home" } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { sectionTitle, sections = [] } = Astro.props;
 
-const entries = await getCollection("featureToggleImage");
-const entry = entries.find((e) => e.id === `${locale}/${featureSet}`);
-
-// Component renders nothing if no entry found or sections empty
-if (!entry || !entry.data.sections.length) return;
-
-const { sectionTitle, sections } = entry.data;
+if (!sectionTitle || !sections.length) return;
 ---
 
 <section id="feature-toggle-image" class="my-24 md:my-36">
@@ -58,24 +53,26 @@ const { sectionTitle, sections } = entry.data;
         </div>
       </div>
 
-      <!-- image -->
+      <!-- images -->
       <div class="mx-auto max-w-4xl md:col-span-3">
         {
           sections.map((section, idx) =>
-            section.image ? (
-              <Image
-                id={`feature8__image-${idx}`}
-                class={`${idx === 0 ? "" : "hidden"} relative z-10 rounded-xl border border-transparent object-cover`}
-                src={section.image}
-                alt={section.imageAlt || section.title}
-                width={1200}
-              />
+            section.image?.asset ? (
+              <div id={`feature8__image-${idx}`} class={idx === 0 ? "" : "hidden"}>
+                <SanityImage
+                  image={section.image}
+                  width={1200}
+                  height={800}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  class="relative z-10 rounded-xl border border-transparent object-cover"
+                />
+              </div>
             ) : (
               <div
                 id={`feature8__image-${idx}`}
                 class={`${idx === 0 ? "" : "hidden"} relative z-10 flex aspect-video items-center justify-center rounded-xl border border-transparent bg-gray-100`}
               >
-                <p class="text-muted-foreground text-sm">{section.imageAlt || section.title}</p>
+                <p class="text-muted-foreground text-sm">{section.title}</p>
               </div>
             ),
           )
@@ -103,31 +100,16 @@ const { sectionTitle, sections } = entry.data;
       "[id^=feature8__image-]",
     ) as NodeListOf<HTMLDivElement>;
 
-    // add event listeners to toggle buttons
     toggleButtons?.forEach((button, idx) => {
       button.addEventListener("click", () => {
-        // remove active class from all buttons
-        toggleButtons?.forEach((button) => {
-          button.classList.remove("toggle-feature__toggle--active");
-        });
-
-        // add active class to clicked button
+        toggleButtons?.forEach((b) => b.classList.remove("toggle-feature__toggle--active"));
         button.classList.add("toggle-feature__toggle--active");
-
-        // hide all images
-        toggleImages.forEach((image) => {
-          image.classList.add("hidden");
-        });
-
-        // show clicked image
+        toggleImages.forEach((image) => image.classList.add("hidden"));
         toggleImages[idx]?.classList.remove("hidden");
       });
     });
   }
 
-  // runs on initial page load
   toggleFeatureSetup();
-
-  // runs on view transitions navigation
   document.addEventListener("astro:after-swap", toggleFeatureSetup);
 </script>

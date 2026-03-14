@@ -5,8 +5,23 @@ export const servicesIcon = defineType({
   title: "ServicesIconSection",
   type: "object",
   fields: [
-    defineField({ name: "title", title: "Titel", type: "string", description: "Gebruik {highlight} om een woord te markeren", validation: (Rule) => Rule.required() }),
-    defineField({ name: "services", title: "Services", type: "array", of: [{ type: "serviceCardIcon" }], validation: (Rule) => Rule.required().min(1) }),
+    defineField({
+      name: "title",
+      title: "Titel",
+      type: "string",
+      description: "Gebruik {highlight} om een woord te markeren",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "services",
+      title: "Services",
+      type: "array",
+      of: [{ type: "serviceCardIcon" }],
+      validation: (Rule) => Rule.required().min(1),
+    }),
   ],
-  preview: { select: { title: "title" }, prepare: ({ title }) => ({ title, subtitle: "ServicesIconSection" }) },
+  preview: {
+    select: { title: "title" },
+    prepare: ({ title }) => ({ title, subtitle: "ServicesIconSection" }),
+  },
 });

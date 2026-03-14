@@ -5,8 +5,16 @@ export const introSection = defineType({
   title: "IntroSection",
   type: "object",
   fields: [
-    defineField({ name: "title", title: "Titel", type: "string", validation: (Rule) => Rule.required() }),
+    defineField({
+      name: "title",
+      title: "Titel",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({ name: "introText", title: "Intro tekst", type: "text", rows: 3 }),
   ],
-  preview: { select: { title: "title" }, prepare: ({ title }) => ({ title, subtitle: "IntroSection" }) },
+  preview: {
+    select: { title: "title" },
+    prepare: ({ title }) => ({ title, subtitle: "IntroSection" }),
+  },
 });

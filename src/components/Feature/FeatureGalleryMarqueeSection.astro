@@ -1,33 +1,28 @@
 ---
 /**
- * * Three row image marquee
- * JS allows the animation to pause while you hover over it.
+ * * Three row image marquee (no lightbox)
+ * Title from Sanity, images from static data
  */
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 import { createMarqueeRows } from "@utils/imageUtils.ts";
-import { getCollection } from "astro:content";
 import { featureLightboxMarqueeData } from "./featureLightboxMarqueeData";
 
 interface Props {
-  featureSet?: string;
+  title?: string;
+  [key: string]: any;
 }
 
-const { featureSet = "home" } = Astro.props;
+const { title: propTitle } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);
 
-const entries = await getCollection("featureLightboxMarquee");
-const entry = entries.find((e) => e.id === `${currLocale}/${featureSet}`);
-
-// Fall back to static data since CMS images are strings not ImageMetadata
 const staticData = featureLightboxMarqueeData[currLocale];
-const title = entry ? entry.data.title : staticData.title;
+const title = propTitle ?? staticData.title;
 const images = staticData.images;
 
 if (!images || images.length === 0) return;
 
-// change these images to whatever you want!
 const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = createMarqueeRows(images);
 ---
 
@@ -157,44 +152,30 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
     const marqueeMiddle = document.querySelector(".marquee-middle");
     const marqueeBottom = document.querySelector(".marquee-bottom");
 
-    // add the clauss "pause" when the mouse enters the marquee
     marqueeTop?.addEventListener("mouseover", () => {
-      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.add("pause");
-      });
+      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => el.classList.add("pause"));
     });
     marqueeMiddle?.addEventListener("mouseover", () => {
-      marqueeMiddle.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.add("pause");
-      });
+      marqueeMiddle.querySelectorAll(".animate-marquee").forEach((el) => el.classList.add("pause"));
     });
     marqueeBottom?.addEventListener("mouseover", () => {
-      marqueeBottom.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.add("pause");
-      });
+      marqueeBottom.querySelectorAll(".animate-marquee").forEach((el) => el.classList.add("pause"));
     });
-
-    // remove the class "pause" when the mouse leaves the marquee
     marqueeTop?.addEventListener("mouseout", () => {
-      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.remove("pause");
-      });
+      marqueeTop.querySelectorAll(".animate-marquee").forEach((el) => el.classList.remove("pause"));
     });
     marqueeMiddle?.addEventListener("mouseout", () => {
-      marqueeMiddle.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.remove("pause");
-      });
+      marqueeMiddle
+        .querySelectorAll(".animate-marquee")
+        .forEach((el) => el.classList.remove("pause"));
     });
     marqueeBottom?.addEventListener("mouseout", () => {
-      marqueeBottom.querySelectorAll(".animate-marquee").forEach((el) => {
-        el.classList.remove("pause");
-      });
+      marqueeBottom
+        .querySelectorAll(".animate-marquee")
+        .forEach((el) => el.classList.remove("pause"));
     });
   };
 
-  // runs on initial page load
   setupMarquee();
-
-  // runs on view transitions navigation
   document.addEventListener("astro:after-swap", setupMarquee);
 </script>

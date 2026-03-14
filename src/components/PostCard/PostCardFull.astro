@@ -34,31 +34,35 @@ const currLocale = getLocaleFromUrl(Astro.url);
     href={getLocalizedRoute(currLocale, `/blog/${post.slug}/`)}
     class="shrink-0 justify-center overflow-hidden rounded-lg sm:justify-normal"
   >
-    {heroImage?.asset?.url && (
-      <figure>
-        <img
-          src={heroImage.asset.url}
-          alt={heroImage.alt ?? `Cover for ${title}`}
-          height={700}
-          class="h-auto max-h-96 w-full rounded-lg object-cover transition-all duration-500 hover:scale-[1.02]"
-        />
-      </figure>
-    )}
+    {
+      heroImage?.asset?.url && (
+        <figure>
+          <img
+            src={heroImage.asset.url}
+            alt={heroImage.alt ?? `Cover for ${title}`}
+            height={700}
+            class="h-auto max-h-96 w-full rounded-lg object-cover transition-all duration-500 hover:scale-[1.02]"
+          />
+        </figure>
+      )
+    }
   </a>
   <div class="flex w-full flex-col gap-2 md:gap-4">
     <!-- categories -->
-    {categories && (
-      <div class="flex flex-wrap gap-4 md:mt-1">
-        {categories.map((category) => (
-          <a
-            href={getLocalizedRoute(currLocale, `/categories/${slugify(category)}/`)}
-            class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
-          >
-            {humanize(category)}
-          </a>
-        ))}
-      </div>
-    )}
+    {
+      categories && (
+        <div class="flex flex-wrap gap-4 md:mt-1">
+          {categories.map((category) => (
+            <a
+              href={getLocalizedRoute(currLocale, `/categories/${slugify(category)}/`)}
+              class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
+            >
+              {humanize(category)}
+            </a>
+          ))}
+        </div>
+      )
+    }
 
     <!-- title -->
     <div>
@@ -72,20 +76,16 @@ const currLocale = getLocaleFromUrl(Astro.url);
       </a>
     </div>
 
-    {showDescription && description && (
-      <p class="description hidden text-sm md:block lg:text-base">{description}</p>
-    )}
+    {
+      showDescription && description && (
+        <p class="description hidden text-sm md:block lg:text-base">{description}</p>
+      )
+    }
 
     <div class="flex flex-wrap gap-1 text-sm opacity-80">
-      {pubDate && (
-        <p class="whitespace-nowrap">
-          {formatDate(new Date(pubDate), currLocale)}
-        </p>
-      )}
+      {pubDate && <p class="whitespace-nowrap">{formatDate(new Date(pubDate), currLocale)}</p>}
       {pubDate && authors?.[0] && <span>&bull;</span>}
-      {authors?.[0] && (
-        <p class="whitespace-nowrap">{authors[0].name}</p>
-      )}
+      {authors?.[0] && <p class="whitespace-nowrap">{authors[0].name}</p>}
     </div>
   </div>
 </article>

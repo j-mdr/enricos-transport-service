@@ -1,29 +1,20 @@
 ---
+/**
+ * * Intro section with large title and description
+ * Data is passed as props from Sanity block builder via BlockRenderer
+ */
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 interface Props {
   title?: string;
   introText?: string;
-  introSet?: string;
+  [key: string]: any;
 }
 
-const { title: propTitle, introText: propIntroText, introSet } = Astro.props;
-const currLocale = getLocaleFromUrl(Astro.url);
+const { title = "", introText = "" } = Astro.props;
 
-// Load from collection when introSet is provided, fallback to props
-const entries = introSet !== undefined ? await getCollection("introSection") : [];
-const collectionEntry =
-  introSet !== undefined
-    ? (entries.find((e) => e.id === `${currLocale}/${introSet}`) ?? null)
-    : null;
-
-if (introSet !== undefined && !collectionEntry) return;
-
-const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? "");
-const introText = collectionEntry ? collectionEntry.data.introText : (propIntroText ?? "");
+if (!title) return;
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -48,7 +39,5 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     }
     {trailingText}
   </h1>
-  <p class="description mx-auto mt-6 max-w-2xl text-center md:mt-14">
-    {introText}
-  </p>
+  {introText && <p class="description mx-auto mt-6 max-w-2xl text-center md:mt-14">{introText}</p>}
 </section>

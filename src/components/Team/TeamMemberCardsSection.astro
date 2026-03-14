@@ -1,45 +1,26 @@
 ---
 /**
- * * About page with various sections including some text, team profiles, and CTA
- * Edit the team member information inside src/config/teamMemberCardsSectionData.ts
+ * * Team member profile cards
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-
-import { getCollection } from "astro:content";
-
-// components
 import Profile from "@components/Profile/Profile.astro";
-
-// utils
-import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import { teamMemberCardsData } from "./teamMemberCardsData";
-import type { TeamMemberCardsSectionData } from "@config/configDataTypes.ts";
+import type { SanityImageObject } from "@lib/sanityImage";
 
-interface Props extends Partial<TeamMemberCardsSectionData> {
-  teamSet?: string;
+interface Props {
+  title?: string;
+  teamMembers?: {
+    name: string;
+    personTitle?: string;
+    bio?: string;
+    image?: SanityImageObject | null;
+  }[];
+  [key: string]: any;
 }
 
-const { title: propTitle, teamMembers: propTeamMembers, teamSet } = Astro.props;
-const currLocale = getLocaleFromUrl(Astro.url);
-const staticData = teamMemberCardsData[currLocale];
+const { title = "", teamMembers = [] } = Astro.props;
 
-// Load from collection when teamSet is provided, fallback to static data
-const entries = teamSet !== undefined ? await getCollection("teamMemberCards") : [];
-const collectionEntry =
-  teamSet !== undefined ? (entries.find((e) => e.id === `${currLocale}/${teamSet}`) ?? null) : null;
-
-if (teamSet !== undefined && !collectionEntry) return;
-
-const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? staticData.title);
-
-const teamMembers = collectionEntry
-  ? collectionEntry.data.teamMembers.map((m) => ({
-      image: m.image ?? null,
-      name: m.name,
-      title: m.personTitle,
-      bio: m.bio,
-    }))
-  : (propTeamMembers ?? staticData.teamMembers);
+if (!title || !teamMembers.length) return;
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
@@ -54,7 +35,12 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {
       teamMembers.map((member) => (
-        <Profile name={member.name} title={member.title} image={member.image} bio={member.bio} />
+        <Profile
+          name={member.name}
+          title={member.personTitle}
+          image={member.image}
+          bio={member.bio}
+        />
       ))
     }
   </div>

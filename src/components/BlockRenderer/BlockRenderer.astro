@@ -1,8 +1,8 @@
 ---
 /**
- * * BlockRenderer
- * Renders a blocks array from the Keystatic block builder.
- * Each block references an existing hero/faq collection entry or contains inline rich text.
+ * BlockRenderer
+ * Renders a blocks array from Sanity's block builder.
+ * Each block has a _type matching an Astro section component name.
  */
 import HeroBgImageSection from "@components/Hero/HeroBgImageSection.astro";
 import HeroSideImageSection from "@components/Hero/HeroSideImageSection.astro";
@@ -30,13 +30,8 @@ import RequestQuoteSection from "@components/Contact/RequestQuoteSection.astro";
 import BecomePartnerSection from "@components/Contact/BecomePartnerSection.astro";
 import RichTextBlock from "./RichTextBlock";
 
-interface Block {
-  discriminant: string;
-  value: unknown;
-}
-
 interface Props {
-  blocks: Block[];
+  blocks: any[];
 }
 
 const { blocks } = Astro.props;
@@ -45,118 +40,34 @@ const { blocks } = Astro.props;
 {
   blocks.map((block) => (
     <Fragment>
-      {block.discriminant === "heroBg" && (block.value as { heroSet?: string | null })?.heroSet && (
-        <HeroBgImageSection heroSet={(block.value as { heroSet: string }).heroSet} />
-      )}
-      {block.discriminant === "hero" && (block.value as { heroSet?: string | null })?.heroSet && (
-        <HeroSideImageSection heroSet={(block.value as { heroSet: string }).heroSet} />
-      )}
-      {block.discriminant === "heroCentered" &&
-        (block.value as { heroSet?: string | null })?.heroSet && (
-          <HeroCenteredSection heroSet={(block.value as { heroSet: string }).heroSet} />
-        )}
-      {block.discriminant === "faq" && (block.value as { faqSet?: string | null })?.faqSet && (
-        <FaqAccordionsSection faqSet={(block.value as { faqSet: string }).faqSet} />
-      )}
-      {block.discriminant === "faqCards" && (block.value as { faqSet?: string | null })?.faqSet && (
-        <FaqCardsSection faqSet={(block.value as { faqSet: string }).faqSet} />
-      )}
-      {block.discriminant === "ctaBgImage" &&
-        (block.value as { ctaSet?: string | null })?.ctaSet && (
-          <CtaBgImageSection ctaSet={(block.value as { ctaSet: string }).ctaSet} />
-        )}
-      {block.discriminant === "ctaCardCenter" &&
-        (block.value as { ctaSet?: string | null })?.ctaSet && (
-          <CtaCardCenterSection ctaSet={(block.value as { ctaSet: string }).ctaSet} />
-        )}
-      {block.discriminant === "ctaCardCenter2" &&
-        (block.value as { ctaSet?: string | null })?.ctaSet && (
-          <CtaCardCenter2Section ctaSet={(block.value as { ctaSet: string }).ctaSet} />
-        )}
-      {block.discriminant === "ctaCards" && (block.value as { ctaSet?: string | null })?.ctaSet && (
-        <CtaCardsSection ctaSet={(block.value as { ctaSet: string }).ctaSet} />
-      )}
-      {block.discriminant === "featureCardsSmall" &&
-        (block.value as { featureSet?: string | null })?.featureSet && (
-          <FeatureCardsSmallSection
-            featureSet={(block.value as { featureSet: string }).featureSet}
-          />
-        )}
-      {block.discriminant === "featureLightboxMarquee" &&
-        (block.value as { featureSet?: string | null })?.featureSet && (
-          <FeatureLightboxMarqueeSection
-            featureSet={(block.value as { featureSet: string }).featureSet}
-          />
-        )}
-      {block.discriminant === "featureGalleryMarquee" &&
-        (block.value as { featureSet?: string | null })?.featureSet && (
-          <FeatureGalleryMarqueeSection
-            featureSet={(block.value as { featureSet: string }).featureSet}
-          />
-        )}
-      {block.discriminant === "featureSideImage" &&
-        (block.value as { featureSet?: string | null })?.featureSet && (
-          <FeatureSideImageSection
-            featureSet={(block.value as { featureSet: string }).featureSet}
-          />
-        )}
-      {block.discriminant === "featureToggleImage" &&
-        (block.value as { featureSet?: string | null })?.featureSet && (
-          <FeatureToggleImageSection
-            featureSet={(block.value as { featureSet: string }).featureSet}
-          />
-        )}
-      {block.discriminant === "servicesIcon" &&
-        (block.value as { servicesSet?: string | null })?.servicesSet && (
-          <ServicesIconSection servicesSet={(block.value as { servicesSet: string }).servicesSet} />
-        )}
-      {block.discriminant === "servicesSideImage" &&
-        (block.value as { servicesSet?: string | null })?.servicesSet && (
-          <ServicesSideImageSection
-            servicesSet={(block.value as { servicesSet: string }).servicesSet}
-          />
-        )}
-      {block.discriminant === "awardsSection" &&
-        (block.value as { awardsSet?: string | null })?.awardsSet && (
-          <AwardsSection awardsSet={(block.value as { awardsSet: string }).awardsSet} />
-        )}
-      {block.discriminant === "introSection" && (
-        <IntroSection
-          title={(block.value as { title?: string }).title}
-          introText={(block.value as { introText?: string }).introText}
-        />
-      )}
-      {block.discriminant === "teamMemberCards" &&
-        (block.value as { teamSet?: string | null })?.teamSet && (
-          <TeamMemberCardsSection teamSet={(block.value as { teamSet: string }).teamSet} />
-        )}
-      {block.discriminant === "testimonialsColumns" &&
-        (block.value as { testimonialsSet?: string | null })?.testimonialsSet && (
-          <TestimonialsColumnsSection
-            testimonialsSet={(block.value as { testimonialsSet: string }).testimonialsSet}
-          />
-        )}
-      {block.discriminant === "testimonialsSwiper" &&
-        (block.value as { testimonialsSet?: string | null })?.testimonialsSet && (
-          <TestimonialsSwiperSection
-            testimonialsSet={(block.value as { testimonialsSet: string }).testimonialsSet}
-          />
-        )}
-      {block.discriminant === "contactForm" && <ContactSection />}
-      {block.discriminant === "requestQuoteSection" &&
-        (block.value as { sectionSet?: string | null })?.sectionSet && (
-          <RequestQuoteSection sectionSet={(block.value as { sectionSet: string }).sectionSet} />
-        )}
-      {block.discriminant === "becomePartnerSection" &&
-        (block.value as { sectionSet?: string | null })?.sectionSet && (
-          <BecomePartnerSection sectionSet={(block.value as { sectionSet: string }).sectionSet} />
-        )}
-      {block.discriminant === "richText" && block.value && (
+      {block._type === "heroBgImage" && <HeroBgImageSection {...block} />}
+      {block._type === "heroSideImage" && <HeroSideImageSection {...block} />}
+      {block._type === "heroCentered" && <HeroCenteredSection {...block} />}
+      {block._type === "faqAccordions" && <FaqAccordionsSection {...block} />}
+      {block._type === "faqCards" && <FaqCardsSection {...block} />}
+      {block._type === "ctaBgImage" && <CtaBgImageSection {...block} />}
+      {block._type === "ctaCardCenter" && <CtaCardCenterSection {...block} />}
+      {block._type === "ctaCardCenter2" && <CtaCardCenter2Section {...block} />}
+      {block._type === "ctaCards" && <CtaCardsSection {...block} />}
+      {block._type === "featureCardsSmall" && <FeatureCardsSmallSection {...block} />}
+      {block._type === "featureLightboxMarquee" && <FeatureLightboxMarqueeSection {...block} />}
+      {block._type === "featureGalleryMarquee" && <FeatureGalleryMarqueeSection {...block} />}
+      {block._type === "featureSideImage" && <FeatureSideImageSection {...block} />}
+      {block._type === "featureToggleImage" && <FeatureToggleImageSection {...block} />}
+      {block._type === "servicesIcon" && <ServicesIconSection {...block} />}
+      {block._type === "servicesSideImage" && <ServicesSideImageSection {...block} />}
+      {block._type === "awardsSection" && <AwardsSection {...block} />}
+      {block._type === "introSection" && <IntroSection {...block} />}
+      {block._type === "teamMemberCards" && <TeamMemberCardsSection {...block} />}
+      {block._type === "testimonialsColumns" && <TestimonialsColumnsSection {...block} />}
+      {block._type === "testimonialsSwiper" && <TestimonialsSwiperSection {...block} />}
+      {block._type === "contactSection" && <ContactSection {...block} />}
+      {block._type === "requestQuoteSection" && <RequestQuoteSection {...block} />}
+      {block._type === "becomePartnerSection" && <BecomePartnerSection {...block} />}
+      {block._type === "richText" && block.content?.length && (
         <div class="site-container my-16">
           <div class="markdown-content mx-auto max-w-3xl">
-            <RichTextBlock
-              document={block.value as Parameters<typeof RichTextBlock>[0]["document"]}
-            />
+            <RichTextBlock value={block.content} client:load />
           </div>
         </div>
       )}

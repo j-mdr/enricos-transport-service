@@ -1,0 +1,68 @@
+---
+import { urlFor, type SanityImageObject } from "@lib/sanityImage";
+
+interface Props {
+  image: SanityImageObject | null | undefined;
+  width?: number;
+  height?: number;
+  quality?: number;
+  sizes?: string;
+  loading?: "lazy" | "eager";
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  image,
+  width,
+  height,
+  quality = 80,
+  sizes,
+  loading = "lazy",
+  class: className,
+  ...rest
+} = Astro.props;
+
+if (!image?.asset) return;
+
+const hasRef = image.asset._ref || image.asset._id;
+
+// Build main src
+let src: string;
+if (hasRef) {
+  let builder = urlFor(image).auto("format").quality(quality);
+  if (width) builder = builder.width(width);
+  if (height) builder = builder.height(height);
+  src = builder.url();
+} else {
+  src = image.asset.url ?? "";
+}
+
+// Build srcset for responsive images (only when we have a ref and a width)
+let srcset: string | undefined;
+if (hasRef && width) {
+  const widths = [width, width * 2].filter((w) => w <= 3000);
+  srcset = widths
+    .map((w) => {
+      let b = urlFor(image).auto("format").quality(quality).width(w);
+      if (height) b = b.height(Math.round((height / width) * w));
+      return `${b.url()} ${w}w`;
+    })
+    .join(", ");
+}
+
+const alt = image.alt ?? "";
+---
+
+<img
+  src={src}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  class={className}
+  decoding="async"
+  {...rest}
+/>

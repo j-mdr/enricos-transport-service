@@ -1,45 +1,27 @@
 ---
 /**
- * * These are alternating side cards with titles, text, and images
- * Recommend using 2 or 3 cards in a row
+ * * Alternating side service cards with titles, text, and images
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
 import ServiceCard from "@components/ServiceCard/ServiceCardSideImage.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { ServicesSideImageSectionData } from "@config/configDataTypes.ts";
-import { servicesSideImageData } from "./servicesSideImageData";
+import type { SanityImageObject } from "@lib/sanityImage";
 
-interface Props extends Partial<ServicesSideImageSectionData> {
-  servicesSet?: string;
+interface Props {
+  title?: string;
+  services?: {
+    title: string;
+    description?: string;
+    image?: SanityImageObject | null;
+    ctaButton?: { link?: { text?: string; href?: string } };
+  }[];
+  [key: string]: any;
 }
 
-const { title: propTitle, services: propServices, servicesSet } = Astro.props;
-const currLocale = getLocaleFromUrl(Astro.url);
-const staticData = servicesSideImageData[currLocale];
+const { title = "", services = [] } = Astro.props;
 
-// Load from collection when servicesSet is provided, fallback to static data
-const entries = servicesSet !== undefined ? await getCollection("servicesSideImage") : [];
-const collectionEntry =
-  servicesSet !== undefined
-    ? (entries.find((e) => e.id === `${currLocale}/${servicesSet}`) ?? null)
-    : null;
-
-if (servicesSet !== undefined && !collectionEntry) return;
-
-const title = collectionEntry ? collectionEntry.data.title : (propTitle ?? staticData.title);
-
-const services = collectionEntry
-  ? collectionEntry.data.services
-      .filter((s) => s.image)
-      .map((s) => ({
-        image: { src: s.image!, alt: s.imageAlt },
-        ctaButton: { href: s.ctaButtonHref, text: s.ctaButtonText },
-        title: s.title,
-        description: s.description,
-      }))
-  : (propServices ?? staticData.services);
+if (!title || !services.length) return;
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);

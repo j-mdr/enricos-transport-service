@@ -1,32 +1,21 @@
 ---
 /**
- * * These are small cards with icons, titles, and text. With title first
- * This looks best with an even number of cards. They are smaller to
- * use with more cards in the same section. 4 or 6 cards is probably ideal
- *
- * ! If you can an error for an icon like "Error: Not Found: "calendar-check" in pack "tabler",
- * ! You can copy to actual SVG into src/icons and name it however and use similar to below
+ * * Small feature cards with icons, titles, and text
+ * Data is passed as props from Sanity block builder via BlockRenderer
  */
-
 import { Icon } from "astro-icon/components";
 import FeatureCard from "@components/FeatureCard/FeatureCardSmall.astro";
-
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { getCollection } from "astro:content";
 
 interface Props {
-  featureSet?: string;
+  title?: string;
+  features?: { icon?: string; title: string; text: string }[];
+  [key: string]: any;
 }
 
-const { featureSet = "home" } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { title = "", features = [] } = Astro.props;
 
-const entries = await getCollection("featureCardsSmall");
-const entry = entries.find((e) => e.id === `${locale}/${featureSet}`);
-if (!entry) return;
-
-const { title, features } = entry.data;
+if (!title || !features.length) return;
 
 const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
