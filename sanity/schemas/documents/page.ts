@@ -15,6 +15,14 @@ export const page = defineType({
   fields: [
     defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
+      name: "protected",
+      title: "Beschermd",
+      type: "boolean",
+      description: "Zet aan om verwijderen in de studio te blokkeren.",
+      group: "meta",
+      initialValue: false,
+    }),
+    defineField({
       name: "title",
       title: "Titel",
       type: "string",
