@@ -1,42 +1,19 @@
 ---
 import { getLocaleFromUrl } from "@utils/localeUtils";
-import { getContactFormLabels } from "@utils/contactForm";
-import { getCompanyInfo } from "@utils/companyInfo";
 import ContactFormReact from "./ContactForm";
 import { PUBLIC_TURNSTILE_SITE_KEY } from "astro:env/client";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-const locale = getLocaleFromUrl(Astro.url);
-const labels = await getContactFormLabels(locale);
-const companyInfo = await getCompanyInfo(locale);
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type ContactBlock = Extract<Blocks[number], { _type: "contactSection"; form: unknown }>;
 
-// Fallback labels indien singleton leeg is
-const resolvedLabels = {
-  formTitle: labels?.formTitle ?? (locale === "nl" ? "Contactformulier" : "Contact Form"),
-  firstNameLabel: labels?.firstNameLabel ?? (locale === "nl" ? "Voornaam" : "First Name"),
-  lastNameLabel: labels?.lastNameLabel ?? (locale === "nl" ? "Achternaam" : "Last Name"),
-  emailLabel: labels?.emailLabel ?? (locale === "nl" ? "Emailadres" : "Email Address"),
-  descriptionLabel: labels?.descriptionLabel ?? (locale === "nl" ? "Beschrijving" : "Description"),
-  fileUploadLabel:
-    labels?.fileUploadLabel ?? (locale === "nl" ? "Bestand uploaden" : "Upload File"),
-  submitButtonText: labels?.submitButtonText ?? (locale === "nl" ? "Versturen" : "Submit"),
-  successMessage:
-    labels?.successMessage ??
-    (locale === "nl"
-      ? "Bedankt! We nemen zo snel mogelijk contact met u op."
-      : "Thank you! We will get back to you as soon as possible."),
-  errorMessage:
-    labels?.errorMessage ??
-    (locale === "nl"
-      ? "Er is iets misgegaan. Probeer het later opnieuw."
-      : "Something went wrong. Please try again later."),
-};
+interface Props {
+  form: ContactBlock["form"];
+}
 
+const { form } = Astro.props;
 const turnstileSiteKey = PUBLIC_TURNSTILE_SITE_KEY ?? "";
+const locale = getLocaleFromUrl(Astro.url);
 ---
 
-<ContactFormReact
-  labels={resolvedLabels}
-  turnstileSiteKey={turnstileSiteKey}
-  locale={locale}
-  client:load
-/>
+<ContactFormReact form={form} turnstileSiteKey={turnstileSiteKey} locale={locale} client:load />

@@ -2,10 +2,11 @@ import { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } from "astro:env/server";
 
 interface ContactPayload {
   "cf-turnstile-response": string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  description: string;
+  formTitle?: string;
+  emailSubject?: string;
+  replyToField?: string;
+  senderNameFields?: string[];
+  fields: Record<string, string | boolean>;
   file?: { name: string; data: string; type: string } | null;
 }
 
@@ -23,10 +24,7 @@ export async function POST({
   }
 
   const turnstileToken = body["cf-turnstile-response"] ?? "";
-  const firstName = body.firstName ?? "";
-  const lastName = body.lastName ?? "";
-  const email = body.email ?? "";
-  const description = body.description ?? "";
+  const fields = body.fields ?? {};
   const file = body.file ?? null;
 
   // Verify Cloudflare Turnstile token
@@ -43,21 +41,23 @@ export async function POST({
     return json({ error: "Turnstile verificatie mislukt" }, 400);
   }
 
+  const replyTo = (fields[body.replyToField ?? "email"] as string) ?? "";
+  const senderName = (body.senderNameFields ?? [])
+    .map((f) => fields[f] ?? "")
+    .join(" ")
+    .trim();
+  const subject = body.emailSubject ?? `Nieuw formulier: ${body.formTitle ?? "Contact"}`;
+
   // Build StaticForms payload
-  // The recipient email is configured in your StaticForms dashboard (linked to the access key).
   const payload: Record<string, unknown> = {
     accessKey: STATICFORMS_ACCESS_KEY,
-    subject: `Nieuw contactformulier van ${firstName} ${lastName}`,
-    replyTo: email,
-    name: `${firstName} ${lastName}`,
-    $fields: ["firstName", "lastName", "email", "description"],
-    firstName,
-    lastName,
-    email,
-    message: description,
+    subject,
+    replyTo,
+    name: senderName,
+    $fields: Object.keys(fields),
+    ...fields,
   };
 
-  // Attach file if present (file.data is already base64-encoded)
   if (file && file.data) {
     payload.$attachments = [
       {

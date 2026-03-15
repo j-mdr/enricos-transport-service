@@ -6,6 +6,12 @@ export const contactSection = defineType({
   type: "object",
   fields: [
     defineField({
+      name: "title",
+      title: "Titel",
+      type: "string",
+    }),
+    defineField({ name: "image", title: "Afbeelding", type: "imageWithAlt" }),
+    defineField({
       name: "form",
       title: "Formulier",
       type: "reference",

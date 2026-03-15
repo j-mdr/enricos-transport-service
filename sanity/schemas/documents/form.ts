@@ -25,6 +25,12 @@ export const form = defineType({
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
+      name: "emailSubject",
+      title: "Onderwerp e-mail (optioneel)",
+      type: "string",
+      description: "Overschrijft het standaard onderwerp in de ontvangen e-mail",
+    }),
+    defineField({
       name: "submitButtonText",
       title: "Knoptekst",
       type: "string",

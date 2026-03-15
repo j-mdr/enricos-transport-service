@@ -28,7 +28,22 @@ const pageFields = `
     _type == "servicesSideImage" => {
       services[] { ..., ctaButton ${ctaButtonFragment} }
     },
-    _type == "richText" => { ${contentFragment} }
+    _type == "richText" => { ${contentFragment} },
+    _type == "contactSection" => {
+      title,
+      image { asset, alt, hotspot, crop },
+      form-> {
+        title,
+        emailSubject,
+        submitButtonText,
+        successMessage,
+        errorMessage,
+        fields[] {
+          type, name, label, placeholder, required, width,
+          options[] { label, value }
+        }
+      }
+    }
   }
 `;
 

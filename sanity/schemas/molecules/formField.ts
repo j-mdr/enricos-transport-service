@@ -56,6 +56,19 @@ export const formField = defineType({
       type: "boolean",
       initialValue: false,
     }),
+    defineField({
+      name: "width",
+      title: "Breedte",
+      type: "string",
+      options: {
+        list: [
+          { title: "Volledig", value: "full" },
+          { title: "Half", value: "half" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "full",
+    }),
     // Alleen zichtbaar als type === 'select'
     defineField({
       name: "options",
