@@ -66,13 +66,11 @@ export default defineConfig([
     ignores: [
       "dist/**",
       "**/*.d.ts",
-      ".tours/",
-      "src/docs/scripts/**",
-      "scripts/",
-      "public/pagefind/",
-      ".github/",
-      ".netlify/",
-      ".changeset/",
+      "sanity/**",
+      "sanity.config.ts",
+      "sanity.cli.ts",
+      "sanity.types.ts",
+      ".wrangler/**",
     ],
   },
 ]);
