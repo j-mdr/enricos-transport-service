@@ -114,8 +114,6 @@ export const page = defineType({
         { type: "testimonialsColumns" },
         { type: "testimonialsSwiper" },
         { type: "contactSection" },
-        { type: "requestQuoteSection" },
-        { type: "becomePartnerSection" },
         { type: "richText" },
         { type: "headingWithImage" },
       ],

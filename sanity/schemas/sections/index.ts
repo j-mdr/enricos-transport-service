@@ -20,7 +20,5 @@ export { teamMemberCards } from "./teamMemberCards";
 export { testimonialsColumns } from "./testimonialsColumns";
 export { testimonialsSwiper } from "./testimonialsSwiper";
 export { contactSection } from "./contactSection";
-export { requestQuoteSection } from "./requestQuoteSection";
-export { becomePartnerSection } from "./becomePartnerSection";
 export { richText } from "./richText";
 export { headingWithImage } from "./headingWithImage";

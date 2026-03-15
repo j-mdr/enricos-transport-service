@@ -38,8 +38,6 @@ import {
   testimonialsColumns,
   testimonialsSwiper,
   contactSection,
-  requestQuoteSection,
-  becomePartnerSection,
   richText,
   headingWithImage,
 } from "./sections";
@@ -96,8 +94,6 @@ export const schemaTypes = [
   testimonialsColumns,
   testimonialsSwiper,
   contactSection,
-  requestQuoteSection,
-  becomePartnerSection,
   richText,
   headingWithImage,
 ];

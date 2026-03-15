@@ -105,8 +105,6 @@ export const blogPost = defineType({
         { type: "testimonialsColumns" },
         { type: "testimonialsSwiper" },
         { type: "contactSection" },
-        { type: "requestQuoteSection" },
-        { type: "becomePartnerSection" },
         { type: "richText" },
       ],
     }),

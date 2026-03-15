@@ -26,8 +26,6 @@ import TeamMemberCardsSection from "@components/Team/TeamMemberCardsSection.astr
 import IntroSection from "@components/Content/IntroSection.astro";
 import AwardsSection from "@components/Awards/AwardsSection.astro";
 import ContactSection from "@components/Contact/ContactSection.astro";
-import RequestQuoteSection from "@components/Contact/RequestQuoteSection.astro";
-import BecomePartnerSection from "@components/Contact/BecomePartnerSection.astro";
 import HeadingWithImageSection from "@components/HeadingWithImage/HeadingWithImageSection.astro";
 import RichTextBlock from "./RichTextBlock.astro";
 
@@ -63,8 +61,6 @@ const { blocks } = Astro.props;
       {block._type === "testimonialsColumns" && <TestimonialsColumnsSection {...block} />}
       {block._type === "testimonialsSwiper" && <TestimonialsSwiperSection {...block} />}
       {block._type === "contactSection" && <ContactSection {...block} />}
-      {block._type === "requestQuoteSection" && <RequestQuoteSection {...block} />}
-      {block._type === "becomePartnerSection" && <BecomePartnerSection {...block} />}
       {block._type === "headingWithImage" && <HeadingWithImageSection {...block} />}
       {block._type === "richText" && block.content?.length && (
         <div class="site-container my-16">

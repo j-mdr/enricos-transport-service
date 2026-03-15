@@ -8,6 +8,7 @@ export interface LocaleDefinition {
   languageCode: string;
   switcherLabel: string;
   categoryUrlBase: string;
+  blogUrlBase: string;
 }
 
 export const localeDefinitions: LocaleDefinition[] = [
@@ -19,6 +20,7 @@ export const localeDefinitions: LocaleDefinition[] = [
     languageCode: "nl-NL",
     switcherLabel: "NL",
     categoryUrlBase: "categorieen",
+    blogUrlBase: "blog",
   },
   {
     id: "en",
@@ -28,6 +30,7 @@ export const localeDefinitions: LocaleDefinition[] = [
     languageCode: "en-US",
     switcherLabel: "EN",
     categoryUrlBase: "categories",
+    blogUrlBase: "blog",
   },
 ];
 
