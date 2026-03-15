@@ -2,28 +2,20 @@
  * Global site settings
  */
 
+import { localeDefinitions } from "./localeConfig";
 import { type LocalizedData, type SiteSettingsProps } from "./configDataTypes.ts";
 
-export type Locale = (typeof locales)[number];
-
-// The below locales need to match what you've put in your `astro.config.mjs` file
-export const locales = ["en", "nl"] as const;
-export const defaultLocale = "nl" as const;
+export { locales, defaultLocale, type Locale } from "./localeConfig";
 
 // localeMap is used to map languages to their respective locales - used for formatDate function
-export const localeMap: LocalizedData<string> = {
-  nl: "nl-NL",
-  en: "en-US",
-} as const;
+export const localeMap = Object.fromEntries(
+  localeDefinitions.map((l) => [l.id, l.languageCode]),
+) as LocalizedData<string>;
 
 // text to show in the language switcher for each locale
-export const languageSwitcherMap: LocalizedData<string> = {
-  nl: "NL",
-  en: "EN",
-
-  // en: "English",
-  //
-} as const;
+export const languageSwitcherMap = Object.fromEntries(
+  localeDefinitions.map((l) => [l.id, l.switcherLabel]),
+) as LocalizedData<string>;
 
 // site settings that don't change between languages
 export const siteSettings: SiteSettingsProps = {

@@ -938,7 +938,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/lib/groq/blogPost.ts
 // Variable: getBlogPostBySlugQuery
-// Query: *[_type == "blogPost" && slug.current == $slug && language == $locale][0]{   title,  description,  "slug": slug.current,  heroImage { asset, alt, hotspot, crop },  pubDate,  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },  categories,    content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, slug } }        }      }    }  },    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  } }
+// Query: *[_type == "blogPost" && slug.current == $slug && language == $locale][0]{     title,  description,  "slug": slug.current,  heroImage { asset, alt, hotspot, crop },  pubDate,  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },  categories[]->{ title, "slug": slug.current },    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  },  blocks[] {    _type,    ...,    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, slug } }        }      }    }  } }  } }
 export type GetBlogPostBySlugQueryResult = {
   title: string | null;
   description: null;
@@ -959,21 +959,457 @@ export type GetBlogPostBySlugQueryResult = {
       alt: string | null;
     } | null;
   }> | null;
-  categories: Array<
-    {
-      _key: string;
-    } & CategoryReference
-  > | null;
-  content: null;
+  categories: Array<{
+    title: string | null;
+    slug: string | null;
+  }> | null;
   alternatePaths: {
     nl: string | "/";
     en: string | "/en/";
   };
+  blocks: Array<
+    | {
+        _type: "awardsSection";
+        _key: string;
+        title?: string;
+        awards?: Array<
+          {
+            _key: string;
+          } & ImageWithAlt
+        >;
+      }
+    | {
+        _type: "becomePartnerSection";
+        _key: string;
+        title?: string;
+        image?: ImageWithAlt;
+        form?: FormReference;
+      }
+    | {
+        _type: "contactSection";
+        _key: string;
+        title?: string;
+        image?: ImageWithAlt;
+        form?: FormReference;
+      }
+    | {
+        _type: "ctaBgImage";
+        _key: string;
+        title?: string;
+        description?: string;
+        ctaButton?: CtaButton;
+        image?: ImageWithAlt;
+      }
+    | {
+        _type: "ctaBgImage";
+        _key: string;
+        title?: string;
+        description?: string;
+        ctaButton: {
+          variant: "default" | "ghost" | "outline" | "primary" | "secondary" | null;
+          size: "lg" | "md" | "sm" | null;
+          link: {
+            text: string | null;
+            destination: Array<
+              | {
+                  _type: "externalLink";
+                  href: string | null;
+                  openInNewTab: boolean | null;
+                }
+              | {
+                  _type: "internalLink";
+                  reference:
+                    | {
+                        _type: "blogPost";
+                        slug: Slug | null;
+                      }
+                    | {
+                        _type: "page";
+                        slug: Slug | null;
+                      }
+                    | null;
+                }
+            > | null;
+          } | null;
+        } | null;
+        image?: ImageWithAlt;
+      }
+    | {
+        _type: "ctaCardCenter";
+        _key: string;
+        title?: string;
+        ctaButton?: CtaButton;
+      }
+    | {
+        _type: "ctaCardCenter";
+        _key: string;
+        title?: string;
+        ctaButton: {
+          variant: "default" | "ghost" | "outline" | "primary" | "secondary" | null;
+          size: "lg" | "md" | "sm" | null;
+          link: {
+            text: string | null;
+            destination: Array<
+              | {
+                  _type: "externalLink";
+                  href: string | null;
+                  openInNewTab: boolean | null;
+                }
+              | {
+                  _type: "internalLink";
+                  reference:
+                    | {
+                        _type: "blogPost";
+                        slug: Slug | null;
+                      }
+                    | {
+                        _type: "page";
+                        slug: Slug | null;
+                      }
+                    | null;
+                }
+            > | null;
+          } | null;
+        } | null;
+      }
+    | {
+        _type: "ctaCardCenter2";
+        _key: string;
+        title?: string;
+        ctaButton?: CtaButton;
+      }
+    | {
+        _type: "ctaCardCenter2";
+        _key: string;
+        title?: string;
+        ctaButton: {
+          variant: "default" | "ghost" | "outline" | "primary" | "secondary" | null;
+          size: "lg" | "md" | "sm" | null;
+          link: {
+            text: string | null;
+            destination: Array<
+              | {
+                  _type: "externalLink";
+                  href: string | null;
+                  openInNewTab: boolean | null;
+                }
+              | {
+                  _type: "internalLink";
+                  reference:
+                    | {
+                        _type: "blogPost";
+                        slug: Slug | null;
+                      }
+                    | {
+                        _type: "page";
+                        slug: Slug | null;
+                      }
+                    | null;
+                }
+            > | null;
+          } | null;
+        } | null;
+      }
+    | {
+        _type: "ctaCards";
+        _key: string;
+        title?: string;
+        description?: string;
+        ctaButton?: CtaButton;
+        cards?: Array<
+          {
+            _key: string;
+          } & FeatureCardSmall
+        >;
+      }
+    | {
+        _type: "ctaCards";
+        _key: string;
+        title?: string;
+        description?: string;
+        ctaButton: {
+          variant: "default" | "ghost" | "outline" | "primary" | "secondary" | null;
+          size: "lg" | "md" | "sm" | null;
+          link: {
+            text: string | null;
+            destination: Array<
+              | {
+                  _type: "externalLink";
+                  href: string | null;
+                  openInNewTab: boolean | null;
+                }
+              | {
+                  _type: "internalLink";
+                  reference:
+                    | {
+                        _type: "blogPost";
+                        slug: Slug | null;
+                      }
+                    | {
+                        _type: "page";
+                        slug: Slug | null;
+                      }
+                    | null;
+                }
+            > | null;
+          } | null;
+        } | null;
+        cards?: Array<
+          {
+            _key: string;
+          } & FeatureCardSmall
+        >;
+      }
+    | {
+        _type: "faqAccordions";
+        _key: string;
+        title?: string;
+        faqs?: Array<
+          {
+            _key: string;
+          } & FaqItem
+        >;
+      }
+    | {
+        _type: "faqCards";
+        _key: string;
+        title?: string;
+        faqs?: Array<
+          {
+            _key: string;
+          } & FaqItem
+        >;
+      }
+    | {
+        _type: "featureCardsSmall";
+        _key: string;
+        title?: string;
+        features?: Array<
+          {
+            _key: string;
+          } & FeatureCardSmall
+        >;
+      }
+    | {
+        _type: "featureGalleryMarquee";
+        _key: string;
+        title?: string;
+        images?: Array<
+          {
+            _key: string;
+          } & ImageWithAlt
+        >;
+      }
+    | {
+        _type: "featureLightboxMarquee";
+        _key: string;
+        title?: string;
+        images?: Array<
+          {
+            _key: string;
+          } & ImageWithAlt
+        >;
+      }
+    | {
+        _type: "featureSideImage";
+        _key: string;
+        sectionTitle?: string;
+        items?: Array<
+          {
+            _key: string;
+          } & FeatureCardSideImage
+        >;
+      }
+    | {
+        _type: "featureToggleImage";
+        _key: string;
+        sectionTitle?: string;
+        sections?: Array<
+          {
+            _key: string;
+          } & FeatureCardToggle
+        >;
+      }
+    | {
+        _type: "requestQuoteSection";
+        _key: string;
+        title?: string;
+        image?: ImageWithAlt;
+        form?: FormReference;
+      }
+    | {
+        _type: "richText";
+        _key: string;
+        content: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+              listItem?: "bullet" | "number";
+              markDefs: Array<{
+                destination: Array<
+                  | {
+                      _type: "externalLink";
+                      href: string | null;
+                      openInNewTab: boolean | null;
+                    }
+                  | {
+                      _type: "internalLink";
+                      reference:
+                        | {
+                            _type: "blogPost";
+                            slug: Slug | null;
+                          }
+                        | {
+                            _type: "page";
+                            slug: Slug | null;
+                          }
+                        | null;
+                    }
+                > | null;
+                _type: "link";
+                _key: string;
+              }> | null;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: "imageWithAlt";
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              markDefs: null;
+            }
+        > | null;
+      }
+    | {
+        _type: "servicesIcon";
+        _key: string;
+        title?: string;
+        services: Array<{
+          _key: string;
+          _type: "serviceCardIcon";
+          icon?: string;
+          title?: string;
+          description?: string;
+          ctaButton: {
+            variant: "default" | "ghost" | "outline" | "primary" | "secondary" | null;
+            size: "lg" | "md" | "sm" | null;
+            link: {
+              text: string | null;
+              destination: Array<
+                | {
+                    _type: "externalLink";
+                    href: string | null;
+                    openInNewTab: boolean | null;
+                  }
+                | {
+                    _type: "internalLink";
+                    reference:
+                      | {
+                          _type: "blogPost";
+                          slug: Slug | null;
+                        }
+                      | {
+                          _type: "page";
+                          slug: Slug | null;
+                        }
+                      | null;
+                  }
+              > | null;
+            } | null;
+          } | null;
+        }> | null;
+      }
+    | {
+        _type: "servicesSideImage";
+        _key: string;
+        title?: string;
+        services: Array<{
+          _key: string;
+          _type: "serviceCardSideImage";
+          title?: string;
+          description?: string;
+          image?: ImageWithAlt;
+          ctaButton: {
+            variant: "default" | "ghost" | "outline" | "primary" | "secondary" | null;
+            size: "lg" | "md" | "sm" | null;
+            link: {
+              text: string | null;
+              destination: Array<
+                | {
+                    _type: "externalLink";
+                    href: string | null;
+                    openInNewTab: boolean | null;
+                  }
+                | {
+                    _type: "internalLink";
+                    reference:
+                      | {
+                          _type: "blogPost";
+                          slug: Slug | null;
+                        }
+                      | {
+                          _type: "page";
+                          slug: Slug | null;
+                        }
+                      | null;
+                  }
+              > | null;
+            } | null;
+          } | null;
+        }> | null;
+      }
+    | {
+        _type: "teamMemberCards";
+        _key: string;
+        title?: string;
+        teamMembers: Array<{
+          name: string | null;
+          personTitle: string | null;
+          bio: string | null;
+          avatar: {
+            asset: SanityImageAssetReference | null;
+            alt: string | null;
+            hotspot: SanityImageHotspot | null;
+            crop: SanityImageCrop | null;
+          } | null;
+        }> | null;
+      }
+    | {
+        _type: "testimonialsColumns";
+        _key: string;
+        title?: string;
+        testimonials?: Array<
+          {
+            _key: string;
+          } & TestimonialCard
+        >;
+      }
+    | {
+        _type: "testimonialsSwiper";
+        _key: string;
+        title?: string;
+        testimonials?: Array<
+          {
+            _key: string;
+          } & TestimonialCard
+        >;
+      }
+  > | null;
 } | null;
 
 // Source: src/lib/groq/blogPost.ts
 // Variable: getAllBlogPostsQuery
-// Query: *[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  heroImage { asset, alt, hotspot, crop },  pubDate,  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },  categories,    content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, slug } }        }      }    }  },    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  } }
+// Query: *[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  heroImage { asset, alt, hotspot, crop },  pubDate,  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },  categories[]->{ title, "slug": slug.current },    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  } }
 export type GetAllBlogPostsQueryResult = Array<{
   title: string | null;
   description: null;
@@ -994,12 +1430,56 @@ export type GetAllBlogPostsQueryResult = Array<{
       alt: string | null;
     } | null;
   }> | null;
-  categories: Array<
-    {
-      _key: string;
-    } & CategoryReference
-  > | null;
-  content: null;
+  categories: Array<{
+    title: string | null;
+    slug: string | null;
+  }> | null;
+  alternatePaths: {
+    nl: string | "/";
+    en: string | "/en/";
+  };
+}>;
+
+// Source: src/lib/groq/blogPost.ts
+// Variable: getAllCategoriesQuery
+// Query: *[_type == "category" && language == $locale] | order(title asc){ title, "slug": slug.current, description,   "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  } }
+export type GetAllCategoriesQueryResult = Array<{
+  title: string | null;
+  slug: string | null;
+  description: string | null;
+  alternatePaths: {
+    nl: string | "/";
+    en: string | "/en/";
+  };
+}>;
+
+// Source: src/lib/groq/blogPost.ts
+// Variable: getBlogPostsByCategoryQuery
+// Query: *[_type == "blogPost" && language == $locale && $categorySlug in categories[]->slug.current && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  heroImage { asset, alt, hotspot, crop },  pubDate,  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },  categories[]->{ title, "slug": slug.current },    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  } }
+export type GetBlogPostsByCategoryQueryResult = Array<{
+  title: string | null;
+  description: null;
+  slug: string | null;
+  heroImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+  pubDate: string | null;
+  authors: Array<{
+    name: string | null;
+    avatar: {
+      asset: {
+        url: string | null;
+      } | null;
+      alt: string | null;
+    } | null;
+  }> | null;
+  categories: Array<{
+    title: string | null;
+    slug: string | null;
+  }> | null;
   alternatePaths: {
     nl: string | "/";
     en: string | "/en/";
@@ -2832,8 +3312,10 @@ export type GetFooterFromSettingsQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "blogPost" && slug.current == $slug && language == $locale][0]{ \n  title,\n  description,\n  "slug": slug.current,\n  heroImage { asset, alt, hotspot, crop },\n  pubDate,\n  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },\n  categories,\n  \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, slug } }\n        }\n      }\n    }\n  }\n,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n\n }': GetBlogPostBySlugQueryResult;
-    '*[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){ \n  title,\n  description,\n  "slug": slug.current,\n  heroImage { asset, alt, hotspot, crop },\n  pubDate,\n  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },\n  categories,\n  \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, slug } }\n        }\n      }\n    }\n  }\n,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n\n }': GetAllBlogPostsQueryResult;
+    '*[_type == "blogPost" && slug.current == $slug && language == $locale][0]{ \n  \n  title,\n  description,\n  "slug": slug.current,\n  heroImage { asset, alt, hotspot, crop },\n  pubDate,\n  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },\n  categories[]->{ title, "slug": slug.current },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, slug } }\n        }\n      }\n    }\n  }\n }\n  }\n }': GetBlogPostBySlugQueryResult;
+    '*[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){ \n  title,\n  description,\n  "slug": slug.current,\n  heroImage { asset, alt, hotspot, crop },\n  pubDate,\n  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },\n  categories[]->{ title, "slug": slug.current },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n\n }': GetAllBlogPostsQueryResult;
+    '*[_type == "category" && language == $locale] | order(title asc){ title, "slug": slug.current, description, \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n }': GetAllCategoriesQueryResult;
+    '*[_type == "blogPost" && language == $locale && $categorySlug in categories[]->slug.current && draft != true] | order(pubDate desc){ \n  title,\n  description,\n  "slug": slug.current,\n  heroImage { asset, alt, hotspot, crop },\n  pubDate,\n  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },\n  categories[]->{ title, "slug": slug.current },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n\n }': GetBlogPostsByCategoryQueryResult;
     '*[_type == "page" && slug.current == $slug && language == $locale][0]{ \n  title,\n  description,\n  image { asset, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, slug } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      title,\n      image { asset, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetPageBySlugQueryResult;
     '*[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current, \n  title,\n  description,\n  image { asset, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,\n      "/"\n    ),\n    "en": coalesce(\n      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, slug } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, slug } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      title,\n      image { asset, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetAllPagesQueryResult;
     "*[_id == $id][0]": GetSettingsQueryResult;

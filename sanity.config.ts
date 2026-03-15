@@ -4,6 +4,7 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { documentInternationalization } from "@sanity/document-internationalization";
 import { nlNLLocale } from "@sanity/locale-nl-nl";
+import { localeDefinitions } from "./src/config/localeConfig";
 
 import { schemaTypes } from "./sanity/schemas";
 import { structure } from "./sanity/structure";
@@ -27,10 +28,7 @@ export default defineConfig({
     structureTool({ structure }),
     visionTool(),
     documentInternationalization({
-      supportedLanguages: [
-        { id: "nl", title: "Nederlands" },
-        { id: "en", title: "English" },
-      ],
+      supportedLanguages: localeDefinitions.map((l) => ({ id: l.id, title: l.title })),
       schemaTypes: ["blogPost", "page", "form", "person", "category"],
     }),
   ],

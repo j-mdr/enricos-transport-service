@@ -3,18 +3,25 @@ export const prerender = true;
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getAllBlogPosts } from "@lib/groq/blogPost";
-export async function getStaticPaths() {
-  const posts = await getAllBlogPosts("en");
+import type {
+  GetAllBlogPostsQueryResult,
+  GetBlogPostBySlugQueryResult,
+} from "../../../../sanity.types";
 
-  return posts.map((post: { slug: string }) => ({
-    params: { slug: post.slug.replace(/^blog\//, "") },
+type Post = NonNullable<GetBlogPostBySlugQueryResult>;
+
+export async function getStaticPaths() {
+  const posts = (await getAllBlogPosts("en")) as GetAllBlogPostsQueryResult;
+
+  return posts.map((post) => ({
+    params: { slug: (post.slug ?? "").replace(/^blog\//, "") },
     props: { post },
   }));
 }
 
-const { post } = Astro.props;
+const { post } = Astro.props as { post: Post };
 ---
 
-<BlogLayout post={post} alternatePaths={post.alternatePaths}>
-  <BlockRenderer blocks={post.content ?? []} />
+<BlogLayout post={post}>
+  <BlockRenderer blocks={(post.blocks ?? []) as any} />
 </BlogLayout>

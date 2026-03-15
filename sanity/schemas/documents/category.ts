@@ -1,4 +1,6 @@
 import { defineType, defineField } from "sanity";
+import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
+import { localeDefinitions } from "../../../src/config/localeConfig";
 
 export const category = defineType({
   name: "category",
@@ -17,9 +19,19 @@ export const category = defineType({
       title: "Slug",
       type: "slug",
       options: {
-        source: "name",
-        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-"),
+        source: (doc) => {
+          const d = doc as unknown as { title?: string };
+          return d.title ?? "";
+        },
+        slugify: (input, _, context) => {
+          const parent = context?.parent as unknown as { language?: string };
+          const locale =
+            localeDefinitions.find((l) => l.id === parent?.language) ??
+            localeDefinitions.find((l) => l.isDefault)!;
+          return locale.categoryUrlBase + "/" + input.toLowerCase().replace(/\s+/g, "-");
+        },
       },
+      components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

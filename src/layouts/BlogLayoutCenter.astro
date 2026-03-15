@@ -2,35 +2,29 @@
 import { getLocalizedRoute } from "@/utils/translationUtils";
 import BaseLayout from "./BaseLayout.astro";
 import Button from "@components/Button/Button.astro";
-import { formatDate, humanize, slugify } from "@/utils/textUtils";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import { formatDate } from "@/utils/textUtils";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-interface SanityAuthor {
-  name: string;
-  avatar?: { asset?: { url: string }; alt?: string };
-}
+import type { GetBlogPostBySlugQueryResult } from "../sanity.types";
 
+type Post = NonNullable<GetBlogPostBySlugQueryResult>;
 interface Props {
-  post: {
-    title: string;
-    description?: string;
-    slug: string;
-    heroImage?: { asset?: { url: string }; alt?: string };
-    pubDate?: string;
-    authors?: SanityAuthor[];
-    categories?: string[];
-    translations?: any[];
-  };
-  alternatePaths?: Partial<Record<string, string>>;
+  post: Post;
 }
 
-const { post, alternatePaths } = Astro.props as Props;
-const { title, description, authors, categories, pubDate, heroImage } = post;
+const { post } = Astro.props;
+const { title, description, authors, categories, pubDate, heroImage, alternatePaths } = post;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar alle posts";
 ---
 
-<BaseLayout type="general" title={title} description={description} alternatePaths={alternatePaths}>
+<BaseLayout
+  type="general"
+  title={title ?? ""}
+  description={description ?? undefined}
+  alternatePaths={alternatePaths}
+>
   <article class="site-container pt-36 md:pt-44">
     <div class="flex w-full flex-col items-center">
       <div class="mx-auto flex w-full max-w-[800px]">
@@ -39,12 +33,12 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
           {
             categories && (
               <div class="flex justify-center gap-4">
-                {categories.map((category) => (
+                {categories.map((cat) => (
                   <a
-                    href={getLocalizedRoute(currLocale, `/categories/${slugify(category)}/`)}
+                    href={getLocalizedRoute(currLocale, `/categories/${cat.slug}/`)}
                     class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
                   >
-                    {humanize(category)}
+                    {cat.title}
                   </a>
                 ))}
               </div>
@@ -91,14 +85,14 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
 
       <!-- blog post main image -->
       {
-        heroImage?.asset?.url && (
+        heroImage?.asset && (
           <div class="mt-6 max-w-[1000px] overflow-hidden">
-            <img
-              src={heroImage.asset.url}
-              alt={heroImage.alt ?? `Cover for ${title}`}
-              width={2000}
-              class="max-h-[70vh] rounded-xl object-cover"
+            <SanityImage
+              image={heroImage}
+              sizesType="background"
               loading="eager"
+              fetchpriority="high"
+              class="max-h-[70vh] rounded-xl object-cover"
             />
           </div>
         )

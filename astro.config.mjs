@@ -1,5 +1,6 @@
 import { defineConfig, envField } from "astro/config";
 import { loadEnv } from "vite";
+import { locales, defaultLocale } from "./src/config/localeConfig";
 
 const env = loadEnv(process.env.NODE_ENV ?? "production", process.cwd(), "");
 
@@ -38,10 +39,10 @@ export default defineConfig({
     },
   },
   // trailingSlash: "always",
-  // i18n configuration must match src/config/translations.json.ts
+  // i18n configuration must match src/config/localeConfig.ts
   i18n: {
-    defaultLocale: "nl",
-    locales: ["en", "nl"],
+    defaultLocale,
+    locales: [...locales],
     routing: {
       prefixDefaultLocale: false,
     },

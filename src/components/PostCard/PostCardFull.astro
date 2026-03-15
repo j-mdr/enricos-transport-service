@@ -1,23 +1,14 @@
 ---
 import { getLocalizedRoute } from "@/utils/translationUtils";
-import { slugify, formatDate, humanize } from "@/utils/textUtils";
+import { formatDate } from "@/utils/textUtils";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import type { GetAllBlogPostsQueryResult } from "../../../sanity.types";
 
-interface SanityAuthor {
-  name: string;
-  avatar?: { asset?: { url: string }; alt?: string };
-}
+type Post = GetAllBlogPostsQueryResult[0];
 
 interface Props {
-  post: {
-    title: string;
-    description?: string;
-    slug: string;
-    heroImage?: { asset?: { url: string }; alt?: string };
-    pubDate?: string;
-    authors?: SanityAuthor[];
-    categories?: string[];
-  };
+  post: Post;
   showDescription?: boolean;
   class?: string;
   [key: string]: any;
@@ -30,17 +21,13 @@ const currLocale = getLocaleFromUrl(Astro.url);
 ---
 
 <article class={`flex grid gap-4 md:grid-cols-2 md:gap-8 ${className ?? ""}`} {...rest}>
-  <a
-    href={getLocalizedRoute(currLocale, `/blog/${post.slug}/`)}
-    class="shrink-0 justify-center overflow-hidden rounded-lg sm:justify-normal"
-  >
+  <a href={post.slug} class="shrink-0 justify-center overflow-hidden rounded-lg sm:justify-normal">
     {
-      heroImage?.asset?.url && (
+      heroImage?.asset && (
         <figure>
-          <img
-            src={heroImage.asset.url}
-            alt={heroImage.alt ?? `Cover for ${title}`}
-            height={700}
+          <SanityImage
+            image={heroImage}
+            sizesType="half"
             class="h-auto max-h-96 w-full rounded-lg object-cover transition-all duration-500 hover:scale-[1.02]"
           />
         </figure>
@@ -52,12 +39,9 @@ const currLocale = getLocaleFromUrl(Astro.url);
     {
       categories && (
         <div class="flex flex-wrap gap-4 md:mt-1">
-          {categories.map((category) => (
-            <a
-              href={getLocalizedRoute(currLocale, `/categories/${slugify(category)}/`)}
-              class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
-            >
-              {humanize(category)}
+          {categories.map((cat) => (
+            <a href={cat.slug} class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1">
+              {cat.title}
             </a>
           ))}
         </div>
@@ -67,7 +51,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
     <!-- title -->
     <div>
       <a
-        href={getLocalizedRoute(currLocale, `/blog/${post.slug}/`)}
+        href={post.slug}
         class="hover:border-primary-500 border-b-2 border-transparent transition duration-300"
       >
         <h2 class="inline text-lg font-medium md:text-2xl lg:text-3xl">
