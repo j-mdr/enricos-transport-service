@@ -297,8 +297,6 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
 
   return (
     <div>
-      <h2 className="h2">{formTitle}</h2>
-
       {status === "success" ? (
         <p ref={messageRef} className="mt-6 text-green-600">
           {successMessage}
