@@ -10,6 +10,7 @@ pnpm build        # Build production site to ./dist/
 pnpm preview      # Preview build via Cloudflare Workers (wrangler dev)
 pnpm lint         # Run ESLint
 pnpm format       # Run Prettier on all files
+pnpm typegen      # Regenerate sanity.types.ts from schemas + GROQ queries
 astro check       # TypeScript / Astro type checking
 ```
 
@@ -80,6 +81,8 @@ Sanity Studio is accessible at `/studio` (also `/admin/` redirects here). Config
 - `settings.ts` — `getSettings(locale)`, `getNavFromSettings(locale)`, `getFooterFromSettings(locale)`
 
 **Sanity client** — `src/lib/sanityClient.ts`
+
+**TypeScript types** — `sanity.types.ts` (root, auto-generated). Run `pnpm typegen` after any schema change or new GROQ query. GROQ queries must be wrapped with `defineQuery()` from `"groq"` to get typed results. Import result types like `GetPageBySlugQueryResult` directly from `sanity.types.ts`.
 
 ### Block Builder
 

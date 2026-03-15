@@ -8,8 +8,14 @@ import { nlNLLocale } from "@sanity/locale-nl-nl";
 import { schemaTypes } from "./sanity/schemas";
 import { structure } from "./sanity/structure";
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
-const dataset = import.meta.env.PUBLIC_SANITY_DATASET;
+const projectId =
+  (typeof import.meta !== "undefined" && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) ||
+  process.env.PUBLIC_SANITY_PROJECT_ID ||
+  "p88mnbf2";
+const dataset =
+  (typeof import.meta !== "undefined" && import.meta.env?.PUBLIC_SANITY_DATASET) ||
+  process.env.PUBLIC_SANITY_DATASET ||
+  "production";
 
 export default defineConfig({
   name: "enricos-transport-service",

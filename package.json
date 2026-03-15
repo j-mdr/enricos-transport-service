@@ -9,7 +9,8 @@
     "preview": "wrangler dev",
     "astro": "astro",
     "format": "prettier -w \"**/*\" --ignore-unknown --cache",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typegen": "sanity schema extract && sanity typegen generate"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

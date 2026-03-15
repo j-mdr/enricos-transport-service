@@ -1,3 +1,4 @@
+import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteSettings.json";
 import { alternatePathsFragment, ctaButtonFragment, contentFragment } from "./fragments";
@@ -31,16 +32,18 @@ const pageFields = `
   }
 `;
 
+export const getPageBySlugQuery = defineQuery(
+  `*[_type == "page" && slug.current == $slug && language == $locale][0]{ ${pageFields} }`,
+);
+
+export const getAllPagesQuery = defineQuery(
+  `*[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current, ${pageFields} }`,
+);
+
 export async function getPageBySlug(slug: string, locale: Locale) {
-  return sanityClient.fetch(
-    `*[_type == "page" && slug.current == $slug && language == $locale][0]{ ${pageFields} }`,
-    { slug, locale },
-  );
+  return sanityClient.fetch(getPageBySlugQuery, { slug, locale });
 }
 
 export async function getAllPages(locale: Locale) {
-  return sanityClient.fetch(
-    `*[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current, ${pageFields} }`,
-    { locale },
-  );
+  return sanityClient.fetch(getAllPagesQuery, { locale });
 }
