@@ -1,0 +1,38 @@
+---
+/**
+ * HeadingWithImageSection
+ * Centered heading with an optional image that overlaps the heading banner.
+ * Data is passed as props from Sanity block builder via BlockRenderer.
+ */
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import type { SanityImageObject } from "@lib/sanityImage";
+
+interface Props {
+  title?: string;
+  image?: SanityImageObject | null;
+  [key: string]: any;
+}
+
+const { title, image } = Astro.props;
+
+if (!title) return;
+---
+
+<section class="site-container flex w-full flex-col items-center pt-24 md:pt-36">
+  <div class="bg-base-200/50 w-full rounded-xl py-20 text-center md:py-32">
+    <h1 class="h1">{title}</h1>
+  </div>
+
+  {
+    image?.asset && (
+      <div class="-mt-12 max-w-[800px] overflow-hidden px-4 md:-mt-20">
+        <SanityImage
+          image={image}
+          sizesType="half"
+          loading="eager"
+          class="max-h-[45vh] rounded-xl object-cover"
+        />
+      </div>
+    )
+  }
+</section>

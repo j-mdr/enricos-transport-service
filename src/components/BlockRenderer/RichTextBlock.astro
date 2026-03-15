@@ -1,0 +1,65 @@
+---
+import { toHTML, uriLooksSafe } from "@portabletext/to-html";
+import type { PortableTextBlock } from "@portabletext/types";
+import { urlFor } from "@lib/sanityImage";
+import { getLocaleFromUrl } from "@utils/localeUtils";
+
+interface Props {
+  value: PortableTextBlock[];
+}
+
+const { value } = Astro.props;
+
+if (!value?.length) return;
+
+const locale = getLocaleFromUrl(Astro.url);
+const localePrefix = locale === "nl" ? "" : `/${locale}`;
+
+const html = toHTML(value, {
+  components: {
+    types: {
+      imageWithAlt: ({ value: img }) => {
+        if (!img?.asset) return "";
+        const alt = img.alt ?? "";
+        const widths = [400, 640, 800, 1200, 1600];
+        const sizes = "(min-width: 800px) 800px, 100vw";
+        const srcsetWebp = widths
+          .map((w) => `${urlFor(img).width(w).quality(80).format("webp").url()} ${w}w`)
+          .join(", ");
+        const srcsetJpeg = widths
+          .map((w) => `${urlFor(img).width(w).quality(80).format("jpg").url()} ${w}w`)
+          .join(", ");
+        const fallback = urlFor(img).width(800).quality(80).format("jpg").url();
+        return `<picture>
+  <source type="image/webp" srcset="${srcsetWebp}" sizes="${sizes}" />
+  <source type="image/jpeg" srcset="${srcsetJpeg}" sizes="${sizes}" />
+  <img src="${fallback}" alt="${alt}" loading="lazy" decoding="async" class="rounded-xl my-4 md:my-8 lg:my-14" />
+</picture>`;
+      },
+    },
+    marks: {
+      link: ({ children, value: mark }) => {
+        const dest = mark?.destination?.[0];
+        if (!dest) return `<span>${children}</span>`;
+
+        if (dest._type === "externalLink") {
+          const href = uriLooksSafe(dest.href ?? "") ? dest.href : "#";
+          const attrs = dest.openInNewTab ? ` target="_blank" rel="noopener noreferrer"` : "";
+          return `<a href="${href}"${attrs}>${children}</a>`;
+        }
+
+        if (dest._type === "internalLink") {
+          const slug = dest.reference?.slug?.current ?? "";
+          const isBlog = dest.reference?._type === "blogPost";
+          const href = isBlog ? `${localePrefix}/blog/${slug}` : `${localePrefix}/${slug}`;
+          return `<a href="${href}">${children}</a>`;
+        }
+
+        return `<span>${children}</span>`;
+      },
+    },
+  },
+});
+---
+
+<Fragment set:html={html} />

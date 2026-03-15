@@ -12,6 +12,23 @@ export const linkFragment = `{ text, ${destinationFragment} }`;
 
 export const ctaButtonFragment = `{ variant, size, link { text, ${destinationFragment} } }`;
 
+// Resolves markDefs in Portable Text content — handles internalLink references
+export const contentFragment = `
+  content[] {
+    ...,
+    markDefs[] {
+      ...,
+      _type == "link" => {
+        destination[] {
+          _type,
+          _type == "externalLink" => { href, openInNewTab },
+          _type == "internalLink" => { reference->{ _type, slug } }
+        }
+      }
+    }
+  }
+`;
+
 export const alternatePathsFragment = `
   "alternatePaths": {
     "nl": coalesce(

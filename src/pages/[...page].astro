@@ -1,7 +1,6 @@
 ---
 export const prerender = true;
 import BaseLayout from "@layouts/BaseLayout.astro";
-import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getAllPages } from "@lib/groq/page";
 
@@ -20,28 +19,11 @@ const { page } = Astro.props;
 const { title, description, layout, image, seo, alternatePaths } = page;
 ---
 
-{
-  layout !== "narrow" && (
-    <BaseLayout
-      title={seo?.title ?? title}
-      description={seo?.description ?? description}
-      type={"general"}
-      alternatePaths={alternatePaths}
-    >
-      <BlockRenderer blocks={page.blocks ?? []} />
-    </BaseLayout>
-  )
-}
-
-{
-  layout === "narrow" && (
-    <ServiceLayoutCenter
-      title={title}
-      description={description}
-      image={image}
-      alternatePaths={alternatePaths}
-    >
-      <BlockRenderer blocks={page.blocks ?? []} />
-    </ServiceLayoutCenter>
-  )
-}
+<BaseLayout
+  title={seo?.title ?? title}
+  description={seo?.description ?? description}
+  type={"general"}
+  alternatePaths={alternatePaths}
+>
+  <BlockRenderer blocks={page.blocks ?? []} />
+</BaseLayout>

@@ -1,11 +1,10 @@
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteSettings.json";
-import { alternatePathsFragment, ctaButtonFragment } from "./fragments";
+import { alternatePathsFragment, ctaButtonFragment, contentFragment } from "./fragments";
 
 const pageFields = `
   title,
   description,
-  layout,
   image { asset, alt, hotspot, crop },
   seo,
   ${alternatePathsFragment},
@@ -27,7 +26,8 @@ const pageFields = `
     },
     _type == "servicesSideImage" => {
       services[] { ..., ctaButton ${ctaButtonFragment} }
-    }
+    },
+    _type == "richText" => { ${contentFragment} }
   }
 `;
 

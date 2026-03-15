@@ -25,7 +25,6 @@ interface Props {
 const { navItem, class: className, noIcon = false } = Astro.props as Props;
 const { text, link, newTab = false, icon } = navItem;
 
-
 const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, navItem.link);
 ---
 

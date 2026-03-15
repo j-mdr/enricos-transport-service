@@ -1,6 +1,6 @@
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteSettings.json";
-import { alternatePathsFragment } from "./fragments";
+import { alternatePathsFragment, contentFragment } from "./fragments";
 
 const blogPostFields = `
   title,
@@ -10,7 +10,7 @@ const blogPostFields = `
   pubDate,
   authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },
   categories,
-  content,
+  ${contentFragment},
   ${alternatePathsFragment}
 `;
 

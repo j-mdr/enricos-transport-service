@@ -28,7 +28,8 @@ import AwardsSection from "@components/Awards/AwardsSection.astro";
 import ContactSection from "@components/Contact/ContactSection.astro";
 import RequestQuoteSection from "@components/Contact/RequestQuoteSection.astro";
 import BecomePartnerSection from "@components/Contact/BecomePartnerSection.astro";
-import RichTextBlock from "./RichTextBlock";
+import HeadingWithImageSection from "@components/HeadingWithImage/HeadingWithImageSection.astro";
+import RichTextBlock from "./RichTextBlock.astro";
 
 interface Props {
   blocks: any[];
@@ -64,10 +65,11 @@ const { blocks } = Astro.props;
       {block._type === "contactSection" && <ContactSection {...block} />}
       {block._type === "requestQuoteSection" && <RequestQuoteSection {...block} />}
       {block._type === "becomePartnerSection" && <BecomePartnerSection {...block} />}
+      {block._type === "headingWithImage" && <HeadingWithImageSection {...block} />}
       {block._type === "richText" && block.content?.length && (
         <div class="site-container my-16">
           <div class="markdown-content mx-auto max-w-3xl">
-            <RichTextBlock value={block.content} client:load />
+            <RichTextBlock value={block.content} />
           </div>
         </div>
       )}

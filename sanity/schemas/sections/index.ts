@@ -23,3 +23,4 @@ export { contactSection } from "./contactSection";
 export { requestQuoteSection } from "./requestQuoteSection";
 export { becomePartnerSection } from "./becomePartnerSection";
 export { richText } from "./richText";
+export { headingWithImage } from "./headingWithImage";

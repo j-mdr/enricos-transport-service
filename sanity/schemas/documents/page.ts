@@ -122,6 +122,7 @@ export const page = defineType({
         { type: "requestQuoteSection" },
         { type: "becomePartnerSection" },
         { type: "richText" },
+        { type: "headingWithImage" },
       ],
     }),
     defineField({

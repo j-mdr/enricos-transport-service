@@ -41,6 +41,7 @@ import {
   requestQuoteSection,
   becomePartnerSection,
   richText,
+  headingWithImage,
 } from "./sections";
 
 export const schemaTypes = [
@@ -98,4 +99,5 @@ export const schemaTypes = [
   requestQuoteSection,
   becomePartnerSection,
   richText,
+  headingWithImage,
 ];

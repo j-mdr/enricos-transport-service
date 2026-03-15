@@ -1,7 +1,5 @@
-
 import { defaultLocale, locales } from "@/config/siteSettings.json";
 import { routeTranslations } from "@config/routeTranslations.ts";
-
 
 /**
  * * Returns the translated route for a given locale and base route. Drop-in replacement for getRelativeLocaleUrl()
@@ -78,4 +76,3 @@ export function getLocalizedRoute(
     return `/${routePath.replace(/\\/g, "/")}/`;
   }
 }
-
