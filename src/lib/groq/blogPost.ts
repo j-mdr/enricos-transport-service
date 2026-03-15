@@ -8,10 +8,11 @@ const blogPostCardFields = `
   title,
   description,
   "slug": slug.current,
+  urlPath,
   heroImage { asset, alt, hotspot, crop },
   pubDate,
   authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },
-  categories[]->{ title, "slug": slug.current },
+  categories[]->{ title, urlPath },
   ${alternatePathsFragment}
 `;
 
@@ -50,7 +51,7 @@ export const getAllBlogPostsQuery = defineQuery(
 );
 
 export const getAllCategoriesQuery = defineQuery(
-  `*[_type == "category" && language == $locale] | order(title asc){ title, "slug": slug.current, description, ${alternatePathsFragment} }`,
+  `*[_type == "category" && language == $locale] | order(title asc){ title, "slug": slug.current, urlPath, description, ${alternatePathsFragment} }`,
 );
 
 export const getBlogPostsByCategoryQuery = defineQuery(

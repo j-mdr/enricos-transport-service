@@ -1,6 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
-import { localeDefinitions } from "../../../src/config/localeConfig";
+import { UrlPathInput } from "../../components/UrlPathInput";
 
 // Flexibele pagina met block builder.
 // De blocks array wordt uitgebreid met section types zodra die gedefinieerd zijn.
@@ -64,26 +64,29 @@ export const page = defineType({
           const title = input.split("__")[0];
           const leaf = title.toLowerCase().replace(/\s+/g, "-");
 
-          const doc = context.parent as
-            | { parent?: { _ref?: string }; language?: string }
-            | undefined;
-
-          const locale = localeDefinitions.find((l) => l.id === doc?.language);
-          const prefix = locale && locale.urlPrefix ? `${locale.urlPrefix}/` : "/";
-
+          const doc = context.parent as { parent?: { _ref?: string } } | undefined;
           if (doc?.parent?._ref) {
             const client = context.getClient({ apiVersion: "2024-01-01" });
-            const parentSlug: string | null = await client.fetch(`*[_id == $id][0].slug.current`, {
-              id: doc.parent._ref,
-            });
-            if (parentSlug) return `${prefix}${parentSlug}/${leaf}`;
+            const parentSlug: string | null = await client.fetch(
+              `*[_id == $id][0].slug.current`,
+              { id: doc.parent._ref },
+            );
+            if (parentSlug) return `${parentSlug}/${leaf}`;
           }
 
-          return `${prefix}${leaf}`;
+          return leaf;
         },
       },
       components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "urlPath",
+      title: "URL pad",
+      type: "string",
+      group: "meta",
+      description: "Automatisch gegenereerd op basis van taal en slug.",
+      components: { input: UrlPathInput },
     }),
     defineField({
       name: "image",

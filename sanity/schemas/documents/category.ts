@@ -1,6 +1,7 @@
 import { defineType, defineField } from "sanity";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
-import { localeDefinitions } from "../../../src/config/localeConfig";
+import { UrlPathInput } from "../../components/UrlPathInput";
+import { getLocaleDefinition } from "../../../src/config/localeConfig";
 
 export const category = defineType({
   name: "category",
@@ -25,14 +26,19 @@ export const category = defineType({
         },
         slugify: (input, _, context) => {
           const parent = context?.parent as unknown as { language?: string };
-          const locale =
-            localeDefinitions.find((l) => l.id === parent?.language) ??
-            localeDefinitions.find((l) => l.isDefault)!;
-          return locale.categoryUrlBase + "/" + input.toLowerCase().replace(/\s+/g, "-");
+          const { categoriesSlug } = getLocaleDefinition(parent?.language);
+          return categoriesSlug + "/" + input.toLowerCase().replace(/\s+/g, "-");
         },
       },
       components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "urlPath",
+      title: "URL pad",
+      type: "string",
+      description: "Automatisch gegenereerd op basis van taal en slug.",
+      components: { input: UrlPathInput },
     }),
     defineField({
       name: "description",

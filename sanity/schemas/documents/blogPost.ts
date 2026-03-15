@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
+import { UrlPathInput } from "../../components/UrlPathInput";
 
 export const blogPost = defineType({
   name: "blogPost",
@@ -33,6 +34,14 @@ export const blogPost = defineType({
       },
       components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "urlPath",
+      title: "URL pad",
+      type: "string",
+      group: "meta",
+      description: "Automatisch gegenereerd op basis van taal en slug.",
+      components: { input: UrlPathInput },
     }),
     defineField({
       name: "heroImage",

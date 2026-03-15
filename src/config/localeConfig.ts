@@ -3,44 +3,45 @@ export type LocaleId = "nl" | "en";
 export interface LocaleDefinition {
   id: LocaleId;
   title: string;
-  urlPrefix: string;
+  localeSlug: string;
   isDefault: boolean;
   languageCode: string;
   switcherLabel: string;
-  categoriesUrlPath: string;
-  blogUrlPath: string;
+  categoriesSlug: string;
+  blogSlug: string;
   backToAllBlogPostsLabel: string;
 }
 
-export const localeDefinitions: LocaleDefinition[] = [
-  {
-    id: "nl",
-    title: "Nederlands",
-    urlPrefix: "/",
-    isDefault: true,
-    languageCode: "nl-NL",
-    switcherLabel: "NL",
-    categoriesUrlPath: "categorieen",
-    blogUrlPath: "blog",
-    backToAllBlogPostsLabel: "Terug naar alle berichten",
-  },
-  {
-    id: "en",
-    title: "English",
-    urlPrefix: "/en",
-    isDefault: false,
-    languageCode: "en-US",
-    switcherLabel: "EN",
-    categoriesUrlPath: "categories",
-    blogUrlPath: "blog",
-    backToAllBlogPostsLabel: "Back to all posts",
-  },
-];
+const nlLocaleDefinition: LocaleDefinition = {
+  id: "nl",
+  title: "Nederlands",
+  localeSlug: "",
+  isDefault: true,
+  languageCode: "nl-NL",
+  switcherLabel: "NL",
+  categoriesSlug: "categorieen",
+  blogSlug: "blog",
+  backToAllBlogPostsLabel: "Terug naar alle berichten",
+};
 
-export const getLocaleDefinition = (locale: LocaleId) => {
+const enLocaleDefinition: LocaleDefinition = {
+  id: "en",
+  title: "English",
+  localeSlug: "en",
+  isDefault: false,
+  languageCode: "en-US",
+  switcherLabel: "EN",
+  categoriesSlug: "categories",
+  blogSlug: "blog",
+  backToAllBlogPostsLabel: "Back to all posts",
+};
+
+export const localeDefinitions: LocaleDefinition[] = [nlLocaleDefinition, enLocaleDefinition];
+
+export const getLocaleDefinition = (locale = 'nl') => {
   const localeDefinition = localeDefinitions.find((l) => l.id === locale);
-  if (!locale) {
-    throw new Error(`Locale with id "${locale}" not found`);
+  if (!localeDefinition) {
+    return nlLocaleDefinition
   }
   return localeDefinition;
 };

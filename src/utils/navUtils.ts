@@ -5,13 +5,7 @@ import { getNavData as fetchNavData } from "@lib/groq/nav";
 function resolveLink(item: any, locale: string = "nl"): string {
   const dest = item?.destination?.[0];
   if (!dest) return "/";
-  if (dest._type === "internalLink") {
-    const slug = dest.reference?.slug?.current ?? "";
-    const type = dest.reference?._type;
-    const prefix = locale === "nl" ? "" : `/${locale}`;
-    if (type === "blogPost") return `${prefix}/blog/${slug}`;
-    return `${prefix}/${slug}`;
-  }
+  if (dest._type === "internalLink") return dest.reference?.urlPath ?? "/";
   return dest.href ?? "/";
 }
 

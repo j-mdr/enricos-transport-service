@@ -112,7 +112,7 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
           <div class="mt-16 flex justify-center">
             <Button
               variant="outline"
-              href={localeDefinition?.blogUrlPath}
+              href={localeDefinition.localeSlug ? `/${localeDefinition.localeSlug}/${localeDefinition.blogSlug}` : `/${localeDefinition.blogSlug}`}
               arrow="left"
               class="py-2"
             >

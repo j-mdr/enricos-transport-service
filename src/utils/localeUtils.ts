@@ -1,4 +1,5 @@
 import { defaultLocale, locales } from "@config/siteConfig.ts";
+import { getLocaleDefinition } from "@config/localeConfig.ts";
 
 /**
  * * returns the current locale gathered from the URL
@@ -17,6 +18,22 @@ export function getLocaleFromUrl(url: URL): (typeof locales)[number] {
   return defaultLocale;
 }
 
-export function localizePath(url: URL): (typeof locales)[number] {
-  return null;
+/**
+ * Returns the given path localized for the target locale.
+ * Strips any existing locale prefix from the path first.
+ * @param path path string or URL — leading slash is optional
+ * @param locale target locale id (e.g. "nl" or "en")
+ */
+export function localizePath(path: string | URL, locale: string): string {
+  const raw = path instanceof URL ? path.pathname : path;
+  const stripped = raw.startsWith("/") ? raw.slice(1) : raw;
+
+  // Remove existing locale prefix (e.g. "en/..." → "...")
+  const withoutLocale = locales.reduce((p, loc) => {
+    const { localeSlug } = getLocaleDefinition(loc);
+    return localeSlug && p.startsWith(localeSlug + "/") ? p.slice(localeSlug.length + 1) : p;
+  }, stripped);
+
+  const { localeSlug } = getLocaleDefinition(locale);
+  return localeSlug ? `/${localeSlug}/${withoutLocale}` : `/${withoutLocale}`;
 }

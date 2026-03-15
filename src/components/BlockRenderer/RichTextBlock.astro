@@ -49,9 +49,7 @@ const html = toHTML(value, {
         }
 
         if (dest._type === "internalLink") {
-          const slug = dest.reference?.slug?.current ?? "";
-          const isBlog = dest.reference?._type === "blogPost";
-          const href = isBlog ? `${localePrefix}/blog/${slug}` : `${localePrefix}/${slug}`;
+          const href = dest.reference?.urlPath ?? "/";
           return `<a href="${href}">${children}</a>`;
         }
 

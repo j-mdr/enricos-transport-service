@@ -1,6 +1,5 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { getLocaleFromUrl } from "@utils/localeUtils";
 
 // These types represent RESOLVED GROQ data (reference->{ _type, slug }),
 // NOT the schema-level unresolved reference types from sanity.types.ts.
@@ -15,7 +14,7 @@ export interface SanityInternalLink {
   _type: "internalLink";
   reference?: {
     _type: string;
-    slug?: { current?: string | null } | null;
+    urlPath?: string | null;
   } | null;
 }
 
@@ -31,18 +30,11 @@ interface Props extends HTMLAttributes<"a"> {
 
 const { link, class: className, ...rest } = Astro.props;
 
-const locale = getLocaleFromUrl(Astro.url);
-const prefix = locale === "nl" ? "" : `/${locale}`;
-
 const dest = link.destination?.[0];
 
 function resolveHref(): string {
   if (!dest) return "/";
-  if (dest._type === "internalLink") {
-    const slug = dest.reference?.slug?.current ?? "";
-    if (dest.reference?._type === "blogPost") return `${prefix}/blog/${slug}`;
-    return `${prefix}/${slug}`;
-  }
+  if (dest._type === "internalLink") return dest.reference?.urlPath ?? "/";
   return dest.href ?? "/";
 }
 

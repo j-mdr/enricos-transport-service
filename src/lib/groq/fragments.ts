@@ -4,7 +4,7 @@ export const destinationFragment = `
   destination[] {
     _type,
     _type == "externalLink" => { href, openInNewTab },
-    _type == "internalLink" => { reference->{ _type, slug } }
+    _type == "internalLink" => { reference->{ _type, urlPath } }
   }
 `;
 
@@ -32,11 +32,11 @@ export const contentFragment = `
 export const alternatePathsFragment = `
   "alternatePaths": {
     "nl": coalesce(
-      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,
+      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,
       "/"
     ),
     "en": coalesce(
-      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,
+      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,
       "/en/"
     )
   }
