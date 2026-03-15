@@ -14,7 +14,7 @@ export const imageWithAlt = defineType({
   options: {
     hotspot: true,
     crop: { presets: cropPresets },
-  },
+  } as { hotspot: boolean },
   fields: [
     defineField({
       name: "alt",

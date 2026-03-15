@@ -5,16 +5,11 @@
  */
 import { Icon } from "astro-icon/components";
 import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
-import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  description?: string;
-  ctaButton1?: SanityCtaButtonObject;
-  ctaButton2?: SanityCtaButtonObject;
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "heroCentered" }>;
 
 const { title = "", description, ctaButton1, ctaButton2 } = Astro.props;
 

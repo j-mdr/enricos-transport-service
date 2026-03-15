@@ -279,6 +279,7 @@ export type SeoMeta = {
   _type: "seoMeta";
   title?: string;
   description?: string;
+  noIndex?: boolean;
 };
 
 export type FooterObject = {
@@ -572,7 +573,6 @@ export type Page = {
   title?: string;
   parent?: PageReference;
   slug?: Slug;
-  description?: string;
   image?: ImageWithAlt;
   blocks?: Array<
     | ({
@@ -666,9 +666,9 @@ export type BlogPost = {
   language?: string;
   title?: string;
   slug?: Slug;
-  description?: string;
   heroImage?: ImageWithAlt;
   pubDate?: string;
+  contentModifiedDate?: string;
   authors?: Array<
     {
       _key: string;
@@ -679,7 +679,71 @@ export type BlogPost = {
       _key: string;
     } & CategoryReference
   >;
-  content?: PortableText;
+  blocks?: Array<
+    | ({
+        _key: string;
+      } & FaqAccordions)
+    | ({
+        _key: string;
+      } & FaqCards)
+    | ({
+        _key: string;
+      } & CtaBgImage)
+    | ({
+        _key: string;
+      } & CtaCardCenter)
+    | ({
+        _key: string;
+      } & CtaCardCenter2)
+    | ({
+        _key: string;
+      } & CtaCards)
+    | ({
+        _key: string;
+      } & FeatureCardsSmall)
+    | ({
+        _key: string;
+      } & FeatureLightboxMarquee)
+    | ({
+        _key: string;
+      } & FeatureGalleryMarquee)
+    | ({
+        _key: string;
+      } & FeatureSideImage)
+    | ({
+        _key: string;
+      } & FeatureToggleImage)
+    | ({
+        _key: string;
+      } & ServicesIcon)
+    | ({
+        _key: string;
+      } & ServicesSideImage)
+    | ({
+        _key: string;
+      } & AwardsSection)
+    | ({
+        _key: string;
+      } & TeamMemberCards)
+    | ({
+        _key: string;
+      } & TestimonialsColumns)
+    | ({
+        _key: string;
+      } & TestimonialsSwiper)
+    | ({
+        _key: string;
+      } & ContactSection)
+    | ({
+        _key: string;
+      } & RequestQuoteSection)
+    | ({
+        _key: string;
+      } & BecomePartnerSection)
+    | ({
+        _key: string;
+      } & RichText)
+  >;
   seo?: SeoMeta;
 };
 
@@ -873,7 +937,7 @@ export type AllSanitySchemaTypes =
 // Query: *[_type == "blogPost" && slug.current == $slug && language == $locale][0]{   title,  description,  "slug": slug.current,  heroImage { asset, alt, hotspot, crop },  pubDate,  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },  categories,    content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, slug } }        }      }    }  },    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  } }
 export type GetBlogPostBySlugQueryResult = {
   title: string | null;
-  description: string | null;
+  description: null;
   slug: string | null;
   heroImage: {
     asset: SanityImageAssetReference | null;
@@ -896,55 +960,7 @@ export type GetBlogPostBySlugQueryResult = {
       _key: string;
     } & CategoryReference
   > | null;
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<{
-          destination: Array<
-            | {
-                _type: "externalLink";
-                href: string | null;
-                openInNewTab: boolean | null;
-              }
-            | {
-                _type: "internalLink";
-                reference:
-                  | {
-                      _type: "blogPost";
-                      slug: Slug | null;
-                    }
-                  | {
-                      _type: "page";
-                      slug: Slug | null;
-                    }
-                  | null;
-              }
-          > | null;
-          _type: "link";
-          _key: string;
-        }> | null;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        _key: string;
-        _type: "imageWithAlt";
-        asset?: SanityImageAssetReference;
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        markDefs: null;
-      }
-  > | null;
+  content: null;
   alternatePaths: {
     nl: string | "/";
     en: string | "/en/";
@@ -956,7 +972,7 @@ export type GetBlogPostBySlugQueryResult = {
 // Query: *[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  heroImage { asset, alt, hotspot, crop },  pubDate,  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },  categories,    content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, slug } }        }      }    }  },    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  } }
 export type GetAllBlogPostsQueryResult = Array<{
   title: string | null;
-  description: string | null;
+  description: null;
   slug: string | null;
   heroImage: {
     asset: SanityImageAssetReference | null;
@@ -979,55 +995,7 @@ export type GetAllBlogPostsQueryResult = Array<{
       _key: string;
     } & CategoryReference
   > | null;
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs: Array<{
-          destination: Array<
-            | {
-                _type: "externalLink";
-                href: string | null;
-                openInNewTab: boolean | null;
-              }
-            | {
-                _type: "internalLink";
-                reference:
-                  | {
-                      _type: "blogPost";
-                      slug: Slug | null;
-                    }
-                  | {
-                      _type: "page";
-                      slug: Slug | null;
-                    }
-                  | null;
-              }
-          > | null;
-          _type: "link";
-          _key: string;
-        }> | null;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        _key: string;
-        _type: "imageWithAlt";
-        asset?: SanityImageAssetReference;
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        alt?: string;
-        markDefs: null;
-      }
-  > | null;
+  content: null;
   alternatePaths: {
     nl: string | "/";
     en: string | "/en/";
@@ -1039,7 +1007,7 @@ export type GetAllBlogPostsQueryResult = Array<{
 // Query: *[_type == "page" && slug.current == $slug && language == $locale][0]{   title,  description,  image { asset, alt, hotspot, crop },  seo,    "alternatePaths": {    "nl": coalesce(      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,      "/"    ),    "en": coalesce(      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,      "/en/"    )  },  blocks[] {    _type,    ...,    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, slug } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, slug } }        }      }    }  } }  } }
 export type GetPageBySlugQueryResult = {
   title: string | null;
-  description: string | null;
+  description: null;
   image: {
     asset: SanityImageAssetReference | null;
     alt: string | null;
@@ -1687,7 +1655,7 @@ export type GetPageBySlugQueryResult = {
 export type GetAllPagesQueryResult = Array<{
   path: string | null;
   title: string | null;
-  description: string | null;
+  description: null;
   image: {
     asset: SanityImageAssetReference | null;
     alt: string | null;
@@ -2342,9 +2310,9 @@ export type GetSettingsQueryResult =
       language?: string;
       title?: string;
       slug?: Slug;
-      description?: string;
       heroImage?: ImageWithAlt;
       pubDate?: string;
+      contentModifiedDate?: string;
       authors?: Array<
         {
           _key: string;
@@ -2355,7 +2323,71 @@ export type GetSettingsQueryResult =
           _key: string;
         } & CategoryReference
       >;
-      content?: PortableText;
+      blocks?: Array<
+        | ({
+            _key: string;
+          } & AwardsSection)
+        | ({
+            _key: string;
+          } & BecomePartnerSection)
+        | ({
+            _key: string;
+          } & ContactSection)
+        | ({
+            _key: string;
+          } & CtaBgImage)
+        | ({
+            _key: string;
+          } & CtaCardCenter)
+        | ({
+            _key: string;
+          } & CtaCardCenter2)
+        | ({
+            _key: string;
+          } & CtaCards)
+        | ({
+            _key: string;
+          } & FaqAccordions)
+        | ({
+            _key: string;
+          } & FaqCards)
+        | ({
+            _key: string;
+          } & FeatureCardsSmall)
+        | ({
+            _key: string;
+          } & FeatureGalleryMarquee)
+        | ({
+            _key: string;
+          } & FeatureLightboxMarquee)
+        | ({
+            _key: string;
+          } & FeatureSideImage)
+        | ({
+            _key: string;
+          } & FeatureToggleImage)
+        | ({
+            _key: string;
+          } & RequestQuoteSection)
+        | ({
+            _key: string;
+          } & RichText)
+        | ({
+            _key: string;
+          } & ServicesIcon)
+        | ({
+            _key: string;
+          } & ServicesSideImage)
+        | ({
+            _key: string;
+          } & TeamMemberCards)
+        | ({
+            _key: string;
+          } & TestimonialsColumns)
+        | ({
+            _key: string;
+          } & TestimonialsSwiper)
+      >;
       seo?: SeoMeta;
     }
   | {
@@ -2397,7 +2429,6 @@ export type GetSettingsQueryResult =
       title?: string;
       parent?: PageReference;
       slug?: Slug;
-      description?: string;
       image?: ImageWithAlt;
       blocks?: Array<
         | ({

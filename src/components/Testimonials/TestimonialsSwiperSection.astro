@@ -9,18 +9,10 @@ import "swiper/css/pagination";
 import "./testimonialSwiper.css";
 import TestimonialCard from "./TestimonialCard.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  testimonials?: {
-    name: string;
-    personTitle?: string;
-    testimonial: string;
-    avatar?: SanityImageObject | null;
-  }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "testimonialsSwiper" }>;
 
 const { title = "", testimonials = [] } = Astro.props;
 

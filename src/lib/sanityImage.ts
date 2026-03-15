@@ -17,8 +17,8 @@ export interface SanityImageObject {
     url?: string; // pre-built URL (fallback)
   } | null;
   alt?: string | null;
-  hotspot?: { x: number; y: number } | null;
-  crop?: { top: number; bottom: number; left: number; right: number } | null;
+  hotspot?: { x?: number; y?: number } | null;
+  crop?: { top?: number; bottom?: number; left?: number; right?: number } | null;
 }
 
 export function urlFor(source: SanityImageObject) {

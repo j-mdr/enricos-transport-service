@@ -1,6 +1,10 @@
 ---
 import ContactForm from "@components/Contact/ContactForm.astro";
 import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
+
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "contactSection" }>;
 ---
 
 <section id="contact-section" class="mx-auto pt-36 md:pt-44">

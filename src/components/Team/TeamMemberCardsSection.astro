@@ -5,18 +5,10 @@
  */
 import Profile from "@components/Profile/Profile.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  teamMembers?: {
-    name: string;
-    personTitle?: string;
-    bio?: string;
-    avatar?: SanityImageObject | null;
-  }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "teamMemberCards" }>;
 
 const { title = "", teamMembers = [] } = Astro.props;
 

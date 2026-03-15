@@ -5,13 +5,10 @@
  * Data is passed as props from Sanity block builder via BlockRenderer.
  */
 import SanityImage from "@components/SanityImage/SanityImage.astro";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  image?: SanityImageObject | null;
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "headingWithImage" }>;
 
 const { title, image } = Astro.props;
 

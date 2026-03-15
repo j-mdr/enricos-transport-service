@@ -23,7 +23,10 @@ const today = new Date();
       <div class="mt-6 flex flex-col items-start gap-4">
         <SiteLogo logo={logo} />
         <div class="">
-          <Button variant={(ctaButton?.variant as any) ?? "primary"} link={ctaButton?.link}>
+          <Button
+            variant={(ctaButton?.variant as any) ?? "primary"}
+            link={ctaButton?.link ?? undefined}
+          >
             {ctaButton?.link?.text}
           </Button>
         </div>

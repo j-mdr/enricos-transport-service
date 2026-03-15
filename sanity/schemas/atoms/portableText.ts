@@ -1,4 +1,4 @@
-import { defineType, defineArrayMember } from "sanity";
+import { defineType, defineArrayMember, defineField } from "sanity";
 
 // Portable Text is Sanity's rich text format.
 // Dit type vervangt Keystatic's fields.document().
@@ -35,13 +35,13 @@ export const portableText = defineType({
             type: "object",
             title: "Link",
             fields: [
-              {
+              defineField({
                 name: "destination",
                 title: "Bestemming",
                 type: "array",
                 of: [{ type: "externalLink" }, { type: "internalLink" }],
-                validation: (Rule: import("sanity").ArrayRule) => Rule.required().min(1).max(1),
-              },
+                validation: (Rule) => Rule.required().min(1).max(1),
+              }),
             ],
           },
         ],

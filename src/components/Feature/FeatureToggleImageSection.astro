@@ -5,17 +5,10 @@
  */
 import { Icon } from "astro-icon/components";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  sectionTitle?: string;
-  sections?: {
-    icon?: string;
-    title: string;
-    image?: SanityImageObject | null;
-  }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "featureToggleImage" }>;
 
 const { sectionTitle, sections = [] } = Astro.props;
 

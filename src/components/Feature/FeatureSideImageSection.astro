@@ -4,18 +4,10 @@
  * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import FeatureCard from "@components/FeatureCard/FeatureCardSideImage.astro";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  sectionTitle?: string;
-  items?: {
-    title: string;
-    image?: SanityImageObject | null;
-    checkItems?: string[];
-    link?: { text?: string; href?: string };
-  }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "featureSideImage" }>;
 
 const { sectionTitle, items = [] } = Astro.props;
 

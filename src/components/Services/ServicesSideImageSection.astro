@@ -6,18 +6,10 @@
 import { Icon } from "astro-icon/components";
 import ServiceCard from "@components/ServiceCard/ServiceCardSideImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  services?: {
-    title: string;
-    description?: string;
-    image?: SanityImageObject | null;
-    ctaButton?: { link?: { text?: string; href?: string } };
-  }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "servicesSideImage" }>;
 
 const { title = "", services = [] } = Astro.props;
 

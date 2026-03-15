@@ -1,23 +1,15 @@
 ---
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
-import { getLocaleFromUrl } from "@utils/localeUtils";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
 import BecomePartnerForm from "./BecomePartnerForm.astro";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  sectionSet?: string;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "becomePartnerSection" }>;
 
-const { sectionSet } = Astro.props;
-const locale = getLocaleFromUrl(Astro.url);
+const { title, image } = Astro.props;
 
-const entries = await getCollection("becomePartnerSection");
-const entry = entries.find((e) => e.id === `${locale}/${sectionSet}`);
-
-if (!entry) return;
-
-const { title, image, imageAlt } = entry.data;
+if (!title) return;
 ---
 
 <section id="become-partner-section" class="my-4 overflow-hidden md:mt-16">
@@ -42,12 +34,16 @@ const { title, image, imageAlt } = entry.data;
               aria-hidden="true"
             />
           </div>
-          <Image
-            class="relative rounded-xl border border-transparent object-cover"
-            src={image}
-            alt={imageAlt}
-            height={700}
-          />
+          {
+            image?.asset && (
+              <SanityImage
+                image={image}
+                sizesType="half"
+                loading="lazy"
+                class="relative rounded-xl border border-transparent object-cover"
+              />
+            )
+          }
         </div>
       </div>
     </div>

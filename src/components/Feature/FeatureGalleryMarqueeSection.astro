@@ -8,11 +8,10 @@ import { Icon } from "astro-icon/components";
 import { getLocaleFromUrl } from "@utils/localeUtils.ts";
 import { createMarqueeRows } from "@utils/imageUtils.ts";
 import { featureLightboxMarqueeData } from "./featureLightboxMarqueeData";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "featureGalleryMarquee" }>;
 
 const { title: propTitle } = Astro.props;
 const currLocale = getLocaleFromUrl(Astro.url);

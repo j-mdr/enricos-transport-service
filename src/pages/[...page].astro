@@ -3,28 +3,31 @@ export const prerender = true;
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getAllPages } from "@lib/groq/page";
+import type { GetAllPagesQueryResult } from "../../sanity.types";
+
+type Page = GetAllPagesQueryResult[number];
 
 export async function getStaticPaths() {
   const pages = await getAllPages("nl");
 
   return pages
-    .filter((page: { path: string }) => page.path !== "home-nl")
-    .map((page: { path: string }) => ({
+    .filter((page: Page) => page.path !== "home-nl")
+    .map((page: Page) => ({
       params: { page: page.path },
       props: { page },
     }));
 }
 
-const { page } = Astro.props;
-const { title, description, layout, image, seo, alternatePaths } = page;
+const { page } = Astro.props as { page: Page };
+const { title = "", description = "", seo, alternatePaths } = page;
 ---
 
 <BaseLayout
-  title={seo?.title ?? title}
-  description={seo?.description ?? description}
+  title={seo?.title ?? title ?? ""}
+  description={seo?.description ?? description ?? ""}
   type={"general"}
   alternatePaths={alternatePaths}
-  blocks={page.blocks}
+  blocks={page.blocks ?? undefined}
 >
   <BlockRenderer blocks={page.blocks ?? []} />
 </BaseLayout>

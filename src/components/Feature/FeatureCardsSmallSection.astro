@@ -6,12 +6,10 @@
 import { Icon } from "astro-icon/components";
 import FeatureCard from "@components/FeatureCard/FeatureCardSmall.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  features?: { icon?: string; title: string; text: string }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "featureCardsSmall" }>;
 
 const { title = "", features = [] } = Astro.props;
 

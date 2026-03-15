@@ -79,23 +79,18 @@ export const page = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "description",
-      title: "Beschrijving",
-      type: "text",
-      rows: 2,
-      group: "content",
-    }),
-    defineField({
       name: "image",
       title: "Afbeelding",
       type: "imageWithAlt",
       group: "content",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "blocks",
       title: "Blokken",
       type: "array",
       group: "content",
+      validation: (Rule) => Rule.min(1).max(15),
       of: [
         { type: "heroBgImage" },
         { type: "heroSideImage" },

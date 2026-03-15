@@ -5,19 +5,10 @@
  */
 import ServiceCardIcon from "@components/ServiceCard/ServiceCardIcon.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
-
-interface Props {
-  title?: string;
-  services?: {
-    icon?: string;
-    title: string;
-    description?: string;
-    ctaButton?: SanityCtaButtonObject;
-  }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "servicesIcon" }>;
 
 const { title = "", services = [] } = Astro.props;
 

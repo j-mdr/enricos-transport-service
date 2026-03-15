@@ -6,12 +6,10 @@
 import { Icon } from "astro-icon/components";
 import FaqCard from "./FaqCard.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  faqs?: { question: string; answer: string }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "faqCards" }>;
 
 const { title = "", faqs = [] } = Astro.props;
 

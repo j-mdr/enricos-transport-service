@@ -2,23 +2,26 @@
 import type { HTMLAttributes } from "astro/types";
 import { getLocaleFromUrl } from "@utils/localeUtils";
 
+// These types represent RESOLVED GROQ data (reference->{ _type, slug }),
+// NOT the schema-level unresolved reference types from sanity.types.ts.
+// SanityLink works with query result shapes, not schema shapes.
 export interface SanityExternalLink {
   _type: "externalLink";
-  href?: string;
-  openInNewTab?: boolean;
+  href?: string | null;
+  openInNewTab?: boolean | null;
 }
 
 export interface SanityInternalLink {
   _type: "internalLink";
   reference?: {
     _type: string;
-    slug?: { current: string };
-  };
+    slug?: { current?: string | null } | null;
+  } | null;
 }
 
 export interface SanityLinkObject {
-  text?: string;
-  destination?: [SanityExternalLink | SanityInternalLink];
+  text?: string | null;
+  destination?: Array<SanityExternalLink | SanityInternalLink> | null;
 }
 
 interface Props extends HTMLAttributes<"a"> {

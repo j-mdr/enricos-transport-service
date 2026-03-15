@@ -6,20 +6,14 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
-import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 import staticImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
 
-interface Props {
-  title?: string;
-  description?: string;
-  ctaButton?: SanityCtaButtonObject;
-  image?: SanityImageObject | null;
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "ctaBgImage" }>;
 
 const { title = "", description, ctaButton, image } = Astro.props;
 

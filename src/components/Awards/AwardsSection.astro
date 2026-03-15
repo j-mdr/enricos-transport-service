@@ -6,16 +6,14 @@
  */
 import { Image } from "astro:assets";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 import award1 from "@images/awards/award-yelp.png";
 import award2 from "@images/awards/award-homeadvisor.png";
 import award3 from "@images/awards/award-angieslist.png";
 
-interface Props {
-  awards?: (SanityImageObject & { alt?: string })[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "awardsSection" }>;
 
 const { awards } = Astro.props;
 

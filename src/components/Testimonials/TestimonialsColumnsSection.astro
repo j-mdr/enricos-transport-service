@@ -4,18 +4,10 @@
  * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import TestimonialCard from "./TestimonialCard.astro";
-import type { SanityImageObject } from "@lib/sanityImage";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-interface Props {
-  title?: string;
-  testimonials?: {
-    name: string;
-    personTitle?: string;
-    testimonial: string;
-    avatar?: SanityImageObject | null;
-  }[];
-  [key: string]: any;
-}
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Props = Extract<Blocks[number], { _type: "testimonialsColumns" }>;
 
 const { title = "", testimonials = [] } = Astro.props;
 

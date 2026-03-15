@@ -4,6 +4,13 @@ export const ctaButton = defineType({
   name: "ctaButton",
   title: "CTA knop",
   type: "object",
+  fieldsets: [
+    {
+      name: "stijl",
+      title: "Stijl",
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     defineField({
       name: "link",
@@ -15,6 +22,7 @@ export const ctaButton = defineType({
       name: "variant",
       title: "Variant",
       type: "string",
+      fieldset: "stijl",
       options: {
         list: [
           { title: "Default", value: "default" },
@@ -31,6 +39,7 @@ export const ctaButton = defineType({
       name: "size",
       title: "Grootte",
       type: "string",
+      fieldset: "stijl",
       options: {
         list: [
           { title: "Klein (sm)", value: "sm" },

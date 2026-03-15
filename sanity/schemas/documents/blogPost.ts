@@ -35,13 +35,6 @@ export const blogPost = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "description",
-      title: "Beschrijving",
-      type: "text",
-      rows: 2,
-      group: "content",
-    }),
-    defineField({
       name: "heroImage",
       title: "Hero afbeelding",
       type: "imageWithAlt",
@@ -56,6 +49,12 @@ export const blogPost = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "contentModifiedDate",
+      title: "Laatste wijziging aan content",
+      type: "datetime",
+      group: "meta",
+    }),
+    defineField({
       name: "authors",
       title: "Auteurs",
       type: "array",
@@ -68,19 +67,48 @@ export const blogPost = defineType({
       title: "Categorieën",
       type: "array",
       group: "meta",
-      of: [{ type: "reference", to: [{ type: "category" }] }],
-      options: {
-        filter: ({ document }: { document: { language?: string } }) =>
-          document.language
-            ? { filter: "language == $lang", params: { lang: document.language } }
-            : {},
-      },
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "category" }],
+          options: {
+            filter: ({ document }: { document: { language?: string } }) =>
+              document.language
+                ? { filter: "language == $lang", params: { lang: document.language } }
+                : {},
+          },
+        },
+      ],
     }),
     defineField({
-      name: "content",
-      title: "Inhoud",
-      type: "portableText",
+      name: "blocks",
+      title: "Blokken",
+      type: "array",
       group: "content",
+      validation: (Rule) => Rule.min(1).max(15),
+      of: [
+        { type: "faqAccordions" },
+        { type: "faqCards" },
+        { type: "ctaBgImage" },
+        { type: "ctaCardCenter" },
+        { type: "ctaCardCenter2" },
+        { type: "ctaCards" },
+        { type: "featureCardsSmall" },
+        { type: "featureLightboxMarquee" },
+        { type: "featureGalleryMarquee" },
+        { type: "featureSideImage" },
+        { type: "featureToggleImage" },
+        { type: "servicesIcon" },
+        { type: "servicesSideImage" },
+        { type: "awardsSection" },
+        { type: "teamMemberCards" },
+        { type: "testimonialsColumns" },
+        { type: "testimonialsSwiper" },
+        { type: "contactSection" },
+        { type: "requestQuoteSection" },
+        { type: "becomePartnerSection" },
+        { type: "richText" },
+      ],
     }),
     defineField({
       name: "seo",
