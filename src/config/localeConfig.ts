@@ -7,32 +7,43 @@ export interface LocaleDefinition {
   isDefault: boolean;
   languageCode: string;
   switcherLabel: string;
-  categoryUrlBase: string;
-  blogUrlBase: string;
+  categoriesUrlPath: string;
+  blogUrlPath: string;
+  backToAllBlogPostsLabel: string;
 }
 
 export const localeDefinitions: LocaleDefinition[] = [
   {
     id: "nl",
     title: "Nederlands",
-    urlPrefix: "",
+    urlPrefix: "/",
     isDefault: true,
     languageCode: "nl-NL",
     switcherLabel: "NL",
-    categoryUrlBase: "categorieen",
-    blogUrlBase: "blog",
+    categoriesUrlPath: "categorieen",
+    blogUrlPath: "blog",
+    backToAllBlogPostsLabel: "Terug naar alle berichten",
   },
   {
     id: "en",
     title: "English",
-    urlPrefix: "en",
+    urlPrefix: "/en",
     isDefault: false,
     languageCode: "en-US",
     switcherLabel: "EN",
-    categoryUrlBase: "categories",
-    blogUrlBase: "blog",
+    categoriesUrlPath: "categories",
+    blogUrlPath: "blog",
+    backToAllBlogPostsLabel: "Back to all posts",
   },
 ];
+
+export const getLocaleDefinition = (locale: LocaleId) => {
+  const localeDefinition = localeDefinitions.find((l) => l.id === locale);
+  if (!locale) {
+    throw new Error(`Locale with id "${locale}" not found`);
+  }
+  return localeDefinition;
+};
 
 export type Locale = LocaleId;
 export const locales = localeDefinitions.map((l) => l.id) as LocaleId[];

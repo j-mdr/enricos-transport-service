@@ -1,4 +1,4 @@
-import type { Locale } from "@config/siteSettings.json";
+import type { Locale } from "@config/siteConfig.ts";
 import type { NavData, NavItem } from "@config/configDataTypes";
 import { getNavData as fetchNavData } from "@lib/groq/nav";
 

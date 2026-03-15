@@ -28,6 +28,7 @@ const { title = "", description = "", seo, alternatePaths } = page;
   type={"general"}
   alternatePaths={alternatePaths}
   blocks={page.blocks ?? undefined}
+  noindex={page.seo?.noIndex}
 >
   <BlockRenderer blocks={page.blocks ?? []} />
 </BaseLayout>

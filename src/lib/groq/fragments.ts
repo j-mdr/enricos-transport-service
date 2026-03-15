@@ -1,5 +1,4 @@
 // Gedeelde GROQ fragmenten voor nav, footer en links
-import { localeDefinitions } from "@config/localeConfig";
 
 export const destinationFragment = `
   destination[] {
@@ -32,14 +31,13 @@ export const contentFragment = `
 
 export const alternatePathsFragment = `
   "alternatePaths": {
-    ${localeDefinitions
-      .map((l) => {
-        const base = l.urlPrefix ? `/${l.urlPrefix}/` : "/";
-        return `"${l.id}": coalesce(
-      "${base}" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "${l.id}"][0].value->slug.current,
-      "${base}"
-    )`;
-      })
-      .join(",\n    ")}
+    "nl": coalesce(
+      "/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->slug.current,
+      "/"
+    ),
+    "en": coalesce(
+      "/en/" + *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->slug.current,
+      "/en/"
+    )
   }
 `;

@@ -1,5 +1,4 @@
 ---
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import { Image } from "astro:assets";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { SanityImageObject } from "@lib/sanityImage";
@@ -8,6 +7,7 @@ import staticLogo from "@images/logo-enrico's-transportservice.webp";
 
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getCompanyInfo } from "@/utils/companyInfo";
+import { localeDefinitions } from "@config/localeConfig.ts";
 
 interface Props {
   logo?: SanityImageObject | null;
@@ -17,10 +17,12 @@ const currLocale = getLocaleFromUrl(Astro.url);
 const companyInfo = await getCompanyInfo(currLocale);
 const { logo = null } = Astro.props;
 
+const homePagePath = localeDefinitions.find((item) => item.id === currLocale)?.urlPrefix ?? "/";
+
 const altText = companyInfo?.name ?? "Logo";
 ---
 
-<a class="primary-focus flex items-center align-middle" href={getLocalizedRoute(currLocale, "/")}>
+<a class="primary-focus flex items-center align-middle" href={homePagePath}>
   <p class="sr-only">{companyInfo?.name}</p>
   {
     logo?.asset ? (

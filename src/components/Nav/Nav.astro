@@ -11,7 +11,7 @@ import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 // utils
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getNavData } from "@/utils/navUtils";
-import { locales } from "@config/siteSettings.json";
+import { locales } from "@config/siteConfig.ts";
 
 interface Props {
   alternatePaths?: Partial<Record<string, string>>;

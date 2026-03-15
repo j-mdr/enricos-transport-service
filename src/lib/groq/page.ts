@@ -1,6 +1,6 @@
 import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
-import type { Locale } from "@config/siteSettings.json";
+import type { Locale } from "@config/siteConfig.ts";
 import { alternatePathsFragment, ctaButtonFragment, contentFragment } from "./fragments";
 
 const pageFields = `

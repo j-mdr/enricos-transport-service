@@ -1,4 +1,4 @@
-import type { Locale } from "@config/siteSettings.json";
+import type { Locale } from "@config/siteConfig.ts";
 import { getNavFromSettings } from "./settings";
 
 export async function getNavData(locale: Locale) {

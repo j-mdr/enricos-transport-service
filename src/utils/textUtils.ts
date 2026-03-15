@@ -1,4 +1,4 @@
-import { localeMap, locales } from "@/config/siteSettings.json";
+import { locales, localeDefinitions } from "@/config/localeConfig.ts";
 
 /**
  * * returns "slugified" text.
@@ -15,42 +15,14 @@ export function slugify(text: string): string {
     .replace(/-+$/, ""); // trim dash from end of text
 }
 
-/**
- * * returns "humanized" text. runs slugify() and then replaces - with space and upper case first letter of every word, and lower case the rest
- * @param text: string - text to humanize
- */
-export function humanize(text: string): string {
-  const slugifiedText = slugify(text);
-  return (
-    slugifiedText
-      .replace(/-/g, " ") // replace "-" with space
-      // .toLowerCase();
-      .replace(
-        // upper case first letter of every word, and lower case the rest
-        /\w\S*/g,
-        (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase(),
-      )
-  );
-}
-
-// --------------------------------------------------------
-/**
- * * returns "categorified" text. runs slugify() and then replaces - with space and upper cases everything
- * @param text: string - text to categorify
- * @returns string - categorified text
- */
-export function categorify(text: string): string {
-  const slugifiedText = slugify(text);
-  return slugifiedText
-    .replace(/-/g, " ") // replace "-" with space
-    .toUpperCase();
-}
+// localeMap is used to map languages to their respective locales - used for formatDate function
+export const localeMap = Object.fromEntries(localeDefinitions.map((l) => [l.id, l.languageCode]));
 
 // --------------------------------------------------------
 /**
  * * returns a nicely formatted string of the date passed
- * @param date: string | number | Date - date to format
- * @param locale: string - locale to format the date in
+ * @param date string | number | Date - date to format
+ * @param locale string - locale to format the date in
  * @returns string - formatted date
  */
 export function formatDate(date: string | number | Date, locale: (typeof locales)[number]): string {

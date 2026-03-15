@@ -1,11 +1,11 @@
 ---
-import { getLocalizedRoute } from "@/utils/translationUtils";
 import BaseLayout from "./BaseLayout.astro";
 import Button from "@components/Button/Button.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { formatDate } from "@/utils/textUtils";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
-import type { GetBlogPostBySlugQueryResult } from "../sanity.types";
+import type { GetBlogPostBySlugQueryResult } from "../../sanity.types.ts";
+import { getLocaleDefinition } from "@config/localeConfig.ts";
 
 type Post = NonNullable<GetBlogPostBySlugQueryResult>;
 interface Props {
@@ -16,6 +16,8 @@ const { post } = Astro.props;
 const { title, description, authors, categories, pubDate, heroImage, alternatePaths } = post;
 
 const currLocale = getLocaleFromUrl(Astro.url);
+const localeDefinition = getLocaleDefinition(currLocale);
+
 const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar alle posts";
 ---
 
@@ -35,7 +37,7 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
               <div class="flex justify-center gap-4">
                 {categories.map((cat) => (
                   <a
-                    href={getLocalizedRoute(currLocale, `/categories/${cat.slug}/`)}
+                    href={cat.slug}
                     class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
                   >
                     {cat.title}
@@ -110,7 +112,7 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
           <div class="mt-16 flex justify-center">
             <Button
               variant="outline"
-              href={getLocalizedRoute(currLocale, "/blog")}
+              href={localeDefinition?.blogUrlPath}
               arrow="left"
               class="py-2"
             >

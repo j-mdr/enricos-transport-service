@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
+import { localeDefinitions } from "../../../src/config/localeConfig";
 
 // Flexibele pagina met block builder.
 // De blocks array wordt uitgebreid met section types zodra die gedefinieerd zijn.
@@ -63,16 +64,22 @@ export const page = defineType({
           const title = input.split("__")[0];
           const leaf = title.toLowerCase().replace(/\s+/g, "-");
 
-          const doc = context.parent as { parent?: { _ref?: string } } | undefined;
+          const doc = context.parent as
+            | { parent?: { _ref?: string }; language?: string }
+            | undefined;
+
+          const locale = localeDefinitions.find((l) => l.id === doc?.language);
+          const prefix = locale && locale.urlPrefix ? `${locale.urlPrefix}/` : "/";
+
           if (doc?.parent?._ref) {
             const client = context.getClient({ apiVersion: "2024-01-01" });
             const parentSlug: string | null = await client.fetch(`*[_id == $id][0].slug.current`, {
               id: doc.parent._ref,
             });
-            if (parentSlug) return `${parentSlug}/${leaf}`;
+            if (parentSlug) return `${prefix}${parentSlug}/${leaf}`;
           }
 
-          return leaf;
+          return `${prefix}${leaf}`;
         },
       },
       components: { input: ProtectedSlugInput },

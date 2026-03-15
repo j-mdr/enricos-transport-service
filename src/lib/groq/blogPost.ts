@@ -1,6 +1,6 @@
 import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
-import type { Locale } from "@config/siteSettings.json";
+import type { Locale } from "@config/siteConfig.ts";
 import { alternatePathsFragment, contentFragment, ctaButtonFragment } from "./fragments";
 
 // Lightweight fields for listing pages (no blocks)

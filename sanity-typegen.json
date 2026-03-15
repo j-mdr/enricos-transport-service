@@ -1,0 +1,5 @@
+{
+  "generates": "sanity.types.ts",
+  "schema": "schema.json",
+  "path": ["src/**/*.{ts,tsx,astro}"]
+}

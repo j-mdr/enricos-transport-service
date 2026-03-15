@@ -1,4 +1,4 @@
-import { defaultLocale, locales } from "@/config/siteSettings.json";
+import { defaultLocale, locales } from "@config/siteConfig.ts";
 
 /**
  * * returns the current locale gathered from the URL
@@ -17,3 +17,6 @@ export function getLocaleFromUrl(url: URL): (typeof locales)[number] {
   return defaultLocale;
 }
 
+export function localizePath(url: URL): (typeof locales)[number] {
+  return null;
+}

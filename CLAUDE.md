@@ -31,7 +31,7 @@ This is an **Astro 5** website for Enrico's Transportservice — a Dutch transpo
 
 Two locales: `nl` (Dutch, default — no URL prefix) and `en` (English — `/en/` prefix). Configured in `astro.config.mjs` with `prefixDefaultLocale: false`.
 
-Locale settings live in `src/config/siteSettings.json.ts` (`locales`, `defaultLocale`, `localeMap`, `languageSwitcherMap`).
+Locale settings live in `src/config/siteConfig.ts` (`locales`, `defaultLocale`, `localeMap`, `languageSwitcherMap`).
 
 Translation layers:
 

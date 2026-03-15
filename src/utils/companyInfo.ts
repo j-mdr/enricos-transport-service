@@ -1,4 +1,4 @@
-import type { Locale } from "@config/siteSettings.json";
+import type { Locale } from "@config/siteConfig.ts";
 import { getSettings } from "@lib/groq/settings";
 
 export async function getCompanyInfo(locale: Locale) {

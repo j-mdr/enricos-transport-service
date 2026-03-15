@@ -14,7 +14,7 @@ import "@/styles/global.css";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 // data
-import siteSettings from "@config/siteSettings.json";
+import { siteSettings } from "@config/siteConfig.ts";
 
 // heroImage and authorData are defined on blog posts
 // authorData could also be defined on the about author page
@@ -73,7 +73,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
 
     <!-- Scroll animations -->
     <script>
-      import siteSettings from "@config/siteSettings.json";
+      import siteSettings from "@config/siteConfig.ts";
       import { MOS } from "motion-on-scroll";
 
       if (siteSettings.useAnimations === true) {

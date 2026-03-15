@@ -1,28 +1,29 @@
 ---
 /**
- * * Three row image marquee with lightbox effect
- * Title from Sanity, images from static data
+ * Three row image marquee with lightbox effect
+ * Title and images from Sanity
  */
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import { getLocaleFromUrl } from "@utils/localeUtils.ts";
-import { featureLightboxMarqueeData } from "./featureLightboxMarqueeData";
-import { createMarqueeRows } from "@utils/imageUtils.ts";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
-type Props = Extract<Blocks[number], { _type: "featureLightboxMarquee" }>;
+type BlockProps = Extract<Blocks[number], { _type: "featureLightboxMarquee" }>;
+type ImageItem = NonNullable<BlockProps["images"]>[number];
 
-const { title: propTitle } = Astro.props;
-const currLocale = getLocaleFromUrl(Astro.url);
+interface Props extends BlockProps {}
 
-const staticData = featureLightboxMarqueeData[currLocale];
-const title = propTitle ?? staticData.title;
-const images = staticData.images;
+const { title, images } = Astro.props;
 
 if (!images || images.length === 0) return;
 
-const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = createMarqueeRows(images);
+const rotate = (arr: ImageItem[], offset: number): ImageItem[] => [
+  ...arr.slice(offset),
+  ...arr.slice(0, offset),
+];
+const marqueeTop = images;
+const marqueeMiddle = rotate(images, Math.floor(images.length / 3));
+const marqueeBottom = [...images].reverse();
 ---
 
 <section id="feature-lightbox-marquee" class="mx-auto my-12 py-12">
@@ -44,14 +45,14 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         class="animate-marquee flex min-w-full shrink-0 items-center justify-around gap-6 md:gap-10"
       >
         {
-          marqueeTop.images.map((image, index) => (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
+          marqueeTop.map((image, index) => (
+            <SanityImage
+              image={image}
               width={800}
-              densities={[1.5, 2]}
-              class="gallery-image aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
+              aspectRatio="klassiek"
+              sizesType="card"
+              loading="lazy"
+              class="gallery-image max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
               data-row="top"
               data-index={index}
             />
@@ -63,14 +64,14 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         class="animate-marquee flex min-w-full shrink-0 items-center justify-around gap-6 md:gap-10"
       >
         {
-          marqueeTop.images.map((image, index) => (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
+          marqueeTop.map((image, index) => (
+            <SanityImage
+              image={image}
               width={800}
-              densities={[1.5, 2]}
-              class="gallery-image aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
+              aspectRatio="klassiek"
+              sizesType="card"
+              loading="lazy"
+              class="gallery-image max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
               data-row="top"
               data-index={index}
               aria-hidden="true"
@@ -86,14 +87,14 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         class="animate-marquee flex min-w-full shrink-0 items-center justify-around gap-6 [animation-direction:reverse] md:gap-10"
       >
         {
-          marqueeMiddle.images.map((image, index) => (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
+          marqueeMiddle.map((image, index) => (
+            <SanityImage
+              image={image}
               width={800}
-              densities={[1.5, 2]}
-              class="gallery-image aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
+              aspectRatio="klassiek"
+              sizesType="card"
+              loading="lazy"
+              class="gallery-image max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
               data-row="middle"
               data-index={index}
             />
@@ -105,14 +106,14 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         class="animate-marquee flex min-w-full shrink-0 items-center justify-around gap-6 [animation-direction:reverse] md:gap-10"
       >
         {
-          marqueeMiddle.images.map((image, index) => (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
+          marqueeMiddle.map((image, index) => (
+            <SanityImage
+              image={image}
               width={800}
-              densities={[1.5, 2]}
-              class="gallery-image aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
+              aspectRatio="klassiek"
+              sizesType="card"
+              loading="lazy"
+              class="gallery-image max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
               data-row="middle"
               data-index={index}
               aria-hidden="true"
@@ -128,14 +129,14 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         class="animate-marquee flex min-w-full shrink-0 items-center justify-around gap-6 md:gap-10"
       >
         {
-          marqueeBottom.images.map((image, index) => (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
+          marqueeBottom.map((image, index) => (
+            <SanityImage
+              image={image}
               width={800}
-              densities={[1.5, 2]}
-              class="gallery-image aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
+              aspectRatio="klassiek"
+              sizesType="card"
+              loading="lazy"
+              class="gallery-image max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
               data-row="bottom"
               data-index={index}
             />
@@ -147,14 +148,14 @@ const { top: marqueeTop, middle: marqueeMiddle, bottom: marqueeBottom } = create
         class="animate-marquee flex min-w-full shrink-0 items-center justify-around gap-6 md:gap-10"
       >
         {
-          marqueeBottom.images.map((image, index) => (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
+          marqueeBottom.map((image, index) => (
+            <SanityImage
+              image={image}
               width={800}
-              densities={[1.5, 2]}
-              class="gallery-image aspect-[4/3] max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
+              aspectRatio="klassiek"
+              sizesType="card"
+              loading="lazy"
+              class="gallery-image max-w-[clamp(10rem,28vmin,20rem)] cursor-pointer rounded-md object-cover shadow-md transition-transform"
               data-row="bottom"
               data-index={index}
               aria-hidden="true"
