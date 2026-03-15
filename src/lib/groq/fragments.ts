@@ -22,7 +22,7 @@ export const contentFragment = `
         destination[] {
           _type,
           _type == "externalLink" => { href, openInNewTab },
-          _type == "internalLink" => { reference->{ _type, slug } }
+          _type == "internalLink" => { reference->{ _type, urlPath } }
         }
       }
     }

@@ -67,10 +67,9 @@ export const page = defineType({
           const doc = context.parent as { parent?: { _ref?: string } } | undefined;
           if (doc?.parent?._ref) {
             const client = context.getClient({ apiVersion: "2024-01-01" });
-            const parentSlug: string | null = await client.fetch(
-              `*[_id == $id][0].slug.current`,
-              { id: doc.parent._ref },
-            );
+            const parentSlug: string | null = await client.fetch(`*[_id == $id][0].slug.current`, {
+              id: doc.parent._ref,
+            });
             if (parentSlug) return `${parentSlug}/${leaf}`;
           }
 

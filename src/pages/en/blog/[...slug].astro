@@ -14,7 +14,11 @@ export async function getStaticPaths() {
   const posts = (await getAllBlogPosts("en")) as GetAllBlogPostsQueryResult;
 
   return posts.map((post) => ({
-    params: { slug: post.urlPath ? post.urlPath.replace(/^\/en\/blog\//, "") : (post.slug ?? "").replace(/^blog\//, "") },
+    params: {
+      slug: post.urlPath
+        ? post.urlPath.replace(/^\/en\/blog\//, "")
+        : (post.slug ?? "").replace(/^blog\//, ""),
+    },
     props: { post },
   }));
 }

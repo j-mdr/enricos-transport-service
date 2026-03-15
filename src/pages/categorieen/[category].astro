@@ -10,7 +10,11 @@ export async function getStaticPaths() {
   const categories = (await getAllCategories("nl")) as GetAllCategoriesQueryResult;
 
   return categories.map((cat) => ({
-    params: { category: cat.urlPath ? cat.urlPath.replace(/^\/categorieen\//, "") : (cat.slug ?? "").replace(/^categorieen\//, "") },
+    params: {
+      category: cat.urlPath
+        ? cat.urlPath.replace(/^\/categorieen\//, "")
+        : (cat.slug ?? "").replace(/^categorieen\//, ""),
+    },
     props: { cat },
   }));
 }

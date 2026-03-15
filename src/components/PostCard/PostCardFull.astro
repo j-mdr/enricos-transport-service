@@ -20,7 +20,10 @@ const currLocale = getLocaleFromUrl(Astro.url);
 ---
 
 <article class={`flex grid gap-4 md:grid-cols-2 md:gap-8 ${className ?? ""}`} {...rest}>
-  <a href={post.urlPath} class="shrink-0 justify-center overflow-hidden rounded-lg sm:justify-normal">
+  <a
+    href={post.urlPath}
+    class="shrink-0 justify-center overflow-hidden rounded-lg sm:justify-normal"
+  >
     {
       heroImage?.asset && (
         <figure>
@@ -39,7 +42,10 @@ const currLocale = getLocaleFromUrl(Astro.url);
       categories && (
         <div class="flex flex-wrap gap-4 md:mt-1">
           {categories.map((cat) => (
-            <a href={cat.urlPath} class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1">
+            <a
+              href={cat.urlPath}
+              class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
+            >
               {cat.title}
             </a>
           ))}

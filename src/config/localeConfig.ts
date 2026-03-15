@@ -38,10 +38,10 @@ const enLocaleDefinition: LocaleDefinition = {
 
 export const localeDefinitions: LocaleDefinition[] = [nlLocaleDefinition, enLocaleDefinition];
 
-export const getLocaleDefinition = (locale = 'nl') => {
+export const getLocaleDefinition = (locale = "nl") => {
   const localeDefinition = localeDefinitions.find((l) => l.id === locale);
   if (!localeDefinition) {
-    return nlLocaleDefinition
+    return nlLocaleDefinition;
   }
   return localeDefinition;
 };

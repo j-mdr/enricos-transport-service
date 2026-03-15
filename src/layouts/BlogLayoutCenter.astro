@@ -37,7 +37,7 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
               <div class="flex justify-center gap-4">
                 {categories.map((cat) => (
                   <a
-                    href={cat.slug}
+                    href={cat.urlPath}
                     class="button button--ghost px-2 py-0.5 font-medium md:px-4 md:py-1"
                   >
                     {cat.title}
@@ -112,7 +112,9 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
           <div class="mt-16 flex justify-center">
             <Button
               variant="outline"
-              href={localeDefinition.localeSlug ? `/${localeDefinition.localeSlug}/${localeDefinition.blogSlug}` : `/${localeDefinition.blogSlug}`}
+              href={localeDefinition.localeSlug
+                ? `/${localeDefinition.localeSlug}/${localeDefinition.blogSlug}`
+                : `/${localeDefinition.blogSlug}`}
               arrow="left"
               class="py-2"
             >

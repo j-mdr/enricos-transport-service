@@ -1,7 +1,7 @@
 import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteConfig.ts";
-import { linkFragment, destinationFragment } from "./fragments";
+import { linkFragment, ctaButtonFragment } from "./fragments";
 
 export const getSettingsQuery = defineQuery(`*[_id == $id][0]`);
 
@@ -12,17 +12,17 @@ export async function getSettings(locale: Locale) {
 
 const navFields = `
   logo { asset, alt, hotspot, crop },
-  ctaButton { link ${linkFragment} },
+  ctaButton ${ctaButtonFragment},
   navItems[] {
     _type,
-    _type == "link" => { text, ${destinationFragment} },
+    _type == "link" => ${linkFragment},
     _type == "navItemDropdown" => { label, dropdown[] ${linkFragment} }
   }
 `;
 
 const footerFields = `
   logo { asset, alt, hotspot, crop },
-  ctaButton { link ${linkFragment} },
+  ctaButton ${ctaButtonFragment},
   columns[] { title, links[] ${linkFragment} }
 `;
 
