@@ -13,7 +13,17 @@ export interface BlogProps {
   canonicalUrl: URL;
 }
 
-export type JsonLDProps = BlogProps | GeneralProps;
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface FaqProps {
+  type: "faq";
+  items: FaqItem[];
+}
+
+export type JsonLDProps = BlogProps | GeneralProps | FaqProps;
 
 export default function jsonLDGenerator(props: JsonLDProps) {
   const { type } = props;
@@ -53,6 +63,23 @@ export default function jsonLDGenerator(props: JsonLDProps) {
       }
     </script>`;
   }
+  if (type === "faq") {
+    const { items } = props as FaqProps;
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: items.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    };
+    return `<script type="application/ld+json">${JSON.stringify(schema)}</script>`;
+  }
+
   return `<script type="application/ld+json">
       {
       "@context": "https://schema.org/",

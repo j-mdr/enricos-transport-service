@@ -27,6 +27,7 @@ interface Props {
   postFrontmatter?: CollectionEntry<"blog">["data"];
   noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
+  blocks?: any[];
 }
 
 const {
@@ -38,6 +39,7 @@ const {
   postFrontmatter,
   noindex = false,
   alternatePaths,
+  blocks,
 } = Astro.props as Props;
 
 const currLocale = getLocaleFromUrl(Astro.url);
@@ -55,6 +57,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
       postFrontmatter={postFrontmatter ? postFrontmatter : undefined}
       noindex={noindex}
       alternatePaths={alternatePaths}
+      blocks={blocks}
     />
   </head>
   <body id="body" class={`${siteSettings.useAnimations === true ? "use-animations" : ""}`}>

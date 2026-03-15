@@ -17,6 +17,7 @@ export interface Props {
   authors?: CollectionEntry<"authors">[];
   noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
+  blocks?: any[];
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   postFrontmatter,
   noindex = false,
   alternatePaths,
+  blocks,
 } = Astro.props as Props;
 
 import Poppins400 from "@fontsource/poppins/files/poppins-latin-400-normal.woff2";
@@ -65,6 +67,7 @@ import Poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2
   postFrontmatter={postFrontmatter}
   noindex={noindex}
   alternatePaths={alternatePaths}
+  blocks={blocks}
 />
 
 <!-- no fallback as I saw issues with firefox fallback -->

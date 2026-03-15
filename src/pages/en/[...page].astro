@@ -26,6 +26,7 @@ const { title, description, layout, image, seo, alternatePaths } = page;
       description={seo?.description ?? description}
       type={"general"}
       alternatePaths={alternatePaths}
+      blocks={page.blocks}
     >
       <BlockRenderer blocks={page.blocks ?? []} />
     </BaseLayout>

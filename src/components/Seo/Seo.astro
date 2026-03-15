@@ -3,7 +3,7 @@ import { getImage } from "astro:assets";
 import { type CollectionEntry } from "astro:content";
 import { SEO } from "astro-seo";
 
-import jsonLDGenerator from "@/utils/jsonLD";
+import jsonLDGenerator, { type FaqItem } from "@/utils/jsonLD";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getCompanyInfo } from "@/utils/companyInfo";
 
@@ -19,6 +19,7 @@ interface BaseProps {
   description: string;
   noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
+  blocks?: any[];
 }
 
 interface GenProps extends BaseProps {
@@ -40,6 +41,7 @@ const {
   image,
   noindex = false,
   alternatePaths,
+  blocks,
 } = Astro.props as GenProps | BlogProps;
 
 let optimizedImage;
@@ -76,6 +78,17 @@ else {
     type: "general",
     siteTitle: companyInfo?.title ?? "",
   });
+}
+
+// FAQ JSON-LD — collect all faq items from faqAccordions and faqCards blocks
+let faqJsonLD: string | null = null;
+if (blocks?.length) {
+  const faqItems: FaqItem[] = blocks
+    .filter((b) => b._type === "faqAccordions" || b._type === "faqCards")
+    .flatMap((b) => b.faqs ?? []);
+  if (faqItems.length > 0) {
+    faqJsonLD = jsonLDGenerator({ type: "faq", items: faqItems });
+  }
 }
 
 function trimEndSlash(str: string) {
@@ -129,3 +142,4 @@ const imageUrl = trimEndSlash(siteBase.toString()) + (optimizedImage?.src || DEF
 
 <!-- JSON LD -->
 <Fragment set:html={jsonLD} />
+{faqJsonLD && <Fragment set:html={faqJsonLD} />}
