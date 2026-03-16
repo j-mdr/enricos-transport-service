@@ -11,7 +11,7 @@ const blogPostCardFields = `
   urlPath,
   heroImage { asset, alt, hotspot, crop },
   pubDate,
-  authors[]->{ name, "avatar": avatar { asset->{ url }, alt } },
+  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },
   categories[]->{ title, urlPath },
   ${alternatePathsFragment}
 `;

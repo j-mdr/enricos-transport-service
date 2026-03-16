@@ -70,7 +70,18 @@ export const blogPost = defineType({
       title: "Auteurs",
       type: "array",
       group: "meta",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "person" }],
+          options: {
+            filter: ({ document }: { document: { language?: string } }) =>
+              document.language
+                ? { filter: "language == $lang", params: { lang: document.language } }
+                : {},
+          },
+        },
+      ],
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({

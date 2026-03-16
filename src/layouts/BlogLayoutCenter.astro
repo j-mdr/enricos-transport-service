@@ -66,16 +66,13 @@ const authorsList = (authors ?? []).map((a) => ({ name: a.name ?? null, url: nul
             {
               authors?.map((author) => (
                 <div class="mb-auto flex">
-                  {author.avatar?.asset?.url && (
-                    <figure>
-                      <img
-                        src={author.avatar.asset.url}
-                        alt={author.avatar.alt ?? `${author.name} avatar`}
-                        width={28}
-                        height={28}
-                        class="h-7 w-7 rounded-full object-cover"
-                      />
-                    </figure>
+                  {author.avatar?.asset && (
+                    <SanityImage
+                      image={{ ...author.avatar, alt: author.avatar.alt ?? `${author.name} avatar` }}
+                      width={56}
+                      aspectRatio="vierkant"
+                      class="h-7 w-7 rounded-full object-cover"
+                    />
                   )}
                   <div class="my-auto ml-2 opacity-80">{author.name}</div>
                 </div>

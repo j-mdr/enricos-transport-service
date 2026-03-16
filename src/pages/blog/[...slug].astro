@@ -1,15 +1,9 @@
 ---
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
-import { getAllBlogPosts } from "@lib/groq/blogPost";
-import type {
-  GetAllBlogPostsQueryResult,
-  GetBlogPostBySlugQueryResult,
-} from "../../../sanity.types";
-
-type Post = NonNullable<GetBlogPostBySlugQueryResult>;
+import { getAllBlogPosts, getBlogPostBySlug } from "@lib/groq/blogPost";
 
 export async function getStaticPaths() {
-  const posts = (await getAllBlogPosts("nl")) as GetAllBlogPostsQueryResult;
+  const posts = await getAllBlogPosts("nl");
 
   return posts.map((post) => ({
     params: {
@@ -17,11 +11,13 @@ export async function getStaticPaths() {
         ? post.urlPath.replace(/^\/blog\//, "")
         : (post.slug ?? "").replace(/^blog\//, ""),
     },
-    props: { post },
+    props: { slug: post.slug },
   }));
 }
 
-const { post } = Astro.props as { post: Post };
+const { slug } = Astro.props as { slug: string };
+const post = await getBlogPostBySlug(slug, "nl");
+if (!post) return Astro.redirect("/404");
 ---
 
 <BlogLayout post={post} />
