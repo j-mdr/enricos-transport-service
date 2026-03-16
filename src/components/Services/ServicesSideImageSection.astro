@@ -11,7 +11,8 @@ import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
 type Props = Extract<Blocks[number], { _type: "servicesSideImage" }>;
 
-const { title = "", services = [] } = Astro.props;
+const { title = "" } = Astro.props;
+const services = Astro.props.services ?? [];
 
 if (!title || !services.length) return;
 
@@ -39,10 +40,10 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
       {
         services.map((service, idx) => (
           <ServiceCard
-            title={service.title}
-            description={service.description}
+            title={service.title ?? ""}
+            description={service.description ?? undefined}
             image={service.image}
-            ctaButton={service.ctaButton}
+            ctaButton={service.ctaButton ?? undefined}
             imageSide={idx % 2 === 0 ? "right" : "left"}
             idx={idx}
           />

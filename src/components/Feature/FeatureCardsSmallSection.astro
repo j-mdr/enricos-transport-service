@@ -43,9 +43,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
       {
         features.map((feature, idx) => (
           <FeatureCard
-            title={feature.title}
-            text={feature.text}
-            icon={feature.icon}
+            title={feature.title ?? ""}
+            text={feature.text ?? ""}
+            icon={feature.icon ?? ""}
             data-mos="fade-up"
             data-mos-delay={0.15 * idx}
             data-mos-anchor="#trigger-small-cards"

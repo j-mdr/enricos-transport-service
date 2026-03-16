@@ -1,6 +1,5 @@
 ---
 import { getImage } from "astro:assets";
-import { type CollectionEntry } from "astro:content";
 import { SEO } from "astro-seo";
 
 import jsonLDGenerator, { type FaqItem } from "@/utils/jsonLD";
@@ -30,8 +29,8 @@ interface GenProps extends BaseProps {
 interface BlogProps extends BaseProps {
   type: "blog";
   image: ImageMetadata;
-  authors: CollectionEntry<"authors">[];
-  postFrontmatter: CollectionEntry<"blog">["data"];
+  authors: any[];
+  postFrontmatter: any;
 }
 
 const {
@@ -76,7 +75,7 @@ if (type === "blog") {
 else {
   jsonLD = jsonLDGenerator({
     type: "general",
-    siteTitle: companyInfo?.title ?? "",
+    siteTitle: companyInfo?.name ?? "",
   });
 }
 
@@ -116,7 +115,7 @@ const imageUrl = trimEndSlash(siteBase.toString()) + (optimizedImage?.src || DEF
     },
     optional: {
       description: description,
-      siteName: companyInfo?.title,
+      siteName: companyInfo?.name,
     },
     image: {
       type: "image/webp",

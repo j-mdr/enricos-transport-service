@@ -1,5 +1,3 @@
-import { type CollectionEntry } from "astro:content";
-
 interface GeneralProps {
   type: "general";
   siteTitle?: string;
@@ -7,9 +5,9 @@ interface GeneralProps {
 
 export interface BlogProps {
   type: "blog";
-  postFrontmatter: CollectionEntry<"blog">["data"];
-  image: ImageMetadata; // result of getImage() from Seo.astro
-  authors: CollectionEntry<"authors">[];
+  postFrontmatter: any;
+  image: any;
+  authors: any[];
   canonicalUrl: URL;
 }
 
@@ -33,8 +31,8 @@ export default function jsonLDGenerator(props: JsonLDProps) {
     const authorsJsonLdArray = authors.map((author) => {
       return {
         "@type": "Person",
-        name: author.data.name,
-        url: author.data.authorLink,
+        name: author?.data?.name ?? author?.name,
+        url: author?.data?.authorLink ?? author?.authorLink,
       };
     });
 

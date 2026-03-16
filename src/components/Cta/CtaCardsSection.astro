@@ -36,7 +36,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
       cards.length > 0 && (
         <div class="mx-auto flex max-w-lg flex-col gap-8">
           {cards.map((card) => (
-            <FeatureCard title={card.title} text={card.text} icon={card.icon} />
+            <FeatureCard title={card.title ?? ""} text={card.text ?? ""} icon={card.icon ?? ""} />
           ))}
         </div>
       )

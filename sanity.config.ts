@@ -7,7 +7,7 @@ import { nlNLLocale } from "@sanity/locale-nl-nl";
 import { localeDefinitions } from "./src/config/localeConfig";
 
 import { schemaTypes } from "./sanity/schemas";
-import { structure } from "./sanity/structure";
+import { structure } from "./sanity/studioStructure";
 
 const projectId =
   (typeof import.meta !== "undefined" && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) ||

@@ -1,11 +1,8 @@
 ---
-import { type CollectionEntry } from "astro:content";
-
 // component imports
 import BaseHead from "@layouts/BaseHead.astro";
 import Nav from "@components/Nav/Nav.astro";
 import Footer from "@components/Footer/Footer.astro";
-import CookieConsent from "@components/CookieConsent/CookieConsent.astro";
 
 // style import
 import "@/styles/global.css";
@@ -23,8 +20,8 @@ interface Props {
   title: string;
   description: string;
   image?: ImageMetadata;
-  authorsData?: CollectionEntry<"authors">[];
-  postFrontmatter?: CollectionEntry<"blog">["data"];
+  authorsData?: any[];
+  postFrontmatter?: any;
   noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
   blocks?: any[];
@@ -74,8 +71,8 @@ const currLocale = getLocaleFromUrl(Astro.url);
     <!-- Google Analytics: pageview tracking for View Transitions navigation -->
     <script>
       document.addEventListener("astro:after-swap", () => {
-        if (typeof window.dataLayer !== "undefined") {
-          window.dataLayer.push({
+        if (typeof (window as any).dataLayer !== "undefined") {
+          (window as any).dataLayer.push({
             event: "page_view",
             page_location: window.location.href,
             page_title: document.title,

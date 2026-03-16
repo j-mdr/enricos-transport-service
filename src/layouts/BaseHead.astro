@@ -1,5 +1,4 @@
 ---
-import { type CollectionEntry } from "astro:content";
 import { ClientRouter } from "astro:transitions";
 
 // component imports
@@ -13,8 +12,8 @@ export interface Props {
   title: string;
   description: string;
   image?: ImageMetadata;
-  postFrontmatter?: CollectionEntry<"blog">["data"];
-  authors?: CollectionEntry<"authors">[];
+  postFrontmatter?: any;
+  authors?: any[];
   noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
   blocks?: any[];

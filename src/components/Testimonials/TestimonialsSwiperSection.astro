@@ -50,9 +50,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
             testimonials.map((t) => (
               <div class="swiper-slide">
                 <TestimonialCard
-                  name={t.name}
+                  name={t.name ?? ""}
                   title={t.personTitle}
-                  testimonial={t.testimonial}
+                  testimonial={t.testimonial ?? ""}
                   avatar={t.avatar}
                 />
               </div>

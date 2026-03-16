@@ -1,8 +1,5 @@
 import type { StructureResolver } from "sanity/structure";
 
-// Singletons hebben een vaste _id en mogen niet vermenigvuldigd worden.
-const singletonTypes = ["settings"];
-
 // Document types die per taal bestaan (via @sanity/document-internationalization)
 const pageTypes = [
   {

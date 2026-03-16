@@ -46,7 +46,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
       faqCols.map((faqCol) => (
         <div class="flex w-full flex-col gap-3">
           {faqCol.map(({ question, answer }) => (
-            <Accordion title={question} details={answer} />
+            <Accordion title={question ?? ""} details={answer ?? ""} />
           ))}
         </div>
       ))

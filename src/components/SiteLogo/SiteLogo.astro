@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { SanityImageObject } from "@lib/sanityImage";
 
@@ -15,7 +14,8 @@ const currLocale = getLocaleFromUrl(Astro.url);
 const companyInfo = await getCompanyInfo(currLocale);
 const { logo = null } = Astro.props;
 
-const homePagePath = localeDefinitions.find((item) => item.id === currLocale)?.urlPrefix ?? "/";
+const localeSlug = localeDefinitions.find((item) => item.id === currLocale)?.localeSlug ?? "";
+const homePagePath = localeSlug ? `/${localeSlug}/` : "/";
 
 const altText = companyInfo?.name ?? "Logo";
 ---

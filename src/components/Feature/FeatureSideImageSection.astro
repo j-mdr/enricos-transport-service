@@ -25,11 +25,11 @@ if (!sectionTitle || !items.length) return;
           .filter((item) => item.image?.asset)
           .map((item, idx) => (
             <FeatureCard
-              title={item.title}
+              title={item.title ?? ""}
               items={item.checkItems ?? []}
               image={item.image}
               imageSide={idx % 2 === 0 ? "right" : "left"}
-              href={item.link?.href}
+              href={(item.link as any)?.destination?.[0]?.href}
               idx={idx}
             />
           ))

@@ -10,7 +10,8 @@ import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
 type Props = Extract<Blocks[number], { _type: "teamMemberCards" }>;
 
-const { title = "", teamMembers = [] } = Astro.props;
+const { title = "" } = Astro.props;
+const teamMembers = Astro.props.teamMembers ?? [];
 
 if (!title || !teamMembers.length) return;
 
@@ -28,10 +29,10 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     {
       teamMembers.map((member) => (
         <Profile
-          name={member.name}
-          title={member.personTitle}
+          name={member.name ?? ""}
+          title={member.personTitle ?? undefined}
           image={member.avatar}
-          bio={member.bio}
+          bio={member.bio ?? undefined}
         />
       ))
     }

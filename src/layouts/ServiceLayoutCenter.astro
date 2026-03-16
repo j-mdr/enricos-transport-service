@@ -21,7 +21,12 @@ const { title, description, image = undefined, alternatePaths } = Astro.props as
 ---
 
 <BaseLayout title={title} description={description} alternatePaths={alternatePaths}>
-  <HeadingWithImageSection title={title} image={image} />
+  <HeadingWithImageSection
+    _type="headingWithImage"
+    _key="layout-heading"
+    title={title}
+    image={image}
+  />
 
   <!-- service details -->
   <section class="bg-base-200/50 my-20 py-12 md:py-20">
@@ -30,5 +35,5 @@ const { title, description, image = undefined, alternatePaths } = Astro.props as
     </div>
   </section>
 
-  <CtaCardCenterSection />
+  <CtaCardCenterSection _type="ctaCardCenter" _key="layout-cta" />
 </BaseLayout>

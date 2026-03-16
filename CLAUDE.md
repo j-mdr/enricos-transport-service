@@ -20,6 +20,7 @@ Deployment is to Cloudflare Workers via `wrangler.jsonc`. The custom domain is `
 
 ```bash
 pnpm format
+pnpm astro check
 pnpm build
 ```
 

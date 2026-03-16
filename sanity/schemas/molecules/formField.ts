@@ -33,9 +33,9 @@ export const formField = defineType({
       type: "string",
       description: "Gebruikt als sleutel in de form submission, bijv. 'firstName'",
       validation: (Rule) =>
-        Rule.required().regex(/^[a-zA-Z][a-zA-Z0-9_]*$/, {
-          message: "Alleen letters, cijfers en underscores. Start met een letter.",
-        }),
+        Rule.required()
+          .regex(/^[a-zA-Z][a-zA-Z0-9_]*$/)
+          .error("Alleen letters, cijfers en underscores. Start met een letter."),
     }),
     defineField({
       name: "label",

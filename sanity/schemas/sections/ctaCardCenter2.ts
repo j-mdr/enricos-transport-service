@@ -12,6 +12,7 @@ export const ctaCardCenter2 = defineType({
       description: "Gebruik {highlight} om een woord te markeren",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({ name: "description", title: "Beschrijving", type: "string" }),
     defineField({ name: "ctaButton", title: "CTA knop", type: "ctaButton" }),
   ],
   preview: {

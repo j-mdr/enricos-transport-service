@@ -23,9 +23,9 @@ if (!title || !testimonials.length) return;
       {
         testimonials.map((t) => (
           <TestimonialCard
-            name={t.name}
+            name={t.name ?? ""}
             title={t.personTitle}
-            testimonial={t.testimonial}
+            testimonial={t.testimonial ?? ""}
             avatar={t.avatar}
           />
         ))

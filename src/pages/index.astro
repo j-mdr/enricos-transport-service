@@ -1,14 +1,13 @@
 ---
 export const prerender = true;
 import BaseLayout from "@layouts/BaseLayout.astro";
-import ServiceLayoutCenter from "@layouts/ServiceLayoutCenter.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getPageBySlug } from "@lib/groq/page";
 
 const page = await getPageBySlug("home-nl", "nl");
 if (!page) return Astro.redirect("/404");
 
-const { title, description, image, seo } = page;
+const { title, seo } = page;
 const alternatePaths = { nl: "/", en: "/en/" };
 ---
 
