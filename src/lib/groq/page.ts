@@ -30,6 +30,7 @@ const pageFields = `
     },
     _type == "richText" => { ${contentFragment} },
     _type == "contactSection" => {
+      type,
       title,
       image { asset, alt, hotspot, crop },
       form-> {

@@ -58,7 +58,7 @@ const currLocale = getLocaleFromUrl(Astro.url);
   </head>
   <body id="body" class={`${siteSettings.useAnimations === true ? "use-animations" : ""}`}>
     <!-- put cookie consent first so it is seen first by screen readers -->
-     <CookieConsent />
+    <CookieConsent />
     <div class="min-h-lvh overflow-hidden">
       <Nav alternatePaths={alternatePaths} />
       <main>

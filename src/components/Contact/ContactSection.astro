@@ -1,14 +1,27 @@
 ---
 import ContactForm from "@components/Contact/ContactForm.astro";
+import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
+import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
+import SocialIcon from "@components/Social/SocialIcon.astro";
 import { Icon } from "astro-icon/components";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
+import { getFooterData } from "@/utils/footer";
+import { getCompanyInfo } from "@/utils/companyInfo";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
 type ContactBlock = Extract<Blocks[number], { _type: "contactSection"; form: unknown }>;
 type Props = ContactBlock;
 
-const { title, image, form } = Astro.props;
+const { type, title, image, form } = Astro.props;
+
+const layout = type ?? "centered";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const footerData = layout === "withContactInfo" ? await getFooterData(currLocale) : null;
+const companyInfo = layout === "withContactInfo" ? await getCompanyInfo(currLocale) : null;
+console.log(": ", type);
 ---
 
 <section id="contact-section" class="my-4 overflow-hidden md:mt-16">
@@ -22,35 +35,75 @@ const { title, image, form } = Astro.props;
     }
 
     <div class="mt-8 md:mt-12">
-      <div
-        class={`mx-auto grid gap-8 rounded-xl ${image?.asset ? "md:grid-cols-2 md:gap-12 lg:gap-20" : "max-w-2xl"}`}
-      >
-        <!-- Formulier -->
-        <div class="col-span-1">
-          <ContactForm form={form} />
-        </div>
+      {
+        layout === "withContactInfo" && (
+          <div class="mx-auto grid gap-12 sm:grid-cols-[1fr_3fr] lg:grid-cols-[1fr_4fr] lg:gap-20">
+            <div class="flex flex-col gap-6">
+              <SiteLogo logo={footerData?.logo ?? null} />
+              <ContactInformationBlock />
+              <div class="flex items-center gap-2">
+                {companyInfo?.facebookUrl && (
+                  <SocialIcon
+                    href={companyInfo.facebookUrl}
+                    icon="tabler/brand-facebook"
+                    social="Facebook"
+                  />
+                )}
+                {companyInfo?.instagramUrl && (
+                  <SocialIcon
+                    href={companyInfo.instagramUrl}
+                    icon="tabler/brand-instagram"
+                    social="Instagram"
+                  />
+                )}
+                {companyInfo?.linkedinUrl && (
+                  <SocialIcon
+                    href={companyInfo.linkedinUrl}
+                    icon="tabler/brand-linkedin"
+                    social="LinkedIn"
+                  />
+                )}
+              </div>
+            </div>
+            <ContactForm form={form} />
+          </div>
+        )
+      }
 
-        <!-- Rechter kolom: blob + afbeelding -->
-        {
-          image?.asset && (
-            <div class="relative mx-auto hidden max-w-4xl md:block">
-              <div class="absolute top-0 left-0 -z-10 h-full w-full">
-                <Icon
-                  name="stellar/blob-0"
-                  class="text-primary-100 absolute top-0 left-0 h-auto w-[220%] -translate-x-1/4 -translate-y-[21%] md:-translate-x-1/3"
-                  aria-hidden="true"
+      {
+        layout === "withImage" && (
+          <div class="mx-auto grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-20">
+            <div class="col-span-1">
+              <ContactForm form={form} />
+            </div>
+            {image?.asset && (
+              <div class="relative mx-auto hidden max-w-4xl md:block">
+                <div class="absolute top-0 left-0 -z-10 h-full w-full">
+                  <Icon
+                    name="stellar/blob-0"
+                    class="text-primary-100 absolute top-0 left-0 h-auto w-[220%] -translate-x-1/4 -translate-y-[21%] md:-translate-x-1/3"
+                    aria-hidden="true"
+                  />
+                </div>
+                <SanityImage
+                  image={image}
+                  sizesType="half"
+                  loading="lazy"
+                  class="relative rounded-xl border border-transparent object-cover"
                 />
               </div>
-              <SanityImage
-                image={image}
-                sizesType="half"
-                loading="lazy"
-                class="relative rounded-xl border border-transparent object-cover"
-              />
-            </div>
-          )
-        }
-      </div>
+            )}
+          </div>
+        )
+      }
+
+      {
+        layout === "centered" && (
+          <div class="mx-auto max-w-2xl">
+            <ContactForm form={form} />
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

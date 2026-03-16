@@ -68,7 +68,10 @@ const authorsList = (authors ?? []).map((a) => ({ name: a.name ?? null, url: nul
                 <div class="mb-auto flex">
                   {author.avatar?.asset && (
                     <SanityImage
-                      image={{ ...author.avatar, alt: author.avatar.alt ?? `${author.name} avatar` }}
+                      image={{
+                        ...author.avatar,
+                        alt: author.avatar.alt ?? `${author.name} avatar`,
+                      }}
                       width={56}
                       aspectRatio="vierkant"
                       class="h-7 w-7 rounded-full object-cover"

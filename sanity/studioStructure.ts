@@ -69,7 +69,4 @@ function langGroup(S: Parameters<StructureResolver>[0], lang: "nl" | "en") {
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Inhoud")
-    .items([
-      langGroup(S, "nl"),
-      langGroup(S, "en"),
-    ]);
+    .items([langGroup(S, "nl"), langGroup(S, "en")]);

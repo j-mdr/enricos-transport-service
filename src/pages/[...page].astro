@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props as { page: Page };
 const { title = "", description = "", seo, alternatePaths, image } = page;
 const ogImageUrl = buildOgImageUrl(image);
-console.log('og: ',ogImageUrl );
+console.log("og: ", ogImageUrl);
 ---
 
 <BaseLayout
