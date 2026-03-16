@@ -21,15 +21,15 @@ const html = toHTML(value, {
       imageWithAlt: ({ value: img }) => {
         if (!img?.asset) return "";
         const alt = img.alt ?? "";
-        const widths = [400, 640, 800, 1200, 1600];
+        const widths = [400, 640, 800, 1200];
         const sizes = "(min-width: 800px) 800px, 100vw";
         const srcsetWebp = widths
-          .map((w) => `${urlFor(img).width(w).quality(80).format("webp").url()} ${w}w`)
+          .map((w) => `${urlFor(img).width(w).quality(70).format("webp").url()} ${w}w`)
           .join(", ");
         const srcsetJpeg = widths
-          .map((w) => `${urlFor(img).width(w).quality(80).format("jpg").url()} ${w}w`)
+          .map((w) => `${urlFor(img).width(w).quality(70).format("jpg").url()} ${w}w`)
           .join(", ");
-        const fallback = urlFor(img).width(800).quality(80).format("jpg").url();
+        const fallback = urlFor(img).width(800).quality(70).format("jpg").url();
         return `<picture>
   <source type="image/webp" srcset="${srcsetWebp}" sizes="${sizes}" />
   <source type="image/jpeg" srcset="${srcsetJpeg}" sizes="${sizes}" />

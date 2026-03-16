@@ -72,3 +72,21 @@ import Poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2
 
 <!-- no fallback as I saw issues with firefox fallback -->
 {siteSettings.useViewTransitions && <ClientRouter fallback="none" />}
+
+<!-- Google Analytics -->
+{
+  import.meta.env.PUBLIC_GA_MEASUREMENT_ID && (
+    <>
+      <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous" />
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_MEASUREMENT_ID}`}
+      />
+      <script
+        is:inline
+        set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${import.meta.env.PUBLIC_GA_MEASUREMENT_ID}');`}
+      />
+    </>
+  )
+}

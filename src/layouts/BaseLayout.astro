@@ -71,6 +71,19 @@ const currLocale = getLocaleFromUrl(Astro.url);
     </div>
     <Footer />
 
+    <!-- Google Analytics: pageview tracking for View Transitions navigation -->
+    <script>
+      document.addEventListener("astro:after-swap", () => {
+        if (typeof window.dataLayer !== "undefined") {
+          window.dataLayer.push({
+            event: "page_view",
+            page_location: window.location.href,
+            page_title: document.title,
+          });
+        }
+      });
+    </script>
+
     <!-- Scroll animations -->
     <script>
       import siteSettings from "@config/siteConfig.ts";
