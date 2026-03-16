@@ -42,10 +42,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   <!-- hero items -->
   <div class="site-container pt-40 pb-10 text-center md:pb-20 lg:pt-48 lg:pb-36">
     <div class="mx-auto max-w-[800px]">
-      <h1
-        class="text-4xl leading-tight font-medium md:text-5xl md:leading-tight"
-        data-mos="fade-up"
-      >
+      <h1 class="text-4xl leading-tight font-medium md:text-5xl md:leading-tight">
         {leadingText}
         {
           hasHighlightedWord ? (
@@ -63,18 +60,12 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         }
         {trailingText ?? null}
       </h1>
-      {
-        description && (
-          <p class="description mt-6" data-mos="fade-up" data-mos-delay=".2">
-            {description}
-          </p>
-        )
-      }
+      {description && <p class="description mt-6">{description}</p>}
       {
         (ctaButton1?.link || ctaButton2?.link) && (
           <div class="mt-6 flex flex-wrap justify-center gap-4">
-            <SanityCtaButton ctaButton={ctaButton1} data-mos="fade-up" data-mos-delay=".9" />
-            <SanityCtaButton ctaButton={ctaButton2} data-mos="fade-up" data-mos-delay="1.1" />
+            <SanityCtaButton ctaButton={ctaButton1} />
+            <SanityCtaButton ctaButton={ctaButton2} />
           </div>
         )
       }
