@@ -26,9 +26,8 @@ const altText = companyInfo?.name ?? "Logo";
     logo?.asset && (
       <SanityImage
         image={{ ...logo, alt: logo.alt ?? altText }}
-        width={400}
-        height={112}
-        sizesType="avatar"
+        width={logo.asset.metadata?.dimensions?.width ?? undefined}
+        height={logo.asset.metadata?.dimensions?.height ?? undefined}
         loading="eager"
         class="h-14 w-auto"
         aria-label={altText}

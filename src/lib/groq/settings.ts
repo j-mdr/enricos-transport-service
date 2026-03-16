@@ -12,7 +12,7 @@ export async function getSettings(locale: Locale): Promise<GetSettingsQueryResul
 }
 
 const navFields = `
-  logo { asset, alt, hotspot, crop },
+  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },
   ctaButton ${ctaButtonFragment},
   navItems[] {
     _type,
@@ -22,7 +22,7 @@ const navFields = `
 `;
 
 const footerFields = `
-  logo { asset, alt, hotspot, crop },
+  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },
   ctaButton ${ctaButtonFragment},
   columns[] { title, links[] ${linkFragment} }
 `;

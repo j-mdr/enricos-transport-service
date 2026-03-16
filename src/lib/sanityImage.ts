@@ -14,7 +14,13 @@ export interface SanityImageObject {
   asset?: {
     _ref?: string; // unresolved reference
     _id?: string; // resolved reference
-    url?: string; // pre-built URL (fallback)
+    url?: string | null; // pre-built URL (fallback)
+    metadata?: {
+      dimensions?: {
+        width?: number | null;
+        height?: number | null;
+      } | null;
+    } | null;
   } | null;
   alt?: string | null;
   hotspot?: { x?: number; y?: number } | null;

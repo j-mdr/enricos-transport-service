@@ -16,6 +16,29 @@ import Button from "@components/Button/Button.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
+
+const t = {
+  nl: {
+    message: "We gebruiken cookies om uw ervaring op deze site te verbeteren. Lees meer in ons",
+    privacyLabel: "Privacybeleid",
+    privacyHref: "/privacybeleid",
+    accept: "Accepteren",
+    decline: "Weigeren",
+  },
+  en: {
+    message: "We use cookies to improve your experience on this site. To learn more, see our",
+    privacyLabel: "Privacy Policy",
+    privacyHref: "/en/privacy-policy",
+    accept: "Accept",
+    decline: "Decline",
+  },
+}[currLocale] ?? {
+  message: "We gebruiken cookies om uw ervaring op deze site te verbeteren. Lees meer in ons",
+  privacyLabel: "Privacybeleid",
+  privacyHref: "/privacybeleid",
+  accept: "Accepteren",
+  decline: "Weigeren",
+};
 ---
 
 <!-- Dialog API would be nice to use here. But Safari doesn't support it yet. https://caniuse.com/?search=dialog -->
@@ -25,16 +48,16 @@ const currLocale = getLocaleFromUrl(Astro.url);
   >
     <div class="text-center">
       <p class="text-sm lg:text-base">
-        We use cookies to improve your experience on this site. To learn more, see our <a
-          href={currLocale === "en" ? "/en/privacy-policy" : "/nl/privacy-beleid"}
+        {t.message} <a
+          href={t.privacyHref}
           class="decoration-primary-500 hover:text-primary-500 underline transition"
-          >Privacy Policy</a
+          >{t.privacyLabel}</a
         >.
       </p>
     </div>
     <div class="mx-auto flex gap-2">
-      <Button variant="primary" type="button">Accept</Button>
-      <Button variant="ghost" type="button">Decline</Button>
+      <Button variant="primary" type="button">{t.accept}</Button>
+      <Button variant="ghost" type="button">{t.decline}</Button>
     </div>
   </div>
 </div>

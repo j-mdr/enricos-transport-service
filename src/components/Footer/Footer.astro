@@ -17,80 +17,67 @@ const companyName = companyInfo?.name ?? "Enrico's Transportservice";
 const today = new Date();
 ---
 
-<footer class="site-container border-t-base-300 mt-20 mb-16 border-t">
-  <div class="grid w-full justify-between gap-4 md:grid-cols-2">
-    <div class="grid gap-4 sm:grid-cols-2">
-      <div class="mt-6 flex flex-col items-start gap-4">
-        <SiteLogo logo={logo} />
-        <div class="">
-          <Button
-            variant={(ctaButton?.variant as any) ?? "primary"}
-            link={ctaButton?.link ?? undefined}
-          >
-            {ctaButton?.link?.text}
-          </Button>
-        </div>
-        <div class="hidden text-sm opacity-80 md:block">
-          &copy; {today.getFullYear()}
-          {" "}{companyName} ©
-        </div>
-      </div>
-      <!-- Contact info -->
-      <div class="flex flex-col">
-        <ContactInformationBlock />
+<footer class="site-container border-t-base-300 mt-20 mb-16 border-t pt-10">
+  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[auto_auto_1fr_auto]">
+    <!-- Logo + CTA -->
+    <div class="flex flex-col gap-4">
+      <SiteLogo logo={logo} />
+      <Button
+        variant={(ctaButton?.variant as any) ?? "primary"}
+        link={ctaButton?.link ?? undefined}
+      >
+        {ctaButton?.link?.text}
+      </Button>
+      <div class="text-sm opacity-60">
+        &copy; {today.getFullYear()} {companyName}
       </div>
     </div>
 
-    <div class="flex items-center md:justify-end">
-      <!-- Link kolommen -->
+    <!-- Contact info -->
+    <ContactInformationBlock />
+
+    <!-- Link columns -->
+    {
+      columns.length > 0 && (
+        <div class="grid auto-cols-max grid-flow-col gap-8">
+          {columns.map((col: { title: string; links: { text: string; href: string; newTab?: boolean }[] }) => (
+            <div class="flex flex-col gap-2">
+              <h3 class="mb-1 text-sm font-medium">{col.title}</h3>
+              {col.links.map((link) => (
+                <a
+                  href={link.href}
+                  class="text-sm opacity-70 hover:opacity-100"
+                  target={link.newTab ? "_blank" : undefined}
+                  rel={link.newTab ? "noopener noreferrer" : undefined}
+                >
+                  {link.text}
+                </a>
+              ))}
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    <!-- Socials -->
+    <div class="flex items-start gap-2">
       {
-        columns.length > 0 && (
-          <div class="flex gap-8">
-            {columns.map((col: { title: string; links: { text: string; href: string }[] }) => (
-              <div class="flex flex-col gap-2">
-                <p class="font-semibold">{col.title}</p>
-                {col.links.map((link: { text: string; href: string; newTab?: boolean }) => (
-                  <a
-                    href={link.href}
-                    class="text-sm opacity-80 hover:opacity-100"
-                    target={link.newTab ? "_blank" : undefined}
-                    rel={link.newTab ? "noopener noreferrer" : undefined}
-                  >
-                    {link.text}
-                  </a>
-                ))}
-              </div>
-            ))}
-          </div>
+        companyInfo?.facebookUrl && (
+          <SocialIcon href={companyInfo.facebookUrl} icon="tabler/facebook" social="Facebook" />
         )
       }
-
-      <!-- Socials -->
-      <div class="ml-8 flex gap-2">
-        {
-          companyInfo?.facebookUrl && (
-            <SocialIcon href={companyInfo.facebookUrl} icon="tabler/facebook" social="Facebook" />
-          )
-        }
-        {
-          companyInfo?.instagramUrl && (
-            <SocialIcon
-              href={companyInfo.instagramUrl}
-              icon="tabler/instagram"
-              social="Instagram"
-            />
-          )
-        }
-        {
-          companyInfo?.linkedinUrl && (
-            <SocialIcon href={companyInfo.linkedinUrl} icon="tabler/linkedin" social="LinkedIn" />
-          )
-        }
-      </div>
+      {
+        companyInfo?.instagramUrl && (
+          <SocialIcon href={companyInfo.instagramUrl} icon="tabler/instagram" social="Instagram" />
+        )
+      }
+      {
+        companyInfo?.linkedinUrl && (
+          <SocialIcon href={companyInfo.linkedinUrl} icon="tabler/linkedin" social="LinkedIn" />
+        )
+      }
     </div>
   </div>
-  <div class="mt-6 text-sm opacity-80 md:hidden">
-    &copy; {today.getFullYear()}
-    {" "}{companyName} ©
-  </div>
+
+
 </footer>
