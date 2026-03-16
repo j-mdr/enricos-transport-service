@@ -6,6 +6,7 @@ import { formatDate } from "@/utils/textUtils";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import type { GetBlogPostBySlugQueryResult } from "../../sanity.types.ts";
 import { getLocaleDefinition } from "@config/localeConfig.ts";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 
 type Post = NonNullable<GetBlogPostBySlugQueryResult>;
 interface Props {
@@ -13,7 +14,9 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, authors, categories, pubDate, heroImage, alternatePaths } = post;
+const { title, description, authors, categories, pubDate, heroImage, alternatePaths, blocks } =
+  post;
+console.log("ca: ", categories);
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const localeDefinition = getLocaleDefinition(currLocale);
@@ -24,7 +27,7 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
 <BaseLayout
   type="general"
   title={title ?? ""}
-  description={description ?? undefined}
+  description={description ?? ""}
   alternatePaths={alternatePaths}
 >
   <article class="site-container pt-36 md:pt-44">
@@ -106,7 +109,7 @@ const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar a
       <div class="mx-auto max-w-2xl">
         <div class="text-base-content text-base">
           <section id="blog-post-content" class="markdown-content mx-auto">
-            <slot />
+            <BlockRenderer blocks={blocks ?? []} />
           </section>
 
           <div class="mt-16 flex justify-center">

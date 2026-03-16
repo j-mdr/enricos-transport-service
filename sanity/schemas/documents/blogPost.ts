@@ -1,6 +1,8 @@
 import { defineType, defineField } from "sanity";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
-import { UrlPathInput } from "../../components/UrlPathInput";
+import { createUrlPathInput } from "../../components/UrlPathInput";
+
+const BlogUrlPathInput = createUrlPathInput((def) => def.blogSlug);
 
 export const blogPost = defineType({
   name: "blogPost",
@@ -30,7 +32,7 @@ export const blogPost = defineType({
           const d = doc as unknown as { title?: string };
           return d.title ?? "";
         },
-        slugify: (input) => "blog/" + input.toLowerCase().replace(/\s+/g, "-"),
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-"),
       },
       components: { input: ProtectedSlugInput },
       validation: (Rule) => Rule.required(),
@@ -41,7 +43,7 @@ export const blogPost = defineType({
       type: "string",
       group: "meta",
       description: "Automatisch gegenereerd op basis van taal en slug.",
-      components: { input: UrlPathInput },
+      components: { input: BlogUrlPathInput },
     }),
     defineField({
       name: "heroImage",

@@ -43,7 +43,7 @@ const blogPostFields = `
 `;
 
 export const getBlogPostBySlugQuery = defineQuery(
-  `*[_type == "blogPost" && slug.current == $slug && language == $locale][0]{ ${blogPostFields} }`,
+  `*[_type == "blogPost" && (slug.current == $slug || slug.current == "blog/" + $slug) && language == $locale][0]{ ${blogPostFields} }`,
 );
 
 export const getAllBlogPostsQuery = defineQuery(

@@ -19,7 +19,7 @@ export function ProtectedSlugInput(props: SlugInputProps) {
           </Text>
         </Card>
       )}
-      <SlugInput {...props} />
+      <SlugInput {...props} readOnly={false} />
     </Stack>
   );
 }
