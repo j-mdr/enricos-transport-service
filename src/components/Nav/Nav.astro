@@ -2,10 +2,9 @@
 // components
 import NavLink from "@components/Nav/NavLink.astro";
 import NavDropdownToggle from "@components/Nav/NavDropdown/NavDropdownToggle.astro";
-import MegaMenuDropdownToggle from "@components/Nav/NavDropdown/MegaMenuDropdownToggle.astro";
 import MobileNav from "@components/Nav/MobileNav/MobileNav.astro";
 import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
-import Button from "@components/Button/Button.astro";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
 import LanguageSelect from "@components/LanguageSelect/LanguageSelect.astro";
 
 // utils
@@ -32,26 +31,18 @@ const data = await getNavData(currLocale);
       <header class="relative flex w-full items-center gap-2">
         <!-- home button / image -->
         <div class="flex flex-auto justify-start">
-          <SiteLogo logo={data.logo ?? null} />
+          <SiteLogo logo={data?.logo ?? null} />
         </div>
 
         <div class="flex flex-auto justify-center">
           <nav class="hidden md:block">
             <ul class="flex h-fit items-center px-4">
               {
-                // if dropdown exists, setup the dropdown, otherwise it is just a link
-                data.navItems.map((navItem) =>
-                  "dropdown" in navItem ? (
-                    // non-mobile dropdown menu
-                    <>
-                      {/* <NavDropdown navItem={navItem} /> */}
-                      <NavDropdownToggle navItem={navItem} />
-                    </>
-                  ) : "megaMenuColumns" in navItem ? (
-                    <MegaMenuDropdownToggle {navItem} />
+                (data?.navItems ?? []).map((navItem: any) =>
+                  navItem._type === "navItemDropdown" ? (
+                    <NavDropdownToggle navItem={navItem} />
                   ) : (
-                    // normal nav link
-                    <NavLink {navItem} />
+                    <NavLink navItem={navItem} />
                   ),
                 )
               }
@@ -61,13 +52,10 @@ const data = await getNavData(currLocale);
 
         <!-- desktop nav menu -->
         <div class="flex flex-auto justify-end">
-          <Button
-            variant={(data.ctaButton.variant as any) ?? "primary"}
+          <SanityCtaButton
+            ctaButton={data?.ctaButton}
             class="my-auto hidden h-10 items-center justify-center md:flex"
-            link={data.ctaButton.link}
-          >
-            {data.ctaButton.link?.text}
-          </Button>
+          />
 
           {
             locales.length > 1 && (

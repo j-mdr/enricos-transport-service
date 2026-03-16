@@ -1,31 +1,27 @@
 ---
 import { Icon } from "astro-icon/components";
+import type { SanityLinkObject } from "@components/SanityLink/SanityLink.astro";
 
-// data
-import { type navLinkItem } from "@config/configDataTypes.ts";
-
-/**
- * Compares two paths ensuring they both have trailing slashes for consistency
- * @param path1 First path to compare
- * @param path2 Second path to compare
- * @returns boolean indicating if the paths are equal
- */
 const comparePathsWithTrailingSlash = (path1: string, path2: string): boolean => {
   const ensureTrailingSlash = (path: string): string => (path.endsWith("/") ? path : `${path}/`);
-
   return ensureTrailingSlash(path1) === ensureTrailingSlash(path2);
 };
 
 interface Props {
-  navItem: navLinkItem;
+  navItem: SanityLinkObject & { icon?: string | null };
   class?: string;
   noIcon?: boolean;
 }
 
 const { navItem, class: className, noIcon = false } = Astro.props as Props;
-const { text, link, newTab = false, icon } = navItem;
 
-const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, navItem.link);
+const dest = navItem.destination?.[0];
+const href =
+  dest?._type === "internalLink" ? (dest.reference?.urlPath ?? "/") : (dest?.href ?? "/");
+const newTab = dest?._type === "externalLink" ? (dest.openInNewTab ?? false) : false;
+const text = navItem.text ?? "";
+
+const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, href);
 ---
 
 <li>
@@ -37,12 +33,16 @@ const currentPath = comparePathsWithTrailingSlash(Astro.url.pathname, navItem.li
         "bg-primary-200": currentPath,
       },
     ]}
-    href={navItem.link}
+    href={href}
     target={newTab ? "_blank" : ""}
     rel={newTab ? "noopener noreferrer" : ""}
     aria-label={text}
   >
-    {icon && !noIcon && <Icon name={icon} aria-hidden="true" class="size-5 md:size-4" />}
+    {
+      navItem.icon && !noIcon && (
+        <Icon name={navItem.icon} aria-hidden="true" class="size-5 md:size-4" />
+      )
+    }
     {text}
   </a>
 </li>

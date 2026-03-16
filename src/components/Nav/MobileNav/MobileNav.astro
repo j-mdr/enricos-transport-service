@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 //components
 import NavLink from "@components/Nav/NavLink.astro";
 import MobileNavDropdown from "@components/Nav/MobileNav/MobileNavDropdown.astro";
-import Button from "@components/Button/Button.astro";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
 import MobileLanguageSelect from "@components/LanguageSelect/MobileLanguageSelect.astro";
 
 // utils
@@ -55,38 +55,18 @@ const data = await getNavData(currLocale);
       <nav>
         <ul class="mx-1 mt-2 text-xl">
           {
-            // if dropdown exists, setup the dropdown, otherwise it is just a link
-            data.navItems.map((navItem) =>
-              "dropdown" in navItem ? (
-                // mobile dropdown menu
-                <>
-                  <MobileNavDropdown navItem={navItem} />
-                  {/* <hr class="mx-4 mb-2 border-base-300" /> */}
-                </>
-              ) : "megaMenuColumns" in navItem ? (
-                // mobile mega menu dropdowns
-                <>
-                  {navItem.megaMenuColumns.map((navItem) => (
-                    <MobileNavDropdown navItem={navItem} />
-                  ))}
-                  {/* <hr class="mx-4 my-1 border-base-300" /> */}
-                </>
+            (data?.navItems ?? []).map((navItem: any) =>
+              navItem._type === "navItemDropdown" ? (
+                <MobileNavDropdown navItem={navItem} />
               ) : (
-                // normal nav link
-                <NavLink {navItem} />
+                <NavLink navItem={navItem} />
               ),
             )
           }
         </ul>
       </nav>
       <div class="mx-1 mt-2 w-full px-4">
-        <Button
-          variant={(data.ctaButton.variant as any) ?? "primary"}
-          class="w-full"
-          link={data.ctaButton.link}
-        >
-          {data.ctaButton.link?.text}
-        </Button>
+        <SanityCtaButton ctaButton={data?.ctaButton} class="w-full" />
       </div>
 
       <div class="mt-4 flex items-start justify-between pr-1 pl-4">

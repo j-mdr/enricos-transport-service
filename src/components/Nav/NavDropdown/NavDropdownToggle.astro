@@ -7,16 +7,22 @@ import { Icon } from "astro-icon/components";
 
 // components
 import NavLink from "@components/Nav/NavLink.astro";
-import { type navDropdownItem } from "@config/configDataTypes.ts";
+import type { SanityLinkObject } from "@components/SanityLink/SanityLink.astro";
 
 // utils
 import { slugify } from "@/utils/textUtils";
 
+interface SanityNavDropdown {
+  label?: string | null;
+  dropdown?: SanityLinkObject[] | null;
+}
+
 interface Props {
-  navItem: navDropdownItem;
+  navItem: SanityNavDropdown;
 }
 
 const { navItem } = Astro.props as Props;
+const label = navItem.label ?? "";
 ---
 
 <!-- non-mobile dropdown menu -->
@@ -24,12 +30,12 @@ const { navItem } = Astro.props as Props;
   <button
     class="primary-focus nav__dropdown-button nav__link--base flex h-10 w-full items-center gap-1 rounded-md px-3 py-2"
     type="button"
-    id={`${slugify(navItem.text)}-dropdown-menu`}
+    id={`${slugify(label)}-dropdown-menu`}
     aria-expanded="false"
     aria-haspopup="true"
-    aria-controls={`${slugify(navItem.text)}-dropdown-menu-content`}
+    aria-controls={`${slugify(label)}-dropdown-menu-content`}
   >
-    {navItem.text}
+    {label}
     <Icon
       name="tabler/chevron-down"
       aria-hidden="true"
@@ -37,8 +43,8 @@ const { navItem } = Astro.props as Props;
     />
   </button>
   <div
-    id={`${slugify(navItem.text)}-dropdown-menu-content`}
-    aria-labelledby={`${slugify(navItem.text)}-dropdown-menu`}
+    id={`${slugify(label)}-dropdown-menu-content`}
+    aria-labelledby={`${slugify(label)}-dropdown-menu`}
     data-state="closed"
     class:list={[
       "nav__dropdown-content absolute left-0 z-10 transition-all duration-200",
@@ -49,7 +55,11 @@ const { navItem } = Astro.props as Props;
     <ul
       class="border-primary-400/50 bg-base-100 mt-4.5 w-fit max-w-[30rem] min-w-[16rem] rounded-md border border-solid p-1.5 drop-shadow-md"
     >
-      {navItem.dropdown.map((dropdownItem) => <NavLink navItem={dropdownItem} class="w-full" />)}
+      {
+        (navItem.dropdown ?? []).map((dropdownItem) => (
+          <NavLink navItem={dropdownItem} class="w-full" />
+        ))
+      }
     </ul>
   </div>
 </li>
