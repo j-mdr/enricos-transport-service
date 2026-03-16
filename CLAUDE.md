@@ -202,7 +202,6 @@ Variants map to `Button` variants: `default`, `primary`, `secondary`, `outline`,
 Images are served from Sanity's CDN via `src/lib/sanityImage.ts`:
 
 - `urlFor(source)` — returns an image URL builder
-- `urlForStr(source, options)` — builds a complete URL with width/height/quality/format
 - `ASPECT_RATIOS` — map of `AspectRatio` keys to numeric ratios
 
 ### Path Aliases
