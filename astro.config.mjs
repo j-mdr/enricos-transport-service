@@ -69,7 +69,7 @@ export default defineConfig({
       projectId: env.PUBLIC_SANITY_PROJECT_ID,
       dataset: env.PUBLIC_SANITY_DATASET ?? "production",
       studioBasePath: "/studio",
-      useCdn: false,
+      useCdn: true,
     }),
     sitemap(),
     compress({

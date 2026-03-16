@@ -10,8 +10,6 @@ import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-import staticImage from "@images/enricos-transportservice-bestelbus-achteraanzicht-zonsondergang-rivier-1x1.jpeg";
-
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
 type Props = Extract<Blocks[number], { _type: "ctaBgImage" }>;
 
@@ -29,7 +27,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     <div class="bg-base-900 absolute -z-20 h-full w-full">
       <div class="relative mx-auto h-full max-w-[2000px]">
         {
-          image?.asset ? (
+          image?.asset && (
             <SanityImage
               image={image}
               width={2000}
@@ -37,15 +35,6 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
               sizesType="background"
               loading="lazy"
               class="absolute inset-0 h-full w-full object-cover opacity-30"
-            />
-          ) : (
-            <Image
-              src={staticImage}
-              class="absolute inset-0 h-full w-full object-cover opacity-30"
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              height={2000}
             />
           )
         }

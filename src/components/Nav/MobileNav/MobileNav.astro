@@ -8,19 +8,17 @@ import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
 import MobileLanguageSelect from "@components/LanguageSelect/MobileLanguageSelect.astro";
 
 // utils
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getNavData } from "@/utils/navUtils";
 import { locales } from "@config/siteConfig.ts";
+import type { getNavData } from "@/utils/navUtils";
+
+type NavData = Awaited<ReturnType<typeof getNavData>>;
 
 interface Props {
+  data: NavData;
   alternatePaths?: Partial<Record<string, string>>;
 }
 
-const { alternatePaths } = Astro.props;
-
-// data
-const currLocale = getLocaleFromUrl(Astro.url);
-const data = await getNavData(currLocale);
+const { data, alternatePaths } = Astro.props;
 ---
 
 <div id="mobile-nav__container">

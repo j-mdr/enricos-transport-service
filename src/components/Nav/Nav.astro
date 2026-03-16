@@ -65,7 +65,7 @@ const data = await getNavData(currLocale);
 
           <!-- mobile nav menu, only load on small screens where it is visible -->
           <div class="md:hidden">
-            <MobileNav alternatePaths={alternatePaths} />
+            <MobileNav {data} alternatePaths={alternatePaths} />
           </div>
         </div>
       </header>

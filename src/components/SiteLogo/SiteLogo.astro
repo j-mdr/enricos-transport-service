@@ -3,8 +3,6 @@ import { Image } from "astro:assets";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { SanityImageObject } from "@lib/sanityImage";
 
-import staticLogo from "@images/logo-enrico's-transportservice.webp";
-
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getCompanyInfo } from "@/utils/companyInfo";
 import { localeDefinitions } from "@config/localeConfig.ts";
@@ -25,22 +23,13 @@ const altText = companyInfo?.name ?? "Logo";
 <a class="primary-focus flex items-center align-middle" href={homePagePath}>
   <p class="sr-only">{companyInfo?.name}</p>
   {
-    logo?.asset ? (
+    logo?.asset && (
       <SanityImage
         image={{ ...logo, alt: logo.alt ?? altText }}
         width={400}
         height={112}
         sizesType="avatar"
         loading="eager"
-        class="h-14 w-auto"
-        aria-label={altText}
-      />
-    ) : (
-      <Image
-        src={staticLogo}
-        alt={altText}
-        loading="eager"
-        height={90}
         class="h-14 w-auto"
         aria-label={altText}
       />

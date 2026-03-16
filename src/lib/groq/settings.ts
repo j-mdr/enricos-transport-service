@@ -1,11 +1,12 @@
 import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteConfig.ts";
+import type { GetSettingsQueryResult } from "../../../sanity.types";
 import { linkFragment, ctaButtonFragment } from "./fragments";
 
-export const getSettingsQuery = defineQuery(`*[_id == $id][0]`);
+export const getSettingsQuery = defineQuery(`*[_id == $id && _type == "settings"][0]`);
 
-export async function getSettings(locale: Locale) {
+export async function getSettings(locale: Locale): Promise<GetSettingsQueryResult> {
   const id = `settings-${locale}`;
   return sanityClient.fetch(getSettingsQuery, { id });
 }
