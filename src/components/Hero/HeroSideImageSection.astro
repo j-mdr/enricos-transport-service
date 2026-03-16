@@ -57,7 +57,6 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     <div class="mx-auto max-w-[450px] md:ml-0">
       <h1
         class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight"
-        data-mos="fade-up"
       >
         {leadingText}
         {
@@ -78,7 +77,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
       </h1>
       {
         description && (
-          <p class="description mt-6" data-mos="fade-up">
+          <p class="description mt-6">
             {description}
           </p>
         )
@@ -86,7 +85,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
       {
         ctaButton && (
           <div class="mt-6 flex gap-4">
-            <SanityCtaButton ctaButton={ctaButton} data-mos="fade-up" data-mos-delay=".9" />
+            <SanityCtaButton ctaButton={ctaButton} />
           </div>
         )
       }
@@ -101,8 +100,6 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
             sizesType="half"
             loading="eager"
             class="rounded-xl"
-            data-mos="fade-in"
-            data-mos-delay=".2"
           />
         </div>
       )
