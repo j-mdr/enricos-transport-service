@@ -1,5 +1,4 @@
 import { defaultLocale, locales } from "@config/siteConfig.ts";
-import { getLocaleDefinition } from "@config/localeConfig.ts";
 
 /**
  * * returns the current locale gathered from the URL

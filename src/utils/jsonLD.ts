@@ -36,7 +36,7 @@ export default function jsonLDGenerator(props: JsonLDProps) {
       };
     });
 
-    let authorsJsonLd;
+    let authorsJsonLd: Record<string, string> | Record<string, string>[];
 
     if (authorsJsonLdArray.length === 1) {
       authorsJsonLd = authorsJsonLdArray[0];

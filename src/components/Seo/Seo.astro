@@ -43,8 +43,8 @@ const {
   blocks,
 } = Astro.props as GenProps | BlogProps;
 
-let optimizedImage;
-let jsonLD;
+let optimizedImage: Awaited<ReturnType<typeof getImage>> | undefined;
+let jsonLD: string | undefined;
 const siteBase = new URL(companyInfo?.baseUrl ?? Astro.site ?? "");
 const canonicalUrl = new URL(Astro.url.pathname, siteBase);
 

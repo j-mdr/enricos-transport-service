@@ -252,7 +252,7 @@ const marqueeBottom = [...images].reverse();
       }
     };
 
-    const openLightbox = (e) => {
+    const openLightbox = (e: MouseEvent) => {
       activeElement = e.currentTarget as HTMLImageElement;
       originalRect = activeElement.getBoundingClientRect();
       lightboxActive = true;
@@ -267,7 +267,7 @@ const marqueeBottom = [...images].reverse();
         const imgRatio = img.naturalWidth / img.naturalHeight;
         const maxWidth = Math.min(window.innerWidth * 0.9, img.naturalWidth);
         const maxHeight = Math.min(window.innerHeight * 0.9, img.naturalHeight);
-        let targetWidth, targetHeight;
+        let targetWidth: number, targetHeight: number;
         if (maxWidth / imgRatio <= maxHeight) {
           targetWidth = maxWidth;
           targetHeight = maxWidth / imgRatio;
@@ -297,7 +297,7 @@ const marqueeBottom = [...images].reverse();
       });
     };
 
-    const animateToCenter = async (top, left, width, height) => {
+    const animateToCenter = async (top: number, left: number, width: number, height: number) => {
       if (
         !lightboxOverlay ||
         !lightboxContainer ||

@@ -1,4 +1,4 @@
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import { sanityClient } from "@lib/sanityClient";
 import { ASPECT_RATIO_DEFS, type AspectRatioKey } from "../../sanity/lib/aspectRatios";
 
@@ -8,7 +8,7 @@ export const ASPECT_RATIOS = Object.fromEntries(
 
 export type AspectRatio = AspectRatioKey;
 
-const builder = imageUrlBuilder(sanityClient);
+const builder = createImageUrlBuilder(sanityClient);
 
 export interface SanityImageObject {
   asset?: {

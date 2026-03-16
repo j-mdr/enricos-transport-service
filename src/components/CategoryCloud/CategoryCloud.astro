@@ -2,12 +2,6 @@
 import { getLocaleFromUrl } from "@/utils/localeUtils";
 import { getAllCategories } from "@lib/groq/blogPost";
 
-interface Props {
-  showCount?: boolean;
-}
-
-const { showCount = false } = Astro.props as Props;
-
 const currLocale = getLocaleFromUrl(Astro.url);
 const categories = await getAllCategories(currLocale);
 ---

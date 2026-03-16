@@ -2,7 +2,6 @@
 import { toHTML, uriLooksSafe } from "@portabletext/to-html";
 import type { PortableTextBlock } from "@portabletext/types";
 import { urlFor } from "@lib/sanityImage";
-import { getLocaleFromUrl } from "@utils/localeUtils";
 
 interface Props {
   value: PortableTextBlock[];
@@ -11,9 +10,6 @@ interface Props {
 const { value } = Astro.props;
 
 if (!value?.length) return;
-
-const locale = getLocaleFromUrl(Astro.url);
-const localePrefix = locale === "nl" ? "" : `/${locale}`;
 
 const html = toHTML(value, {
   components: {

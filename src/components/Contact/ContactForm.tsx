@@ -157,7 +157,6 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
     );
   }
 
-  const formTitle = form?.title ?? m.formTitle;
   const submitButtonText = form?.submitButtonText ?? m.submitButtonText;
   const successMessage = form?.successMessage ?? m.successMessage;
   const errorMessage = form?.errorMessage ?? m.errorMessage;

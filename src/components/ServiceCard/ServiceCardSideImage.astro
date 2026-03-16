@@ -3,14 +3,10 @@
  * * Alternating side cards with titles, text, and images
  */
 import { Icon } from "astro-icon/components";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
 import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
 import type { SanityCtaButtonObject } from "@components/SanityCtaButton/SanityCtaButton.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { SanityImageObject } from "@lib/sanityImage";
-
-const currLocale = getLocaleFromUrl(Astro.url);
-const aboutText = currLocale === "en" ? "about" : "over";
 
 interface Props {
   title: string;

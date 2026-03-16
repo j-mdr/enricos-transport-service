@@ -1,7 +1,7 @@
 import type { Locale } from "@config/siteConfig.ts";
 import { getFooterFromSettings } from "@lib/groq/settings";
 
-function resolveDestination(item: any, locale: string = "nl"): string {
+function resolveDestination(item: any, _locale: string = "nl"): string {
   const dest = item?.destination?.[0];
   if (!dest) return "/";
   if (dest._type === "internalLink") return dest.reference?.urlPath ?? "/";
