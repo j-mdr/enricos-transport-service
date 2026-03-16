@@ -37,6 +37,14 @@ function docList(
     );
 }
 
+function settingsItem(S: Parameters<StructureResolver>[0], lang: "nl" | "en") {
+  const isNL = lang === "nl";
+  return S.listItem()
+    .title(isNL ? "Instellingen" : "Settings")
+    .id(`settings-${lang}`)
+    .child(S.document().schemaType("settings").documentId(`settings-${lang}`));
+}
+
 function langGroup(S: Parameters<StructureResolver>[0], lang: "nl" | "en") {
   const isNL = lang === "nl";
   return S.listItem()
@@ -45,6 +53,8 @@ function langGroup(S: Parameters<StructureResolver>[0], lang: "nl" | "en") {
       S.list()
         .title(isNL ? "Nederlands" : "English")
         .items([
+          settingsItem(S, lang),
+          S.divider(),
           ...pageTypes.map(({ type, titleNL, titleEN, orderField }) =>
             docList(S, type, isNL ? titleNL : titleEN, lang, orderField),
           ),
@@ -60,27 +70,6 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("Inhoud")
     .items([
-      // Instellingen (singletons)
-      S.listItem()
-        .title("Instellingen")
-        .child(
-          S.list()
-            .title("Instellingen")
-            .items([
-              S.listItem()
-                .title("Instellingen NL")
-                .id("settings-nl")
-                .child(S.document().schemaType("settings").documentId("settings-nl")),
-              S.listItem()
-                .title("Instellingen EN")
-                .id("settings-en")
-                .child(S.document().schemaType("settings").documentId("settings-en")),
-            ]),
-        ),
-
-      S.divider(),
-
-      // Taalgroepen
       langGroup(S, "nl"),
       langGroup(S, "en"),
     ]);
