@@ -1,21 +1,24 @@
 ---
-export const prerender = true;
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getPageBySlug } from "@lib/groq/page";
+import { buildOgImageUrl } from "@lib/sanityImage";
 
 const page = await getPageBySlug("home-en", "en");
 if (!page) return Astro.redirect("/en/404");
 
-const { title, seo } = page;
+const { title, seo, image } = page;
 const alternatePaths = { nl: "/", en: "/en/" };
+const ogImageUrl = buildOgImageUrl(image);
 ---
 
 <BaseLayout
   title={seo?.title ?? title ?? ""}
   description={seo?.description ?? ""}
   type={"general"}
+  ogImageUrl={ogImageUrl}
   alternatePaths={alternatePaths}
+  blocks={page.blocks ?? undefined}
 >
   <BlockRenderer blocks={page.blocks ?? []} />
 </BaseLayout>

@@ -55,9 +55,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   >
     <!-- Hero text -->
     <div class="mx-auto max-w-[450px] md:ml-0">
-      <h1
-        class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight"
-      >
+      <h1 class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight">
         {leadingText}
         {
           hasHighlightedWord ? (
@@ -75,13 +73,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         }
         {trailingText ?? null}
       </h1>
-      {
-        description && (
-          <p class="description mt-6">
-            {description}
-          </p>
-        )
-      }
+      {description && <p class="description mt-6">{description}</p>}
       {
         ctaButton && (
           <div class="mt-6 flex gap-4">

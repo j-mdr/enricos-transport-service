@@ -13,15 +13,13 @@ import { getLocaleFromUrl } from "@/utils/localeUtils";
 // data
 import { siteSettings } from "@config/siteConfig.ts";
 
-// heroImage and authorData are defined on blog posts
-// authorData could also be defined on the about author page
 interface Props {
   type?: "blog" | "general";
   title: string;
   description: string;
-  image?: ImageMetadata;
-  authorsData?: any[];
-  postFrontmatter?: any;
+  ogImageUrl?: string;
+  pubDate?: string;
+  authors?: { name?: string | null; url?: string | null }[];
   noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
   blocks?: any[];
@@ -31,9 +29,9 @@ const {
   type = "general",
   title,
   description,
-  image,
-  authorsData,
-  postFrontmatter,
+  ogImageUrl,
+  pubDate,
+  authors,
   noindex = false,
   alternatePaths,
   blocks,
@@ -49,9 +47,9 @@ const currLocale = getLocaleFromUrl(Astro.url);
       type={type}
       title={title}
       description={description}
-      image={image ? image : undefined}
-      authors={authorsData ? authorsData : undefined}
-      postFrontmatter={postFrontmatter ? postFrontmatter : undefined}
+      ogImageUrl={ogImageUrl}
+      pubDate={pubDate}
+      authors={authors}
       noindex={noindex}
       alternatePaths={alternatePaths}
       blocks={blocks}

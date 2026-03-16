@@ -7,6 +7,7 @@ import { getLocaleFromUrl } from "@/utils/localeUtils";
 import type { GetBlogPostBySlugQueryResult } from "../../sanity.types.ts";
 import { getLocaleDefinition } from "@config/localeConfig.ts";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import { buildOgImageUrl } from "@lib/sanityImage";
 
 type Post = NonNullable<GetBlogPostBySlugQueryResult>;
 interface Props {
@@ -22,12 +23,19 @@ const currLocale = getLocaleFromUrl(Astro.url);
 const localeDefinition = getLocaleDefinition(currLocale);
 
 const backToAllPosts = currLocale === "en" ? "Back to all posts" : "Terug naar alle posts";
+
+const ogImageUrl = buildOgImageUrl(heroImage);
+
+const authorsList = (authors ?? []).map((a) => ({ name: a.name ?? null, url: null }));
 ---
 
 <BaseLayout
-  type="general"
+  type="blog"
   title={title ?? ""}
   description={description ?? ""}
+  ogImageUrl={ogImageUrl}
+  pubDate={pubDate ?? undefined}
+  authors={authorsList}
   alternatePaths={alternatePaths}
 >
   <article class="site-container pt-36 md:pt-44">

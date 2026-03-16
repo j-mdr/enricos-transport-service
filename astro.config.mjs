@@ -85,7 +85,7 @@ export default defineConfig({
       SVG: false, // astro-icon handles this
     }),
   ],
-  output: "server",
+  output: "static",
   vite: {
     plugins: [tailwindcss()],
     // stop inlining short scripts to fix issues with ClientRouter

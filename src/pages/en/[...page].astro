@@ -1,9 +1,9 @@
 ---
-export const prerender = true;
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getAllPages } from "@lib/groq/page";
 import type { GetAllPagesQueryResult } from "../../../sanity.types";
+import { buildOgImageUrl } from "@lib/sanityImage";
 
 type Page = GetAllPagesQueryResult[number];
 
@@ -19,16 +19,17 @@ export async function getStaticPaths() {
 }
 
 const { page } = Astro.props as { page: Page };
-const { title = "", seo, alternatePaths } = page;
+const { title = "", seo, alternatePaths, image } = page;
+const ogImageUrl = buildOgImageUrl(image);
 ---
 
 <BaseLayout
   title={seo?.title ?? title ?? ""}
   description={seo?.description ?? ""}
   type={"general"}
+  ogImageUrl={ogImageUrl}
   alternatePaths={alternatePaths}
   blocks={page.blocks ?? undefined}
 >
   <BlockRenderer blocks={page.blocks ?? []} />
 </BaseLayout>
-)

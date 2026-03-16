@@ -5,9 +5,11 @@ interface GeneralProps {
 
 export interface BlogProps {
   type: "blog";
-  postFrontmatter: any;
-  image: any;
-  authors: any[];
+  title: string;
+  description: string;
+  pubDate: string;
+  ogImageUrl?: string;
+  authors: { name?: string | null; url?: string | null }[];
   canonicalUrl: URL;
 }
 
@@ -26,17 +28,17 @@ export type JsonLDProps = BlogProps | GeneralProps | FaqProps;
 export default function jsonLDGenerator(props: JsonLDProps) {
   const { type } = props;
   if (type === "blog") {
-    const { postFrontmatter, image, authors, canonicalUrl } = props as BlogProps;
+    const { title, description, pubDate, ogImageUrl, authors, canonicalUrl } = props as BlogProps;
 
     const authorsJsonLdArray = authors.map((author) => {
       return {
         "@type": "Person",
-        name: author?.data?.name ?? author?.name,
-        url: author?.data?.authorLink ?? author?.authorLink,
+        name: author?.name,
+        url: author?.url,
       };
     });
 
-    let authorsJsonLd: Record<string, string> | Record<string, string>[];
+    let authorsJsonLd: Record<string, string | null | undefined> | Record<string, string | null | undefined>[];
 
     if (authorsJsonLdArray.length === 1) {
       authorsJsonLd = authorsJsonLdArray[0];
@@ -52,12 +54,11 @@ export default function jsonLDGenerator(props: JsonLDProps) {
           "@type": "WebPage",
           "@id": "${canonicalUrl}"
         },
-        "headline": "${postFrontmatter.title}",
-        "description": "${postFrontmatter.description}",
-        "image": "${image.src}",
+        "headline": "${title}",
+        "description": "${description}",
+        ${ogImageUrl ? `"image": "${ogImageUrl}",` : ""}
         "author": ${JSON.stringify(authorsJsonLd)},
-        "datePublished": "${postFrontmatter.pubDate}",
-        "dateModified": "${postFrontmatter.updatedDate}"
+        "datePublished": "${pubDate}"
       }
     </script>`;
   }

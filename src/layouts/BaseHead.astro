@@ -11,9 +11,9 @@ export interface Props {
   type?: "blog" | "general" | undefined;
   title: string;
   description: string;
-  image?: ImageMetadata;
-  postFrontmatter?: any;
-  authors?: any[];
+  ogImageUrl?: string;
+  pubDate?: string;
+  authors?: { name?: string | null; url?: string | null }[];
   noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
   blocks?: any[];
@@ -23,9 +23,9 @@ const {
   type = "general",
   title,
   description,
-  image,
+  ogImageUrl,
+  pubDate,
   authors,
-  postFrontmatter,
   noindex = false,
   alternatePaths,
   blocks,
@@ -61,9 +61,9 @@ import Poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2
   type={type}
   title={title}
   description={description}
-  image={image}
+  ogImageUrl={ogImageUrl}
+  pubDate={pubDate}
   authors={authors}
-  postFrontmatter={postFrontmatter}
   noindex={noindex}
   alternatePaths={alternatePaths}
   blocks={blocks}

@@ -1,3 +1,4 @@
+export const prerender = false;
 import { TURNSTILE_SECRET_KEY, STATICFORMS_ACCESS_KEY } from "astro:env/server";
 
 interface PartnerPayload {

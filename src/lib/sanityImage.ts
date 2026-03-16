@@ -24,3 +24,9 @@ export interface SanityImageObject {
 export function urlFor(source: SanityImageObject) {
   return builder.image(source);
 }
+
+/** Builds a 1200×630 WebP URL suitable for og:image meta tags. Returns undefined when no asset is present. */
+export function buildOgImageUrl(image: SanityImageObject | null | undefined): string | undefined {
+  if (!image?.asset) return undefined;
+  return urlFor(image).width(1200).height(630).fit("crop").format("webp").url();
+}
