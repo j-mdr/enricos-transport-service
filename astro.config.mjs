@@ -41,11 +41,6 @@ export default defineConfig({
         access: "public",
         optional: true,
       }),
-      PUBLIC_SITE_URL: envField.string({
-        context: "client",
-        access: "public",
-        optional: false,
-      }),
     },
   },
   trailingSlash: "always",
