@@ -17,7 +17,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://enricostransportservice.nl",
+  site: env.PUBLIC_SITE_URL,
   adapter: cloudflare(),
   env: {
     schema: {
@@ -40,6 +40,11 @@ export default defineConfig({
         context: "client",
         access: "public",
         optional: true,
+      }),
+      PUBLIC_SITE_URL: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
       }),
     },
   },
@@ -76,7 +81,10 @@ export default defineConfig({
       studioBasePath: "/studio",
       useCdn: true,
     }),
-    sitemap(),
+    sitemap({
+      filter: (page) =>
+        !page.includes(`${env.PUBLIC_SITE_URL}/componenten-voorbeeld/`),
+    }),
     compress({
       HTML: true,
       JavaScript: true,
