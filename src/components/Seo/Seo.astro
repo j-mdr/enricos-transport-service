@@ -43,7 +43,7 @@ const {
 } = Astro.props as GenProps | BlogProps;
 
 let jsonLD: string | undefined;
-const siteBase = new URL(companyInfo?.baseUrl ?? Astro.site ?? "");
+const siteBase = new URL(Astro.site ?? "");
 const canonicalUrl = new URL(Astro.url.pathname, siteBase);
 
 function trimEndSlash(str: string) {

@@ -26,7 +26,9 @@ pnpm build
 
 ## Architecture
 
-This is an **Astro 5** website for Enrico's Transportservice — a Dutch transport company. It uses TailwindCSS 4, React (for interactive islands), and deploys to Cloudflare Workers (SSR, output: "server"). **Sanity** is the headless CMS.
+This is an **Astro 5** website for Enrico's Transportservice — a Dutch transport company. It uses TailwindCSS 4, React (for interactive islands), and deploys to Cloudflare Workers (static output, `output: "static"`). **Sanity** is the headless CMS.
+
+All pages are prerendered at build time. `trailingSlash: "always"` is enforced — all URLs end with `/`. `SanityLink` appends a trailing slash to internal links as a fallback for existing CMS data.
 
 ### i18n
 
@@ -57,14 +59,15 @@ Sanity Studio is accessible at `/studio` (also `/admin/` redirects here). Config
 
 **Document types managed in Sanity:**
 
-| Type       | Description                                                                  |
-| ---------- | ---------------------------------------------------------------------------- |
-| `page`     | Flexible pages with block builder; supports parent hierarchy for nested URLs |
-| `blogPost` | Blog posts with Portable Text content                                        |
-| `category` | Blog category taxonomy                                                       |
-| `person`   | Author / team member profiles                                                |
-| `form`     | Form configurations with field definitions                                   |
-| `settings` | Global settings with nav + footer (singletons `settings-nl`, `settings-en`)  |
+| Type         | Description                                                                  |
+| ------------ | ---------------------------------------------------------------------------- |
+| `page`       | Flexible pages with block builder; supports parent hierarchy for nested URLs |
+| `blogPost`   | Blog posts with description, blocks, and SEO fields                          |
+| `category`   | Blog category taxonomy                                                       |
+| `person`     | Author / team member profiles                                                |
+| `form`       | Form configurations with field definitions                                   |
+| `settings`   | Global settings with nav + footer (singletons `settings-nl`, `settings-en`) |
+| `robotsTxt`  | Singleton (`_id: "robots-txt"`) — custom `robots.txt` content. Falls back to default if empty. |
 
 **Schema organization** (`sanity/schemas/`):
 
@@ -72,14 +75,14 @@ Sanity Studio is accessible at `/studio` (also `/admin/` redirects here). Config
 - `molecules/` — ctaButton, navItemDropdown, formField, faqItem, testimonialCard, featureCard variants, serviceCard variants
 - `documents/` — page, blogPost, category, person, form, nav, footer
 - `sections/` — 25+ block types for the page block builder (see Block Builder section)
-- `singletons/` — settings (settings-nl, settings-en)
+- `singletons/` — settings (settings-nl, settings-en), robotsTxt
 
 **GROQ queries** live in `src/lib/groq/`:
 
 - `fragments.ts` — reusable fragments (links, CTA buttons, alternatePaths)
 - `page.ts` — `getPageBySlug(slug, locale)`, `getAllPages(locale)`
-- `blogPost.ts` — `getBlogPostBySlug(slug, locale)`, `getAllBlogPosts(locale)`
-- `settings.ts` — `getSettings(locale)`, `getNavFromSettings(locale)`, `getFooterFromSettings(locale)`
+- `blogPost.ts` — `getBlogPostBySlug(slug, locale)`, `getAllBlogPosts(locale)`, `getAllCategories(locale)`, `getBlogPostsByCategory(categorySlug, locale)`
+- `settings.ts` — `getSettings(locale)`, `getNavFromSettings(locale)`, `getFooterFromSettings(locale)`, `getRobotsQuery` (fetches `robots.txt` content from `robotsTxt` singleton)
 
 **Sanity client** — `src/lib/sanityClient.ts`
 
@@ -87,7 +90,7 @@ Sanity Studio is accessible at `/studio` (also `/admin/` redirects here). Config
 
 ### Block Builder
 
-`page` documents use a `blocks[]` array with discriminated union types for composable layouts. The block renderer is at `src/components/BlockRenderer/BlockRenderer.astro`.
+`page` and `blogPost` documents use a `blocks[]` array with discriminated union types for composable layouts. The block renderer is at `src/components/BlockRenderer/BlockRenderer.astro`.
 
 Supported block types:
 
@@ -97,12 +100,24 @@ Supported block types:
 - **Feature**: `featureCardsSmall`, `featureLightboxMarquee`, `featureGalleryMarquee`, `featureSideImage`, `featureToggleImage`
 - **Services**: `servicesIcon`, `servicesSideImage`
 - **Content**: `awardsSection`, `introSection`, `teamMemberCards`, `testimonialsColumns`, `testimonialsSwiper`
-- **Contact**: `contactSection`, `requestQuoteSection`, `becomePartnerSection`
-- **Misc**: `richText` (Portable Text via `@portabletext/react`), `contactForm`
+- **Contact**: `contactSection`
+- **Misc**: `richText` (Portable Text via `@portabletext/react`), `headingWithImage`
 
 ### Sanity UI Components
 
-Always use these three components when rendering Sanity data — never build raw `<a>` or `<img>` tags manually for Sanity content.
+Always use these components when rendering Sanity data — never build raw `<a>` or `<img>` tags manually for Sanity content.
+
+#### `Icon` — `src/components/Icon/Icon.astro`
+
+Safe wrapper around `astro-icon`. Validates that the icon exists before rendering; falls back to `tabler/circle-dashed` if not found. Use this instead of importing `Icon` from `astro-icon/components` directly, to prevent build crashes from invalid CMS icon names.
+
+```astro
+---
+import Icon from "@components/Icon/Icon.astro";
+---
+
+<Icon name="tabler/phone" class="size-5" />
+```
 
 #### `SanityImage` — `src/components/SanityImage/SanityImage.astro`
 
@@ -140,7 +155,7 @@ import SanityImage from "@components/SanityImage/SanityImage.astro";
 
 #### `SanityLink` — `src/components/SanityLink/SanityLink.astro`
 
-Renders a Sanity link object (which has a `destination` array with either an `externalLink` or `internalLink`). Handles locale prefix, `target="_blank"`, and `rel="noopener noreferrer"` automatically.
+Renders a Sanity link object (which has a `destination` array with either an `externalLink` or `internalLink`). Handles `target="_blank"` and `rel="noopener noreferrer"` automatically. Appends a trailing slash to internal links to align with `trailingSlash: "always"`.
 
 ```astro
 ---
@@ -164,7 +179,7 @@ import SanityLink from "@components/SanityLink/SanityLink.astro";
 
 ```typescript
 SanityExternalLink; // { _type: "externalLink"; href?; openInNewTab? }
-SanityInternalLink; // { _type: "internalLink"; reference?: { _type, slug } }
+SanityInternalLink; // { _type: "internalLink"; reference?: { _type, urlPath } }
 SanityLinkObject; // { text?; destination?: [SanityExternalLink | SanityInternalLink] }
 ```
 
@@ -197,6 +212,25 @@ SanityCtaButtonObject; // { link?: SanityLinkObject; variant?: string; size?: "s
 
 Variants map to `Button` variants: `default`, `primary`, `secondary`, `outline`, `ghost`.
 
+### SEO & BaseLayout
+
+`BaseLayout.astro` accepts a `seo` prop (Sanity `SeoMeta` object) alongside `title` and `description` fallbacks. Internally it derives `resolvedTitle`, `resolvedDescription`, and `noindex` from the `seo` object.
+
+```astro
+<BaseLayout
+  title={title ?? ""}
+  description={description ?? ""}
+  seo={seo}
+  ogImageUrl={ogImageUrl}
+  alternatePaths={alternatePaths}
+  blocks={page.blocks ?? undefined}
+>
+```
+
+For non-CMS pages (e.g. 404), pass `seo={{ noIndex: true }}` directly.
+
+The `seoMeta` Sanity type has three fields: `title`, `description`, `noIndex`.
+
 ### Images
 
 Images are served from Sanity's CDN via `src/lib/sanityImage.ts`:
@@ -228,6 +262,7 @@ Page-level section components live in `src/components/` organized by feature (He
 - `src/pages/[...page].astro` / `src/pages/en/[...page].astro` — dynamic router for pages/services/delivery areas (fetches from Sanity)
 - `src/pages/blog/[...slug].astro` / `src/pages/en/blog/[...slug].astro` — blog posts
 - `src/pages/categorieen/[...slug].astro` / `src/pages/en/categories/[...slug].astro` — category pages
+- `src/pages/robots.txt.ts` — serves `robots.txt` from Sanity `robotsTxt` singleton; falls back to default
 
 **Layouts**: `BaseLayout.astro`, `BlogLayoutCenter.astro`, `ServiceLayoutCenter.astro`
 
@@ -239,10 +274,12 @@ Page-level section components live in `src/components/` organized by feature (He
 
 ### Environment Variables
 
-| Variable                    | Visibility  | Purpose                                  |
-| --------------------------- | ----------- | ---------------------------------------- |
-| `PUBLIC_SANITY_PROJECT_ID`  | Public      | Sanity project ID                        |
-| `PUBLIC_SANITY_DATASET`     | Public      | Sanity dataset (default: `production`)   |
-| `PUBLIC_TURNSTILE_SITE_KEY` | Public      | Cloudflare Turnstile public key          |
-| `TURNSTILE_SECRET_KEY`      | Server-only | Cloudflare Turnstile secret              |
-| `STATICFORMS_ACCESS_KEY`    | Server-only | StaticForms API key for form submissions |
+| Variable                    | Visibility  | Purpose                                         |
+| --------------------------- | ----------- | ----------------------------------------------- |
+| `PUBLIC_SITE_URL`           | Public      | Canonical site URL (e.g. `https://example.nl`)  |
+| `PUBLIC_SANITY_PROJECT_ID`  | Public      | Sanity project ID                               |
+| `PUBLIC_SANITY_DATASET`     | Public      | Sanity dataset (default: `production`)          |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Public      | Cloudflare Turnstile public key                 |
+| `PUBLIC_GA_MEASUREMENT_ID`  | Public      | Google Analytics measurement ID (optional)      |
+| `TURNSTILE_SECRET_KEY`      | Server-only | Cloudflare Turnstile secret                     |
+| `STATICFORMS_ACCESS_KEY`    | Server-only | StaticForms API key for form submissions        |

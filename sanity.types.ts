@@ -261,7 +261,6 @@ export type Settings = {
   nav?: NavObject;
   footer?: FooterObject;
   name?: string;
-  baseUrl?: string;
   phone?: string;
   email?: string;
   street?: string;
@@ -272,14 +271,6 @@ export type Settings = {
   facebookUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
-  seo?: SeoMeta;
-};
-
-export type SeoMeta = {
-  _type: "seoMeta";
-  title?: string;
-  description?: string;
-  noIndex?: boolean;
 };
 
 export type FooterObject = {
@@ -444,6 +435,13 @@ export type PortableText = Array<
       _key: string;
     } & ImageWithAlt)
 >;
+
+export type SeoMeta = {
+  _type: "seoMeta";
+  title?: string;
+  description?: string;
+  noIndex?: boolean;
+};
 
 export type PageReference = {
   _ref: string;
@@ -883,7 +881,6 @@ export type AllSanitySchemaTypes =
   | HeroBgImage
   | RobotsTxt
   | Settings
-  | SeoMeta
   | FooterObject
   | NavObject
   | ServiceCardSideImage
@@ -899,6 +896,7 @@ export type AllSanitySchemaTypes =
   | ImageWithAlt
   | NavItemDropdown
   | PortableText
+  | SeoMeta
   | PageReference
   | BlogPostReference
   | InternalLink
@@ -2857,7 +2855,6 @@ export type GetSettingsQueryResult = {
   nav?: NavObject;
   footer?: FooterObject;
   name?: string;
-  baseUrl?: string;
   phone?: string;
   email?: string;
   street?: string;
@@ -2868,7 +2865,6 @@ export type GetSettingsQueryResult = {
   facebookUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
-  seo?: SeoMeta;
 } | null;
 
 // Source: src/lib/groq/settings.ts

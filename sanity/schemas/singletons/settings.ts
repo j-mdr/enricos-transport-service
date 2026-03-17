@@ -15,7 +15,6 @@ export const settings = defineType({
     { name: "contact", title: "Contact" },
     { name: "adres", title: "Adres" },
     { name: "socials", title: "Socials" },
-    { name: "seo", title: "SEO" },
   ],
   fields: [
     defineField({
@@ -36,14 +35,6 @@ export const settings = defineType({
       title: "Bedrijfsnaam",
       type: "string",
       group: "bedrijf",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "baseUrl",
-      title: "Basis URL",
-      type: "url",
-      group: "bedrijf",
-      description: "Bijv. https://enricostransportservice.nl",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -105,12 +96,6 @@ export const settings = defineType({
       title: "LinkedIn URL",
       type: "url",
       group: "socials",
-    }),
-    defineField({
-      name: "seo",
-      title: "SEO",
-      type: "seoMeta",
-      group: "seo",
     }),
   ],
   preview: {
