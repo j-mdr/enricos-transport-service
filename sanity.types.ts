@@ -663,6 +663,7 @@ export type BlogPost = {
   _rev: string;
   language?: string;
   title?: string;
+  description?: string;
   slug?: Slug;
   urlPath?: string;
   heroImage?: ImageWithAlt;
@@ -929,7 +930,7 @@ export type AllSanitySchemaTypes =
 // Query: *[_type == "blogPost" && (slug.current == $slug || slug.current == "blog/" + $slug) && language == $locale][0]{     title,  description,  "slug": slug.current,  urlPath,  heroImage { asset, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  },  blocks[] {    _type,    ...,    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, urlPath } }        }      }    }  } }  } }
 export type GetBlogPostBySlugQueryResult = {
   title: string | null;
-  description: null;
+  description: string | null;
   slug: string | null;
   urlPath: string | null;
   heroImage: {
@@ -1402,7 +1403,7 @@ export type GetBlogPostBySlugQueryResult = {
 // Query: *[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  urlPath,  heroImage { asset, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  } }
 export type GetAllBlogPostsQueryResult = Array<{
   title: string | null;
-  description: null;
+  description: string | null;
   slug: string | null;
   urlPath: string | null;
   heroImage: {
@@ -1460,7 +1461,7 @@ export type GetAllCategoriesQueryResult = Array<{
 // Query: *[_type == "blogPost" && language == $locale && $categorySlug in categories[]->slug.current && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  urlPath,  heroImage { asset, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  } }
 export type GetBlogPostsByCategoryQueryResult = Array<{
   title: string | null;
-  description: null;
+  description: string | null;
   slug: string | null;
   urlPath: string | null;
   heroImage: {

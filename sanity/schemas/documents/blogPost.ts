@@ -23,6 +23,15 @@ export const blogPost = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "description",
+      title: "Beschrijving",
+      type: "text",
+      rows: 3,
+      group: "content",
+      description: "Korte samenvatting getoond in kaarten en als SEO fallback.",
+      validation: (Rule) => Rule.required().max(200),
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
