@@ -9,8 +9,8 @@ export const languageSwitcherMap = Object.fromEntries(
 
 // site settings that don't change between languages
 export const siteSettings = {
-  useViewTransitions: true,
-  useAnimations: true,
+  useViewTransitions: false,
+  useAnimations: false,
 };
 
 export default siteSettings;

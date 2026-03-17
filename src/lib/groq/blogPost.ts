@@ -1,7 +1,7 @@
 import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteConfig.ts";
-import { alternatePathsFragment, contentFragment, ctaButtonFragment } from "./fragments";
+import { alternatePathsFragment, contentFragment, ctaButtonFragment, imageFragment } from "./fragments";
 
 // Lightweight fields for listing pages (no blocks)
 const blogPostCardFields = `
@@ -9,10 +9,10 @@ const blogPostCardFields = `
   description,
   "slug": slug.current,
   urlPath,
-  heroImage { asset, alt, hotspot, crop },
+  heroImage ${imageFragment},
   seo,
   pubDate,
-  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },
+  authors[]->{ name, avatar ${imageFragment} },
   categories[]->{ title, urlPath },
   ${alternatePathsFragment}
 `;
@@ -24,7 +24,7 @@ const blogPostFields = `
     _type,
     ...,
     _type == "teamMemberCards" => {
-      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }
+      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar ${imageFragment} }
     },
     _type in ["heroBgImage", "heroCentered"] => {
       ctaButton1 ${ctaButtonFragment},

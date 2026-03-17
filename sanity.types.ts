@@ -925,14 +925,24 @@ export type AllSanitySchemaTypes =
 
 // Source: src/lib/groq/blogPost.ts
 // Variable: getBlogPostBySlugQuery
-// Query: *[_type == "blogPost" && (slug.current == $slug || slug.current == "blog/" + $slug) && language == $locale][0]{     title,  description,  "slug": slug.current,  urlPath,  heroImage { asset, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  },  blocks[] {    _type,    ...,    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, urlPath } }        }      }    }  } }  } }
+// Query: *[_type == "blogPost" && (slug.current == $slug || slug.current == "blog/" + $slug) && language == $locale][0]{     title,  description,  "slug": slug.current,  urlPath,  heroImage { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  },  blocks[] {    _type,    ...,    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, urlPath } }        }      }    }  } }  } }
 export type GetBlogPostBySlugQueryResult = {
   title: string | null;
   description: string | null;
   slug: string | null;
   urlPath: string | null;
   heroImage: {
-    asset: SanityImageAssetReference | null;
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        lqip: string | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
     alt: string | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
@@ -946,6 +956,7 @@ export type GetBlogPostBySlugQueryResult = {
         _id: string;
         url: string | null;
         metadata: {
+          lqip: string | null;
           dimensions: {
             width: number | null;
             height: number | null;
@@ -1366,7 +1377,17 @@ export type GetBlogPostBySlugQueryResult = {
           personTitle: string | null;
           bio: string | null;
           avatar: {
-            asset: SanityImageAssetReference | null;
+            asset: {
+              _id: string;
+              url: string | null;
+              metadata: {
+                lqip: string | null;
+                dimensions: {
+                  width: number | null;
+                  height: number | null;
+                } | null;
+              } | null;
+            } | null;
             alt: string | null;
             hotspot: SanityImageHotspot | null;
             crop: SanityImageCrop | null;
@@ -1398,14 +1419,24 @@ export type GetBlogPostBySlugQueryResult = {
 
 // Source: src/lib/groq/blogPost.ts
 // Variable: getAllBlogPostsQuery
-// Query: *[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  urlPath,  heroImage { asset, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  } }
+// Query: *[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  urlPath,  heroImage { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  } }
 export type GetAllBlogPostsQueryResult = Array<{
   title: string | null;
   description: string | null;
   slug: string | null;
   urlPath: string | null;
   heroImage: {
-    asset: SanityImageAssetReference | null;
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        lqip: string | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
     alt: string | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
@@ -1419,6 +1450,7 @@ export type GetAllBlogPostsQueryResult = Array<{
         _id: string;
         url: string | null;
         metadata: {
+          lqip: string | null;
           dimensions: {
             width: number | null;
             height: number | null;
@@ -1456,14 +1488,24 @@ export type GetAllCategoriesQueryResult = Array<{
 
 // Source: src/lib/groq/blogPost.ts
 // Variable: getBlogPostsByCategoryQuery
-// Query: *[_type == "blogPost" && language == $locale && $categorySlug in categories[]->slug.current && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  urlPath,  heroImage { asset, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  } }
+// Query: *[_type == "blogPost" && language == $locale && $categorySlug in categories[]->slug.current && draft != true] | order(pubDate desc){   title,  description,  "slug": slug.current,  urlPath,  heroImage { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },  seo,  pubDate,  authors[]->{ name, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } },  categories[]->{ title, urlPath },    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  } }
 export type GetBlogPostsByCategoryQueryResult = Array<{
   title: string | null;
   description: string | null;
   slug: string | null;
   urlPath: string | null;
   heroImage: {
-    asset: SanityImageAssetReference | null;
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        lqip: string | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
     alt: string | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
@@ -1477,6 +1519,7 @@ export type GetBlogPostsByCategoryQueryResult = Array<{
         _id: string;
         url: string | null;
         metadata: {
+          lqip: string | null;
           dimensions: {
             width: number | null;
             height: number | null;
@@ -1500,12 +1543,22 @@ export type GetBlogPostsByCategoryQueryResult = Array<{
 
 // Source: src/lib/groq/page.ts
 // Variable: getPageBySlugQuery
-// Query: *[_type == "page" && slug.current == $slug && language == $locale][0]{   title,  description,  image { asset, alt, hotspot, crop },  seo,    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  },  blocks[] {    _type,    ...,    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, urlPath } }        }      }    }  } },    _type == "contactSection" => {      type,      title,      image { asset, alt, hotspot, crop },      form-> {        title,        emailSubject,        submitButtonText,        successMessage,        errorMessage,        fields[] {          type, name, label, placeholder, required, width,          options[] { label, value }        }      }    }  } }
+// Query: *[_type == "page" && slug.current == $slug && language == $locale][0]{   title,  description,  image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },  seo,    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  },  blocks[] {    _type,    ...,    image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, urlPath } }        }      }    }  } },    _type == "contactSection" => {      type,      title,      image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },      form-> {        title,        emailSubject,        submitButtonText,        successMessage,        errorMessage,        fields[] {          type, name, label, placeholder, required, width,          options[] { label, value }        }      }    }  } }
 export type GetPageBySlugQueryResult = {
   title: string | null;
   description: null;
   image: {
-    asset: SanityImageAssetReference | null;
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        lqip: string | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
     alt: string | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
@@ -1525,6 +1578,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & ImageWithAlt
         >;
+        image: null;
       }
     | {
         _type: "contactSection";
@@ -1532,7 +1586,17 @@ export type GetPageBySlugQueryResult = {
         type: "centered" | "withContactInfo" | "withImage" | null;
         title: string | null;
         image: {
-          asset: SanityImageAssetReference | null;
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
           alt: string | null;
           hotspot: SanityImageHotspot | null;
           crop: SanityImageCrop | null;
@@ -1572,7 +1636,22 @@ export type GetPageBySlugQueryResult = {
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "ctaBgImage";
@@ -1606,7 +1685,22 @@ export type GetPageBySlugQueryResult = {
             > | null;
           } | null;
         } | null;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "ctaCardCenter";
@@ -1614,6 +1708,7 @@ export type GetPageBySlugQueryResult = {
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
+        image: null;
       }
     | {
         _type: "ctaCardCenter";
@@ -1647,6 +1742,7 @@ export type GetPageBySlugQueryResult = {
             > | null;
           } | null;
         } | null;
+        image: null;
       }
     | {
         _type: "ctaCardCenter2";
@@ -1654,6 +1750,7 @@ export type GetPageBySlugQueryResult = {
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
+        image: null;
       }
     | {
         _type: "ctaCardCenter2";
@@ -1687,6 +1784,7 @@ export type GetPageBySlugQueryResult = {
             > | null;
           } | null;
         } | null;
+        image: null;
       }
     | {
         _type: "ctaCards";
@@ -1699,6 +1797,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & FeatureCardSmall
         >;
+        image: null;
       }
     | {
         _type: "ctaCards";
@@ -1737,6 +1836,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & FeatureCardSmall
         >;
+        image: null;
       }
     | {
         _type: "faqAccordions";
@@ -1747,6 +1847,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & FaqItem
         >;
+        image: null;
       }
     | {
         _type: "faqCards";
@@ -1757,6 +1858,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & FaqItem
         >;
+        image: null;
       }
     | {
         _type: "featureCardsSmall";
@@ -1767,6 +1869,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & FeatureCardSmall
         >;
+        image: null;
       }
     | {
         _type: "featureGalleryMarquee";
@@ -1777,6 +1880,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & ImageWithAlt
         >;
+        image: null;
       }
     | {
         _type: "featureLightboxMarquee";
@@ -1787,6 +1891,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & ImageWithAlt
         >;
+        image: null;
       }
     | {
         _type: "featureSideImage";
@@ -1797,6 +1902,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & FeatureCardSideImage
         >;
+        image: null;
       }
     | {
         _type: "featureToggleImage";
@@ -1807,12 +1913,28 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & FeatureCardToggle
         >;
+        image: null;
       }
     | {
         _type: "headingWithImage";
         _key: string;
         title?: string;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroBgImage";
@@ -1821,7 +1943,22 @@ export type GetPageBySlugQueryResult = {
         description?: string;
         ctaButton1?: CtaButton;
         ctaButton2?: CtaButton;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroBgImage";
@@ -1882,7 +2019,22 @@ export type GetPageBySlugQueryResult = {
             > | null;
           } | null;
         } | null;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroCentered";
@@ -1891,6 +2043,7 @@ export type GetPageBySlugQueryResult = {
         description?: string;
         ctaButton1?: CtaButton;
         ctaButton2?: CtaButton;
+        image: null;
       }
     | {
         _type: "heroCentered";
@@ -1951,6 +2104,7 @@ export type GetPageBySlugQueryResult = {
             > | null;
           } | null;
         } | null;
+        image: null;
       }
     | {
         _type: "heroSideImage";
@@ -1958,7 +2112,22 @@ export type GetPageBySlugQueryResult = {
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroSideImage";
@@ -1992,13 +2161,29 @@ export type GetPageBySlugQueryResult = {
             > | null;
           } | null;
         } | null;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "introSection";
         _key: string;
         title?: string;
         introText?: string;
+        image: null;
       }
     | {
         _type: "richText";
@@ -2052,6 +2237,7 @@ export type GetPageBySlugQueryResult = {
               markDefs: null;
             }
         > | null;
+        image: null;
       }
     | {
         _type: "servicesIcon";
@@ -2091,6 +2277,7 @@ export type GetPageBySlugQueryResult = {
             } | null;
           } | null;
         }> | null;
+        image: null;
       }
     | {
         _type: "servicesSideImage";
@@ -2130,6 +2317,7 @@ export type GetPageBySlugQueryResult = {
             } | null;
           } | null;
         }> | null;
+        image: null;
       }
     | {
         _type: "teamMemberCards";
@@ -2140,12 +2328,23 @@ export type GetPageBySlugQueryResult = {
           personTitle: string | null;
           bio: string | null;
           avatar: {
-            asset: SanityImageAssetReference | null;
+            asset: {
+              _id: string;
+              url: string | null;
+              metadata: {
+                lqip: string | null;
+                dimensions: {
+                  width: number | null;
+                  height: number | null;
+                } | null;
+              } | null;
+            } | null;
             alt: string | null;
             hotspot: SanityImageHotspot | null;
             crop: SanityImageCrop | null;
           } | null;
         }> | null;
+        image: null;
       }
     | {
         _type: "testimonialsColumns";
@@ -2156,6 +2355,7 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & TestimonialCard
         >;
+        image: null;
       }
     | {
         _type: "testimonialsSwiper";
@@ -2166,19 +2366,30 @@ export type GetPageBySlugQueryResult = {
             _key: string;
           } & TestimonialCard
         >;
+        image: null;
       }
   > | null;
 } | null;
 
 // Source: src/lib/groq/page.ts
 // Variable: getAllPagesQuery
-// Query: *[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current,   title,  description,  image { asset, alt, hotspot, crop },  seo,    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  },  blocks[] {    _type,    ...,    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, urlPath } }        }      }    }  } },    _type == "contactSection" => {      type,      title,      image { asset, alt, hotspot, crop },      form-> {        title,        emailSubject,        submitButtonText,        successMessage,        errorMessage,        fields[] {          type, name, label, placeholder, required, width,          options[] { label, value }        }      }    }  } }
+// Query: *[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current,   title,  description,  image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },  seo,    "alternatePaths": {    "nl": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,      "/"    ),    "en": coalesce(      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,      "/en/"    )  },  blocks[] {    _type,    ...,    image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },    _type == "teamMemberCards" => {      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } }    },    _type in ["heroBgImage", "heroCentered"] => {      ctaButton1 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },      ctaButton2 { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {      ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }    },    _type == "servicesIcon" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "servicesSideImage" => {      services[] { ..., ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }    },    _type == "richText" => {   content[] {    ...,    markDefs[] {      ...,      _type == "link" => {        destination[] {          _type,          _type == "externalLink" => { href, openInNewTab },          _type == "internalLink" => { reference->{ _type, urlPath } }        }      }    }  } },    _type == "contactSection" => {      type,      title,      image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },      form-> {        title,        emailSubject,        submitButtonText,        successMessage,        errorMessage,        fields[] {          type, name, label, placeholder, required, width,          options[] { label, value }        }      }    }  } }
 export type GetAllPagesQueryResult = Array<{
   path: string | null;
   title: string | null;
   description: null;
   image: {
-    asset: SanityImageAssetReference | null;
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        lqip: string | null;
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
     alt: string | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
@@ -2198,6 +2409,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & ImageWithAlt
         >;
+        image: null;
       }
     | {
         _type: "contactSection";
@@ -2205,7 +2417,17 @@ export type GetAllPagesQueryResult = Array<{
         type: "centered" | "withContactInfo" | "withImage" | null;
         title: string | null;
         image: {
-          asset: SanityImageAssetReference | null;
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
           alt: string | null;
           hotspot: SanityImageHotspot | null;
           crop: SanityImageCrop | null;
@@ -2245,7 +2467,22 @@ export type GetAllPagesQueryResult = Array<{
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "ctaBgImage";
@@ -2279,7 +2516,22 @@ export type GetAllPagesQueryResult = Array<{
             > | null;
           } | null;
         } | null;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "ctaCardCenter";
@@ -2287,6 +2539,7 @@ export type GetAllPagesQueryResult = Array<{
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
+        image: null;
       }
     | {
         _type: "ctaCardCenter";
@@ -2320,6 +2573,7 @@ export type GetAllPagesQueryResult = Array<{
             > | null;
           } | null;
         } | null;
+        image: null;
       }
     | {
         _type: "ctaCardCenter2";
@@ -2327,6 +2581,7 @@ export type GetAllPagesQueryResult = Array<{
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
+        image: null;
       }
     | {
         _type: "ctaCardCenter2";
@@ -2360,6 +2615,7 @@ export type GetAllPagesQueryResult = Array<{
             > | null;
           } | null;
         } | null;
+        image: null;
       }
     | {
         _type: "ctaCards";
@@ -2372,6 +2628,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & FeatureCardSmall
         >;
+        image: null;
       }
     | {
         _type: "ctaCards";
@@ -2410,6 +2667,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & FeatureCardSmall
         >;
+        image: null;
       }
     | {
         _type: "faqAccordions";
@@ -2420,6 +2678,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & FaqItem
         >;
+        image: null;
       }
     | {
         _type: "faqCards";
@@ -2430,6 +2689,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & FaqItem
         >;
+        image: null;
       }
     | {
         _type: "featureCardsSmall";
@@ -2440,6 +2700,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & FeatureCardSmall
         >;
+        image: null;
       }
     | {
         _type: "featureGalleryMarquee";
@@ -2450,6 +2711,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & ImageWithAlt
         >;
+        image: null;
       }
     | {
         _type: "featureLightboxMarquee";
@@ -2460,6 +2722,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & ImageWithAlt
         >;
+        image: null;
       }
     | {
         _type: "featureSideImage";
@@ -2470,6 +2733,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & FeatureCardSideImage
         >;
+        image: null;
       }
     | {
         _type: "featureToggleImage";
@@ -2480,12 +2744,28 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & FeatureCardToggle
         >;
+        image: null;
       }
     | {
         _type: "headingWithImage";
         _key: string;
         title?: string;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroBgImage";
@@ -2494,7 +2774,22 @@ export type GetAllPagesQueryResult = Array<{
         description?: string;
         ctaButton1?: CtaButton;
         ctaButton2?: CtaButton;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroBgImage";
@@ -2555,7 +2850,22 @@ export type GetAllPagesQueryResult = Array<{
             > | null;
           } | null;
         } | null;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroCentered";
@@ -2564,6 +2874,7 @@ export type GetAllPagesQueryResult = Array<{
         description?: string;
         ctaButton1?: CtaButton;
         ctaButton2?: CtaButton;
+        image: null;
       }
     | {
         _type: "heroCentered";
@@ -2624,6 +2935,7 @@ export type GetAllPagesQueryResult = Array<{
             > | null;
           } | null;
         } | null;
+        image: null;
       }
     | {
         _type: "heroSideImage";
@@ -2631,7 +2943,22 @@ export type GetAllPagesQueryResult = Array<{
         title?: string;
         description?: string;
         ctaButton?: CtaButton;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "heroSideImage";
@@ -2665,13 +2992,29 @@ export type GetAllPagesQueryResult = Array<{
             > | null;
           } | null;
         } | null;
-        image?: ImageWithAlt;
+        image: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number | null;
+                height: number | null;
+              } | null;
+            } | null;
+          } | null;
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+        } | null;
       }
     | {
         _type: "introSection";
         _key: string;
         title?: string;
         introText?: string;
+        image: null;
       }
     | {
         _type: "richText";
@@ -2725,6 +3068,7 @@ export type GetAllPagesQueryResult = Array<{
               markDefs: null;
             }
         > | null;
+        image: null;
       }
     | {
         _type: "servicesIcon";
@@ -2764,6 +3108,7 @@ export type GetAllPagesQueryResult = Array<{
             } | null;
           } | null;
         }> | null;
+        image: null;
       }
     | {
         _type: "servicesSideImage";
@@ -2803,6 +3148,7 @@ export type GetAllPagesQueryResult = Array<{
             } | null;
           } | null;
         }> | null;
+        image: null;
       }
     | {
         _type: "teamMemberCards";
@@ -2813,12 +3159,23 @@ export type GetAllPagesQueryResult = Array<{
           personTitle: string | null;
           bio: string | null;
           avatar: {
-            asset: SanityImageAssetReference | null;
+            asset: {
+              _id: string;
+              url: string | null;
+              metadata: {
+                lqip: string | null;
+                dimensions: {
+                  width: number | null;
+                  height: number | null;
+                } | null;
+              } | null;
+            } | null;
             alt: string | null;
             hotspot: SanityImageHotspot | null;
             crop: SanityImageCrop | null;
           } | null;
         }> | null;
+        image: null;
       }
     | {
         _type: "testimonialsColumns";
@@ -2829,6 +3186,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & TestimonialCard
         >;
+        image: null;
       }
     | {
         _type: "testimonialsSwiper";
@@ -2839,6 +3197,7 @@ export type GetAllPagesQueryResult = Array<{
             _key: string;
           } & TestimonialCard
         >;
+        image: null;
       }
   > | null;
 }>;
@@ -2874,13 +3233,14 @@ export type GetRobotsQueryResult = string | null;
 
 // Source: src/lib/groq/settings.ts
 // Variable: getNavFromSettingsQuery
-// Query: *[_id == $id][0].nav {   logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },  ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },  navItems[] {    _type,    _type == "link" => { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } },    _type == "navItemDropdown" => { label, dropdown[] { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }  } }
+// Query: *[_id == $id][0].nav {   logo { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },  ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },  navItems[] {    _type,    _type == "link" => { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } },    _type == "navItemDropdown" => { label, dropdown[] { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }  } }
 export type GetNavFromSettingsQueryResult = {
   logo: {
     asset: {
       _id: string;
       url: string | null;
       metadata: {
+        lqip: string | null;
         dimensions: {
           width: number | null;
           height: number | null;
@@ -2975,13 +3335,14 @@ export type GetNavFromSettingsQueryResult = {
 
 // Source: src/lib/groq/settings.ts
 // Variable: getFooterFromSettingsQuery
-// Query: *[_id == $id][0].footer {   logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },  ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },  columns[] { title, links[] { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }
+// Query: *[_id == $id][0].footer {   logo { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },  ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },  columns[] { title, links[] { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } } }
 export type GetFooterFromSettingsQueryResult = {
   logo: {
     asset: {
       _id: string;
       url: string | null;
       metadata: {
+        lqip: string | null;
         dimensions: {
           width: number | null;
           height: number | null;
@@ -3051,15 +3412,15 @@ export type GetFooterFromSettingsQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "blogPost" && (slug.current == $slug || slug.current == "blog/" + $slug) && language == $locale][0]{ \n  \n  title,\n  description,\n  "slug": slug.current,\n  urlPath,\n  heroImage { asset, alt, hotspot, crop },\n  seo,\n  pubDate,\n  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },\n  categories[]->{ title, urlPath },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n }\n  }\n }': GetBlogPostBySlugQueryResult;
-    '*[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){ \n  title,\n  description,\n  "slug": slug.current,\n  urlPath,\n  heroImage { asset, alt, hotspot, crop },\n  seo,\n  pubDate,\n  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },\n  categories[]->{ title, urlPath },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n\n }': GetAllBlogPostsQueryResult;
+    '*[_type == "blogPost" && (slug.current == $slug || slug.current == "blog/" + $slug) && language == $locale][0]{ \n  \n  title,\n  description,\n  "slug": slug.current,\n  urlPath,\n  heroImage { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n  seo,\n  pubDate,\n  authors[]->{ name, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } },\n  categories[]->{ title, urlPath },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n }\n  }\n }': GetBlogPostBySlugQueryResult;
+    '*[_type == "blogPost" && language == $locale && slug.current != null && draft != true] | order(pubDate desc){ \n  title,\n  description,\n  "slug": slug.current,\n  urlPath,\n  heroImage { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n  seo,\n  pubDate,\n  authors[]->{ name, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } },\n  categories[]->{ title, urlPath },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n\n }': GetAllBlogPostsQueryResult;
     '*[_type == "category" && language == $locale] | order(title asc){ title, "slug": slug.current, urlPath, description, \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n }': GetAllCategoriesQueryResult;
-    '*[_type == "blogPost" && language == $locale && $categorySlug in categories[]->slug.current && draft != true] | order(pubDate desc){ \n  title,\n  description,\n  "slug": slug.current,\n  urlPath,\n  heroImage { asset, alt, hotspot, crop },\n  seo,\n  pubDate,\n  authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },\n  categories[]->{ title, urlPath },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n\n }': GetBlogPostsByCategoryQueryResult;
-    '*[_type == "page" && slug.current == $slug && language == $locale][0]{ \n  title,\n  description,\n  image { asset, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      type,\n      title,\n      image { asset, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetPageBySlugQueryResult;
-    '*[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current, \n  title,\n  description,\n  image { asset, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      type,\n      title,\n      image { asset, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetAllPagesQueryResult;
+    '*[_type == "blogPost" && language == $locale && $categorySlug in categories[]->slug.current && draft != true] | order(pubDate desc){ \n  title,\n  description,\n  "slug": slug.current,\n  urlPath,\n  heroImage { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n  seo,\n  pubDate,\n  authors[]->{ name, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } },\n  categories[]->{ title, urlPath },\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n\n }': GetBlogPostsByCategoryQueryResult;
+    '*[_type == "page" && slug.current == $slug && language == $locale][0]{ \n  title,\n  description,\n  image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      type,\n      title,\n      image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetPageBySlugQueryResult;
+    '*[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current, \n  title,\n  description,\n  image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      type,\n      title,\n      image { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetAllPagesQueryResult;
     '*[_id == $id && _type == "settings"][0]': GetSettingsQueryResult;
     '*[_id == "robots-txt"][0].content': GetRobotsQueryResult;
-    '*[_id == $id][0].nav { \n  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },\n  ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n  navItems[] {\n    _type,\n    _type == "link" => { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n },\n    _type == "navItemDropdown" => { label, dropdown[] { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n  }\n }': GetNavFromSettingsQueryResult;
-    '*[_id == $id][0].footer { \n  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },\n  ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n  columns[] { title, links[] { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n }': GetFooterFromSettingsQueryResult;
+    '*[_id == $id][0].nav { \n  logo { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n  ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n  navItems[] {\n    _type,\n    _type == "link" => { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n },\n    _type == "navItemDropdown" => { label, dropdown[] { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n  }\n }': GetNavFromSettingsQueryResult;
+    '*[_id == $id][0].footer { \n  logo { asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop },\n  ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n  columns[] { title, links[] { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n }': GetFooterFromSettingsQueryResult;
   }
 }

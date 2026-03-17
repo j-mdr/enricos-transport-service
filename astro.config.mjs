@@ -1,5 +1,8 @@
 import { defineConfig, envField } from "astro/config";
+import { loadEnv } from "vite";
 import { locales, defaultLocale } from "./src/config/localeConfig";
+
+const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
@@ -14,7 +17,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.PUBLIC_SITE_URL,
+  site: env.PUBLIC_SITE_URL,
   adapter: cloudflare(),
   env: {
     schema: {
@@ -68,14 +71,14 @@ export default defineConfig({
     react(),
     icon(),
     sanity({
-      projectId: process.env.PUBLIC_SANITY_PROJECT_ID,
-      dataset: process.env.PUBLIC_SANITY_DATASET ?? "production",
+      projectId: env.PUBLIC_SANITY_PROJECT_ID,
+      dataset: env.PUBLIC_SANITY_DATASET ?? "production",
       studioBasePath: "/studio",
       useCdn: true,
     }),
     sitemap({
       filter: (page) =>
-        !page.includes(`${process.env.PUBLIC_SITE_URL}componenten-voorbeeld/`),
+        !page.includes(`${env.PUBLIC_SITE_URL}componenten-voorbeeld/`),
     }),
     compress({
       HTML: true,
@@ -88,6 +91,15 @@ export default defineConfig({
   output: "static",
   vite: {
     plugins: [tailwindcss()],
+    // Inline PUBLIC_SANITY_* in SSR bundles (Vite does not replace import.meta.env in SSR by default)
+    define: {
+      "import.meta.env.PUBLIC_SANITY_PROJECT_ID": JSON.stringify(
+        env.PUBLIC_SANITY_PROJECT_ID,
+      ),
+      "import.meta.env.PUBLIC_SANITY_DATASET": JSON.stringify(
+        env.PUBLIC_SANITY_DATASET ?? "production",
+      ),
+    },
     // stop inlining short scripts to fix issues with ClientRouter
     build: {
       assetsInlineLimit: 0,

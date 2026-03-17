@@ -1,5 +1,7 @@
 // Gedeelde GROQ fragmenten voor nav, footer en links
 
+export const imageFragment = `{ asset->{ _id, url, metadata { lqip, dimensions { width, height } } }, alt, hotspot, crop }`;
+
 export const destinationFragment = `
   destination[] {
     _type,

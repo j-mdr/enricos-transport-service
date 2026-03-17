@@ -1,19 +1,20 @@
 import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteConfig.ts";
-import { alternatePathsFragment, ctaButtonFragment, contentFragment } from "./fragments";
+import { alternatePathsFragment, ctaButtonFragment, contentFragment, imageFragment } from "./fragments";
 
 const pageFields = `
   title,
   description,
-  image { asset, alt, hotspot, crop },
+  image ${imageFragment},
   seo,
   ${alternatePathsFragment},
   blocks[] {
     _type,
     ...,
+    image ${imageFragment},
     _type == "teamMemberCards" => {
-      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }
+      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar ${imageFragment} }
     },
     _type in ["heroBgImage", "heroCentered"] => {
       ctaButton1 ${ctaButtonFragment},
@@ -32,7 +33,7 @@ const pageFields = `
     _type == "contactSection" => {
       type,
       title,
-      image { asset, alt, hotspot, crop },
+      image ${imageFragment},
       form-> {
         title,
         emailSubject,

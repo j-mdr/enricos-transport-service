@@ -62,12 +62,29 @@ const srcsetWidths: number[] =
       ? [width, Math.min(width * 2, 3200)]
       : [640, 1280, 1920];
 
-// Derived height for <img> width/height attributes (prevents CLS)
+// Default widths per sizesType for width/height HTML attributes (CLS prevention only — not used in URLs)
+const SIZESTYPE_ATTR_WIDTHS: Record<SizesType, number> = {
+  background: 1920,
+  half: 800,
+  card: 640,
+  avatar: 80,
+};
+
+// Derived width/height for <img> attributes (prevents CLS)
+const attrWidth = width ?? (sizesType ? SIZESTYPE_ATTR_WIDTHS[sizesType] : undefined);
 const height =
-  heightProp ?? (aspectRatio && width ? Math.round(width / ASPECT_RATIOS[aspectRatio]) : undefined);
+  heightProp ??
+  (aspectRatio && attrWidth ? Math.round(attrWidth / ASPECT_RATIOS[aspectRatio]) : undefined);
 
 // fetchpriority: default to "high" for eager (LCP) images
 const fetchpriority = fetchpriorityProp ?? (loading === "eager" ? "high" : undefined);
+
+// decoding: sync for LCP images so the browser paints immediately after download
+const decoding = loading === "eager" ? "sync" : "async";
+
+// LQIP placeholder as CSS background — only for lazy-loaded raster images
+const lqip = loading !== "eager" ? (image?.asset?.metadata?.lqip ?? null) : null;
+const placeholderStyle = lqip ? `background-image:url(${lqip});background-size:cover;background-repeat:no-repeat;` : undefined;
 
 if (!image?.asset) return;
 
@@ -120,11 +137,8 @@ if (hasRef) {
     <img
       src={srcFallback}
       alt={alt}
-      width={width}
+      width={attrWidth}
       height={height}
-      loading={loading}
-      fetchpriority={fetchpriority}
-      decoding="async"
       class={className}
       {...rest}
     />
@@ -135,11 +149,12 @@ if (hasRef) {
       <img
         src={srcFallback}
         alt={alt}
-        width={width}
+        width={attrWidth}
         height={height}
         loading={loading}
         fetchpriority={fetchpriority}
-        decoding="async"
+        decoding={decoding}
+        style={placeholderStyle}
         class={className}
         {...rest}
       />
@@ -148,11 +163,12 @@ if (hasRef) {
     <img
       src={srcFallback}
       alt={alt}
-      width={width}
+      width={attrWidth}
       height={height}
       loading={loading}
       fetchpriority={fetchpriority}
-      decoding="async"
+      decoding={decoding}
+      style={placeholderStyle}
       class={className}
       {...rest}
     />

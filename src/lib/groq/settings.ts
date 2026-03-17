@@ -2,7 +2,7 @@ import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteConfig.ts";
 import type { GetSettingsQueryResult } from "../../../sanity.types";
-import { linkFragment, ctaButtonFragment } from "./fragments";
+import { linkFragment, ctaButtonFragment, imageFragment } from "./fragments";
 
 export const getSettingsQuery = defineQuery(`*[_id == $id && _type == "settings"][0]`);
 
@@ -14,7 +14,7 @@ export async function getSettings(locale: Locale): Promise<GetSettingsQueryResul
 }
 
 const navFields = `
-  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },
+  logo ${imageFragment},
   ctaButton ${ctaButtonFragment},
   navItems[] {
     _type,
@@ -24,7 +24,7 @@ const navFields = `
 `;
 
 const footerFields = `
-  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },
+  logo ${imageFragment},
   ctaButton ${ctaButtonFragment},
   columns[] { title, links[] ${linkFragment} }
 `;

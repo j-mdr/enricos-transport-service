@@ -16,6 +16,7 @@ export interface SanityImageObject {
     _id?: string; // resolved reference
     url?: string | null; // pre-built URL (fallback)
     metadata?: {
+      lqip?: string | null;
       dimensions?: {
         width?: number | null;
         height?: number | null;
