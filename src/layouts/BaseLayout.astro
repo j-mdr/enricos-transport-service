@@ -18,10 +18,10 @@ interface Props {
   type?: "blog" | "general";
   title: string;
   description: string;
+  seo?: { title?: string | null; description?: string | null; noIndex?: boolean | null } | null;
   ogImageUrl?: string;
   pubDate?: string;
   authors?: { name?: string | null; url?: string | null }[];
-  noindex?: boolean;
   alternatePaths?: Partial<Record<string, string>>;
   blocks?: any[];
 }
@@ -30,13 +30,17 @@ const {
   type = "general",
   title,
   description,
+  seo,
   ogImageUrl,
   pubDate,
   authors,
-  noindex = false,
   alternatePaths,
   blocks,
 } = Astro.props as Props;
+
+const resolvedTitle = seo?.title ?? title;
+const resolvedDescription = seo?.description ?? description;
+const noindex = seo?.noIndex ?? false;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 ---
@@ -46,8 +50,8 @@ const currLocale = getLocaleFromUrl(Astro.url);
   <head>
     <BaseHead
       type={type}
-      title={title}
-      description={description}
+      title={resolvedTitle}
+      description={resolvedDescription}
       ogImageUrl={ogImageUrl}
       pubDate={pubDate}
       authors={authors}

@@ -15,9 +15,8 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, authors, categories, pubDate, heroImage, alternatePaths, blocks } =
+const { title, description, seo, authors, categories, pubDate, heroImage, alternatePaths, blocks } =
   post;
-console.log("ca: ", categories);
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const localeDefinition = getLocaleDefinition(currLocale);
@@ -33,6 +32,7 @@ const authorsList = (authors ?? []).map((a) => ({ name: a.name ?? null, url: nul
   type="blog"
   title={title ?? ""}
   description={description ?? ""}
+  seo={seo}
   ogImageUrl={ogImageUrl}
   pubDate={pubDate ?? undefined}
   authors={authorsList}

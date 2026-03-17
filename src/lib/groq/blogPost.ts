@@ -10,6 +10,7 @@ const blogPostCardFields = `
   "slug": slug.current,
   urlPath,
   heroImage { asset, alt, hotspot, crop },
+  seo,
   pubDate,
   authors[]->{ name, avatar { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop } },
   categories[]->{ title, urlPath },

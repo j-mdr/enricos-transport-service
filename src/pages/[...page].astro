@@ -21,17 +21,16 @@ export async function getStaticPaths() {
 const { page } = Astro.props as { page: Page };
 const { title = "", description = "", seo, alternatePaths, image } = page;
 const ogImageUrl = buildOgImageUrl(image);
-console.log("og: ", ogImageUrl);
 ---
 
 <BaseLayout
-  title={seo?.title ?? title ?? ""}
-  description={seo?.description ?? description ?? ""}
+  title={title ?? ""}
+  description={description ?? ""}
+  seo={seo}
   type={"general"}
   ogImageUrl={ogImageUrl}
   alternatePaths={alternatePaths}
   blocks={page.blocks ?? undefined}
-  noindex={page.seo?.noIndex}
 >
   <BlockRenderer blocks={page.blocks ?? []} />
 </BaseLayout>

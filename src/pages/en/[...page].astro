@@ -19,13 +19,14 @@ export async function getStaticPaths() {
 }
 
 const { page } = Astro.props as { page: Page };
-const { title = "", seo, alternatePaths, image } = page;
+const { title = "", description = "", seo, alternatePaths, image } = page;
 const ogImageUrl = buildOgImageUrl(image);
 ---
 
 <BaseLayout
-  title={seo?.title ?? title ?? ""}
-  description={seo?.description ?? ""}
+  title={title ?? ""}
+  description={description ?? ""}
+  seo={seo}
   type={"general"}
   ogImageUrl={ogImageUrl}
   alternatePaths={alternatePaths}
