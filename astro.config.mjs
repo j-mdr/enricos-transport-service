@@ -71,7 +71,7 @@ export default defineConfig({
     react(),
     icon(),
     sanity({
-      projectId: env.PUBLIC_SANITY_PROJECT_ID,
+      projectId: env.PUBLIC_SANITY_PROJECT_ID ?? "p88mnbf2",
       dataset: env.PUBLIC_SANITY_DATASET ?? "production",
       studioBasePath: "/studio",
       useCdn: true,
