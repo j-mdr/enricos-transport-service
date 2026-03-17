@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const headingWithImage = defineType({
   name: "headingWithImage",
-  title: "HeadingWithImageSection",
+  title: "Inhoud / koptekst met afbeelding",
   type: "object",
   fields: [
     defineField({
@@ -19,6 +19,6 @@ export const headingWithImage = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "HeadingWithImageSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Inhoud / koptekst met afbeelding" }),
   },
 });

@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const featureCardsSmall = defineType({
   name: "featureCardsSmall",
-  title: "FeatureCardsSmallSection",
+  title: "Feature / kleine kaarten",
   type: "object",
   fields: [
     defineField({
@@ -22,6 +22,6 @@ export const featureCardsSmall = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "FeatureCardsSmallSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Feature / kleine kaarten" }),
   },
 });

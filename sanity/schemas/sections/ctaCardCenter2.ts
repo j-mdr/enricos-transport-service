@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const ctaCardCenter2 = defineType({
   name: "ctaCardCenter2",
-  title: "CtaCardCenter2Section",
+  title: "CTA / kaart gecentreerd (variant 2)",
   type: "object",
   fields: [
     defineField({
@@ -17,6 +17,6 @@ export const ctaCardCenter2 = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "CtaCardCenter2Section" }),
+    prepare: ({ title }) => ({ title, subtitle: "CTA / kaart gecentreerd (variant 2)" }),
   },
 });

@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const richText = defineType({
   name: "richText",
-  title: "RichTextBlock",
+  title: "Inhoud / rijke tekst",
   type: "object",
   fields: [
     defineField({
@@ -12,5 +12,5 @@ export const richText = defineType({
       validation: (Rule) => Rule.required(),
     }),
   ],
-  preview: { prepare: () => ({ title: "Rijke tekst", subtitle: "RichTextBlock" }) },
+  preview: { prepare: () => ({ title: "Rijke tekst", subtitle: "Inhoud / rijke tekst" }) },
 });

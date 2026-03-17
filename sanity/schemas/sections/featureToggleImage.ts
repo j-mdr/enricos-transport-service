@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const featureToggleImage = defineType({
   name: "featureToggleImage",
-  title: "FeatureToggleImageSection",
+  title: "Feature / met wisselende afbeelding",
   type: "object",
   fields: [
     defineField({
@@ -21,6 +21,6 @@ export const featureToggleImage = defineType({
   ],
   preview: {
     select: { title: "sectionTitle" },
-    prepare: ({ title }) => ({ title, subtitle: "FeatureToggleImageSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Feature / met wisselende afbeelding" }),
   },
 });

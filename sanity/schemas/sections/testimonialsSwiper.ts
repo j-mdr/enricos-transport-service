@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const testimonialsSwiper = defineType({
   name: "testimonialsSwiper",
-  title: "TestimonialsSwiperSection",
+  title: "Recensies / carrousel",
   type: "object",
   fields: [
     defineField({
@@ -22,6 +22,6 @@ export const testimonialsSwiper = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "TestimonialsSwiperSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Recensies / carrousel" }),
   },
 });

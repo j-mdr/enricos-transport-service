@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const heroSideImage = defineType({
   name: "heroSideImage",
-  title: "HeroSideImageSection",
+  title: "Hero / met zijafbeelding",
   type: "object",
   fields: [
     defineField({
@@ -23,6 +23,6 @@ export const heroSideImage = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "HeroSideImageSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Hero / met zijafbeelding" }),
   },
 });

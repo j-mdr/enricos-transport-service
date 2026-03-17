@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const servicesIcon = defineType({
   name: "servicesIcon",
-  title: "ServicesIconSection",
+  title: "Diensten / met iconen",
   type: "object",
   fields: [
     defineField({
@@ -22,6 +22,6 @@ export const servicesIcon = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "ServicesIconSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Diensten / met iconen" }),
   },
 });

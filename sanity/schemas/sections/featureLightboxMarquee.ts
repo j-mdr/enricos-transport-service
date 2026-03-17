@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const featureLightboxMarquee = defineType({
   name: "featureLightboxMarquee",
-  title: "FeatureLightboxMarqueeSection",
+  title: "Feature / lightbox carrousel",
   type: "object",
   fields: [
     defineField({ name: "title", title: "Titel", type: "string" }),
@@ -16,6 +16,6 @@ export const featureLightboxMarquee = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "FeatureLightboxMarqueeSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Feature / lightbox carrousel" }),
   },
 });

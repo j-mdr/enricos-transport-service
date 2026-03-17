@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const contactSection = defineType({
   name: "contactSection",
-  title: "ContactSection",
+  title: "Contact / sectie",
   type: "object",
   fields: [
     defineField({
@@ -39,5 +39,5 @@ export const contactSection = defineType({
       validation: (Rule) => Rule.required(),
     }),
   ],
-  preview: { prepare: () => ({ title: "Contactformulier", subtitle: "ContactSection" }) },
+  preview: { prepare: () => ({ title: "Contactformulier", subtitle: "Contact / sectie" }) },
 });

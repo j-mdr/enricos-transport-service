@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const teamMemberCards = defineType({
   name: "teamMemberCards",
-  title: "TeamMemberCardsSection",
+  title: "Team / teamleden kaarten",
   type: "object",
   fields: [
     defineField({
@@ -22,6 +22,6 @@ export const teamMemberCards = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "TeamMemberCardsSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Team / teamleden kaarten" }),
   },
 });

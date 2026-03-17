@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const introSection = defineType({
   name: "introSection",
-  title: "IntroSection",
+  title: "Inhoud / intro sectie",
   type: "object",
   fields: [
     defineField({
@@ -15,6 +15,6 @@ export const introSection = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "IntroSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Inhoud / intro sectie" }),
   },
 });

@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const testimonialsColumns = defineType({
   name: "testimonialsColumns",
-  title: "TestimonialsColumnsSection",
+  title: "Recensies / kolommen",
   type: "object",
   fields: [
     defineField({
@@ -22,6 +22,6 @@ export const testimonialsColumns = defineType({
   ],
   preview: {
     select: { title: "title" },
-    prepare: ({ title }) => ({ title, subtitle: "TestimonialsColumnsSection" }),
+    prepare: ({ title }) => ({ title, subtitle: "Recensies / kolommen" }),
   },
 });
