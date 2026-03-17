@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { createCharCountInput } from "../../components/CharCountInput";
 
 export const seoMeta = defineType({
   name: "seoMeta",
@@ -10,9 +11,11 @@ export const seoMeta = defineType({
       title: "SEO Titel",
       type: "string",
       description: "Paginatitel in zoekmachines (~60 tekens)",
+      components: { input: createCharCountInput(60, 10) },
       validation: (Rule) => [
         Rule.required().error("SEO titel is verplicht"),
-        Rule.max(60).warning("Houdt de titel onder de 60 tekens"),
+        Rule.min(10).error("SEO titel is te kort (min. 10 tekens)"),
+        Rule.max(60).error("SEO titel mag maximaal 60 tekens zijn"),
       ],
     }),
     defineField({
@@ -21,9 +24,11 @@ export const seoMeta = defineType({
       type: "text",
       rows: 3,
       description: "Metabeschrijving in zoekmachines (~155 tekens)",
+      components: { input: createCharCountInput(155, 50) },
       validation: (Rule) => [
         Rule.required().error("SEO beschrijving is verplicht"),
-        Rule.max(155).warning("Houdt de beschrijving onder de 155 tekens"),
+        Rule.min(50).error("SEO beschrijving is te kort (min. 50 tekens)"),
+        Rule.max(155).error("SEO beschrijving mag maximaal 155 tekens zijn"),
       ],
     }),
     defineField({
