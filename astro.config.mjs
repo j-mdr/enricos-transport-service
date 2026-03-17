@@ -17,7 +17,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: env.PUBLIC_SITE_URL,
+  site: env.PUBLIC_SITE_URL ?? "https://enricostransportservice.nl",
   adapter: cloudflare(),
   env: {
     schema: {
