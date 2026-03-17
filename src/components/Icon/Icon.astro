@@ -1,0 +1,35 @@
+---
+// @ts-ignore virtual module
+import icons from "virtual:astro-icon";
+import { Icon as AstroIcon } from "astro-icon/components";
+import type { HTMLAttributes } from "astro/types";
+
+const DEFAULT_ICON = "tabler/circle-dashed";
+
+interface Props extends HTMLAttributes<"svg"> {
+  name: string;
+  title?: string;
+  desc?: string;
+  size?: number | string;
+}
+
+const { name, ...props } = Astro.props;
+
+function iconExists(iconName: string): boolean {
+  const colonIndex = iconName.indexOf(":");
+  if (colonIndex === -1) {
+    const localSet = icons["local"];
+    return !!(localSet?.icons && iconName in localSet.icons);
+  }
+
+  const setName = iconName.slice(0, colonIndex);
+  const iconPart = iconName.slice(colonIndex + 1);
+  const collection = icons[setName];
+  if (!collection) return false;
+  return !!(collection.icons && iconPart in collection.icons);
+}
+
+const resolvedName = iconExists(name) ? name : DEFAULT_ICON;
+---
+
+<AstroIcon name={resolvedName as any} {...props as any} />
