@@ -5,7 +5,6 @@ import { visionTool } from "@sanity/vision";
 import { documentInternationalization } from "@sanity/document-internationalization";
 import { nlNLLocale } from "@sanity/locale-nl-nl";
 import { localeDefinitions } from "./src/config/localeConfig";
-
 import { schemaTypes } from "./sanity/schemas";
 import { structure } from "./sanity/studioStructure";
 
