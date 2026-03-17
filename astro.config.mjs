@@ -1,12 +1,5 @@
 import { defineConfig, envField } from "astro/config";
-import { loadEnv } from "vite";
 import { locales, defaultLocale } from "./src/config/localeConfig";
-
-const {
-  PUBLIC_SITE_URL,
-  PUBLIC_SANITY_PROJECT_ID,
-  PUBLIC_SANITY_DATASET,
-} = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
@@ -21,7 +14,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: PUBLIC_SITE_URL,
+  site: process.env.PUBLIC_SITE_URL,
   adapter: cloudflare(),
   env: {
     schema: {
@@ -75,14 +68,14 @@ export default defineConfig({
     react(),
     icon(),
     sanity({
-      projectId: PUBLIC_SANITY_PROJECT_ID,
-      dataset: PUBLIC_SANITY_DATASET ?? "production",
+      projectId: process.env.PUBLIC_SANITY_PROJECT_ID,
+      dataset: process.env.PUBLIC_SANITY_DATASET ?? "production",
       studioBasePath: "/studio",
       useCdn: true,
     }),
     sitemap({
       filter: (page) =>
-        !page.includes(`${PUBLIC_SITE_URL}componenten-voorbeeld/`),
+        !page.includes(`${process.env.PUBLIC_SITE_URL}componenten-voorbeeld/`),
     }),
     compress({
       HTML: true,
