@@ -13,7 +13,7 @@ import {
   serviceCardIcon,
   serviceCardSideImage,
 } from "./molecules";
-import { settings } from "./singletons";
+import { settings, robotsTxt } from "./singletons";
 import { form, person, blogPost, page, category } from "./documents";
 import {
   heroBgImage,
@@ -65,6 +65,7 @@ export const schemaTypes = [
   serviceCardSideImage,
   // Singletons
   settings,
+  robotsTxt,
   // Documents
   form,
   person,

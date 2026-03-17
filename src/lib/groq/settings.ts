@@ -6,6 +6,8 @@ import { linkFragment, ctaButtonFragment } from "./fragments";
 
 export const getSettingsQuery = defineQuery(`*[_id == $id && _type == "settings"][0]`);
 
+export const getRobotsQuery = defineQuery(`*[_id == "robots-txt"][0].content`);
+
 export async function getSettings(locale: Locale): Promise<GetSettingsQueryResult> {
   const id = `settings-${locale}`;
   return sanityClient.fetch(getSettingsQuery, { id });

@@ -13,7 +13,7 @@ export function createUrlPathInput(getBasePath: (def: LocaleDefinition) => strin
       const def = getLocaleDefinition(language);
       const { localeSlug } = def;
       const basePath = getBasePath(def);
-      const computed = localeSlug ? `/${localeSlug}/${basePath}/${slug}` : `/${basePath}/${slug}`;
+      const computed = localeSlug ? `/${localeSlug}/${basePath}/${slug}/` : `/${basePath}/${slug}/`;
       if (computed !== props.value) {
         props.onChange(set(computed));
       }
@@ -34,7 +34,7 @@ export function UrlPathInput(props: StringInputProps) {
   useEffect(() => {
     if (!slug || props.readOnly) return;
     const { localeSlug } = getLocaleDefinition(language);
-    const computed = localeSlug ? `/${localeSlug}/${slug}` : `/${slug}`;
+    const computed = localeSlug ? `/${localeSlug}/${slug}/` : `/${slug}/`;
     if (computed !== props.value) {
       props.onChange(set(computed));
     }

@@ -34,7 +34,10 @@ const dest = link.destination?.[0];
 
 function resolveHref(): string {
   if (!dest) return "/";
-  if (dest._type === "internalLink") return dest.reference?.urlPath ?? "/";
+  if (dest._type === "internalLink") {
+    const path = dest.reference?.urlPath ?? "/";
+    return path.endsWith("/") ? path : `${path}/`;
+  }
   return dest.href ?? "/";
 }
 

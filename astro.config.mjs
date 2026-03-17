@@ -48,7 +48,7 @@ export default defineConfig({
       }),
     },
   },
-  // trailingSlash: "always",
+  trailingSlash: "always",
   // i18n configuration must match src/config/localeConfig.ts
   i18n: {
     defaultLocale,
@@ -102,6 +102,7 @@ export default defineConfig({
     },
     optimizeDeps: {
       include: ["sanity", "@sanity/ui", "history"],
+      exclude: ["refractor"],
     },
     ssr: {
       noExternal: ["@sanity/astro"],

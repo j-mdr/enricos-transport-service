@@ -243,6 +243,15 @@ export type HeroBgImage = {
   image?: ImageWithAlt;
 };
 
+export type RobotsTxt = {
+  _id: string;
+  _type: "robotsTxt";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  content?: string;
+};
+
 export type Settings = {
   _id: string;
   _type: "settings";
@@ -871,6 +880,7 @@ export type AllSanitySchemaTypes =
   | HeroCentered
   | HeroSideImage
   | HeroBgImage
+  | RobotsTxt
   | Settings
   | SeoMeta
   | FooterObject
@@ -2858,6 +2868,11 @@ export type GetSettingsQueryResult = {
 } | null;
 
 // Source: src/lib/groq/settings.ts
+// Variable: getRobotsQuery
+// Query: *[_id == "robots-txt"][0].content
+export type GetRobotsQueryResult = string | null;
+
+// Source: src/lib/groq/settings.ts
 // Variable: getNavFromSettingsQuery
 // Query: *[_id == $id][0].nav {   logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },  ctaButton { variant, size, link { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } },  navItems[] {    _type,    _type == "link" => { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } },    _type == "navItemDropdown" => { label, dropdown[] { text,   destination[] {    _type,    _type == "externalLink" => { href, openInNewTab },    _type == "internalLink" => { reference->{ _type, urlPath } }  } } }  } }
 export type GetNavFromSettingsQueryResult = {
@@ -3043,6 +3058,7 @@ declare module "@sanity/client" {
     '*[_type == "page" && slug.current == $slug && language == $locale][0]{ \n  title,\n  description,\n  image { asset, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      type,\n      title,\n      image { asset, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetPageBySlugQueryResult;
     '*[_type == "page" && language == $locale && slug.current != null]{ "path": slug.current, \n  title,\n  description,\n  image { asset, alt, hotspot, crop },\n  seo,\n  \n  "alternatePaths": {\n    "nl": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "nl"][0].value->urlPath,\n      "/"\n    ),\n    "en": coalesce(\n      *[_type == "translation.metadata" && references(^._id)][0].translations[language == "en"][0].value->urlPath,\n      "/en/"\n    )\n  }\n,\n  blocks[] {\n    _type,\n    ...,\n    _type == "teamMemberCards" => {\n      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar { asset, alt, hotspot, crop } }\n    },\n    _type in ["heroBgImage", "heroCentered"] => {\n      ctaButton1 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n      ctaButton2 { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {\n      ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n    },\n    _type == "servicesIcon" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "servicesSideImage" => {\n      services[] { ..., ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } } }\n    },\n    _type == "richText" => { \n  content[] {\n    ...,\n    markDefs[] {\n      ...,\n      _type == "link" => {\n        destination[] {\n          _type,\n          _type == "externalLink" => { href, openInNewTab },\n          _type == "internalLink" => { reference->{ _type, urlPath } }\n        }\n      }\n    }\n  }\n },\n    _type == "contactSection" => {\n      type,\n      title,\n      image { asset, alt, hotspot, crop },\n      form-> {\n        title,\n        emailSubject,\n        submitButtonText,\n        successMessage,\n        errorMessage,\n        fields[] {\n          type, name, label, placeholder, required, width,\n          options[] { label, value }\n        }\n      }\n    }\n  }\n }': GetAllPagesQueryResult;
     '*[_id == $id && _type == "settings"][0]': GetSettingsQueryResult;
+    '*[_id == "robots-txt"][0].content': GetRobotsQueryResult;
     '*[_id == $id][0].nav { \n  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },\n  ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n  navItems[] {\n    _type,\n    _type == "link" => { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n },\n    _type == "navItemDropdown" => { label, dropdown[] { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n  }\n }': GetNavFromSettingsQueryResult;
     '*[_id == $id][0].footer { \n  logo { asset->{ _id, url, metadata { dimensions { width, height } } }, alt, hotspot, crop },\n  ctaButton { variant, size, link { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } },\n  columns[] { title, links[] { text, \n  destination[] {\n    _type,\n    _type == "externalLink" => { href, openInNewTab },\n    _type == "internalLink" => { reference->{ _type, urlPath } }\n  }\n } }\n }': GetFooterFromSettingsQueryResult;
   }
