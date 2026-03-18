@@ -1,4 +1,4 @@
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 import { loadEnv } from "vite";
 import { locales, defaultLocale } from "./src/config/localeConfig";
 
@@ -18,6 +18,19 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   site: env.PUBLIC_SITE_URL,
   adapter: cloudflare(),
+  experimental: {
+    rustCompiler: true,
+  },
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Poppins",
+      cssVariable: "--font-poppins",
+      weights: [400, 500, 700],
+      styles: ["normal"],
+      subsets: ["latin"],
+    },
+  ],
   env: {
     schema: {
       PUBLIC_TURNSTILE_SITE_KEY: envField.string({
@@ -51,15 +64,7 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  markdown: {
-    shikiConfig: {
-      // Shiki Themes: https://github.com/shikijs/shiki/blob/main/docs/themes.md
-      theme: "dracula",
-      wrap: true,
-    },
-  },
   integrations: [
-    mdx(),
     react(),
     icon(),
     sanity({
@@ -97,11 +102,11 @@ export default defineConfig({
       assetsInlineLimit: 0,
     },
     optimizeDeps: {
-      include: ["sanity", "@sanity/ui", "history"],
+      include: ["sanity", "@sanity/ui", "history", "debug"],
       exclude: ["refractor"],
     },
     ssr: {
-      noExternal: ["@sanity/astro"],
+      noExternal: ["@sanity/astro", "debug"],
     },
   },
 });

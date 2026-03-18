@@ -31,18 +31,13 @@ const {
   blocks,
 } = Astro.props as Props;
 
-import Poppins400 from "@fontsource/poppins/files/poppins-latin-400-normal.woff2";
-import Poppins500 from "@fontsource/poppins/files/poppins-latin-500-normal.woff2";
-import Poppins700 from "@fontsource/poppins/files/poppins-latin-700-normal.woff2";
+import { Font } from "astro:assets";
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" initial-scale="1.0" />
 
-<!-- local font preload for better performance -->
-<link rel="preload" href={Poppins400} as="font" type="font/woff2" crossorigin="anonymous" />
-<link rel="preload" href={Poppins500} as="font" type="font/woff2" crossorigin="anonymous" />
-<link rel="preload" href={Poppins700} as="font" type="font/woff2" crossorigin="anonymous" />
+<Font cssVariable="--font-poppins" preload />
 
 <!-- Favicons. Generated from https://realfavicongenerator.net/ -->
 <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />

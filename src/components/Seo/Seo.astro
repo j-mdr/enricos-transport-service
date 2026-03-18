@@ -42,6 +42,9 @@ const {
   blocks,
 } = Astro.props as GenProps | BlogProps;
 
+const companyName = companyInfo?.name ?? "";
+const resolvedTitle = title ? `${title} | ${companyName}` : companyName;
+
 let jsonLD: string | undefined;
 const siteBase = new URL(Astro.site ?? "");
 const canonicalUrl = new URL(Astro.url.pathname, siteBase);
@@ -87,12 +90,12 @@ if (blocks?.length) {
 ---
 
 <SEO
-  title={title}
+  title={resolvedTitle}
   description={description}
   canonical={canonicalUrl.toString()}
   openGraph={{
     basic: {
-      title: title,
+      title: resolvedTitle,
       type: type === "blog" ? "article" : "website",
       image: imageUrl,
       url: canonicalUrl.toString(),
@@ -105,14 +108,14 @@ if (blocks?.length) {
       type: "image/webp",
       width: 1200,
       height: 630,
-      alt: title,
+      alt: resolvedTitle,
     },
   }}
   twitter={{
     site: "",
     creator: "",
     card: "summary_large_image",
-    title: title,
+    title: resolvedTitle,
     description: description,
     image: imageUrl,
   }}
