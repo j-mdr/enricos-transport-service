@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { UsersIcon } from "@sanity/icons";
+import { langFilter } from "../../lib/filters";
 
 export const teamMemberCards = defineType({
   name: "teamMemberCards",
@@ -23,12 +24,7 @@ export const teamMemberCards = defineType({
         {
           type: "reference",
           to: [{ type: "person" }],
-          options: {
-            filter: ({ document }: { document: { language?: string } }) =>
-              document.language
-                ? { filter: "language == $lang", params: { lang: document.language } }
-                : {},
-          },
+          options: { filter: langFilter },
         },
       ],
       validation: (Rule) => Rule.required().min(1),

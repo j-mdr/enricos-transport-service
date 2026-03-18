@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { EnvelopeIcon } from "@sanity/icons";
+import { langFilter } from "../../lib/filters";
 
 export const contactSection = defineType({
   name: "contactSection",
@@ -39,12 +40,7 @@ export const contactSection = defineType({
       title: "Formulier",
       type: "reference",
       to: [{ type: "form" }],
-      options: {
-        filter: ({ document }: { document: { language?: string } }) =>
-          document.language
-            ? { filter: "language == $lang", params: { lang: document.language } }
-            : {},
-      },
+      options: { filter: langFilter },
       validation: (Rule) => Rule.required(),
     }),
   ],

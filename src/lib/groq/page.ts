@@ -27,11 +27,36 @@ const pageFields = `
       ctaButton ${ctaButtonFragment}
     },
     _type == "richText" => { ${contentFragment} },
-    _type == "featureVideo" => {
-      thumbnail ${imageFragment},
-      video { asset->{ url } }
-    },
     _type == "reference" => @->{
+      _type,
+      ...,
+      image ${imageFragment},
+      _type == "teamMemberCards" => {
+        "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar ${imageFragment} }
+      },
+      _type in ["ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {
+        ctaButton ${ctaButtonFragment}
+      },
+      _type == "servicesIcon" => {
+        services[] { ..., ctaButton ${ctaButtonFragment} }
+      },
+      _type == "servicesSideImage" => {
+        services[] { ..., ctaButton ${ctaButtonFragment} }
+      },
+      _type == "contactSection" => {
+        type,
+        title,
+        image ${imageFragment},
+        form->{ title, emailSubject, submitButtonText, successMessage, errorMessage,
+          fields[] { type, name, label, placeholder, required, width, options[] { label, value } }
+        }
+      }
+    },
+    _type in ["faqAccordions","faqCards","ctaBgImage","ctaCardCenter","ctaCardCenter2",
+              "ctaCards","featureCardsSmall","featureLightboxMarquee","featureGalleryMarquee",
+              "featureSideImage","featureToggleImage","servicesIcon","servicesSideImage",
+              "awardsSection","teamMemberCards","testimonialsColumns","testimonialsSwiper",
+              "contactSection"] => @->{
       _type,
       ...,
       image ${imageFragment},
