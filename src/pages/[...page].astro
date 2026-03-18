@@ -19,8 +19,9 @@ export async function getStaticPaths() {
 }
 
 const { page } = Astro.props as { page: Page };
-const { title = "", description = "", seo, alternatePaths, image } = page;
-const ogImageUrl = buildOgImageUrl(image);
+const { title = "", description = "", seo, alternatePaths } = page;
+const heroBlock = page.blocksTop?.find((b: any) => b.image?.asset);
+const ogImageUrl = buildOgImageUrl(heroBlock?.image as any);
 ---
 
 <BaseLayout
@@ -33,5 +34,8 @@ const ogImageUrl = buildOgImageUrl(image);
   blocks={page.blocks ?? undefined}
 >
   <BlockRenderer blocks={page.blocksTop ?? []} />
-  <BlockRenderer blocks={page.blocks ?? []} />
+  <div class="mx-auto max-w-3xl">
+    <BlockRenderer blocks={page.blocks ?? []} />
+  </div>
+  <BlockRenderer blocks={page.blocksBottom ?? []} />
 </BaseLayout>

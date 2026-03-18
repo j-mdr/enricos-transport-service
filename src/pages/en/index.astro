@@ -7,9 +7,10 @@ import { buildOgImageUrl } from "@lib/sanityImage";
 const page = await getPageBySlug("home-en", "en");
 if (!page) return Astro.redirect("/en/404");
 
-const { title, seo, image } = page;
+const { title, seo } = page;
 const alternatePaths = { nl: "/", en: "/en/" };
-const ogImageUrl = buildOgImageUrl(image);
+const heroBlock = page.blocksTop?.find((b: any) => b.image?.asset);
+const ogImageUrl = buildOgImageUrl(heroBlock?.image as any);
 ---
 
 <BaseLayout
@@ -21,5 +22,8 @@ const ogImageUrl = buildOgImageUrl(image);
   blocks={page.blocks ?? undefined}
 >
   <BlockRenderer blocks={page.blocksTop ?? []} />
-  <BlockRenderer blocks={page.blocks ?? []} />
+  <div class="mx-auto max-w-3xl">
+    <BlockRenderer blocks={page.blocks ?? []} />
+  </div>
+  <BlockRenderer blocks={page.blocksBottom ?? []} />
 </BaseLayout>

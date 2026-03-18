@@ -80,15 +80,9 @@ export const page = defineType({
       components: { input: UrlPathInput },
     }),
     defineField({
-      name: "image",
-      title: "Afbeelding",
-      type: "imageWithAlt",
-      group: "content",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "blocksTop",
       title: "Blokken (boven)",
+      description: "Hier zitten o.a. blokken in met een h1 titel",
       type: "array",
       group: "content",
       validation: (Rule) => Rule.max(5),
@@ -99,11 +93,43 @@ export const page = defineType({
         { type: "featureVideo" },
         { type: "introSection" },
         { type: "headingWithImage" },
+        defineArrayMember({
+          name: "awardsSection",
+          type: "reference",
+          title: "Inhoud / certificaten & awards",
+          to: [{ type: "awardsSection" }],
+          options: { filter: langFilter },
+        }),
       ],
     }),
     defineField({
       name: "blocks",
       title: "Blokken",
+      description: "Deze blokken worden op het 'smalle' gedeelte van de pagina getoond",
+      type: "array",
+      group: "content",
+      validation: (Rule) => Rule.max(15),
+      of: [
+        { type: "richText" },
+        defineArrayMember({
+          name: "faqAccordions",
+          type: "reference",
+          title: "FAQ / accordeon",
+          to: [{ type: "faqAccordions" }],
+          options: { filter: langFilter },
+        }),
+        defineArrayMember({
+          name: "faqCards",
+          type: "reference",
+          title: "FAQ / kaarten",
+          to: [{ type: "faqCards" }],
+          options: { filter: langFilter },
+        }),
+      ],
+    }),
+    defineField({
+      name: "blocksBottom",
+      title: "Blokken (onder)",
       type: "array",
       group: "content",
       validation: (Rule) => Rule.max(15),
@@ -248,7 +274,6 @@ export const page = defineType({
     select: {
       title: "title",
       subtitle: "urlPath",
-      media: "image.asset",
     },
   },
 });
