@@ -119,6 +119,7 @@ export const blogPost = defineType({
       validation: (Rule) => Rule.min(1).max(15),
       of: [
         { type: "richText" },
+        { type: "featureVideo" },
         {
           type: "reference",
           title: "Herbruikbare sectie",

@@ -1,11 +1,20 @@
 ---
-/**
- * * Large video feature. This is for a self-hosted video (under src/assets/videos).
- */
-
 import { Icon } from "astro-icon/components";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
 
-import video from "@videos/placeholder-space.mp4";
+interface Props {
+  sectionTitle: string;
+  titleHighlight?: string;
+  thumbnail: any;
+  video: { asset: { url: string } };
+}
+
+const { sectionTitle, titleHighlight, thumbnail, video } = Astro.props;
+
+function renderTitle(title: string, highlight?: string) {
+  if (!highlight) return title;
+  return title.replace(highlight, `<span class="text-primary-600">${highlight}</span>`);
+}
 ---
 
 <section id="feature-video" class="my-8 py-8">
@@ -20,8 +29,7 @@ import video from "@videos/placeholder-space.mp4";
               aria-hidden="true"
             />
           </div>
-          Watch how we can <span class="text-primary-600">enhance</span>
-          your living space
+          <Fragment set:html={renderTitle(sectionTitle, titleHighlight)} />
         </h2>
       </div>
       <div class="relative mx-auto mt-10 flex max-w-4xl justify-center">
@@ -31,7 +39,12 @@ import video from "@videos/placeholder-space.mp4";
           aria-label="play video"
           id="feature-video__play-button"
         >
-          <img src="" alt="logo" loading="lazy" height={1200} class="z-10 mx-auto rounded-xl" />
+          <SanityImage
+            image={thumbnail}
+            sizesType="half"
+            loading="lazy"
+            class="z-10 mx-auto rounded-xl"
+          />
 
           <div class="absolute top-0 left-0 m-auto flex h-full w-full items-center justify-center">
             <div class="relative m-auto aspect-square h-[20%] max-h-20">
@@ -76,7 +89,7 @@ import video from "@videos/placeholder-space.mp4";
                 playsinline
                 preload="metadata"
               >
-                <source src={video} type="video/mp4" />
+                <source src={video.asset.url} type="video/mp4" />
               </video>
 
               <!-- X button to close video -->

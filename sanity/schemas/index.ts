@@ -40,6 +40,7 @@ import {
   contactSection,
   richText,
   headingWithImage,
+  featureVideo,
 } from "./sections";
 
 export const schemaTypes = [
@@ -97,4 +98,5 @@ export const schemaTypes = [
   contactSection,
   richText,
   headingWithImage,
+  featureVideo,
 ];

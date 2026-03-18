@@ -104,6 +104,7 @@ export const page = defineType({
         { type: "heroBgImage" },
         { type: "heroSideImage" },
         { type: "heroCentered" },
+        { type: "featureVideo" },
         { type: "introSection" },
         { type: "headingWithImage" },
         { type: "richText" },

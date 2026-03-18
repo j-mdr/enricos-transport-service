@@ -27,6 +27,10 @@ const pageFields = `
       ctaButton ${ctaButtonFragment}
     },
     _type == "richText" => { ${contentFragment} },
+    _type == "featureVideo" => {
+      thumbnail ${imageFragment},
+      video { asset->{ url } }
+    },
     _type == "reference" => @->{
       _type,
       ...,

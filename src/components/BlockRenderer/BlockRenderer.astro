@@ -18,6 +18,7 @@ import FeatureLightboxMarqueeSection from "@components/Feature/FeatureLightboxMa
 import FeatureGalleryMarqueeSection from "@components/Feature/FeatureGalleryMarqueeSection.astro";
 import FeatureSideImageSection from "@components/Feature/FeatureSideImageSection.astro";
 import FeatureToggleImageSection from "@components/Feature/FeatureToggleImageSection.astro";
+import FeatureVideoSection from "@components/Feature/FeatureVideoSection.astro";
 import ServicesIconSection from "@components/Services/ServicesIconSection.astro";
 import ServicesSideImageSection from "@components/Services/ServicesSideImageSection.astro";
 import TestimonialsColumnsSection from "@components/Testimonials/TestimonialsColumnsSection.astro";
@@ -62,6 +63,7 @@ const { blocks } = Astro.props;
       {block._type === "testimonialsSwiper" && <TestimonialsSwiperSection {...block} />}
       {block._type === "contactSection" && <ContactSection {...block} />}
       {block._type === "headingWithImage" && <HeadingWithImageSection {...block} />}
+      {block._type === "featureVideo" && <FeatureVideoSection {...block} />}
       {block._type === "richText" && block.content?.length && (
         <div class="site-container my-16">
           <div class="markdown-content mx-auto max-w-3xl">

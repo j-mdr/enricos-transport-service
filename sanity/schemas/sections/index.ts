@@ -22,3 +22,4 @@ export { testimonialsSwiper } from "./testimonialsSwiper";
 export { contactSection } from "./contactSection";
 export { richText } from "./richText";
 export { headingWithImage } from "./headingWithImage";
+export { featureVideo } from "./featureVideo";

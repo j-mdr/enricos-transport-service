@@ -6,7 +6,6 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "wrangler dev",
     "astro": "astro",
     "format": "prettier -w \"**/*\" --ignore-unknown --cache",
     "lint": "eslint .",
