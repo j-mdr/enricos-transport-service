@@ -8,7 +8,7 @@ import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocksTop"]>;
 type Props = Extract<Blocks[number], { _type: "heroCentered" }>;
 
 const { title = "", description, ctaButton1, ctaButton2 } = Astro.props;

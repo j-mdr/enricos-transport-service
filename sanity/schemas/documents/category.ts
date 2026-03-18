@@ -9,7 +9,6 @@ export const category = defineType({
   title: "Categorie",
   type: "document",
   fields: [
-    defineField({ name: "language", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Naam",
@@ -45,6 +44,6 @@ export const category = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "slug.current" },
+    select: { title: "title", subtitle: "urlPath" },
   },
 });

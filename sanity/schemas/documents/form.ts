@@ -9,7 +9,6 @@ export const form = defineType({
   title: "Formulier",
   type: "document",
   fields: [
-    defineField({ name: "language", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Formulier titel",

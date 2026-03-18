@@ -7,7 +7,6 @@ export const featureLightboxMarquee = defineType({
   type: "document",
   icon: ImagesIcon,
   fields: [
-    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({ name: "title", title: "Titel", type: "string" }),
     defineField({
       name: "images",

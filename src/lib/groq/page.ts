@@ -14,7 +14,7 @@ const pageFields = `
   image ${imageFragment},
   seo,
   ${alternatePathsFragment},
-  blocks[] {
+  blocksTop[] {
     _key,
     _type,
     ...,
@@ -25,7 +25,13 @@ const pageFields = `
     },
     _type == "heroSideImage" => {
       ctaButton ${ctaButtonFragment}
-    },
+    }
+  },
+  blocks[] {
+    _key,
+    _type,
+    ...,
+    image ${imageFragment},
     _type == "richText" => { ${contentFragment} },
     _type == "reference" => @->{
       _type,

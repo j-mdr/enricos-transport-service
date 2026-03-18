@@ -7,7 +7,6 @@ export const faqCards = defineType({
   type: "document",
   icon: OlistIcon,
   fields: [
-    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

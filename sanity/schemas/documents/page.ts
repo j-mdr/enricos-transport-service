@@ -16,15 +16,6 @@ export const page = defineType({
     { name: "seo", title: "SEO" },
   ],
   fields: [
-    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
-    defineField({
-      name: "protected",
-      title: "Beschermd",
-      type: "boolean",
-      description: "Zet aan om verwijderen in de studio te blokkeren.",
-      group: "meta",
-      initialValue: false,
-    }),
     defineField({
       name: "title",
       title: "Titel",
@@ -96,11 +87,11 @@ export const page = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "blocks",
-      title: "Blokken",
+      name: "blocksTop",
+      title: "Blokken (boven)",
       type: "array",
       group: "content",
-      validation: (Rule) => Rule.min(1).max(15),
+      validation: (Rule) => Rule.max(5),
       of: [
         { type: "heroBgImage" },
         { type: "heroSideImage" },
@@ -108,6 +99,15 @@ export const page = defineType({
         { type: "featureVideo" },
         { type: "introSection" },
         { type: "headingWithImage" },
+      ],
+    }),
+    defineField({
+      name: "blocks",
+      title: "Blokken",
+      type: "array",
+      group: "content",
+      validation: (Rule) => Rule.max(15),
+      of: [
         { type: "richText" },
         defineArrayMember({
           name: "faqAccordions",
@@ -247,11 +247,8 @@ export const page = defineType({
   preview: {
     select: {
       title: "title",
-      slug: "slug.current",
+      subtitle: "urlPath",
       media: "image.asset",
-    },
-    prepare({ title, slug }: { title: string; slug: string }) {
-      return { title, subtitle: slug };
     },
   },
 });

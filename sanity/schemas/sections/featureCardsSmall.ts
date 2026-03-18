@@ -7,7 +7,6 @@ export const featureCardsSmall = defineType({
   type: "document",
   icon: BlockElementIcon,
   fields: [
-    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

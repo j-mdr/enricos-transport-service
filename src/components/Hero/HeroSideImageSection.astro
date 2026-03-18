@@ -9,7 +9,7 @@ import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocksTop"]>;
 type Props = Extract<Blocks[number], { _type: "heroSideImage" }>;
 
 const { title = "", description, ctaButton, image } = Astro.props;

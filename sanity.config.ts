@@ -1,5 +1,4 @@
 import { defineConfig } from "sanity";
-import { createProtectedDeleteAction } from "./sanity/actions/protectedDelete";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { documentInternationalization } from "@sanity/document-internationalization";
@@ -88,11 +87,5 @@ export default defineConfig({
             "contactSection",
           ].includes(option.templateId),
       ),
-    actions: (prev, { schemaType }) => {
-      if (schemaType !== "page") return prev;
-      return prev.map((action) =>
-        action.action === "delete" ? createProtectedDeleteAction(action) : action,
-      );
-    },
   },
 });

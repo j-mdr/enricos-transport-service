@@ -8,7 +8,6 @@ export const contactSection = defineType({
   type: "document",
   icon: EnvelopeIcon,
   fields: [
-    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "type",
       title: "Type",

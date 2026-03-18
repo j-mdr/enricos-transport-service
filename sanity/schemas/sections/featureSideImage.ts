@@ -7,7 +7,6 @@ export const featureSideImage = defineType({
   type: "document",
   icon: BlockElementIcon,
   fields: [
-    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "sectionTitle",
       title: "Sectie titel",

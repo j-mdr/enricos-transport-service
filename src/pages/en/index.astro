@@ -20,5 +20,6 @@ const ogImageUrl = buildOgImageUrl(image);
   alternatePaths={alternatePaths}
   blocks={page.blocks ?? undefined}
 >
+  <BlockRenderer blocks={page.blocksTop ?? []} />
   <BlockRenderer blocks={page.blocks ?? []} />
 </BaseLayout>

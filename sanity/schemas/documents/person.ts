@@ -5,7 +5,6 @@ export const person = defineType({
   title: "Persoon",
   type: "document",
   fields: [
-    defineField({ name: "language", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "name",
       title: "Naam",
