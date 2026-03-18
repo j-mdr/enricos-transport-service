@@ -8,7 +8,6 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import compress from "@playform/compress";
-import AutoImport from "astro-auto-import";
 import react from "@astrojs/react";
 import sanity from "@sanity/astro";
 import icon from "astro-icon";
@@ -60,13 +59,6 @@ export default defineConfig({
     },
   },
   integrations: [
-    // example auto import component into mdx files
-    AutoImport({
-      imports: [
-        // https://github.com/delucis/astro-auto-import
-        "@components/Admonition/Admonition.astro",
-      ],
-    }),
     mdx(),
     react(),
     icon(),
