@@ -10,6 +10,8 @@ export interface LocaleDefinition {
   categoriesSlug: string;
   blogSlug: string;
   backToAllBlogPostsLabel: string;
+  servicesSlug: string;
+  deliveryAreasSlug: string;
 }
 
 const nlLocaleDefinition: LocaleDefinition = {
@@ -22,6 +24,8 @@ const nlLocaleDefinition: LocaleDefinition = {
   categoriesSlug: "categorieen",
   blogSlug: "blog",
   backToAllBlogPostsLabel: "Terug naar alle berichten",
+  servicesSlug: "diensten",
+  deliveryAreasSlug: "bezorggebieden",
 };
 
 const enLocaleDefinition: LocaleDefinition = {
@@ -34,6 +38,8 @@ const enLocaleDefinition: LocaleDefinition = {
   categoriesSlug: "categories",
   blogSlug: "blog",
   backToAllBlogPostsLabel: "Back to all posts",
+  servicesSlug: "services",
+  deliveryAreasSlug: "delivery-areas",
 };
 
 export const localeDefinitions: LocaleDefinition[] = [nlLocaleDefinition, enLocaleDefinition];

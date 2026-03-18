@@ -8,6 +8,12 @@ export const ctaCardCenter2 = defineType({
   icon: SparklesIcon,
   fields: [
     defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: "title",
       title: "Titel",
       type: "string",

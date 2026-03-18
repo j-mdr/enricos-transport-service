@@ -3,11 +3,11 @@ import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 import { createUrlPathInput } from "../../components/UrlPathInput";
 import { langFilter } from "../../lib/filters";
 
-const BlogUrlPathInput = createUrlPathInput((def) => def.blogSlug);
+const ServiceUrlPathInput = createUrlPathInput((def) => def.servicesSlug);
 
-export const blogPost = defineType({
-  name: "blogPost",
-  title: "Blog post",
+export const service = defineType({
+  name: "service",
+  title: "Dienst",
   type: "document",
   groups: [
     { name: "content", title: "Inhoud" },
@@ -27,15 +27,6 @@ export const blogPost = defineType({
       type: "string",
       group: "content",
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "description",
-      title: "Beschrijving",
-      type: "text",
-      rows: 3,
-      group: "content",
-      description: "Korte samenvatting getoond in kaarten en als SEO fallback.",
-      validation: (Rule) => Rule.required().max(200),
     }),
     defineField({
       name: "slug",
@@ -58,7 +49,7 @@ export const blogPost = defineType({
       type: "string",
       group: "meta",
       description: "Automatisch gegenereerd op basis van taal en slug.",
-      components: { input: BlogUrlPathInput },
+      components: { input: ServiceUrlPathInput },
     }),
     defineField({
       name: "heroImage",
@@ -89,20 +80,6 @@ export const blogPost = defineType({
         {
           type: "reference",
           to: [{ type: "person" }],
-          options: { filter: langFilter },
-        },
-      ],
-      validation: (Rule) => Rule.required().min(1),
-    }),
-    defineField({
-      name: "categories",
-      title: "Categorieën",
-      type: "array",
-      group: "meta",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "category" }],
           options: { filter: langFilter },
         },
       ],

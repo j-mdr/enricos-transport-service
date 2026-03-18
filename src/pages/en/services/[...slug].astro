@@ -1,0 +1,23 @@
+---
+import ServiceLayout from "@layouts/ServiceLayoutCenter.astro";
+import { getAllServices, getServiceBySlug } from "@lib/groq/service";
+
+export async function getStaticPaths() {
+  const items = await getAllServices("en");
+
+  return items.map((item) => ({
+    params: {
+      slug: item.urlPath
+        ? item.urlPath.replace(/^\/en\/services\//, "")
+        : (item.slug ?? "").replace(/^services\//, ""),
+    },
+    props: { slug: item.slug },
+  }));
+}
+
+const { slug } = Astro.props as { slug: string };
+const item = await getServiceBySlug(slug, "en");
+if (!item) return Astro.redirect("/en/404");
+---
+
+<ServiceLayout item={item} />

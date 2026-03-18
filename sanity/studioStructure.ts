@@ -23,20 +23,34 @@ import {
 // Document types die per taal bestaan (via @sanity/document-internationalization)
 const pageTypes = [
   {
-    type: "page",
-    titleNL: "Pagina's",
-    titleEN: "Pages",
-    orderField: "slug.current",
-    icon: DocumentsIcon,
-  },
-  {
     type: "blogPost",
     titleNL: "Blog",
     titleEN: "Blog",
     orderField: "slug.current",
     icon: EditIcon,
   },
+  {
+    type: "deliveryArea",
+    titleNL: "Bezorggebieden",
+    titleEN: "Delivery areas",
+    orderField: "slug.current",
+    icon: EarthGlobeIcon,
+  },
   { type: "category", titleNL: "Categorieën", titleEN: "Categories", icon: TagIcon },
+  {
+    type: "service",
+    titleNL: "Diensten",
+    titleEN: "Services",
+    orderField: "slug.current",
+    icon: ThListIcon,
+  },
+  {
+    type: "page",
+    titleNL: "Pagina's",
+    titleEN: "Pages",
+    orderField: "slug.current",
+    icon: DocumentsIcon,
+  },
 ];
 
 const otherTypes = [

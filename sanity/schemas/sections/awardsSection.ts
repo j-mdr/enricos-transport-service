@@ -7,6 +7,12 @@ export const awardsSection = defineType({
   type: "document",
   icon: StarIcon,
   fields: [
+    defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+    }),
     defineField({ name: "title", title: "Titel", type: "string" }),
     defineField({
       name: "awards",

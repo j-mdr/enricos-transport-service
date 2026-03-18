@@ -1,0 +1,84 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Button from "@components/Button/Button.astro";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { getLocaleDefinition } from "@config/localeConfig.ts";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import { buildOgImageUrl } from "@lib/sanityImage";
+import type { GetDeliveryAreaBySlugQueryResult } from "../../sanity.types.ts";
+
+type Item = NonNullable<GetDeliveryAreaBySlugQueryResult>;
+interface Props {
+  item: Item;
+}
+
+const { item } = Astro.props;
+const { title, seo, heroImage, alternatePaths, blocks } = item;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const localeDefinition = getLocaleDefinition(currLocale);
+
+const backLabel =
+  currLocale === "en" ? "Back to all delivery areas" : "Terug naar alle bezorggebieden";
+
+const ogImageUrl = buildOgImageUrl(heroImage);
+---
+
+<BaseLayout
+  title={title ?? ""}
+  description=""
+  seo={seo}
+  ogImageUrl={ogImageUrl}
+  alternatePaths={alternatePaths}
+>
+  <article class="site-container pt-36 md:pt-44">
+    <div class="flex w-full flex-col items-center">
+      <div class="mx-auto flex w-full max-w-[800px]">
+        <div class="mx-auto text-center">
+          <!-- title -->
+          <h1 class="h1 mt-8">{title}</h1>
+        </div>
+      </div>
+
+      <!-- hero image -->
+      {
+        heroImage?.asset && (
+          <div class="mt-6 max-w-[1000px] overflow-hidden">
+            <SanityImage
+              image={heroImage}
+              sizesType="background"
+              loading="eager"
+              fetchpriority="high"
+              class="max-h-[70vh] rounded-xl object-cover"
+            />
+          </div>
+        )
+      }
+    </div>
+
+    <!-- content -->
+    <div class="mt-10 w-full">
+      <div class="mx-auto max-w-2xl">
+        <div class="text-base-content text-base">
+          <section id="delivery-area-content" class="markdown-content mx-auto">
+            <BlockRenderer blocks={blocks ?? []} />
+          </section>
+
+          <div class="mt-16 flex justify-center">
+            <Button
+              variant="outline"
+              href={localeDefinition.localeSlug
+                ? `/${localeDefinition.localeSlug}/${localeDefinition.deliveryAreasSlug}`
+                : `/${localeDefinition.deliveryAreasSlug}`}
+              arrow="left"
+              class="py-2"
+            >
+              {backLabel}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

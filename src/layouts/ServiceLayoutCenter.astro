@@ -1,39 +1,75 @@
 ---
-/**
- * * Centered services page layout. This has a title, description, main text, and an image if desired
- * The CTA and any other sections can be added in here so that all services pages have them
- */
-// main layout
 import BaseLayout from "./BaseLayout.astro";
+import Button from "@components/Button/Button.astro";
+import SanityImage from "@components/SanityImage/SanityImage.astro";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { getLocaleDefinition } from "@config/localeConfig.ts";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import { buildOgImageUrl } from "@lib/sanityImage";
+import type { GetServiceBySlugQueryResult } from "../../sanity.types.ts";
 
-// components
-import HeadingWithImageSection from "@components/HeadingWithImage/HeadingWithImageSection.astro";
-import CtaCardCenterSection from "@components/Cta/CtaCardCenterSection.astro";
-
+type Item = NonNullable<GetServiceBySlugQueryResult>;
 interface Props {
-  title: string;
-  description: string;
-  image?: any;
-  alternatePaths?: Partial<Record<string, string>>;
+  item: Item;
 }
 
-const { title, description, image = undefined, alternatePaths } = Astro.props as Props;
+const { item } = Astro.props;
+const { title, seo, heroImage, alternatePaths, blocks } = item;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const localeDefinition = getLocaleDefinition(currLocale);
+
+const backLabel = currLocale === "en" ? "Back to all services" : "Terug naar alle diensten";
+
+const ogImageUrl = buildOgImageUrl(heroImage);
 ---
 
-<BaseLayout title={title} description={description} alternatePaths={alternatePaths}>
-  <HeadingWithImageSection
-    _type="headingWithImage"
-    _key="layout-heading"
-    title={title}
-    image={image}
-  />
+<BaseLayout
+  title={title ?? ""}
+  description=""
+  seo={seo}
+  ogImageUrl={ogImageUrl}
+  alternatePaths={alternatePaths}
+>
+  <!-- service heading -->
+  <section class="site-container flex w-full flex-col items-center pt-24 md:pt-36">
+    <div class="bg-base-200/50 w-full rounded-xl py-20 text-center md:py-32">
+      <h1 class="h1">{title}</h1>
+    </div>
+
+    <!-- service main image -->
+    {
+      heroImage?.asset && (
+        <div class="-mt-12 max-w-[800px] overflow-hidden px-4 md:-mt-20">
+          <SanityImage
+            image={heroImage}
+            sizesType="background"
+            loading="eager"
+            fetchpriority="high"
+            class="max-h-[45vh] rounded-xl object-cover"
+          />
+        </div>
+      )
+    }
+  </section>
 
   <!-- service details -->
   <section class="bg-base-200/50 my-20 py-12 md:py-20">
     <div class="markdown-content mx-auto max-w-[800px] px-4">
-      <slot />
+      <BlockRenderer blocks={blocks ?? []} />
     </div>
   </section>
 
-  <CtaCardCenterSection {...{ _type: "ctaCardCenter" } as any} />
+  <div class="site-container mb-20 flex justify-center">
+    <Button
+      variant="outline"
+      href={localeDefinition.localeSlug
+        ? `/${localeDefinition.localeSlug}/${localeDefinition.servicesSlug}`
+        : `/${localeDefinition.servicesSlug}`}
+      arrow="left"
+      class="py-2"
+    >
+      {backLabel}
+    </Button>
+  </div>
 </BaseLayout>
