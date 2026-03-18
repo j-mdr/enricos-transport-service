@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { UsersIcon } from "@sanity/icons";
 
 export const teamMemberCards = defineType({
   name: "teamMemberCards",
   title: "Team / teamleden kaarten",
-  type: "object",
+  type: "document",
+  icon: UsersIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",
@@ -16,7 +19,18 @@ export const teamMemberCards = defineType({
       name: "teamMembers",
       title: "Teamleden",
       type: "array",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "person" }],
+          options: {
+            filter: ({ document }: { document: { language?: string } }) =>
+              document.language
+                ? { filter: "language == $lang", params: { lang: document.language } }
+                : {},
+          },
+        },
+      ],
       validation: (Rule) => Rule.required().min(1),
     }),
   ],

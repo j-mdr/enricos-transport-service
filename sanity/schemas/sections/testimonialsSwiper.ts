@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { ThListIcon } from "@sanity/icons";
 
 export const testimonialsSwiper = defineType({
   name: "testimonialsSwiper",
   title: "Recensies / carrousel",
-  type: "object",
+  type: "document",
+  icon: ThListIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { ThListIcon } from "@sanity/icons";
 
 export const servicesSideImage = defineType({
   name: "servicesSideImage",
   title: "Diensten / met zijafbeelding",
-  type: "object",
+  type: "document",
+  icon: ThListIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

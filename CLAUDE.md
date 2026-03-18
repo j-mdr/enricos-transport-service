@@ -59,15 +59,15 @@ Sanity Studio is accessible at `/studio` (also `/admin/` redirects here). Config
 
 **Document types managed in Sanity:**
 
-| Type         | Description                                                                  |
-| ------------ | ---------------------------------------------------------------------------- |
-| `page`       | Flexible pages with block builder; supports parent hierarchy for nested URLs |
-| `blogPost`   | Blog posts with description, blocks, and SEO fields                          |
-| `category`   | Blog category taxonomy                                                       |
-| `person`     | Author / team member profiles                                                |
-| `form`       | Form configurations with field definitions                                   |
-| `settings`   | Global settings with nav + footer (singletons `settings-nl`, `settings-en`) |
-| `robotsTxt`  | Singleton (`_id: "robots-txt"`) — custom `robots.txt` content. Falls back to default if empty. |
+| Type        | Description                                                                                    |
+| ----------- | ---------------------------------------------------------------------------------------------- |
+| `page`      | Flexible pages with block builder; supports parent hierarchy for nested URLs                   |
+| `blogPost`  | Blog posts with description, blocks, and SEO fields                                            |
+| `category`  | Blog category taxonomy                                                                         |
+| `person`    | Author / team member profiles                                                                  |
+| `form`      | Form configurations with field definitions                                                     |
+| `settings`  | Global settings with nav + footer (singletons `settings-nl`, `settings-en`)                    |
+| `robotsTxt` | Singleton (`_id: "robots-txt"`) — custom `robots.txt` content. Falls back to default if empty. |
 
 **Schema organization** (`sanity/schemas/`):
 
@@ -224,7 +224,7 @@ Variants map to `Button` variants: `default`, `primary`, `secondary`, `outline`,
   ogImageUrl={ogImageUrl}
   alternatePaths={alternatePaths}
   blocks={page.blocks ?? undefined}
->
+/>
 ```
 
 For non-CMS pages (e.g. 404), pass `seo={{ noIndex: true }}` directly.
@@ -274,12 +274,12 @@ Page-level section components live in `src/components/` organized by feature (He
 
 ### Environment Variables
 
-| Variable                    | Visibility  | Purpose                                         |
-| --------------------------- | ----------- | ----------------------------------------------- |
-| `PUBLIC_SITE_URL`           | Public      | Canonical site URL (e.g. `https://example.nl`)  |
-| `PUBLIC_SANITY_PROJECT_ID`  | Public      | Sanity project ID                               |
-| `PUBLIC_SANITY_DATASET`     | Public      | Sanity dataset (default: `production`)          |
-| `PUBLIC_TURNSTILE_SITE_KEY` | Public      | Cloudflare Turnstile public key                 |
-| `PUBLIC_GA_MEASUREMENT_ID`  | Public      | Google Analytics measurement ID (optional)      |
-| `TURNSTILE_SECRET_KEY`      | Server-only | Cloudflare Turnstile secret                     |
-| `STATICFORMS_ACCESS_KEY`    | Server-only | StaticForms API key for form submissions        |
+| Variable                    | Visibility  | Purpose                                        |
+| --------------------------- | ----------- | ---------------------------------------------- |
+| `PUBLIC_SITE_URL`           | Public      | Canonical site URL (e.g. `https://example.nl`) |
+| `PUBLIC_SANITY_PROJECT_ID`  | Public      | Sanity project ID                              |
+| `PUBLIC_SANITY_DATASET`     | Public      | Sanity dataset (default: `production`)         |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Public      | Cloudflare Turnstile public key                |
+| `PUBLIC_GA_MEASUREMENT_ID`  | Public      | Google Analytics measurement ID (optional)     |
+| `TURNSTILE_SECRET_KEY`      | Server-only | Cloudflare Turnstile secret                    |
+| `STATICFORMS_ACCESS_KEY`    | Server-only | StaticForms API key for form submissions       |

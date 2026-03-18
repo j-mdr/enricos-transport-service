@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { BlockElementIcon } from "@sanity/icons";
 
 export const featureCardsSmall = defineType({
   name: "featureCardsSmall",
   title: "Feature / kleine kaarten",
-  type: "object",
+  type: "document",
+  icon: BlockElementIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

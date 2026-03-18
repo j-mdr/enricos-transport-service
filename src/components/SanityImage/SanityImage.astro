@@ -42,7 +42,7 @@ const SRCSET_WIDTHS: Record<SizesType, number[]> = {
 const SIZES_PRESETS: Record<SizesType, string> = {
   background: "100vw",
   half: "(min-width: 1024px) 50vw, 100vw",
-  card: "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
+  card: "(min-width: 1024px) 25vw, (min-width: 640px) 40vw, 100vw",
   avatar: width ? `${width}px` : "10vw",
 };
 
@@ -84,7 +84,9 @@ const decoding = loading === "eager" ? "sync" : "async";
 
 // LQIP placeholder as CSS background — only for lazy-loaded raster images
 const lqip = loading !== "eager" ? (image?.asset?.metadata?.lqip ?? null) : null;
-const placeholderStyle = lqip ? `background-image:url(${lqip});background-size:cover;background-repeat:no-repeat;` : undefined;
+const placeholderStyle = lqip
+  ? `background-image:url(${lqip});background-size:cover;background-repeat:no-repeat;`
+  : undefined;
 
 if (!image?.asset) return;
 

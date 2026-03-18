@@ -77,8 +77,7 @@ export default defineConfig({
       useCdn: false,
     }),
     sitemap({
-      filter: (page) =>
-        !page.includes(`${env.PUBLIC_SITE_URL}componenten-voorbeeld/`),
+      filter: (page) => !page.includes(`${env.PUBLIC_SITE_URL}componenten-voorbeeld/`),
     }),
     compress({
       HTML: true,
@@ -89,13 +88,14 @@ export default defineConfig({
     }),
   ],
   output: "static",
+  build: {
+    inlineStylesheets: "always",
+  },
   vite: {
     plugins: [tailwindcss()],
     // Inline PUBLIC_SANITY_* in SSR bundles (Vite does not replace import.meta.env in SSR by default)
     define: {
-      "import.meta.env.PUBLIC_SANITY_PROJECT_ID": JSON.stringify(
-        env.PUBLIC_SANITY_PROJECT_ID,
-      ),
+      "import.meta.env.PUBLIC_SANITY_PROJECT_ID": JSON.stringify(env.PUBLIC_SANITY_PROJECT_ID),
       "import.meta.env.PUBLIC_SANITY_DATASET": JSON.stringify(
         env.PUBLIC_SANITY_DATASET ?? "production",
       ),

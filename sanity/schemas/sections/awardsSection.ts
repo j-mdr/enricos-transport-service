@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { StarIcon } from "@sanity/icons";
 
 export const awardsSection = defineType({
   name: "awardsSection",
   title: "Inhoud / certificaten & awards",
-  type: "object",
+  type: "document",
+  icon: StarIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({ name: "title", title: "Titel", type: "string" }),
     defineField({
       name: "awards",

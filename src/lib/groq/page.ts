@@ -1,7 +1,12 @@
 import { defineQuery } from "groq";
 import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteConfig.ts";
-import { alternatePathsFragment, ctaButtonFragment, contentFragment, imageFragment } from "./fragments";
+import {
+  alternatePathsFragment,
+  ctaButtonFragment,
+  contentFragment,
+  imageFragment,
+} from "./fragments";
 
 const pageFields = `
   title,
@@ -10,39 +15,40 @@ const pageFields = `
   seo,
   ${alternatePathsFragment},
   blocks[] {
+    _key,
     _type,
     ...,
     image ${imageFragment},
-    _type == "teamMemberCards" => {
-      "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar ${imageFragment} }
-    },
     _type in ["heroBgImage", "heroCentered"] => {
       ctaButton1 ${ctaButtonFragment},
       ctaButton2 ${ctaButtonFragment}
     },
-    _type in ["heroSideImage", "ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {
+    _type == "heroSideImage" => {
       ctaButton ${ctaButtonFragment}
     },
-    _type == "servicesIcon" => {
-      services[] { ..., ctaButton ${ctaButtonFragment} }
-    },
-    _type == "servicesSideImage" => {
-      services[] { ..., ctaButton ${ctaButtonFragment} }
-    },
     _type == "richText" => { ${contentFragment} },
-    _type == "contactSection" => {
-      type,
-      title,
+    _type == "reference" => @->{
+      _type,
+      ...,
       image ${imageFragment},
-      form-> {
+      _type == "teamMemberCards" => {
+        "teamMembers": teamMembers[]->{ name, personTitle, bio, avatar ${imageFragment} }
+      },
+      _type in ["ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"] => {
+        ctaButton ${ctaButtonFragment}
+      },
+      _type == "servicesIcon" => {
+        services[] { ..., ctaButton ${ctaButtonFragment} }
+      },
+      _type == "servicesSideImage" => {
+        services[] { ..., ctaButton ${ctaButtonFragment} }
+      },
+      _type == "contactSection" => {
+        type,
         title,
-        emailSubject,
-        submitButtonText,
-        successMessage,
-        errorMessage,
-        fields[] {
-          type, name, label, placeholder, required, width,
-          options[] { label, value }
+        image ${imageFragment},
+        form->{ title, emailSubject, submitButtonText, successMessage, errorMessage,
+          fields[] { type, name, label, placeholder, required, width, options[] { label, value } }
         }
       }
     }

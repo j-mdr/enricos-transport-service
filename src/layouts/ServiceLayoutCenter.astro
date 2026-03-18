@@ -35,5 +35,5 @@ const { title, description, image = undefined, alternatePaths } = Astro.props as
     </div>
   </section>
 
-  <CtaCardCenterSection _type="ctaCardCenter" _key="layout-cta" />
+  <CtaCardCenterSection {...{ _type: "ctaCardCenter" } as any} />
 </BaseLayout>

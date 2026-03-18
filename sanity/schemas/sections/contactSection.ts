@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { EnvelopeIcon } from "@sanity/icons";
 
 export const contactSection = defineType({
   name: "contactSection",
   title: "Contact / sectie",
-  type: "object",
+  type: "document",
+  icon: EnvelopeIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "type",
       title: "Type",
@@ -36,6 +39,12 @@ export const contactSection = defineType({
       title: "Formulier",
       type: "reference",
       to: [{ type: "form" }],
+      options: {
+        filter: ({ document }: { document: { language?: string } }) =>
+          document.language
+            ? { filter: "language == $lang", params: { lang: document.language } }
+            : {},
+      },
       validation: (Rule) => Rule.required(),
     }),
   ],

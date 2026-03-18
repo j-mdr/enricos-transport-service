@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { SparklesIcon } from "@sanity/icons";
 
 export const ctaBgImage = defineType({
   name: "ctaBgImage",
   title: "CTA / met achtergrond afbeelding",
-  type: "object",
+  type: "document",
+  icon: SparklesIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { OlistIcon } from "@sanity/icons";
 
 export const faqAccordions = defineType({
   name: "faqAccordions",
   title: "FAQ / accordeon",
-  type: "object",
+  type: "document",
+  icon: OlistIcon,
   fields: [
+    defineField({ name: "language", title: "Taal", type: "string", readOnly: true, hidden: false }),
     defineField({
       name: "title",
       title: "Titel",

@@ -16,4 +16,4 @@ const turnstileSiteKey = PUBLIC_TURNSTILE_SITE_KEY ?? "";
 const locale = getLocaleFromUrl(Astro.url);
 ---
 
-<ContactFormReact form={form} turnstileSiteKey={turnstileSiteKey} locale={locale} client:load />
+<ContactFormReact form={form} turnstileSiteKey={turnstileSiteKey} locale={locale} client:visible />
