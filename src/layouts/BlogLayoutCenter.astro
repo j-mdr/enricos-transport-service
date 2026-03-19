@@ -124,8 +124,8 @@ const authorsList = (authors ?? []).map((a) => ({ name: a.name ?? null, url: nul
             <Button
               variant="outline"
               href={localeDefinition.localeSlug
-                ? `/${localeDefinition.localeSlug}/${localeDefinition.blogSlug}`
-                : `/${localeDefinition.blogSlug}`}
+                ? `/${localeDefinition.localeSlug}/${localeDefinition.blogSlug}/`
+                : `/${localeDefinition.blogSlug}/`}
               arrow="left"
               class="py-2"
             >
