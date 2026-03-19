@@ -13,7 +13,7 @@ const cat = categories.find((c) => {
     : (c.slug ?? "").replace(/^categories\//, "");
   return urlSegment === categoryParam;
 });
-if (!cat) return Astro.redirect("/en/404");
+if (!cat) return Astro.rewrite("/en/404");
 
 const posts = await getBlogPostsByCategory(cat.slug ?? "", "en");
 ---

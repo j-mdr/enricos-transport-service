@@ -2,9 +2,10 @@
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
 import { getBlogPostBySlug } from "@lib/groq/blogPost";
 
-const slug = Astro.params.slug as string;
+const slug = Astro.params.slug;
+if (!slug) return Astro.rewrite("/404");
 const post = await getBlogPostBySlug(slug, "nl");
-if (!post) return Astro.redirect("/404");
+if (!post) return Astro.rewrite("/404");
 ---
 
 <BlogLayout post={post} />

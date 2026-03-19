@@ -5,7 +5,7 @@ import { getHomePageFromSettings } from "@lib/groq/settings";
 import { buildOgImageUrl } from "@lib/sanityImage";
 
 const page = await getHomePageFromSettings("nl");
-if (!page) return Astro.redirect("/404");
+if (!page) return Astro.rewrite("/404");
 
 const { title, seo } = page;
 const alternatePaths = { nl: "/", en: "/en/" };

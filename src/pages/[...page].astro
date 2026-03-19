@@ -4,9 +4,10 @@ import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { getPageBySlug } from "@lib/groq/page";
 import { buildOgImageUrl } from "@lib/sanityImage";
 
-const slug = Astro.params.page as string;
+const slug = Astro.params.page;
+if (!slug) return Astro.rewrite("/404");
 const page = await getPageBySlug(slug, "nl");
-if (!page) return Astro.redirect("/404");
+if (!page) return Astro.rewrite("/404");
 
 const { title = "", description = "", seo, alternatePaths } = page;
 const heroBlock = page.blocks?.find((b: any) => b.image?.asset);

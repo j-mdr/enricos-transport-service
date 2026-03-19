@@ -2,9 +2,10 @@
 import ServiceLayout from "@layouts/ServiceLayoutCenter.astro";
 import { getServiceBySlug } from "@lib/groq/service";
 
-const slug = Astro.params.slug as string;
+const slug = Astro.params.slug;
+if (!slug) return Astro.rewrite("/404");
 const item = await getServiceBySlug(slug, "nl");
-if (!item) return Astro.redirect("/404");
+if (!item) return Astro.rewrite("/404");
 ---
 
 <ServiceLayout item={item} />

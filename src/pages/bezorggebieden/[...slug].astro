@@ -2,9 +2,10 @@
 import DeliveryAreaLayout from "@layouts/DeliveryAreaLayoutCenter.astro";
 import { getDeliveryAreaBySlug } from "@lib/groq/deliveryArea";
 
-const slug = Astro.params.slug as string;
+const slug = Astro.params.slug;
+if (!slug) return Astro.rewrite("/404");
 const item = await getDeliveryAreaBySlug(slug, "nl");
-if (!item) return Astro.redirect("/404");
+if (!item) return Astro.rewrite("/404");
 ---
 
 <DeliveryAreaLayout item={item} />
