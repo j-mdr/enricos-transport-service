@@ -9,6 +9,7 @@ import sitemap from "@astrojs/sitemap";
 // import mdx from "@astrojs/mdx";
 import compress from "@playform/compress";
 import react from "@astrojs/react";
+import cloudflare from "@astrojs/cloudflare";
 import sanity from "@sanity/astro";
 import icon from "astro-icon";
 
@@ -81,6 +82,7 @@ export default defineConfig({
       SVG: false, // astro-icon handles this
     }),
   ],
+  adapter: cloudflare(),
   output: "static",
   build: {
     inlineStylesheets: "always",

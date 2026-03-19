@@ -5,12 +5,12 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page",
+    "not_found_handling": "404-page"
   },
   "routes": [
     {
       "pattern": "ets.j-mdr.com",
-      "custom_domain": true,
-    },
+      "custom_domain": true
+    }
   ],
 }
