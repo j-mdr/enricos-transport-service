@@ -7,7 +7,7 @@
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocksTop"]>;
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
 type Props = Extract<Blocks[number], { _type: "headingWithImage" }>;
 
 const { title, image } = Astro.props;

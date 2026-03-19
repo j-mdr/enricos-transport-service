@@ -7,7 +7,7 @@ import { Icon } from "astro-icon/components";
 import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
-type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocksTop"]>;
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
 type Props = Extract<Blocks[number], { _type: "introSection" }>;
 
 const { title = "", introText = "" } = Astro.props;

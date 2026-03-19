@@ -6,18 +6,15 @@ const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
-import mdx from "@astrojs/mdx";
+// import mdx from "@astrojs/mdx";
 import compress from "@playform/compress";
 import react from "@astrojs/react";
 import sanity from "@sanity/astro";
 import icon from "astro-icon";
 
-import cloudflare from "@astrojs/cloudflare";
-
 // https://astro.build/config
 export default defineConfig({
   site: env.PUBLIC_SITE_URL,
-  adapter: cloudflare(),
   experimental: {
     rustCompiler: true,
   },

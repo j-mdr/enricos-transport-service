@@ -52,6 +52,11 @@ const deliveryAreaFields = `
           fields[] { type, name, label, placeholder, required, width, options[] { label, value } }
         }
       }
+    },
+    _type == "faqAccordions" => @->{
+      _type,
+      ...,
+      image ${imageFragment}
     }
   }
 `;
