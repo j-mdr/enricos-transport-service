@@ -30,7 +30,6 @@ export default defineConfig({
       schemaTypes: [
         "blogPost",
         "page",
-        "form",
         "person",
         "category",
         "deliveryArea",
@@ -66,7 +65,6 @@ export default defineConfig({
           ![
             "blogPost",
             "page",
-            "form",
             "person",
             "category",
             "deliveryArea",

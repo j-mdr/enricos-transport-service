@@ -1,8 +1,11 @@
 import { defineType, defineField, defineArrayMember } from "sanity";
+import { OlistIcon } from "@sanity/icons";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 import { createUrlPathInput } from "../../components/UrlPathInput";
 import { langFilter } from "../../lib/filters";
 import { slugValidation } from "../../lib/slugValidation";
+import { faqAccordionsFields } from "../sections/faqAccordions";
+import { faqCardsFields } from "../sections/faqCards";
 
 const ServiceUrlPathInput = createUrlPathInput((def) => def.servicesSlug);
 
@@ -100,6 +103,43 @@ export const service = defineType({
       type: "array",
       group: "content",
       validation: (Rule) => Rule.min(1).max(15),
+      options: {
+        insertMenu: {
+          groups: [
+            { name: "inhoud", title: "Inhoud", of: ["richText", "featureVideo"] },
+            {
+              name: "feature",
+              title: "Feature",
+              of: [
+                "featureCardsSmall",
+                "featureLightboxMarquee",
+                "featureGalleryMarquee",
+                "featureSideImage",
+                "featureToggleImage",
+              ],
+            },
+            {
+              name: "cta",
+              title: "CTA",
+              of: ["ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"],
+            },
+            {
+              name: "faq",
+              title: "FAQ",
+              of: ["faqAccordions", "faqAccordionsInline", "faqCards", "faqCardsInline"],
+            },
+            { name: "diensten", title: "Diensten", of: ["servicesIcon", "servicesSideImage"] },
+            {
+              name: "recensies",
+              title: "Recensies",
+              of: ["testimonialsColumns", "testimonialsSwiper"],
+            },
+            { name: "team", title: "Team & Awards", of: ["teamMemberCards", "awardsSection"] },
+            { name: "contact", title: "Contact", of: ["contactSection"] },
+          ],
+          views: [{ name: "list" }, { name: "grid" }],
+        },
+      },
       of: [
         { type: "richText" },
         { type: "featureVideo" },
@@ -111,11 +151,33 @@ export const service = defineType({
           options: { filter: langFilter },
         }),
         defineArrayMember({
+          name: "faqAccordionsInline",
+          type: "object",
+          title: "FAQ / accordeon (inline)",
+          icon: OlistIcon,
+          fields: faqAccordionsFields,
+          preview: {
+            select: { title: "title" },
+            prepare: ({ title }) => ({ title, subtitle: "FAQ / accordeon (inline)" }),
+          },
+        }),
+        defineArrayMember({
           name: "faqCards",
           type: "reference",
           title: "FAQ / kaarten",
           to: [{ type: "faqCards" }],
           options: { filter: langFilter },
+        }),
+        defineArrayMember({
+          name: "faqCardsInline",
+          type: "object",
+          title: "FAQ / kaarten (inline)",
+          icon: OlistIcon,
+          fields: faqCardsFields,
+          preview: {
+            select: { title: "title" },
+            prepare: ({ title }) => ({ title, subtitle: "FAQ / kaarten (inline)" }),
+          },
         }),
         defineArrayMember({
           name: "ctaBgImage",

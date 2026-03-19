@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
+import { getPageBySlug } from "@lib/groq/page";
+import { buildOgImageUrl } from "@lib/sanityImage";
+
+const page = await getPageBySlug("diensten", "nl");
+if (!page) return Astro.rewrite("/404");
+
+const { title = "", description = "", seo, alternatePaths } = page;
+const heroBlock = page.blocks?.find((b: any) => b.image?.asset);
+const ogImageUrl = buildOgImageUrl(heroBlock?.image as any);
+---
+
+<BaseLayout
+  title={title ?? ""}
+  description={description ?? ""}
+  seo={seo}
+  type={"general"}
+  ogImageUrl={ogImageUrl}
+  alternatePaths={alternatePaths}
+  blocks={page.blocks ?? undefined}
+>
+  <BlockRenderer blocks={page.blocks ?? []} />
+</BaseLayout>

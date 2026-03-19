@@ -1,6 +1,5 @@
 import { defineType, defineField } from "sanity";
 import { EnvelopeIcon } from "@sanity/icons";
-import { langFilter } from "../../lib/filters";
 
 export const contactSection = defineType({
   name: "contactSection",
@@ -41,13 +40,40 @@ export const contactSection = defineType({
       hidden: ({ parent }) => parent?.type !== "withImage",
     }),
     defineField({
-      name: "form",
-      title: "Formulier",
-      type: "reference",
-      to: [{ type: "form" }],
-      options: { filter: langFilter },
+      name: "emailSubject",
+      title: "Onderwerp e-mail (optioneel)",
+      type: "string",
+      description: "Overschrijft het standaard onderwerp in de ontvangen e-mail",
+    }),
+    defineField({
+      name: "submitButtonText",
+      title: "Knoptekst",
+      type: "string",
+      initialValue: "Versturen",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "successMessage",
+      title: "Succesbericht",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({
+      name: "errorMessage",
+      title: "Foutmelding",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({
+      name: "fields",
+      title: "Formuliervelden",
+      type: "array",
+      of: [{ type: "formField" }],
+      validation: (Rule) => Rule.required().min(1),
+    }),
   ],
-  preview: { prepare: () => ({ title: "Contactformulier", subtitle: "Contact / sectie" }) },
+  preview: {
+    select: { title: "title" },
+    prepare: ({ title }) => ({ title: title ?? "Contactformulier", subtitle: "Contact / sectie" }),
+  },
 });

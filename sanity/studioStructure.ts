@@ -6,7 +6,6 @@ import {
   ComponentIcon,
   DocumentIcon,
   DocumentsIcon,
-  DocumentTextIcon,
   EditIcon,
   EnvelopeIcon,
   ImagesIcon,
@@ -55,7 +54,6 @@ const pageTypes = [
 
 const otherTypes = [
   { type: "person", titleNL: "Personen", titleEN: "Persons", orderField: "name", icon: UserIcon },
-  { type: "form", titleNL: "Formulieren", titleEN: "Forms", icon: DocumentTextIcon },
 ];
 
 const sectionTypes = [

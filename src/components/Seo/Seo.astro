@@ -43,7 +43,7 @@ const {
 } = Astro.props as GenProps | BlogProps;
 
 const companyName = companyInfo?.name ?? "";
-const resolvedTitle = title ? `${title} | ${companyName}` : companyName;
+const resolvedTitle = title ?? companyName ?? "";
 
 let jsonLD: string | undefined;
 const siteBase = new URL(Astro.site ?? "");

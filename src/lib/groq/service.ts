@@ -48,7 +48,7 @@ const serviceFields = `
         type,
         title,
         image ${imageFragment},
-        form->{ title, emailSubject, submitButtonText, successMessage, errorMessage,
+        "form": { "title": title, emailSubject, submitButtonText, successMessage, errorMessage,
           fields[] { type, name, label, placeholder, required, width, options[] { label, value } }
         }
       }
@@ -77,7 +77,7 @@ const serviceFields = `
         type,
         title,
         image ${imageFragment},
-        form->{ title, emailSubject, submitButtonText, successMessage, errorMessage,
+        "form": { "title": title, emailSubject, submitButtonText, successMessage, errorMessage,
           fields[] { type, name, label, placeholder, required, width, options[] { label, value } }
         }
       }

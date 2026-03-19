@@ -14,7 +14,7 @@ import {
   serviceCardSideImage,
 } from "./molecules";
 import { settings, robotsTxt } from "./singletons";
-import { form, person, blogPost, page, category, deliveryArea, service } from "./documents";
+import { person, blogPost, page, category, deliveryArea, service } from "./documents";
 import {
   heroBgImage,
   heroSideImage,
@@ -68,7 +68,6 @@ export const schemaTypes = [
   settings,
   robotsTxt,
   // Documents
-  form,
   person,
   blogPost,
   page,

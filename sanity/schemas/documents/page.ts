@@ -4,6 +4,7 @@ import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 import { UrlPathInput } from "../../components/UrlPathInput";
 import { langFilter } from "../../lib/filters";
 import { faqAccordionsFields } from "../sections/faqAccordions";
+import { faqCardsFields } from "../sections/faqCards";
 import { slugValidation } from "../../lib/slugValidation";
 
 // Flexibele pagina met block builder.
@@ -95,6 +96,64 @@ export const page = defineType({
       type: "array",
       group: "content",
       validation: (Rule) => Rule.max(15),
+      options: {
+        insertMenu: {
+          groups: [
+            {
+              name: "hero",
+              title: "Hero",
+              of: ["heroBgImage", "heroSideImage", "heroCentered"],
+            },
+            {
+              name: "inhoud",
+              title: "Inhoud",
+              of: ["introSection", "headingWithImage", "richText", "featureVideo"],
+            },
+            {
+              name: "feature",
+              title: "Feature",
+              of: [
+                "featureCardsSmall",
+                "featureLightboxMarquee",
+                "featureGalleryMarquee",
+                "featureSideImage",
+                "featureToggleImage",
+              ],
+            },
+            {
+              name: "cta",
+              title: "CTA",
+              of: ["ctaBgImage", "ctaCardCenter", "ctaCardCenter2", "ctaCards"],
+            },
+            {
+              name: "faq",
+              title: "FAQ",
+              of: ["faqAccordions", "faqAccordionsInline", "faqCards", "faqCardsInline"],
+            },
+            {
+              name: "diensten",
+              title: "Diensten",
+              of: ["servicesIcon", "servicesSideImage"],
+            },
+            {
+              name: "recensies",
+              title: "Recensies",
+              of: ["testimonialsColumns", "testimonialsSwiper"],
+            },
+            {
+              name: "team",
+              title: "Team & Awards",
+              of: ["teamMemberCards", "awardsSection"],
+            },
+            {
+              name: "contact",
+              title: "Contact",
+              of: ["contactSection"],
+            },
+          ],
+          views: [{ name: "list" }, { name: "grid" }],
+        },
+      },
       of: [
         { type: "heroBgImage" },
         { type: "heroSideImage" },
@@ -127,6 +186,17 @@ export const page = defineType({
           title: "FAQ / kaarten",
           to: [{ type: "faqCards" }],
           options: { filter: langFilter },
+        }),
+        defineArrayMember({
+          name: "faqCardsInline",
+          type: "object",
+          title: "FAQ / kaarten (inline)",
+          icon: OlistIcon,
+          fields: faqCardsFields,
+          preview: {
+            select: { title: "title" },
+            prepare: ({ title }) => ({ title, subtitle: "FAQ / kaarten (inline)" }),
+          },
         }),
         defineArrayMember({
           name: "ctaBgImage",
