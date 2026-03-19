@@ -7,9 +7,15 @@ export const internalLink = defineType({
   fields: [
     defineField({
       name: "reference",
-      title: "Pagina of blogpost",
+      title: "Pagina, blogpost, dienst, bezorggebied of categorie",
       type: "reference",
-      to: [{ type: "page" }, { type: "blogPost" }],
+      to: [
+        { type: "page" },
+        { type: "blogPost" },
+        { type: "service" },
+        { type: "deliveryArea" },
+        { type: "category" },
+      ],
       validation: (Rule) => Rule.required(),
     }),
   ],

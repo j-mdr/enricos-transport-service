@@ -1,7 +1,9 @@
 import { defineType, defineField, defineArrayMember } from "sanity";
+import { OlistIcon } from "@sanity/icons";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 import { UrlPathInput } from "../../components/UrlPathInput";
 import { langFilter } from "../../lib/filters";
+import { faqAccordionsFields } from "../sections/faqAccordions";
 
 // Flexibele pagina met block builder.
 // De blocks array wordt uitgebreid met section types zodra die gedefinieerd zijn.
@@ -103,9 +105,20 @@ export const page = defineType({
         defineArrayMember({
           name: "faqAccordions",
           type: "reference",
-          title: "FAQ / accordeon",
+          title: "FAQ / accordeon (gedeeld)",
           to: [{ type: "faqAccordions" }],
           options: { filter: langFilter },
+        }),
+        defineArrayMember({
+          name: "faqAccordionsInline",
+          type: "object",
+          title: "FAQ / accordeon (inline)",
+          icon: OlistIcon,
+          fields: faqAccordionsFields,
+          preview: {
+            select: { title: "title" },
+            prepare: ({ title }) => ({ title, subtitle: "FAQ / accordeon (inline)" }),
+          },
         }),
         defineArrayMember({
           name: "faqCards",

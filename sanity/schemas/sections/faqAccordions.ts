@@ -1,6 +1,23 @@
 import { defineType, defineField } from "sanity";
 import { OlistIcon } from "@sanity/icons";
 
+export const faqAccordionsFields = [
+  defineField({
+    name: "title",
+    title: "Titel",
+    type: "string",
+    description: "Gebruik {highlight} om een woord te markeren",
+    validation: (Rule) => Rule.required(),
+  }),
+  defineField({
+    name: "faqs",
+    title: "FAQ items",
+    type: "array",
+    of: [{ type: "faqItem" }],
+    validation: (Rule) => Rule.required().min(1),
+  }),
+];
+
 export const faqAccordions = defineType({
   name: "faqAccordions",
   title: "FAQ / accordeon",
@@ -13,20 +30,7 @@ export const faqAccordions = defineType({
       readOnly: true,
       hidden: true,
     }),
-    defineField({
-      name: "title",
-      title: "Titel",
-      type: "string",
-      description: "Gebruik {highlight} om een woord te markeren",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "faqs",
-      title: "FAQ items",
-      type: "array",
-      of: [{ type: "faqItem" }],
-      validation: (Rule) => Rule.required().min(1),
-    }),
+    ...faqAccordionsFields,
   ],
   preview: {
     select: { title: "title" },
