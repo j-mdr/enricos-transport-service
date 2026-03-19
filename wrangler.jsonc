@@ -9,7 +9,7 @@
   },
   "routes": [
     {
-      "pattern": "ets.j-mdr.com",
+      "pattern": "ets-cms.j-mdr.com",
       "custom_domain": true
     }
   ]
