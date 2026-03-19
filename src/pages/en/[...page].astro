@@ -1,24 +1,13 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
-import { getAllPages } from "@lib/groq/page";
-import type { GetAllPagesQueryResult } from "../../../sanity.types";
+import { getPageBySlug } from "@lib/groq/page";
 import { buildOgImageUrl } from "@lib/sanityImage";
 
-type Page = GetAllPagesQueryResult[number];
+const slug = Astro.params.page as string;
+const page = await getPageBySlug(slug, "en");
+if (!page) return Astro.redirect("/en/404");
 
-export async function getStaticPaths() {
-  const pages = await getAllPages("en");
-
-  return pages
-    .filter((page: Page) => page.path !== "home-en")
-    .map((page: Page) => ({
-      params: { page: page.path },
-      props: { page },
-    }));
-}
-
-const { page } = Astro.props as { page: Page };
 const { title = "", description = "", seo, alternatePaths } = page;
 const heroBlock = page.blocks?.find((b: any) => b.image?.asset);
 const ogImageUrl = buildOgImageUrl(heroBlock?.image as any);

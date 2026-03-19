@@ -1,21 +1,8 @@
 ---
 import DeliveryAreaLayout from "@layouts/DeliveryAreaLayoutCenter.astro";
-import { getAllDeliveryAreas, getDeliveryAreaBySlug } from "@lib/groq/deliveryArea";
+import { getDeliveryAreaBySlug } from "@lib/groq/deliveryArea";
 
-export async function getStaticPaths() {
-  const items = await getAllDeliveryAreas("en");
-
-  return items.map((item) => ({
-    params: {
-      slug: item.urlPath
-        ? item.urlPath.replace(/^\/en\/delivery-areas\//, "")
-        : (item.slug ?? "").replace(/^delivery-areas\//, ""),
-    },
-    props: { slug: item.slug },
-  }));
-}
-
-const { slug } = Astro.props as { slug: string };
+const slug = Astro.params.slug as string;
 const item = await getDeliveryAreaBySlug(slug, "en");
 if (!item) return Astro.redirect("/en/404");
 ---

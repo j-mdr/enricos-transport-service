@@ -5,20 +5,16 @@ import CategoryCloud from "@components/CategoryCloud/CategoryCloud.astro";
 import { getAllCategories, getBlogPostsByCategory } from "@lib/groq/blogPost";
 import type { GetAllCategoriesQueryResult } from "../../../../sanity.types";
 
-export async function getStaticPaths() {
-  const categories = (await getAllCategories("en")) as GetAllCategoriesQueryResult;
+const categoryParam = Astro.params.category as string;
+const categories = (await getAllCategories("en")) as GetAllCategoriesQueryResult;
+const cat = categories.find((c) => {
+  const urlSegment = c.urlPath
+    ? c.urlPath.replace(/^\/en\/categories\//, "")
+    : (c.slug ?? "").replace(/^categories\//, "");
+  return urlSegment === categoryParam;
+});
+if (!cat) return Astro.redirect("/en/404");
 
-  return categories.map((cat) => ({
-    params: {
-      category: cat.urlPath
-        ? cat.urlPath.replace(/^\/en\/categories\//, "")
-        : (cat.slug ?? "").replace(/^categories\//, ""),
-    },
-    props: { cat },
-  }));
-}
-
-const { cat } = Astro.props as { cat: GetAllCategoriesQueryResult[0] };
 const posts = await getBlogPostsByCategory(cat.slug ?? "", "en");
 ---
 

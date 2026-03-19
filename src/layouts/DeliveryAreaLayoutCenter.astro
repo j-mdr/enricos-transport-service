@@ -58,9 +58,7 @@ const ogImageUrl = buildOgImageUrl(heroImage);
       </svg>
     </div>
 
-    <div
-      class="site-container grid items-start gap-8 pt-36 pb-10 md:grid-cols-2 md:pt-44 md:pb-16"
-    >
+    <div class="site-container grid items-start gap-8 pt-36 pb-10 md:grid-cols-2 md:pt-44 md:pb-16">
       <!-- Title -->
       <div class="mx-auto max-w-[450px] md:ml-0">
         <h1 class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight">{title}</h1>
@@ -87,21 +85,21 @@ const ogImageUrl = buildOgImageUrl(heroImage);
 
   <!-- Content -->
   <article class="site-container">
-      <section id="delivery-area-content" class="markdown-content">
-        <BlockRenderer blocks={blocks ?? []} />
-      </section>
+    <section id="delivery-area-content" class="markdown-content">
+      <BlockRenderer blocks={blocks ?? []} />
+    </section>
 
-      <div class="mt-16 mb-16 flex justify-center">
-        <Button
-          variant="outline"
-          href={localeDefinition.localeSlug
-            ? `/${localeDefinition.localeSlug}/${localeDefinition.deliveryAreasSlug}`
-            : `/${localeDefinition.deliveryAreasSlug}`}
-          arrow="left"
-          class="py-2"
-        >
-          {backLabel}
-        </Button>
-      </div>
+    <div class="mt-16 mb-16 flex justify-center">
+      <Button
+        variant="outline"
+        href={localeDefinition.localeSlug
+          ? `/${localeDefinition.localeSlug}/${localeDefinition.deliveryAreasSlug}`
+          : `/${localeDefinition.deliveryAreasSlug}`}
+        arrow="left"
+        class="py-2"
+      >
+        {backLabel}
+      </Button>
+    </div>
   </article>
 </BaseLayout>

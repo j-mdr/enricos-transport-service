@@ -1,21 +1,8 @@
 ---
 import BlogLayout from "@layouts/BlogLayoutCenter.astro";
-import { getAllBlogPosts, getBlogPostBySlug } from "@lib/groq/blogPost";
+import { getBlogPostBySlug } from "@lib/groq/blogPost";
 
-export async function getStaticPaths() {
-  const posts = await getAllBlogPosts("nl");
-
-  return posts.map((post) => ({
-    params: {
-      slug: post.urlPath
-        ? post.urlPath.replace(/^\/blog\//, "")
-        : (post.slug ?? "").replace(/^blog\//, ""),
-    },
-    props: { slug: post.slug },
-  }));
-}
-
-const { slug } = Astro.props as { slug: string };
+const slug = Astro.params.slug as string;
 const post = await getBlogPostBySlug(slug, "nl");
 if (!post) return Astro.redirect("/404");
 ---

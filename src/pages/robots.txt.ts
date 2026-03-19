@@ -9,7 +9,7 @@ Sitemap: ${sitemapURL.href}
 `;
 
 export const GET: APIRoute = async ({ site }) => {
-  const sitemapURL = new URL("sitemap-index.xml", site);
+  const sitemapURL = new URL("sitemap.xml", site);
   const robots = await sanityClient.fetch(getRobotsQuery);
   return new Response(robots?.trim() ? robots : DEFAULT_ROBOTS(sitemapURL));
 };

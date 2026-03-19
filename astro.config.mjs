@@ -5,7 +5,7 @@ import { locales, defaultLocale } from "./src/config/localeConfig";
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 import tailwindcss from "@tailwindcss/vite";
-import sitemap from "@astrojs/sitemap";
+
 import mdx from "@astrojs/mdx";
 import compress from "@playform/compress";
 import AutoImport from "astro-auto-import";
@@ -86,11 +86,7 @@ export default defineConfig({
       projectId: env.PUBLIC_SANITY_PROJECT_ID,
       dataset: env.PUBLIC_SANITY_DATASET ?? "production",
       studioBasePath: "/studio",
-      useCdn: false,
-    }),
-    sitemap({
-      filter: (page) =>
-        !page.includes(`${env.PUBLIC_SITE_URL}componenten-voorbeeld/`),
+      useCdn: true,
     }),
     compress({
       HTML: true,
@@ -100,14 +96,12 @@ export default defineConfig({
       SVG: false, // astro-icon handles this
     }),
   ],
-  output: "static",
+  output: "server",
   vite: {
     plugins: [tailwindcss()],
     // Inline PUBLIC_SANITY_* in SSR bundles (Vite does not replace import.meta.env in SSR by default)
     define: {
-      "import.meta.env.PUBLIC_SANITY_PROJECT_ID": JSON.stringify(
-        env.PUBLIC_SANITY_PROJECT_ID,
-      ),
+      "import.meta.env.PUBLIC_SANITY_PROJECT_ID": JSON.stringify(env.PUBLIC_SANITY_PROJECT_ID),
       "import.meta.env.PUBLIC_SANITY_DATASET": JSON.stringify(
         env.PUBLIC_SANITY_DATASET ?? "production",
       ),
