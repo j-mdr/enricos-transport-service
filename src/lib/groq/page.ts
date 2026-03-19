@@ -8,7 +8,7 @@ import {
   imageFragment,
 } from "./fragments";
 
-const pageFields = `
+export const pageFields = `
   title,
   description,
   seo,

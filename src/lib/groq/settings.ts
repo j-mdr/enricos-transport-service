@@ -3,6 +3,7 @@ import { sanityClient } from "@lib/sanityClient";
 import type { Locale } from "@config/siteConfig.ts";
 import type { GetSettingsQueryResult } from "../../../sanity.types";
 import { linkFragment, ctaButtonFragment, imageFragment } from "./fragments";
+import { pageFields } from "./page";
 
 export const getSettingsQuery = defineQuery(`*[_id == $id && _type == "settings"][0]`);
 
@@ -43,4 +44,13 @@ export async function getNavFromSettings(locale: Locale) {
 export async function getFooterFromSettings(locale: Locale) {
   const id = `settings-${locale}`;
   return sanityClient.fetch(getFooterFromSettingsQuery, { id });
+}
+
+export const getHomePageFromSettingsQuery = defineQuery(
+  `*[_id == $id][0].homePage->{ ${pageFields} }`,
+);
+
+export async function getHomePageFromSettings(locale: Locale) {
+  const id = `settings-${locale}`;
+  return sanityClient.fetch(getHomePageFromSettingsQuery, { id });
 }

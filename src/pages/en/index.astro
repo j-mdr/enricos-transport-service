@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
-import { getPageBySlug } from "@lib/groq/page";
+import { getHomePageFromSettings } from "@lib/groq/settings";
 import { buildOgImageUrl } from "@lib/sanityImage";
 
-const page = await getPageBySlug("home-en", "en");
+const page = await getHomePageFromSettings("en");
 if (!page) return Astro.redirect("/en/404");
 
 const { title, seo } = page;

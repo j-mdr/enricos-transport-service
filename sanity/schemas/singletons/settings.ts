@@ -11,12 +11,28 @@ export const settings = defineType({
   groups: [
     { name: "nav", title: "Navigatie" },
     { name: "footer", title: "Footer" },
+    { name: "algemeen", title: "Algemeen" },
     { name: "bedrijf", title: "Bedrijf" },
     { name: "contact", title: "Contact" },
     { name: "adres", title: "Adres" },
     { name: "socials", title: "Socials" },
   ],
   fields: [
+    defineField({
+      name: "homePage",
+      title: "Homepagina",
+      type: "reference",
+      to: [{ type: "page" }],
+      group: "algemeen",
+      description: "De pagina die wordt getoond op de homepage.",
+      options: {
+        filter: (({ document }: { document: { _id?: string } }) => {
+          const lang = document._id?.replace(/^drafts\./, "").endsWith("-nl") ? "nl" : "en";
+          return { filter: "language == $lang", params: { lang } };
+        }) as any,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({
       name: "nav",
       title: "Navigatie",
