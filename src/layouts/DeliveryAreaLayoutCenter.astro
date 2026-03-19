@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { item } = Astro.props;
-const { title, seo, heroImage, alternatePaths, blocks } = item;
+const { title, description, seo, heroImage, alternatePaths, blocks } = item;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const localeDefinition = getLocaleDefinition(currLocale);
@@ -32,52 +32,76 @@ const ogImageUrl = buildOgImageUrl(heroImage);
   ogImageUrl={ogImageUrl}
   alternatePaths={alternatePaths}
 >
-  <article class="site-container pt-36 md:pt-44">
-    <div class="flex w-full flex-col items-center">
-      <div class="mx-auto flex w-full max-w-[800px]">
-        <div class="mx-auto text-center">
-          <!-- title -->
-          <h1 class="h1 mt-8">{title}</h1>
-        </div>
+  <!-- Hero -->
+  <section class="relative mb-10 flex w-full overflow-clip">
+    <!-- Background blob -->
+    <div class="absolute -z-10 h-full w-full">
+      <svg
+        class="text-primary-200/50 h-full w-full"
+        viewBox="0 0 1800 1000"
+        width="1800"
+        height="1000"
+        preserveAspectRatio="xMinYMin slice"
+        xmlns="http://www.w3.org/2000/svg"
+        style="stroke:currentColor;fill:currentColor;"
+      >
+        <g transform="translate(1800, 1000)">
+          <path
+            d="M-950 0C-920.9 -120.4 -891.9 -240.9 -843.5 -349.4C-795.1 -457.9 -727.4 -554.5 -647 -647C-566.6 -739.5 -473.5 -827.9 -363.5 -877.7C-253.6 -927.5 -126.8 -938.7 0 -950L0 0Z"
+          ></path>
+        </g>
+        <g>
+          <path
+            d="M950 0C926.3 119.5 902.6 239 861.1 356.7C819.6 474.3 760.3 590.1 671.8 671.8C583.2 753.4 465.5 801 348.6 841.7C231.8 882.3 115.9 916.2 0 950L0 0Z"
+          ></path>
+        </g>
+      </svg>
+    </div>
+
+    <div
+      class="site-container grid items-center gap-8 pt-36 pb-10 md:grid-cols-2 md:pt-44 md:pb-16"
+    >
+      <!-- Title -->
+      <div class="mx-auto max-w-[450px] md:ml-0">
+        <h1 class="text-4xl leading-tight font-medium lg:text-5xl lg:leading-tight">{title}</h1>
+        {description && <p class="description mt-4">{description}</p>}
       </div>
 
-      <!-- hero image -->
+      <!-- Hero image -->
       {
         heroImage?.asset && (
-          <div class="mt-6 max-w-[1000px] overflow-hidden">
+          <div class="mx-auto w-full max-w-md md:max-w-full">
             <SanityImage
               image={heroImage}
-              sizesType="background"
+              aspectRatio="widescreen"
+              sizesType="card"
               loading="eager"
               fetchpriority="high"
-              class="max-h-[70vh] rounded-xl object-cover"
+              class="rounded-xl object-cover shadow-md"
             />
           </div>
         )
       }
     </div>
+  </section>
 
-    <!-- content -->
-    <div class="mt-10 w-full">
-        <div class="text-base-content text-base">
-          <section id="delivery-area-content" class="markdown-content mx-auto">
-            <BlockRenderer blocks={blocks ?? []} />
-          </section>
+  <!-- Content -->
+  <article class="site-container">
+      <section id="delivery-area-content" class="markdown-content">
+        <BlockRenderer blocks={blocks ?? []} />
+      </section>
 
-          <div class="mt-16 flex justify-center">
-            <Button
-              variant="outline"
-              href={localeDefinition.localeSlug
-                ? `/${localeDefinition.localeSlug}/${localeDefinition.deliveryAreasSlug}`
-                : `/${localeDefinition.deliveryAreasSlug}`}
-              arrow="left"
-              class="py-2"
-            >
-              {backLabel}
-            </Button>
-          </div>
-        </div>
-
-    </div>
+      <div class="mt-16 mb-16 flex justify-center">
+        <Button
+          variant="outline"
+          href={localeDefinition.localeSlug
+            ? `/${localeDefinition.localeSlug}/${localeDefinition.deliveryAreasSlug}`
+            : `/${localeDefinition.deliveryAreasSlug}`}
+          arrow="left"
+          class="py-2"
+        >
+          {backLabel}
+        </Button>
+      </div>
   </article>
 </BaseLayout>

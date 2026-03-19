@@ -29,6 +29,15 @@ export const deliveryArea = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "description",
+      title: "Beschrijving",
+      type: "text",
+      rows: 3,
+      group: "content",
+      description: "Korte samenvatting getoond onder de titel en als SEO fallback.",
+      validation: (Rule) => Rule.max(200),
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",

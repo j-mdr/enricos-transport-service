@@ -11,6 +11,7 @@ import {
 // Lightweight fields for listing pages (no blocks)
 const deliveryAreaCardFields = `
   title,
+  description,
   "slug": slug.current,
   urlPath,
   heroImage ${imageFragment},
