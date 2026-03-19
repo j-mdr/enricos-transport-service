@@ -4,6 +4,7 @@ import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 import { UrlPathInput } from "../../components/UrlPathInput";
 import { langFilter } from "../../lib/filters";
 import { faqAccordionsFields } from "../sections/faqAccordions";
+import { slugValidation } from "../../lib/slugValidation";
 
 // Flexibele pagina met block builder.
 // De blocks array wordt uitgebreid met section types zodra die gedefinieerd zijn.
@@ -77,7 +78,7 @@ export const page = defineType({
         },
       },
       components: { input: ProtectedSlugInput },
-      validation: (Rule) => Rule.required(),
+      validation: slugValidation,
     }),
     defineField({
       name: "urlPath",

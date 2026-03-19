@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { slugValidation } from "../../lib/slugValidation";
 
 export const person = defineType({
   name: "person",
@@ -25,7 +26,7 @@ export const person = defineType({
         source: "name",
         slugify: (input) => input.toLowerCase().replace(/\s+/g, "-"),
       },
-      validation: (Rule) => Rule.required(),
+      validation: slugValidation,
     }),
     defineField({
       name: "personTitle",

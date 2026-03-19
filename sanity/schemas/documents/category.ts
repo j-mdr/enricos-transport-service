@@ -1,6 +1,7 @@
 import { defineType, defineField } from "sanity";
 import { ProtectedSlugInput } from "../../components/ProtectedSlugInput";
 import { createUrlPathInput } from "../../components/UrlPathInput";
+import { slugValidation } from "../../lib/slugValidation";
 
 const CategoryUrlPathInput = createUrlPathInput((def) => def.categoriesSlug);
 
@@ -33,7 +34,7 @@ export const category = defineType({
         slugify: (input) => input.toLowerCase().replace(/\s+/g, "-"),
       },
       components: { input: ProtectedSlugInput },
-      validation: (Rule) => Rule.required(),
+      validation: slugValidation,
     }),
     defineField({
       name: "urlPath",
