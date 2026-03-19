@@ -6,29 +6,31 @@ const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
-// import mdx from "@astrojs/mdx";
+import mdx from "@astrojs/mdx";
 import compress from "@playform/compress";
+import AutoImport from "astro-auto-import";
 import react from "@astrojs/react";
-import cloudflare from "@astrojs/cloudflare";
 import sanity from "@sanity/astro";
 import icon from "astro-icon";
+
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
   site: env.PUBLIC_SITE_URL,
+  adapter: cloudflare(),
   experimental: {
-    rustCompiler: true,
+    fonts: [
+      {
+        provider: fontProviders.fontsource(),
+        name: "Poppins",
+        cssVariable: "--font-poppins",
+        weights: [400, 500, 700],
+        styles: ["normal"],
+        subsets: ["latin"],
+      },
+    ],
   },
-  fonts: [
-    {
-      provider: fontProviders.fontsource(),
-      name: "Poppins",
-      cssVariable: "--font-poppins",
-      weights: [400, 500, 700],
-      styles: ["normal"],
-      subsets: ["latin"],
-    },
-  ],
   env: {
     schema: {
       PUBLIC_TURNSTILE_SITE_KEY: envField.string({
@@ -62,7 +64,22 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  markdown: {
+    shikiConfig: {
+      // Shiki Themes: https://github.com/shikijs/shiki/blob/main/docs/themes.md
+      theme: "dracula",
+      wrap: true,
+    },
+  },
   integrations: [
+    // example auto import component into mdx files
+    AutoImport({
+      imports: [
+        // https://github.com/delucis/astro-auto-import
+        "@components/Admonition/Admonition.astro",
+      ],
+    }),
+    mdx(),
     react(),
     icon(),
     sanity({
@@ -82,7 +99,6 @@ export default defineConfig({
       SVG: false, // astro-icon handles this
     }),
   ],
-  adapter: cloudflare(),
   output: "static",
   build: {
     inlineStylesheets: "always",
@@ -101,11 +117,11 @@ export default defineConfig({
       assetsInlineLimit: 0,
     },
     optimizeDeps: {
-      include: ["sanity", "@sanity/ui", "history", "debug"],
+      include: ["sanity", "@sanity/ui", "history"],
       exclude: ["refractor"],
     },
     ssr: {
-      noExternal: ["@sanity/astro", "debug"],
+      noExternal: ["@sanity/astro"],
     },
   },
 });

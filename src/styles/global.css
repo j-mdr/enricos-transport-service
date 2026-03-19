@@ -1,3 +1,5 @@
+@import url("./fonts.css");
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -9,10 +11,6 @@
 
 /* theme definition import */
 @import "./tailwind-theme.css";
-
-@theme inline {
-  --font-sans: var(--font-poppins);
-}
 
 /* other imports into specific layers */
 @import "./mos.css" layer(utilities);
