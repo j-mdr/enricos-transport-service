@@ -1,9 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import Button from "@components/Button/Button.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { getLocaleDefinition } from "@config/localeConfig.ts";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { buildOgImageUrl } from "@lib/sanityImage";
 import type { GetServiceBySlugQueryResult } from "../../sanity.types.ts";
@@ -15,11 +12,6 @@ interface Props {
 
 const { item } = Astro.props;
 const { title, seo, heroImage, alternatePaths, blocks } = item;
-
-const currLocale = getLocaleFromUrl(Astro.url);
-const localeDefinition = getLocaleDefinition(currLocale);
-
-const backLabel = currLocale === "en" ? "Back to all services" : "Terug naar alle diensten";
 
 const ogImageUrl = buildOgImageUrl(heroImage);
 ---
@@ -59,17 +51,4 @@ const ogImageUrl = buildOgImageUrl(heroImage);
       <BlockRenderer blocks={blocks ?? []} />
     </div>
   </section>
-
-  <div class="site-container mb-20 flex justify-center">
-    <Button
-      variant="outline"
-      href={localeDefinition.localeSlug
-        ? `/${localeDefinition.localeSlug}/${localeDefinition.servicesSlug}`
-        : `/${localeDefinition.servicesSlug}`}
-      arrow="left"
-      class="py-2"
-    >
-      {backLabel}
-    </Button>
-  </div>
 </BaseLayout>

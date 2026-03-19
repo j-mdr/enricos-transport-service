@@ -9,8 +9,8 @@ const categoryParam = Astro.params.category as string;
 const categories = (await getAllCategories("en")) as GetAllCategoriesQueryResult;
 const cat = categories.find((c) => {
   const urlSegment = c.urlPath
-    ? c.urlPath.replace(/^\/en\/categories\//, "")
-    : (c.slug ?? "").replace(/^categories\//, "");
+    ? c.urlPath.replace(/^\/en\/categories\//, "").replace(/\/$/, "")
+    : (c.slug ?? "").replace(/^categories\//, "").replace(/\/$/, "");
   return urlSegment === categoryParam;
 });
 if (!cat) return Astro.rewrite("/en/404");
