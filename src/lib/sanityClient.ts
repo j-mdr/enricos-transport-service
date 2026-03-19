@@ -4,5 +4,5 @@ export const sanityClient = createClient({
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
   dataset: import.meta.env.PUBLIC_SANITY_DATASET ?? "production",
   apiVersion: "2025-03-13",
-  useCdn: true,
+  useCdn: false,
 });

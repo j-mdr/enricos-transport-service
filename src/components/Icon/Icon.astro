@@ -16,17 +16,12 @@ interface Props extends HTMLAttributes<"svg"> {
 const { name, ...props } = Astro.props;
 
 function iconExists(iconName: string): boolean {
-  const colonIndex = iconName.indexOf(":");
-  if (colonIndex === -1) {
+  try {
     const localSet = icons["local"];
     return !!(localSet?.icons && iconName in localSet.icons);
+  } catch {
+    return false;
   }
-
-  const setName = iconName.slice(0, colonIndex);
-  const iconPart = iconName.slice(colonIndex + 1);
-  const collection = icons[setName];
-  if (!collection) return false;
-  return !!(collection.icons && iconPart in collection.icons);
 }
 
 const resolvedName = iconExists(name) ? name : DEFAULT_ICON;

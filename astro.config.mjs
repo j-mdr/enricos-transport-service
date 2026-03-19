@@ -86,7 +86,7 @@ export default defineConfig({
       projectId: env.PUBLIC_SANITY_PROJECT_ID,
       dataset: env.PUBLIC_SANITY_DATASET ?? "production",
       studioBasePath: "/studio",
-      useCdn: true,
+      useCdn: false,
     }),
     compress({
       HTML: true,
@@ -99,6 +99,9 @@ export default defineConfig({
   output: "server",
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      dedupe: ["react", "react-dom"],
+    },
     // Inline PUBLIC_SANITY_* in SSR bundles (Vite does not replace import.meta.env in SSR by default)
     define: {
       "import.meta.env.PUBLIC_SANITY_PROJECT_ID": JSON.stringify(env.PUBLIC_SANITY_PROJECT_ID),
