@@ -76,6 +76,7 @@ export const deliveryArea = defineType({
       title: "Publicatiedatum",
       type: "datetime",
       group: "meta",
+      initialValue: () => new Date().toISOString(),
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -83,6 +84,7 @@ export const deliveryArea = defineType({
       title: "Laatste wijziging aan content",
       type: "datetime",
       group: "meta",
+      initialValue: () => new Date().toISOString(),
     }),
     defineField({
       name: "authors",

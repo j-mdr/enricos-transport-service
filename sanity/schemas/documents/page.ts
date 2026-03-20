@@ -183,7 +183,7 @@ export const page = defineType({
         defineArrayMember({
           name: "faqCards",
           type: "reference",
-          title: "FAQ / kaarten",
+          title: "FAQ / kaarten (gedeeld)",
           to: [{ type: "faqCards" }],
           options: { filter: langFilter },
         }),
