@@ -31,7 +31,7 @@ const companyInfo = layout === "withContactInfo" ? await getCompanyInfo(currLoca
 <section id="contact-section" class="my-4 overflow-hidden md:mt-16">
   <div class="site-container">
     {
-      title && (
+      title && layout !== "withContactInfo" && (
         <div class="mx-auto flex max-w-2xl justify-center text-center">
           <h2 class="h2 text-center">
             {leadingText}
