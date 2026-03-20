@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { IconPickerInput } from "../../components/IconPickerInput";
 
 // Klein kaartje met icon, titel en tekst. Ideaal in een grid van 4 of 6 stuks.
 
@@ -12,6 +13,7 @@ export const featureCardSmall = defineType({
       title: "Icon naam",
       type: "string",
       description: "Bijv. tabler/truck of tabler/heart-handshake",
+      components: { input: IconPickerInput },
     }),
     defineField({
       name: "title",

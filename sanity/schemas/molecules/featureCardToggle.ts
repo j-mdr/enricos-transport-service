@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { IconPickerInput } from "../../components/IconPickerInput";
 
 // Kaart gebruikt in een toggle/tab sectie: klikken toont de bijbehorende afbeelding.
 
@@ -12,6 +13,7 @@ export const featureCardToggle = defineType({
       title: "Icon naam",
       type: "string",
       description: "Bijv. tabler/home of tabler/truck",
+      components: { input: IconPickerInput },
     }),
     defineField({
       name: "title",

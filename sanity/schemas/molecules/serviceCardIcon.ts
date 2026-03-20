@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { IconPickerInput } from "../../components/IconPickerInput";
 
 export const serviceCardIcon = defineType({
   name: "serviceCardIcon",
@@ -10,6 +11,7 @@ export const serviceCardIcon = defineType({
       title: "Icon naam",
       type: "string",
       description: "Bijv. tabler/truck of tabler/package",
+      components: { input: IconPickerInput },
     }),
     defineField({
       name: "title",
