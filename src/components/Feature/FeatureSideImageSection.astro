@@ -4,6 +4,8 @@
  * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import FeatureCard from "@components/FeatureCard/FeatureCardSideImage.astro";
+import { Icon } from "astro-icon/components";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
@@ -12,12 +14,32 @@ type Props = Extract<Blocks[number], { _type: "featureSideImage" }>;
 const { sectionTitle, items = [] } = Astro.props;
 
 if (!sectionTitle || !items.length) return;
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(sectionTitle);
 ---
 
 <section id="feature-side-image" class="my-12 overflow-hidden py-12">
   <div class="site-container">
     <div class="mx-auto flex max-w-2xl justify-center text-center">
-      <h2 class="h2 text-center">{sectionTitle}</h2>
+      <h2 class="h2 text-center">
+        {leadingText}
+        {
+          hasHighlightedWord && (
+            <span class="relative whitespace-nowrap">
+              {highlightedWord}
+              <span>
+                <Icon
+                  name="stellar/freehand-zig-underline"
+                  class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                  aria-hidden="true"
+                />
+              </span>
+            </span>
+          )
+        }
+        {trailingText ?? null}
+      </h2>
     </div>
     <div class="mt-10 flex flex-col gap-16 md:mt-16 md:gap-24">
       {

@@ -8,6 +8,7 @@ import SanityImage from "@components/SanityImage/SanityImage.astro";
 import { getFooterData } from "@/utils/footer";
 import { getCompanyInfo } from "@/utils/companyInfo";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
@@ -17,6 +18,10 @@ type Props = ContactBlock;
 const { type, title, image, form } = Astro.props;
 
 const layout = type ?? "centered";
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
+  title ?? "",
+);
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const footerData = layout === "withContactInfo" ? await getFooterData(currLocale) : null;
@@ -29,7 +34,22 @@ console.log(": ", type);
     {
       title && (
         <div class="mx-auto flex max-w-2xl justify-center text-center">
-          <h2 class="h2 text-center">{title}</h2>
+          <h2 class="h2 text-center">
+            {leadingText}
+            {hasHighlightedWord && (
+              <span class="relative whitespace-nowrap">
+                {highlightedWord}
+                <span>
+                  <Icon
+                    name="stellar/freehand-zig-underline"
+                    class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </span>
+              </span>
+            )}
+            {trailingText ?? null}
+          </h2>
         </div>
       )
     }

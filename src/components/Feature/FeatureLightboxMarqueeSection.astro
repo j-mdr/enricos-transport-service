@@ -5,6 +5,7 @@
  */
 import { Icon } from "astro-icon/components";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
@@ -16,6 +17,10 @@ interface Props extends BlockProps {}
 const { title, images } = Astro.props;
 
 if (!images || images.length === 0) return;
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
+  title ?? "",
+);
 
 const rotate = (arr: ImageItem[], offset: number): ImageItem[] => [
   ...arr.slice(offset),
@@ -29,7 +34,22 @@ const marqueeBottom = [...images].reverse();
 <section id="feature-lightbox-marquee" class="mx-auto my-12 py-12">
   <div class="flex justify-center">
     <h2 class="h2 relative inline">
-      {title}
+      {leadingText}
+      {
+        hasHighlightedWord && (
+          <span class="relative whitespace-nowrap">
+            {highlightedWord}
+            <span>
+              <Icon
+                name="stellar/freehand-zig-underline"
+                class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                aria-hidden="true"
+              />
+            </span>
+          </span>
+        )
+      }
+      {trailingText ?? null}
       <Icon
         name="stellar/freehand-arrow"
         class="text-primary-500 absolute top-0 right-0 h-auto w-10 translate-x-10 translate-y-7 rotate-45"

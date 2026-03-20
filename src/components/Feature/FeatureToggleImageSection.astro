@@ -5,6 +5,7 @@
  */
 import { Icon } from "astro-icon/components";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
@@ -13,6 +14,9 @@ type Props = Extract<Blocks[number], { _type: "featureToggleImage" }>;
 const { sectionTitle, sections = [] } = Astro.props;
 
 if (!sectionTitle || !sections.length) return;
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(sectionTitle);
 ---
 
 <section id="feature-toggle-image" class="my-24 md:my-36">
@@ -20,7 +24,22 @@ if (!sectionTitle || !sections.length) return;
     <div class="mx-auto grid gap-8 rounded-xl md:grid-cols-5 lg:gap-12">
       <div class="md:col-span-2">
         <h2 class="h2 relative inline">
-          {sectionTitle}
+          {leadingText}
+          {
+            hasHighlightedWord && (
+              <span class="relative whitespace-nowrap">
+                {highlightedWord}
+                <span>
+                  <Icon
+                    name="stellar/freehand-zig-underline"
+                    class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </span>
+              </span>
+            )
+          }
+          {trailingText ?? null}
           <Icon
             name="stellar/freehand-arrow"
             class="text-primary-500 absolute top-0 right-0 h-auto w-10 translate-x-10 translate-y-7 rotate-45"

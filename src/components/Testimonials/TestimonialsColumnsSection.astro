@@ -4,6 +4,8 @@
  * Data is passed as props from Sanity block builder via BlockRenderer
  */
 import TestimonialCard from "./TestimonialCard.astro";
+import { Icon } from "astro-icon/components";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
@@ -12,12 +14,32 @@ type Props = Extract<Blocks[number], { _type: "testimonialsColumns" }>;
 const { title = "", testimonials = [] } = Astro.props;
 
 if (!title || !testimonials.length) return;
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
+  splitTitleWithIcon(title);
 ---
 
 <section id="testimonials-columns" class="bg-base-200/50 py-20 md:my-16">
   <div class="site-container">
     <div class="flex justify-center">
-      <h2 class="h2 text-center">{title}</h2>
+      <h2 class="h2 text-center">
+        {leadingText}
+        {
+          hasHighlightedWord && (
+            <span class="relative whitespace-nowrap">
+              {highlightedWord}
+              <span>
+                <Icon
+                  name="stellar/freehand-zig-underline"
+                  class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                  aria-hidden="true"
+                />
+              </span>
+            </span>
+          )
+        }
+        {trailingText ?? null}
+      </h2>
     </div>
     <div class="mx-auto mt-20 grid gap-6 gap-y-20 sm:grid-cols-2 md:grid-cols-3">
       {
