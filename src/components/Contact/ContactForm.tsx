@@ -131,7 +131,7 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
     };
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/contact/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -297,9 +297,16 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
   return (
     <div>
       {status === "success" ? (
-        <p ref={messageRef} className="mt-6 text-green-600">
-          {successMessage}
-        </p>
+        <div ref={messageRef} className="mt-6 flex flex-col items-center gap-4 rounded-xl border border-green-200 bg-green-50 px-6 py-8 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-green-600" aria-hidden="true">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 7h3" />
+            <path d="M3 11h2" />
+            <path d="M9.02 8.801l-.6 6a2 2 0 0 0 1.99 2.199h7.98a2 2 0 0 0 1.99 -1.801l.6 -6a2 2 0 0 0 -1.99 -2.199h-7.98a2 2 0 0 0 -1.99 1.801z" />
+            <path d="M9.8 7.5l2.982 3.28a3 3 0 0 0 4.238 .202l3.28 -2.982" />
+          </svg>
+          <p className="text-lg font-medium text-green-800">{successMessage}</p>
+        </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex flex-col gap-4">
           {renderFields()}
@@ -326,9 +333,15 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
           )}
 
           {status === "error" && (
-            <p ref={messageRef} className="text-red-600">
-              {errorMessage}
-            </p>
+            <div ref={messageRef} className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                <path d="M12 8v4" />
+                <path d="M12 16h.01" />
+              </svg>
+              <p>{errorMessage}</p>
+            </div>
           )}
 
           <button
