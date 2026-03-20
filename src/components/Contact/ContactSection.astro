@@ -26,7 +26,6 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = split
 const currLocale = getLocaleFromUrl(Astro.url);
 const footerData = layout === "withContactInfo" ? await getFooterData(currLocale) : null;
 const companyInfo = layout === "withContactInfo" ? await getCompanyInfo(currLocale) : null;
-console.log(": ", type);
 ---
 
 <section id="contact-section" class="my-4 overflow-hidden md:mt-16">
