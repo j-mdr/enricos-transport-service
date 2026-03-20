@@ -1,0 +1,49 @@
+---
+import ContactForm from "@components/Contact/ContactForm.astro";
+import { Icon } from "astro-icon/components";
+import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
+
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type ContactBlock = Extract<Blocks[number], { _type: "contactSection"; form: unknown }>;
+type Props = Pick<ContactBlock, "title" | "form">;
+
+const { title, form } = Astro.props;
+
+const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
+  title ?? "",
+);
+---
+
+<section id="contact-section" class="my-4 overflow-hidden md:mt-16">
+  <div class="site-container">
+    {
+      title && (
+        <div class="mx-auto flex max-w-2xl justify-center text-center">
+          <h2 class="h2 text-center">
+            {leadingText}
+            {hasHighlightedWord && (
+              <span class="relative whitespace-nowrap">
+                {highlightedWord}
+                <span>
+                  <Icon
+                    name="stellar/freehand-zig-underline"
+                    class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </span>
+              </span>
+            )}
+            {trailingText ?? null}
+          </h2>
+        </div>
+      )
+    }
+
+    <div class="mt-8 md:mt-12">
+      <div class="mx-auto max-w-2xl">
+        <ContactForm form={form} />
+      </div>
+    </div>
+  </div>
+</section>

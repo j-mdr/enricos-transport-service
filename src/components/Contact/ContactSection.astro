@@ -1,14 +1,8 @@
 ---
-import ContactForm from "@components/Contact/ContactForm.astro";
-import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
-import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
-import SocialIcon from "@components/Social/SocialIcon.astro";
-import { Icon } from "astro-icon/components";
-import SanityImage from "@components/SanityImage/SanityImage.astro";
-import { getFooterData } from "@/utils/footer";
-import { getCompanyInfo } from "@/utils/companyInfo";
-import { getLocaleFromUrl } from "@/utils/localeUtils";
-import { splitTitleWithIcon } from "@utils/textUtils.ts";
+import ContactSectionCentered from "@components/Contact/ContactSectionCentered.astro";
+import ContactSectionCta from "@components/Contact/ContactSectionCta.astro";
+import ContactSectionWithImage from "@components/Contact/ContactSectionWithImage.astro";
+import ContactSectionWithContactInfo from "@components/Contact/ContactSectionWithContactInfo.astro";
 import type { GetPageBySlugQueryResult } from "../../../sanity.types";
 
 type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
@@ -18,111 +12,9 @@ type Props = ContactBlock;
 const { type, title, image, form } = Astro.props;
 
 const layout = type ?? "centered";
-
-const { leadingText, highlightedWord, trailingText, hasHighlightedWord } = splitTitleWithIcon(
-  title ?? "",
-);
-
-const currLocale = getLocaleFromUrl(Astro.url);
-const footerData = layout === "withContactInfo" ? await getFooterData(currLocale) : null;
-const companyInfo = layout === "withContactInfo" ? await getCompanyInfo(currLocale) : null;
 ---
 
-<section id="contact-section" class="my-4 overflow-hidden md:mt-16">
-  <div class="site-container">
-    {
-      title && layout !== "withContactInfo" && (
-        <div class="mx-auto flex max-w-2xl justify-center text-center">
-          <h2 class="h2 text-center">
-            {leadingText}
-            {hasHighlightedWord && (
-              <span class="relative whitespace-nowrap">
-                {highlightedWord}
-                <span>
-                  <Icon
-                    name="stellar/freehand-zig-underline"
-                    class="text-primary-400 absolute top-0 left-0 -z-10 h-full w-full translate-y-1/2"
-                    aria-hidden="true"
-                  />
-                </span>
-              </span>
-            )}
-            {trailingText ?? null}
-          </h2>
-        </div>
-      )
-    }
-
-    <div class="mt-8 md:mt-12">
-      {
-        layout === "withContactInfo" && (
-          <div class="mx-auto grid gap-12 sm:grid-cols-[1fr_3fr] lg:grid-cols-[1fr_4fr] lg:gap-20">
-            <div class="flex flex-col gap-6">
-              <SiteLogo logo={footerData?.logo ?? null} />
-              <ContactInformationBlock />
-              <div class="flex items-center gap-2">
-                {companyInfo?.facebookUrl && (
-                  <SocialIcon
-                    href={companyInfo.facebookUrl}
-                    icon="tabler/brand-facebook"
-                    social="Facebook"
-                  />
-                )}
-                {companyInfo?.instagramUrl && (
-                  <SocialIcon
-                    href={companyInfo.instagramUrl}
-                    icon="tabler/brand-instagram"
-                    social="Instagram"
-                  />
-                )}
-                {companyInfo?.linkedinUrl && (
-                  <SocialIcon
-                    href={companyInfo.linkedinUrl}
-                    icon="tabler/brand-linkedin"
-                    social="LinkedIn"
-                  />
-                )}
-              </div>
-            </div>
-            <ContactForm form={form} />
-          </div>
-        )
-      }
-
-      {
-        layout === "withImage" && (
-          <div class="mx-auto grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-20">
-            <div class="col-span-1">
-              <ContactForm form={form} />
-            </div>
-            {image?.asset && (
-              <div class="relative mx-auto hidden max-w-4xl md:block">
-                <div class="absolute top-0 left-0 -z-10 h-full w-full">
-                  <Icon
-                    name="stellar/blob-0"
-                    class="text-primary-100 absolute top-0 left-0 h-auto w-[220%] -translate-x-1/4 -translate-y-[21%] md:-translate-x-1/3"
-                    aria-hidden="true"
-                  />
-                </div>
-                <SanityImage
-                  image={image}
-                  sizesType="half"
-                  loading="lazy"
-                  class="relative rounded-xl border border-transparent object-cover"
-                />
-              </div>
-            )}
-          </div>
-        )
-      }
-
-      {
-        layout === "centered" && (
-          <div class="mx-auto max-w-2xl">
-            <ContactForm form={form} />
-          </div>
-        )
-      }
-    </div>
-  </div>
-</section>
+{layout === "centered" && <ContactSectionCentered title={title} form={form} />}
+{layout === "withImage" && <ContactSectionWithImage title={title} form={form} image={image} />}
+{layout === "withContactInfo" && <ContactSectionWithContactInfo form={form} />}
+{layout === "withCta" && <ContactSectionCta title={title} form={form} />}

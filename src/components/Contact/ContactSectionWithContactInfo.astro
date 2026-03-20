@@ -1,0 +1,63 @@
+---
+import ContactForm from "@components/Contact/ContactForm.astro";
+import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
+import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
+import SocialIcon from "@components/Social/SocialIcon.astro";
+import { getFooterData } from "@/utils/footer";
+import { getCompanyInfo } from "@/utils/companyInfo";
+import { getLocaleFromUrl } from "@/utils/localeUtils";
+import type { GetPageBySlugQueryResult } from "../../../sanity.types";
+
+type Blocks = NonNullable<NonNullable<GetPageBySlugQueryResult>["blocks"]>;
+type ContactBlock = Extract<Blocks[number], { _type: "contactSection"; form: unknown }>;
+type Props = Pick<ContactBlock, "form">;
+
+const { form } = Astro.props;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const footerData = await getFooterData(currLocale);
+const companyInfo = await getCompanyInfo(currLocale);
+---
+
+<section id="contact-section" class="my-4 overflow-hidden md:mt-16">
+  <div class="site-container">
+    <div class="mt-8 md:mt-12">
+      <div class="mx-auto grid gap-12 sm:grid-cols-[1fr_3fr] lg:grid-cols-[1fr_4fr] lg:gap-20">
+        <div class="flex flex-col gap-6">
+          <SiteLogo logo={footerData?.logo ?? null} />
+          <ContactInformationBlock />
+          <div class="flex items-center gap-2">
+            {
+              companyInfo?.facebookUrl && (
+                <SocialIcon
+                  href={companyInfo.facebookUrl}
+                  icon="tabler/brand-facebook"
+                  social="Facebook"
+                />
+              )
+            }
+            {
+              companyInfo?.instagramUrl && (
+                <SocialIcon
+                  href={companyInfo.instagramUrl}
+                  icon="tabler/brand-instagram"
+                  social="Instagram"
+                />
+              )
+            }
+            {
+              companyInfo?.linkedinUrl && (
+                <SocialIcon
+                  href={companyInfo.linkedinUrl}
+                  icon="tabler/brand-linkedin"
+                  social="LinkedIn"
+                />
+              )
+            }
+          </div>
+        </div>
+        <ContactForm form={form} />
+      </div>
+    </div>
+  </div>
+</section>

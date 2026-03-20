@@ -23,6 +23,7 @@ export const contactSection = defineType({
           { title: "Met contactgegevens", value: "withContactInfo" },
           { title: "Met afbeelding", value: "withImage" },
           { title: "Gecentreerd", value: "centered" },
+          { title: "CTA kaart", value: "withCta" },
         ],
         layout: "radio",
       },
