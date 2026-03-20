@@ -68,7 +68,7 @@ const { blocks } = Astro.props;
       {block._type === "featureVideo" && <FeatureVideoSection {...block} />}
       {block._type === "richText" && block.content?.length && (
         <div class="site-container my-16">
-          <div class="markdown-content mx-auto max-w-3xl">
+          <div class="markdown-content mx-auto max-w-2xl">
             <RichTextBlock value={block.content} />
           </div>
         </div>

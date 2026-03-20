@@ -19,9 +19,9 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
 
-<section id="feature-cards-small" class="py-12 md:my-12">
+<section id="feature-cards-small" class="my-20 md:my-32">
   <div class="site-container relative">
-    <div class="mx-auto mb-10 flex max-w-lg justify-center">
+    <div class="mx-auto flex max-w-lg justify-center">
       <h2 class="h2 text-center">
         {leadingText}
         {
@@ -39,7 +39,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
         {trailingText ?? null}
       </h2>
     </div>
-    <div id="trigger-small-cards" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div id="trigger-small-cards" class="mt-12 grid gap-8 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
       {
         features.map((feature, idx) => (
           <FeatureCard
