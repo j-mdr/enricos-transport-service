@@ -2,6 +2,12 @@
 import { Icon } from "astro-icon/components";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import type { SanityImageObject } from "@lib/sanityImage";
+import { getLocaleFromUrl } from "@utils/localeUtils";
+
+const ui = {
+  nl: { showMore: "Lees verder...", showLess: "Lees minder" },
+  en: { showMore: "Read more...", showLess: "Read less" },
+} as const;
 
 interface Props {
   avatar?: SanityImageObject | null;
@@ -11,6 +17,8 @@ interface Props {
 }
 
 const { avatar, name, title, testimonial } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = ui[locale];
 
 const id = `testimonial-${Math.random().toString(36).slice(2, 8)}`;
 ---
@@ -45,8 +53,8 @@ const id = `testimonial-${Math.random().toString(36).slice(2, 8)}`;
           for={id}
           class="testimonial-label text-primary-500 mt-1 cursor-pointer text-sm underline"
         >
-          <span class="show-more">Lees verder...</span>
-          <span class="show-less">Lees minder</span>
+          <span class="show-more">{t.showMore}</span>
+          <span class="show-less">{t.showLess}</span>
         </label>
       </div>
     </div>
