@@ -57,11 +57,12 @@ const ogImageUrl = buildOgImageUrl(heroImage);
                 sizesType="background"
                 loading="eager"
                 fetchpriority="high"
-                class="max-h-[45vh] rounded-xl object-cover shadow-xl"
+                aspectRatio="landschap"
+                class="max-h-[45vh] w-full rounded-xl object-cover shadow-xl"
               />
             </div>
             {description && (
-              <p class="mx-auto my-16 max-w-lg text-center text-xl font-light italic tracking-wider opacity-50">{description}</p>
+              <p class="mx-auto my-16 max-w-lg text-center text-xl font-light italic tracking-wider opacity-70">{description}</p>
             )}
           </div>
         )
