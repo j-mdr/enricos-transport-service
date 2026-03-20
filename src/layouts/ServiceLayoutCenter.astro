@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { item } = Astro.props;
-const { title, seo, heroImage, alternatePaths, blocks } = item;
+const { title, description, seo, heroImage, alternatePaths, blocks } = item;
 
 const ogImageUrl = buildOgImageUrl(heroImage);
 ---
@@ -45,19 +45,24 @@ const ogImageUrl = buildOgImageUrl(heroImage);
       aria-hidden="true"
     />
 
-    <div class="relative z-10 flex flex-col items-center px-4 text-center">
+    <div class="relative z-10 flex flex-col items-center px-6 text-center">
       <h1 class="h1">{title}</h1>
 
       {
         heroImage?.asset && (
-          <div class="mt-10 w-full max-w-[700px] overflow-hidden">
-            <SanityImage
-              image={heroImage}
-              sizesType="background"
-              loading="eager"
-              fetchpriority="high"
-              class="max-h-[45vh] rounded-xl object-cover shadow-xl"
-            />
+          <div class="mt-10 w-full max-w-[700px]">
+            <div class="overflow-hidden">
+              <SanityImage
+                image={heroImage}
+                sizesType="background"
+                loading="eager"
+                fetchpriority="high"
+                class="max-h-[45vh] rounded-xl object-cover shadow-xl"
+              />
+            </div>
+            {description && (
+              <p class="mx-auto my-16 max-w-lg text-center text-xl font-light italic tracking-wider opacity-50">{description}</p>
+            )}
           </div>
         )
       }

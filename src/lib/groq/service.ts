@@ -11,6 +11,7 @@ import {
 // Lightweight fields for listing pages (no blocks)
 const serviceCardFields = `
   title,
+  description,
   "slug": slug.current,
   urlPath,
   heroImage ${imageFragment},
