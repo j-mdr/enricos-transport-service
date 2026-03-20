@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import SanityImage from "@components/SanityImage/SanityImage.astro";
 import BlockRenderer from "@components/BlockRenderer/BlockRenderer.astro";
 import { buildOgImageUrl } from "@lib/sanityImage";
+import { Icon } from "astro-icon/components";
 import type { GetServiceBySlugQueryResult } from "../../sanity.types.ts";
 
 type Item = NonNullable<GetServiceBySlugQueryResult>;
@@ -24,29 +25,47 @@ const ogImageUrl = buildOgImageUrl(heroImage);
   alternatePaths={alternatePaths}
 >
   <!-- service heading -->
-  <section class="site-container flex w-full flex-col items-center pt-24 md:pt-36">
-    <div class="bg-base-200/50 w-full rounded-xl py-20 text-center md:py-32">
-      <h1 class="h1">{title}</h1>
-    </div>
+  <section class="relative overflow-hidden pb-20 pt-24 md:pt-36">
+    <!-- bottom left blob -->
+    <Icon
+      name="stellar/blob-1"
+      class="text-primary-200/50 absolute top-0 left-0 -z-10 h-[200%] w-[150%] -translate-x-[50%] rotate-12"
+      aria-hidden="true"
+    />
+    <!-- top left blob -->
+    <Icon
+      name="stellar/blob-2"
+      class="text-primary-400/50 absolute top-0 left-0 -z-10 h-[200%] w-[150%] -translate-x-[50%] -translate-y-[50%] rotate-12"
+      aria-hidden="true"
+    />
+    <!-- bottom right blob -->
+    <Icon
+      name="stellar/blob-2"
+      class="text-primary-400/50 absolute top-0 right-0 -z-10 h-[200%] w-[150%] translate-x-[50%]"
+      aria-hidden="true"
+    />
 
-    <!-- service main image -->
-    {
-      heroImage?.asset && (
-        <div class="-mt-12 max-w-[800px] overflow-hidden px-4 md:-mt-20">
-          <SanityImage
-            image={heroImage}
-            sizesType="background"
-            loading="eager"
-            fetchpriority="high"
-            class="max-h-[45vh] rounded-xl object-cover"
-          />
-        </div>
-      )
-    }
+    <div class="relative z-10 flex flex-col items-center px-4 text-center">
+      <h1 class="h1">{title}</h1>
+
+      {
+        heroImage?.asset && (
+          <div class="mt-10 w-full max-w-[700px] overflow-hidden">
+            <SanityImage
+              image={heroImage}
+              sizesType="background"
+              loading="eager"
+              fetchpriority="high"
+              class="max-h-[45vh] rounded-xl object-cover shadow-xl"
+            />
+          </div>
+        )
+      }
+    </div>
   </section>
 
   <!-- service details -->
-  <section class="bg-base-200/50 my-20 py-12 md:py-20">
+  <section class="py-8 md:py-16">
     <div class="markdown-content mx-auto max-w-[800px] px-4">
       <BlockRenderer blocks={blocks ?? []} />
     </div>
