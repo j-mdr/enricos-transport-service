@@ -11,6 +11,8 @@ interface Props {
 }
 
 const { avatar, name, title, testimonial } = Astro.props;
+
+const id = `testimonial-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 <div class="flex h-full">
@@ -36,7 +38,17 @@ const { avatar, name, title, testimonial } = Astro.props;
       }
       <p class="mt-4 text-lg">{name}</p>
       {title && <p class="opacity-80">{title}</p>}
-      <p class="mt-4">{testimonial}</p>
+      <div class="testimonial-wrapper mt-4">
+        <input type="checkbox" id={id} class="testimonial-toggle" />
+        <p class="testimonial-text">{testimonial}</p>
+        <label
+          for={id}
+          class="testimonial-label text-primary-500 mt-1 cursor-pointer text-sm underline"
+        >
+          <span class="show-more">Lees verder...</span>
+          <span class="show-less">Lees minder</span>
+        </label>
+      </div>
     </div>
     <div class="mt-4 flex items-center justify-center gap-1">
       <Icon name="tabler/star-filled" class="h-6 w-6 text-yellow-500" aria-hidden="true" />
@@ -47,3 +59,38 @@ const { avatar, name, title, testimonial } = Astro.props;
     </div>
   </div>
 </div>
+
+<style>
+  /* Hide the actual checkbox */
+  .testimonial-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Clamp to 3 lines by default */
+  .testimonial-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
+  /* Expand when checked */
+  .testimonial-toggle:checked ~ .testimonial-text {
+    -webkit-line-clamp: unset;
+  }
+
+  /* Toggle label text */
+  .show-less {
+    display: none;
+  }
+
+  .testimonial-toggle:checked ~ .testimonial-label .show-more {
+    display: none;
+  }
+
+  .testimonial-toggle:checked ~ .testimonial-label .show-less {
+    display: inline;
+  }
+</style>
