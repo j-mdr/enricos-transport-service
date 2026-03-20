@@ -44,28 +44,28 @@ export const GET: APIRoute = async ({ site }) => {
     }
   }
   for (const post of postsNl) {
-    if (post.urlPath) urls.push(`${baseUrl}${post.urlPath}/`);
+    if (post.urlPath) urls.push(`${baseUrl}${post.urlPath.replace(/\/$/, "")}/`);
   }
   for (const post of postsEn) {
-    if (post.urlPath) urls.push(`${baseUrl}${post.urlPath}/`);
+    if (post.urlPath) urls.push(`${baseUrl}${post.urlPath.replace(/\/$/, "")}/`);
   }
   for (const service of servicesNl) {
-    if (service.urlPath) urls.push(`${baseUrl}${service.urlPath}/`);
+    if (service.urlPath) urls.push(`${baseUrl}${service.urlPath.replace(/\/$/, "")}/`);
   }
   for (const service of servicesEn) {
-    if (service.urlPath) urls.push(`${baseUrl}${service.urlPath}/`);
+    if (service.urlPath) urls.push(`${baseUrl}${service.urlPath.replace(/\/$/, "")}/`);
   }
   for (const area of deliveryAreasNl) {
-    if (area.urlPath) urls.push(`${baseUrl}${area.urlPath}/`);
+    if (area.urlPath) urls.push(`${baseUrl}${area.urlPath.replace(/\/$/, "")}/`);
   }
   for (const area of deliveryAreasEn) {
-    if (area.urlPath) urls.push(`${baseUrl}${area.urlPath}/`);
+    if (area.urlPath) urls.push(`${baseUrl}${area.urlPath.replace(/\/$/, "")}/`);
   }
   for (const cat of categoriesNl) {
-    if (cat.urlPath) urls.push(`${baseUrl}${cat.urlPath}/`);
+    if (cat.urlPath) urls.push(`${baseUrl}${cat.urlPath.replace(/\/$/, "")}/`);
   }
   for (const cat of categoriesEn) {
-    if (cat.urlPath) urls.push(`${baseUrl}${cat.urlPath}/`);
+    if (cat.urlPath) urls.push(`${baseUrl}${cat.urlPath.replace(/\/$/, "")}/`);
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
