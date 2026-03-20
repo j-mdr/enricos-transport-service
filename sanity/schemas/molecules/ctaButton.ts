@@ -25,11 +25,11 @@ export const ctaButton = defineType({
       fieldset: "stijl",
       options: {
         list: [
-          { title: "Default", value: "default" },
           { title: "Primary", value: "primary" },
           { title: "Secondary", value: "secondary" },
           { title: "Outline", value: "outline" },
           { title: "Ghost", value: "ghost" },
+          { title: "Default", value: "default" },
         ],
         layout: "radio",
       },

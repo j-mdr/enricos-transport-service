@@ -1,6 +1,6 @@
 ---
 import SiteLogo from "@components/SiteLogo/SiteLogo.astro";
-import Button from "@components/Button/Button.astro";
+import SanityCtaButton from "@components/SanityCtaButton/SanityCtaButton.astro";
 import ContactInformationBlock from "@components/Contact/ContactInformationBlock.astro";
 import SocialIcon from "@components/Social/SocialIcon.astro";
 import { getLocaleFromUrl } from "@/utils/localeUtils";
@@ -22,12 +22,7 @@ const today = new Date();
     <!-- Logo + CTA -->
     <div class="flex flex-col gap-4">
       <SiteLogo logo={logo} />
-      <Button
-        variant={(ctaButton?.variant as any) ?? "primary"}
-        link={ctaButton?.link ?? undefined}
-      >
-        {ctaButton?.link?.text}
-      </Button>
+      <SanityCtaButton ctaButton={ctaButton} />
       <div class="text-sm opacity-60">
         &copy; {today.getFullYear()}
         {companyName}

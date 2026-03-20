@@ -20,6 +20,7 @@ const { ctaButton, arrow = "none", class: className, ...rest } = Astro.props;
 if (!ctaButton?.link) return;
 
 const variant = ctaButton.variant ?? "primary";
+const size = ctaButton.size ?? "md";
 
 const classes = [
   className,
@@ -28,8 +29,8 @@ const classes = [
   variant === "secondary" && "button--secondary",
   variant === "outline" && "button--outline",
   variant === "ghost" && "button--ghost",
-  ctaButton.size === "sm" && "text-sm px-3 py-1.5",
-  ctaButton.size === "lg" && "text-lg px-6 py-3",
+  size === "sm" && "text-sm px-3 py-1.5",
+  size === "lg" && "text-lg px-6 py-3",
 ];
 ---
 
