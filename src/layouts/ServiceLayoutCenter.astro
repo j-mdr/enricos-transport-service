@@ -25,7 +25,7 @@ const ogImageUrl = buildOgImageUrl(heroImage);
   alternatePaths={alternatePaths}
 >
   <!-- service heading -->
-  <section class="relative overflow-hidden pt-24 pb-20 md:pt-36">
+  <section class="relative isolate overflow-hidden pt-24 pb-20 md:pt-36">
     <!-- bottom left blob -->
     <Icon
       name="stellar/blob-1"
@@ -74,8 +74,6 @@ const ogImageUrl = buildOgImageUrl(heroImage);
 
   <!-- service details -->
   <section class="py-8 md:py-16">
-    <div class="markdown-content mx-auto max-w-[800px] px-4">
       <BlockRenderer blocks={blocks ?? []} />
-    </div>
   </section>
 </BaseLayout>
