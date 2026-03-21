@@ -49,30 +49,28 @@ export async function POST({
     .trim();
   const subject = body.emailSubject ?? `Nieuw formulier: ${body.formTitle ?? "Contact"}`;
 
-  // Build StaticForms payload
-  const payload: Record<string, unknown> = {
-    accessKey: STATICFORMS_ACCESS_KEY,
-    subject,
-    replyTo,
-    name: senderName,
-    $fields: Object.keys(fields),
-    ...fields,
-  };
+  // Build StaticForms payload as multipart/form-data (required for file attachments)
+  const formData = new FormData();
+  formData.append("accessKey", STATICFORMS_ACCESS_KEY);
+  formData.append("subject", subject);
+  formData.append("replyTo", replyTo);
+  formData.append("name", senderName);
+  formData.append("$fields", JSON.stringify(Object.keys(fields)));
+  for (const [key, value] of Object.entries(fields)) {
+    formData.append(key, String(value));
+  }
 
   if (file && file.data) {
-    payload.$attachments = [
-      {
-        filename: file.name,
-        data: file.data,
-        contentType: file.type || "application/octet-stream",
-      },
-    ];
+    const binaryStr = atob(file.data);
+    const bytes = new Uint8Array(binaryStr.length);
+    for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
+    const blob = new Blob([bytes], { type: file.type || "application/octet-stream" });
+    formData.append("attachment", blob, file.name);
   }
 
   const sfResponse = await fetch("https://api.staticforms.xyz/submit", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: formData,
   });
 
   if (!sfResponse.ok) {

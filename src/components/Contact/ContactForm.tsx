@@ -82,7 +82,6 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [fileNames, setFileNames] = useState<Record<string, string>>({});
   const fileRefs = useRef<Record<string, HTMLInputElement | null>>({});
-  const messageRef = useRef<HTMLParagraphElement>(null);
 
   const m = messages[locale];
   const fields = useMemo(() => (form?.fields ?? []).filter((f) => f.name && f.type), [form]);
@@ -145,16 +144,27 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
         Object.values(fileRefs.current).forEach((ref) => {
           if (ref) ref.value = "";
         });
+        setTimeout(() => {
+          document
+            .getElementById("contact-form-message")
+            ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 50);
       } else {
         setStatus("error");
+        setTimeout(() => {
+          document
+            .getElementById("contact-form-message")
+            ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 50);
       }
     } catch {
       setStatus("error");
+      requestAnimationFrame(() =>
+        document
+          .getElementById("contact-form-message")
+          ?.scrollIntoView({ behavior: "smooth", block: "center" }),
+      );
     }
-    setTimeout(
-      () => messageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }),
-      0,
-    );
   }
 
   const submitButtonText = form?.submitButtonText ?? m.submitButtonText;
@@ -298,7 +308,7 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
     <div>
       {status === "success" ? (
         <div
-          ref={messageRef}
+          id="contact-form-message"
           className="mt-6 flex flex-col items-center gap-4 rounded-xl border border-green-200 bg-green-50 px-6 py-8 text-center"
         >
           <svg
@@ -349,7 +359,7 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
 
           {status === "error" && (
             <div
-              ref={messageRef}
+              id="contact-form-message"
               className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-800"
             >
               <svg
