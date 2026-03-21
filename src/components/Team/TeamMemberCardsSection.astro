@@ -19,13 +19,13 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
 
-<section class="site-container mt-20 md:mt-32">
+<section class="site-container my-16 md:my-24 lg:my-32">
   <h2 class="h2 text-center">
     {leadingText}
     {hasHighlightedWord && <span class="text-primary-600">{highlightedWord}</span>}
     {trailingText}
   </h2>
-  <div class="mt-12 grid gap-8 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
+  <div class="mt-10 grid gap-8 sm:grid-cols-2 md:mt-12 lg:mt-16 lg:grid-cols-3">
     {
       teamMembers.map((member) => (
         <Profile

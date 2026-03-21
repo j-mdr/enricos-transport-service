@@ -22,7 +22,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
   splitTitleWithIcon(title);
 ---
 
-<section id="faq1" class="site-container my-20 md:my-32">
+<section id="faq1" class="site-container my-16 md:my-24 lg:my-32">
   <h2 class="h2 text-center">
     {leadingText}
     {
@@ -41,7 +41,7 @@ const { leadingText, highlightedWord, trailingText, hasHighlightedWord } =
     }
     {trailingText ?? null}
   </h2>
-  <div class="mx-auto mt-12 grid gap-x-10 gap-y-3 md:mt-16 lg:grid-cols-2">
+  <div class="mx-auto mt-10 grid gap-x-10 gap-y-3 md:mt-12 lg:mt-16 lg:grid-cols-2">
     {
       faqCols.map((faqCol) => (
         <div class="flex w-full flex-col gap-3">
