@@ -26,7 +26,7 @@ const embedUrl = getYoutubeEmbedUrl(youtubeUrl);
 
 {
   embedUrl && (
-    <section id="feature-video" class="my-16 md:my-24 lg:my-32">
+    <section id="feature-video" class="my-20 md:my-28 lg:my-36">
       <div class="site-container">
         <div class="mx-auto max-w-5xl">
           <div class="mx-auto flex max-w-lg justify-center text-center">
@@ -41,7 +41,7 @@ const embedUrl = getYoutubeEmbedUrl(youtubeUrl);
               <Fragment set:html={renderTitle(sectionTitle, titleHighlight)} />
             </h2>
           </div>
-          <div class="mx-auto mt-10 max-w-4xl md:mt-12 lg:mt-16">
+          <div class="mx-auto mt-14 max-w-4xl md:mt-16 lg:mt-20">
             <iframe
               src={embedUrl}
               title={sectionTitle}

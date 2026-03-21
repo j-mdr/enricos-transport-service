@@ -67,7 +67,7 @@ const { blocks } = Astro.props;
       {block._type === "headingWithImage" && <HeadingWithImageSection {...block} />}
       {block._type === "featureVideo" && <FeatureVideoSection {...block} />}
       {block._type === "richText" && block.content?.length && (
-        <div class="site-container my-12 md:my-16 lg:my-20">
+        <div class="site-container my-16 md:my-20 lg:my-24">
           <div class="markdown-content mx-auto max-w-2xl">
             <RichTextBlock value={block.content} />
           </div>
