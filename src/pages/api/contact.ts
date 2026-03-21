@@ -42,7 +42,7 @@ export async function POST({
     return json({ error: "Turnstile verificatie mislukt" }, 400);
   }
 
-  const replyTo = (fields[body.replyToField ?? "email"] as string) ?? "";
+  const replyTo = ((fields[body.replyToField ?? "email"] ?? fields["emailadres"]) as string) ?? "";
   const senderName = (body.senderNameFields ?? [])
     .map((f) => fields[f] ?? "")
     .join(" ")

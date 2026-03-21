@@ -102,7 +102,7 @@ export default function ContactForm({ form, turnstileSiteKey, locale }: Props) {
     const emailField = fields.find((f) => f.type === "email");
     const replyToField = emailField?.name ?? "email";
     const senderNameFields = fields
-      .filter((f) => f.name === "firstName" || f.name === "lastName")
+      .filter((f) => f.name === "firstName" || f.name === "lastName" || f.name === "naam")
       .map((f) => f.name as string);
 
     // Collect file payloads
