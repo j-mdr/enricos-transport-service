@@ -5,7 +5,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const url = new URL(context.request.url);
 
   // API routes en studio: nooit cachen
-  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/studio/")) {
+  if (url.pathname.startsWith("/api") || url.pathname.startsWith("/studio")) {
     response.headers.set("Cache-Control", "no-store");
     return response;
   }
