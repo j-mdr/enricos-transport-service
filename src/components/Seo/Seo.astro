@@ -46,8 +46,8 @@ const companyName = companyInfo?.name ?? "";
 const resolvedTitle = title ?? companyName ?? "";
 
 let jsonLD: string | undefined;
-const siteBase = new URL(Astro.site ?? "");
-const canonicalUrl = new URL(Astro.url.pathname, siteBase);
+const siteBase = new URL(Astro.url.origin ?? Astro.site ?? "");
+const canonicalUrl = Astro.url;
 
 function trimEndSlash(str: string) {
   return str.endsWith("/") ? str.slice(0, -1) : str;
